@@ -134,18 +134,21 @@ public class Robot extends TimedRobot {
 
     MotorPowers res = Robot.calcMotorPowers(new Vec2d(desiredDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
 
+    double aVolts  = sb_a_volts.getDouble(0);
+    double bVolts = sb_b_volts.getDouble(0);
+
 
     // // first test to do is to see what the range is on voltage
-    // double aVolts  = sb_a_volts.getDouble(0);
-    // double bVolts = sb_b_volts.getDouble(0);
+    // double aVolts  = res.a;
+    // double bVolts = res.b;
 
     //-12 to 12 input
-    m_driveMotorA.setVoltage( res.a );
-    m_driveMotorB.setVoltage( res.b );
+    m_driveMotorA.setVoltage( aVolts );
+    m_driveMotorB.setVoltage( bVolts );
 
     // report to dashboard
-    sb_motor_voltsA.setDouble( res.a );
-    sb_motor_voltsB.setDouble( res.b );
+    sb_motor_voltsA.setDouble( aVolts );
+    sb_motor_voltsB.setDouble( bVolts );
   }
 
   public void teleopInit() {
