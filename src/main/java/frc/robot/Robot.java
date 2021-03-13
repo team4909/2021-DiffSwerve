@@ -122,6 +122,16 @@ public class Robot extends TimedRobot {
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
 
+    // rotation goes through less gear ratio
+    double GEAR_RATIO_123 =  ( (80.0/10.0) * (90.0/34.0) * (21.0/82.0) );
+    double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+
+    SmartDashboard.putNumber("Enc Velocity Diff", (b + a)); //2.691 for matty swerve module
+    SmartDashboard.putNumber("Enc Velocity Diff 2", Math.abs(b) - Math.abs(a));
+
+    SmartDashboard.putNumber("Wheel velocity", Math.min(-a,  b)  / GEAR_RATIO_123 ); //2.691 for matty swerve module
+    SmartDashboard.putNumber("Rotation velocity",       (-b - a) / GEAR_RATIO_12 ); //2.691 for matty swerve module
+
     MotorPowers res = Robot.calcMotorPowers(new Vec2d(desiredDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
 
 
