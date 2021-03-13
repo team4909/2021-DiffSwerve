@@ -119,7 +119,7 @@ public class Vec2d {
 
     //projection of current vector onto v
     public Vec2d projection (Vec2d v) {
-        return v.scale(dot(v)/(Math.pow(v.getMagnitude(), 2))); // u dot v over mag(v)^2 times v
+        return v.scale(this.dot(v)/(Math.pow(v.getMagnitude(), 2))); // ( ( u dot v ) over mag(v)^2 ) times v
     }
 
     //normalizes a group of vectors so that they maintain the same relative magnitudes and ...

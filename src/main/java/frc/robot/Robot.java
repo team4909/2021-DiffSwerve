@@ -39,28 +39,31 @@ public class Robot extends TimedRobot {
   private final int dioEncoderChanA = 0;
   private final int dioEncoderChanB = 1;
 
+  // these are vectors of length 1 (unit vectors) used in the "power space"
   static final Vec2d MOTOR_1_VECTOR = new Vec2d(1/Math.sqrt(2), 1/Math.sqrt(2));
   static final Vec2d MOTOR_2_VECTOR = new Vec2d(-1/Math.sqrt(2), 1/Math.sqrt(2));
 
-  private ShuffleboardTab m_tab;
+  private ShuffleboardTab sb_tab;
 
-  private ShuffleboardLayout m_turnEnc;
-  private NetworkTableEntry m_turnDist;
-  private NetworkTableEntry m_turnVelo;
+  private ShuffleboardLayout sb_turnEnc;
+  private NetworkTableEntry sb_turnDist;
+  private NetworkTableEntry sb_turnVelo;
 
-  private ShuffleboardLayout m_inputs;
-  private NetworkTableEntry m_velocity;
-  private NetworkTableEntry m_heading;
-  private NetworkTableEntry m_a_volts;
-  private NetworkTableEntry m_b_volts;
+  private ShuffleboardLayout sb_inputs;
+  private NetworkTableEntry sb_velocity;
+  private NetworkTableEntry sb_heading;
+  private NetworkTableEntry sb_a_volts;
+  private NetworkTableEntry sb_b_volts;
 
-  private ShuffleboardLayout m_motorA;
-  private NetworkTableEntry m_velA;
-  private NetworkTableEntry m_motor_voltsA;
+  private ShuffleboardLayout sb_motorA;
+  private NetworkTableEntry sb_velA;
+  private NetworkTableEntry sb_motor_voltsA;
 
-  private ShuffleboardLayout m_motorB;
-  private NetworkTableEntry m_velB;
-  private NetworkTableEntry m_motor_voltsB;
+  private ShuffleboardLayout sb_motorB;
+  private NetworkTableEntry sb_velB;
+  private NetworkTableEntry sb_motor_voltsB;
+
+  private final double MAX_VOLTAGE=10;
 
   public void robotInit() {
     m_driveMotorA = new CANSparkMax(driveMotorChannelA, MotorType.kBrushless);
@@ -73,51 +76,66 @@ public class Robot extends TimedRobot {
     final int kEncoderResolution = 128; //grayhill encoder
     m_turningEncoder.setDistancePerPulse(360 / kEncoderResolution);
 
-    m_tab = Shuffleboard.getTab("Swerve");
+    sb_tab = Shuffleboard.getTab("Swerve");
 
-    m_turnEnc   = m_tab.getLayout("TurnEnc", BuiltInLayouts.kList);
-    m_turnDist  = m_turnEnc.add("distance", 0).getEntry();
-    m_turnVelo  = m_turnEnc.add("velocity", 0).getEntry();
+    sb_turnEnc   = sb_tab.getLayout("TurnEnc", BuiltInLayouts.kList);
+    sb_turnDist  = sb_turnEnc.add("distance", 0).getEntry();
+    sb_turnVelo  = sb_turnEnc.add("velocity", 0).getEntry();
 
-    m_inputs    = m_tab.getLayout("Inputs", BuiltInLayouts.kList);
-    m_heading   = m_inputs.add("heading",  0).getEntry();
-    m_velocity  = m_inputs.add("velocity", 0).getEntry();
-    m_a_volts   = m_inputs.add("a volts", 0).getEntry();
-    m_b_volts   = m_inputs.add("b volts", 0).getEntry();
+    sb_inputs    = sb_tab.getLayout("Inputs", BuiltInLayouts.kList);
+    sb_heading   = sb_inputs.add("heading",  0).getEntry();
+    sb_velocity  = sb_inputs.add("velocity", 0).getEntry();
+    sb_a_volts   = sb_inputs.add("a volts", 0).getEntry();
+    sb_b_volts   = sb_inputs.add("b volts", 0).getEntry();
 
-    m_motorA    = m_tab.getLayout("MotorA", BuiltInLayouts.kList);
-    m_velA      = m_motorA.add("velocity",  0).getEntry();
+    sb_motorA    = sb_tab.getLayout("MotorA", BuiltInLayouts.kList);
+    sb_velA      = sb_motorA.add("velocity",  0).getEntry();
+    sb_motor_voltsA = sb_motorA.add("volts",  0).getEntry();
 
-    m_motorB    = m_tab.getLayout("MotorB", BuiltInLayouts.kList);
-    m_velB      = m_motorB.add("velocity",  0).getEntry();
+    sb_motorB    = sb_tab.getLayout("MotorB", BuiltInLayouts.kList);
+    sb_velB      = sb_motorB.add("velocity",  0).getEntry();
+    sb_motor_voltsB = sb_motorB.add("volts",  0).getEntry();
   }
 
   public void robotPeriodic() {
     // outputs we always want updated
-    m_turnDist.setDouble(m_turningEncoder.getDistance());
-    m_turnVelo.setDouble(m_turningEncoder.getRate());
-    m_velA.setDouble(m_driveEncoderA.getVelocity());
-    m_velB.setDouble(m_driveEncoderB.getVelocity());
+    sb_turnDist.setDouble(m_turningEncoder.getDistance());
+    sb_turnVelo.setDouble(m_turningEncoder.getRate());
+    
+    sb_velA.setDouble(m_driveEncoderA.getVelocity());
+    sb_velB.setDouble(m_driveEncoderB.getVelocity());
+
+    double aVolts  = sb_a_volts.getDouble(0);
+    double bVolts = sb_b_volts.getDouble(0);
+
+    var res = Robot.getState(aVolts, bVolts);
+    SmartDashboard.putNumber("angle", res.angle.getDegrees());
+    SmartDashboard.putNumber("speed", res.speedMetersPerSecond);
+    
   }
 
 
   public void teleopPeriodic() {
-    double desiredHeading  = m_heading.getDouble(0);
-    double desiredVelocity = m_velocity.getDouble(0);
+    double desiredTurnVelocity  = sb_heading.getDouble(0);  //degrees, 0=from home to down-field; degrees increase clockwise
+    double desiredDriveVelocity = sb_velocity.getDouble(0); //input is [-1,1]
 
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
 
+    MotorPowers res = Robot.calcMotorPowers(new Vec2d(desiredDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
 
-    // first test to do is to see what the range is on voltage
-    double aVolts  = m_a_volts.getDouble(0);
-    double bVolts = m_b_volts.getDouble(0);
 
-    m_driveMotorA.setVoltage(aVolts);
-    m_driveMotorB.setVoltage(bVolts);
+    // // first test to do is to see what the range is on voltage
+    // double aVolts  = sb_a_volts.getDouble(0);
+    // double bVolts = sb_b_volts.getDouble(0);
 
-    m_motor_voltsA.setDouble(aVolts);
-    m_motor_voltsB.setDouble(bVolts);
+    //-12 to 12 input
+    m_driveMotorA.setVoltage( res.a );
+    m_driveMotorB.setVoltage( res.b );
+
+    // report to dashboard
+    sb_motor_voltsA.setDouble( res.a );
+    sb_motor_voltsB.setDouble( res.b );
   }
 
   public void teleopInit() {
@@ -127,10 +145,10 @@ public class Robot extends TimedRobot {
   public static SwerveModuleState getState(double aVel, double bVel) {
     
     Vec2d vecA = MOTOR_1_VECTOR.scale(aVel);
-    // System.out.println("A -- x:" + vecA.getX() + " y:" + vecA.getY() + " m:" + vecA.getMagnitude() + " a:" + vecA.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
+    //System.out.println("A -- x:" + vecA.getX() + " y:" + vecA.getY() + " m:" + vecA.getMagnitude() + " a:" + vecA.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
 
     Vec2d vecB = MOTOR_2_VECTOR.scale(bVel);
-    // System.out.println("B -- x:" + vecB.getX() + " y:" + vecB.getY() + " m:" + vecB.getMagnitude() + " a:" + vecB.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
+    //System.out.println("B -- x:" + vecB.getX() + " y:" + vecB.getY() + " m:" + vecB.getMagnitude() + " a:" + vecB.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
 
     Vec2d powerVec = vecA.add(vecB);
 
@@ -139,6 +157,35 @@ public class Robot extends TimedRobot {
     
     return new SwerveModuleState(speed, Rotation2d.fromDegrees(turn));
   }
+
+  //takes vector in power vector coordinate system
+  // ^(x component is relative translation power and y component is relative MODULE rotation power)
+  //calculates motor powers that will result in the desired ratio of module translation and module rotation
+  //sets motors to appropriate powers
+  public static MotorPowers calcMotorPowers (Vec2d powerVector, double MAX_MOTOR_POWER) {
+    
+    // final double MAX_MOTOR_POWER = 10; //motor power in volts?
+    //this is one way to convert desired ratio of module translation and module rotation to motor powers
+    //vectors are not strictly necessary for this, but made it easier to visualize
+    //more documentation on this visualization method coming soon
+    Vec2d motor1Unscaled = powerVector.projection(MOTOR_1_VECTOR);
+    Vec2d motor2Unscaled = powerVector.projection(MOTOR_2_VECTOR);
+
+    //makes sure no vector magnitudes exceed the maximum motor power
+    Vec2d[] motorPowersScaled = Vec2d.batchNormalize(MAX_MOTOR_POWER, motor1Unscaled, motor2Unscaled);
+    double motor1power = motorPowersScaled[0].getMagnitude();
+    double motor2power = motorPowersScaled[1].getMagnitude();
+
+    //this is to add sign to magnitude, which returns an absolute value
+    if (motorPowersScaled[0].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_1_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
+        motor1power *= -1;
+    }
+    if (motorPowersScaled[1].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_2_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
+        motor2power *= -1;
+    }
+
+    return new MotorPowers(motor1power, motor2power);
+}
 
 
   public void autonomousInit() {}
