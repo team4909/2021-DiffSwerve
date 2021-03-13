@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -18,6 +20,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Angle.AngleType;
 
 
 public class Robot extends TimedRobot {
@@ -36,6 +39,9 @@ public class Robot extends TimedRobot {
   private final int dioEncoderChanA = 0;
   private final int dioEncoderChanB = 1;
 
+  static final Vec2d MOTOR_1_VECTOR = new Vec2d(1/Math.sqrt(2), 1/Math.sqrt(2));
+  static final Vec2d MOTOR_2_VECTOR = new Vec2d(-1/Math.sqrt(2), 1/Math.sqrt(2));
+
   private ShuffleboardTab m_tab;
 
   private ShuffleboardLayout m_turnEnc;
@@ -45,6 +51,8 @@ public class Robot extends TimedRobot {
   private ShuffleboardLayout m_inputs;
   private NetworkTableEntry m_velocity;
   private NetworkTableEntry m_heading;
+  private NetworkTableEntry m_a_volts;
+  private NetworkTableEntry m_b_volts;
 
   public void robotInit() {
     m_driveMotorA = new CANSparkMax(driveMotorChannelA, MotorType.kBrushless);
@@ -66,6 +74,8 @@ public class Robot extends TimedRobot {
     m_inputs    = m_tab.getLayout("Inputs", BuiltInLayouts.kList);
     m_heading   = m_inputs.add("heading",  0).getEntry();
     m_velocity  = m_inputs.add("velocity", 0).getEntry();
+    m_a_volts  = m_inputs.add("a volts", 0).getEntry();
+    m_b_volts  = m_inputs.add("b volts", 0).getEntry();
   }
 
 
@@ -79,6 +89,18 @@ public class Robot extends TimedRobot {
     double heading  = m_heading.getDouble(0);
     double velocity = m_velocity.getDouble(0);
 
+    double a = m_driveEncoderA.getVelocity();
+    double b = m_driveEncoderB.getVelocity();
+
+
+
+    double aVolts  = m_a_volts.getDouble(0);
+    double bVolts = m_b_volts.getDouble(0);
+
+
+    m_driveMotorA.setVoltage(aVolts);
+    m_driveMotorB.setVoltage(bVolts);
+
 
   }
 
@@ -86,24 +108,28 @@ public class Robot extends TimedRobot {
     m_turningEncoder.reset(); //reset the encoder on teleop init (for testing)
   }
 
+  public static SwerveModuleState getState(double aVel, double bVel) {
+    
+    Vec2d vecA = MOTOR_1_VECTOR.scale(aVel);
+    // System.out.println("A -- x:" + vecA.getX() + " y:" + vecA.getY() + " m:" + vecA.getMagnitude() + " a:" + vecA.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
+
+    Vec2d vecB = MOTOR_2_VECTOR.scale(bVel);
+    // System.out.println("B -- x:" + vecB.getX() + " y:" + vecB.getY() + " m:" + vecB.getMagnitude() + " a:" + vecB.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
+
+
+    Vec2d powerVec = vecA.add(vecB);
+
+    double speed = powerVec.getX();
+    double turn = powerVec.getY();
+    
+    return new SwerveModuleState(speed, Rotation2d.fromDegrees(turn));
+  }
+
 
   public void autonomousInit() {}
-
-
   public void autonomousPeriodic() {}
-
-
-  
-
-
   public void disabledInit() {}
-
-
   public void disabledPeriodic() {}
-
-
   public void testInit() {}
-
-
   public void testPeriodic() {}
 }
