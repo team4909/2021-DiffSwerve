@@ -54,6 +54,14 @@ public class Robot extends TimedRobot {
   private NetworkTableEntry m_a_volts;
   private NetworkTableEntry m_b_volts;
 
+  private ShuffleboardLayout m_motorA;
+  private NetworkTableEntry m_velA;
+  private NetworkTableEntry m_motor_voltsA;
+
+  private ShuffleboardLayout m_motorB;
+  private NetworkTableEntry m_velB;
+  private NetworkTableEntry m_motor_voltsB;
+
   public void robotInit() {
     m_driveMotorA = new CANSparkMax(driveMotorChannelA, MotorType.kBrushless);
     m_driveEncoderA = m_driveMotorA.getEncoder();
@@ -74,34 +82,42 @@ public class Robot extends TimedRobot {
     m_inputs    = m_tab.getLayout("Inputs", BuiltInLayouts.kList);
     m_heading   = m_inputs.add("heading",  0).getEntry();
     m_velocity  = m_inputs.add("velocity", 0).getEntry();
-    m_a_volts  = m_inputs.add("a volts", 0).getEntry();
-    m_b_volts  = m_inputs.add("b volts", 0).getEntry();
+    m_a_volts   = m_inputs.add("a volts", 0).getEntry();
+    m_b_volts   = m_inputs.add("b volts", 0).getEntry();
+
+    m_motorA    = m_tab.getLayout("MotorA", BuiltInLayouts.kList);
+    m_velA      = m_motorA.add("velocity",  0).getEntry();
+
+    m_motorB    = m_tab.getLayout("MotorB", BuiltInLayouts.kList);
+    m_velB      = m_motorB.add("velocity",  0).getEntry();
   }
 
-
   public void robotPeriodic() {
+    // outputs we always want updated
     m_turnDist.setDouble(m_turningEncoder.getDistance());
     m_turnVelo.setDouble(m_turningEncoder.getRate());
+    m_velA.setDouble(m_driveEncoderA.getVelocity());
+    m_velB.setDouble(m_driveEncoderB.getVelocity());
   }
 
 
   public void teleopPeriodic() {
-    double heading  = m_heading.getDouble(0);
-    double velocity = m_velocity.getDouble(0);
+    double desiredHeading  = m_heading.getDouble(0);
+    double desiredVelocity = m_velocity.getDouble(0);
 
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
 
 
-
+    // first test to do is to see what the range is on voltage
     double aVolts  = m_a_volts.getDouble(0);
     double bVolts = m_b_volts.getDouble(0);
-
 
     m_driveMotorA.setVoltage(aVolts);
     m_driveMotorB.setVoltage(bVolts);
 
-
+    m_motor_voltsA.setDouble(aVolts);
+    m_motor_voltsB.setDouble(bVolts);
   }
 
   public void teleopInit() {
@@ -115,7 +131,6 @@ public class Robot extends TimedRobot {
 
     Vec2d vecB = MOTOR_2_VECTOR.scale(bVel);
     // System.out.println("B -- x:" + vecB.getX() + " y:" + vecB.getY() + " m:" + vecB.getMagnitude() + " a:" + vecB.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
-
 
     Vec2d powerVec = vecA.add(vecB);
 
