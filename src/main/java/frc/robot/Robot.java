@@ -57,11 +57,15 @@ public class Robot extends TimedRobot {
 
   private ShuffleboardLayout sb_motorA;
   private NetworkTableEntry sb_velA;
-  private NetworkTableEntry sb_motor_voltsA;
+  private NetworkTableEntry sb_voltsA;
 
   private ShuffleboardLayout sb_motorB;
   private NetworkTableEntry sb_velB;
-  private NetworkTableEntry sb_motor_voltsB;
+  private NetworkTableEntry sb_voltsB;
+
+  private ShuffleboardLayout sb_output;
+  private NetworkTableEntry  sb_rot;
+  private NetworkTableEntry  sb_trans;
 
   private final double MAX_VOLTAGE=10;
 
@@ -74,7 +78,7 @@ public class Robot extends TimedRobot {
 
     m_turningEncoder = new Encoder(dioEncoderChanA, dioEncoderChanB);
     final int kEncoderResolution = 128; //grayhill encoder
-    m_turningEncoder.setDistancePerPulse(360 / kEncoderResolution);
+    m_turningEncoder.setDistancePerPulse(-360 / kEncoderResolution);
 
     sb_tab = Shuffleboard.getTab("Swerve");
 
@@ -90,11 +94,15 @@ public class Robot extends TimedRobot {
 
     sb_motorA    = sb_tab.getLayout("MotorA", BuiltInLayouts.kList);
     sb_velA      = sb_motorA.add("velocity",  0).getEntry();
-    sb_motor_voltsA = sb_motorA.add("volts",  0).getEntry();
+    sb_voltsA = sb_motorA.add("volts",  0).getEntry();
 
     sb_motorB    = sb_tab.getLayout("MotorB", BuiltInLayouts.kList);
     sb_velB      = sb_motorB.add("velocity",  0).getEntry();
-    sb_motor_voltsB = sb_motorB.add("volts",  0).getEntry();
+    sb_voltsB    = sb_motorB.add("volts",  0).getEntry();
+
+    sb_output    = sb_tab.getLayout("Output", BuiltInLayouts.kList);
+    sb_rot       = sb_output.add("Rotation",  0).getEntry();
+    sb_trans      = sb_output.add("Translation",  0).getEntry();
   }
 
   public void robotPeriodic() {
@@ -105,12 +113,12 @@ public class Robot extends TimedRobot {
     sb_velA.setDouble(m_driveEncoderA.getVelocity());
     sb_velB.setDouble(m_driveEncoderB.getVelocity());
 
-    double aVolts  = sb_a_volts.getDouble(0);
-    double bVolts = sb_b_volts.getDouble(0);
+    // double aVolts  = sb_a_volts.getDouble(0);
+    // double bVolts = sb_b_volts.getDouble(0);
 
-    var res = Robot.getState(aVolts, bVolts);
-    SmartDashboard.putNumber("angle", res.angle.getDegrees());
-    SmartDashboard.putNumber("speed", res.speedMetersPerSecond);
+    // var res = Robot.getState(aVolts, bVolts);
+    // SmartDashboard.putNumber("angle", res.angle.getDegrees());
+    // SmartDashboard.putNumber("speed", res.speedMetersPerSecond);
     
   }
 
@@ -122,23 +130,25 @@ public class Robot extends TimedRobot {
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
 
-    // rotation goes through less gear ratio
-    double GEAR_RATIO_123 =  ( (80.0/10.0) * (90.0/34.0) * (21.0/82.0) );
-    double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+    //chris
+    double rot = a*.101 + b*.101;
+    double tra = a*.091 + b*-.093;
 
-    SmartDashboard.putNumber("Enc Velocity Diff", (b + a)); //2.691 for matty swerve module
-    SmartDashboard.putNumber("Enc Velocity Diff 2", Math.abs(b) - Math.abs(a));
 
-    SmartDashboard.putNumber("Wheel velocity", Math.min(-a,  b)  / GEAR_RATIO_123 ); //2.691 for matty swerve module
-    SmartDashboard.putNumber("Rotation velocity",       (-b - a) / GEAR_RATIO_12 ); //2.691 for matty swerve module
+    // double rot = ((a+b)/2) / 5;
+    // double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+    // double tra = ((a-b) / GEAR_RATIO_12)*2;
 
-    MotorPowers res = Robot.calcMotorPowers(new Vec2d(desiredDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
-
+    
+    sb_rot.setDouble(rot);
+    sb_trans.setDouble(tra);
+    
+    
     double aVolts  = sb_a_volts.getDouble(0);
     double bVolts = sb_b_volts.getDouble(0);
 
 
-    // // first test to do is to see what the range is on voltage
+    // MotorPowers res = Robot.calcMotorPowers(new Vec2d(desiredDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
     // double aVolts  = res.a;
     // double bVolts = res.b;
 
@@ -147,8 +157,8 @@ public class Robot extends TimedRobot {
     m_driveMotorB.setVoltage( bVolts );
 
     // report to dashboard
-    sb_motor_voltsA.setDouble( aVolts );
-    sb_motor_voltsB.setDouble( bVolts );
+    sb_voltsA.setDouble( aVolts );
+    sb_voltsB.setDouble( bVolts );
   }
 
   public void teleopInit() {
