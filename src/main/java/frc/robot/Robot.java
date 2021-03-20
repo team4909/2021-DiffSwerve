@@ -97,7 +97,8 @@ public class Robot extends TimedRobot {
   MedianFilter m_a_avg = new MedianFilter(50);
   MedianFilter m_b_avg = new MedianFilter(50);
 
-  final double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+  final double GEAR_RATIO_12  =  (80.0/10.0) * (90.0/34.0);
+  final double GEAR_RATIO_123 =  (80.0/10.0) * (90.0/34.0) * (21.0/82.0);
 
   public void robotInit() {
     m_driveMotorA = new CANSparkMax(driveMotorChannelA, MotorType.kBrushless);
@@ -340,9 +341,9 @@ public class Robot extends TimedRobot {
     // double tra = a*.091 + b*-.093; // translation
 
 
-    double rot = ((aMotorRPM + bMotorRPM) / 2) / 5;
+    double rot = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_123;
 
-    final double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+    // final double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
     double tra = ((aMotorRPM - bMotorRPM) / GEAR_RATIO_12)*2;
     return tra;
   }
@@ -357,8 +358,8 @@ public class Robot extends TimedRobot {
     // double b = 5.294 * rotateRPM - 5 * translateRPM;
 
     // solve the equations in getWheelVelocity for a and b
-    double a = (translateRPM * 10)/2 + (rotateRPM * GEAR_RATIO_12) / 4;
-    double b = (rotateRPM * GEAR_RATIO_12) / 4 - (translateRPM * 10) / 2;
+    double a = (rotateRPM * GEAR_RATIO_12) / 4 + (translateRPM * GEAR_RATIO_123);
+    double b = (rotateRPM * GEAR_RATIO_12) / 4 - (translateRPM * GEAR_RATIO_123);
     return new MotorRPMs(a, b);
   }
 
