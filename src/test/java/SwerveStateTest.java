@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.*;
 
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
-import frc.robot.MotorPowers;
+import frc.robot.MotorRPMs;
 import frc.robot.Robot;
 import frc.robot.Vec2d;
 
@@ -51,7 +51,7 @@ public class SwerveStateTest {
 
   @Test // marks this method as a test
   public void testcalcMotorPowers() {
-    MotorPowers pwr;
+    MotorRPMs pwr;
 
     // full forward
     pwr = Robot.calcMotorPowers(new Vec2d(1, 0));

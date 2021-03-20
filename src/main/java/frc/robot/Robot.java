@@ -299,11 +299,13 @@ public class Robot extends TimedRobot {
 
     sb_drive_calc.setDouble(calcDriveVelocity);
 
-    MotorPowers res = Robot.calcMotorPowers(new Vec2d(calcDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
-    double aVel = res.a;
-    double bVel = res.b;
+    var velocities = getMotorSpeeds(calcDriveVelocity, desiredTurnVelocity);
 
-    
+    // MotorRPMs res = Robot.calcMotorPowers(new Vec2d(calcDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
+    double aVel = velocities.a;
+    double bVel = velocities.b;
+
+    // step 1 - tune the motor internal PIDs
     if (sb_use_volts.getBoolean(false)) {
       double aVolts = sb_a_volts.getDouble(0);
       double bVolts = sb_b_volts.getDouble(0);
@@ -318,28 +320,43 @@ public class Robot extends TimedRobot {
     }
 
     //-12 to 12 input
-    m_driveMotorA.set( aVel );
-    m_driveMotorB.set( bVel );
+    // m_driveMotorA.set( aVel );
+    // m_driveMotorB.set( bVel );
+    m_aPID.setReference(aVel, ControlType.kVelocity);
+    m_bPID.setReference(bVel, ControlType.kVelocity);
 
     // report to dashboard
-    sb_voltsA.setDouble( aVel );
-    sb_voltsB.setDouble( bVel );
+    sb_voltsA.setDouble( -1 );
+    sb_voltsB.setDouble( -1 );
   }
 
 
-  public double getWheelVelocity(double a, double b) {
+  // wheel translation RPM
+  public double getWheelVelocity(double aMotorRPM, double bMotorRPM) {
     //ChrisJ
     // double rot = a*.101 + b*.101;
-    double tra = a*.091 + b*-.093; // translation
+    // double tra = a*.091 + b*-.093; // translation
 
 
-    // double rot = ((a+b)/2) / 5;
-    // double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
-    // double tra = ((a-b) / GEAR_RATIO_12)*2;
+    double rot = ((aMotorRPM + bMotorRPM) / 2) / 5;
+
+    double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+    double tra = ((aMotorRPM - bMotorRPM) / GEAR_RATIO_12)*2;
     return tra;
   }
 
-  public void teleopInit() {
+  public MotorRPMs getMotorSpeeds(double translateRPM, double rotateRPM) {
+    // chris did the invers matrix of
+    // .1,     .1
+    // .09444, -.09444
+    // .09444 is 2 over the translation gear ratio
+    // .1 is the rotation gear ratio
+    double a = 5.294 * rotateRPM + 5 * translateRPM;
+    double b = 5.294 * rotateRPM - 5 * translateRPM;
+    return new MotorRPMs(a, b);
+  }
+
+  public void teleopInit() { 
     m_turningEncoder.reset(); //reset the encoder on teleop init (for testing)
   }
 
@@ -363,30 +380,30 @@ public class Robot extends TimedRobot {
   // ^(x component is relative translation power and y component is relative MODULE rotation power)
   //calculates motor powers that will result in the desired ratio of module translation and module rotation
   //sets motors to appropriate powers
-  public static MotorPowers calcMotorPowers (Vec2d powerVector, double MAX_MOTOR_POWER) {
+//   public static MotorRPMs calcMotorPowers (Vec2d powerVector, double MAX_MOTOR_POWER) {
     
-    // final double MAX_MOTOR_POWER = 10; //motor power in volts?
-    //this is one way to convert desired ratio of module translation and module rotation to motor powers
-    //vectors are not strictly necessary for this, but made it easier to visualize
-    //more documentation on this visualization method coming soon
-    Vec2d motor1Unscaled = powerVector.projection(MOTOR_1_VECTOR);
-    Vec2d motor2Unscaled = powerVector.projection(MOTOR_2_VECTOR);
+//     // final double MAX_MOTOR_POWER = 10; //motor power in volts?
+//     //this is one way to convert desired ratio of module translation and module rotation to motor powers
+//     //vectors are not strictly necessary for this, but made it easier to visualize
+//     //more documentation on this visualization method coming soon
+//     Vec2d motor1Unscaled = powerVector.projection(MOTOR_1_VECTOR);
+//     Vec2d motor2Unscaled = powerVector.projection(MOTOR_2_VECTOR);
 
-    //makes sure no vector magnitudes exceed the maximum motor power
-    Vec2d[] motorPowersScaled = Vec2d.batchNormalize(MAX_MOTOR_POWER, motor1Unscaled, motor2Unscaled);
-    double motor1power = motorPowersScaled[0].getMagnitude();
-    double motor2power = motorPowersScaled[1].getMagnitude();
+//     //makes sure no vector magnitudes exceed the maximum motor power
+//     Vec2d[] motorPowersScaled = Vec2d.batchNormalize(MAX_MOTOR_POWER, motor1Unscaled, motor2Unscaled);
+//     double motor1power = motorPowersScaled[0].getMagnitude();
+//     double motor2power = motorPowersScaled[1].getMagnitude();
 
-    //this is to add sign to magnitude, which returns an absolute value
-    if (motorPowersScaled[0].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_1_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
-        motor1power *= -1;
-    }
-    if (motorPowersScaled[1].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_2_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
-        motor2power *= -1;
-    }
+//     //this is to add sign to magnitude, which returns an absolute value
+//     if (motorPowersScaled[0].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_1_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
+//         motor1power *= -1;
+//     }
+//     if (motorPowersScaled[1].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_2_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
+//         motor2power *= -1;
+//     }
 
-    return new MotorPowers(motor1power, motor2power);
-}
+//     return new MotorRPMs(motor1power, motor2power);
+// }
 
 
   public void autonomousInit() {}

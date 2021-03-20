@@ -1,9 +1,9 @@
 package frc.robot;
 
-public class MotorPowers {
+public class MotorRPMs {
     public double a;
     public double b;
-    public MotorPowers(double a, double b) {
+    public MotorRPMs(double a, double b) {
         this.a = a;
         this.b = b;
     }
