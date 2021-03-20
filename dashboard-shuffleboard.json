@@ -1,0 +1,606 @@
+{
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/50",
+              "_title": "50",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/100",
+              "_title": "100",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/150",
+              "_title": "150",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/0",
+              "_title": "0",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Apply",
+              "_title": "Apply",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Apply Value",
+              "_title": "Apply Value"
+            }
+          },
+          "11,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/ReInitDash",
+              "_title": "ReInitDash",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+              "_title": "Ungrouped/PIDController[1]"
+            }
+          },
+          "6,0": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Encoder",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]",
+              "_title": "Ungrouped/Encoder[0]"
+            }
+          },
+          "10,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+                  "_title": "PIDController[1]"
+                },
+                {
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]",
+                  "_title": "Encoder[0]"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Swerve",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "Shuffleboard/Swerve",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "4,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Debug",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "HIDDEN",
+              "_children": {
+                "0,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Debug/UseVolts",
+                  "_title": "UseVolts"
+                },
+                "0,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Debug/apply",
+                  "_title": "Apply PID"
+                }
+              }
+            }
+          },
+          "18,0": {
+            "size": [
+              2,
+              5
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Input",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/drive ff",
+                  "_title": "drive ff"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/heading",
+                  "_title": "heading"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/a volts",
+                  "_title": "a volts"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/b volts",
+                  "_title": "b volts"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/velocity",
+                  "_title": "velocity"
+                }
+              ]
+            }
+          },
+          "15,3": {
+            "size": [
+              2,
+              7
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor B PID",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kP",
+                  "_title": "kP"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kI",
+                  "_title": "kI"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kIz",
+                  "_title": "kIz"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kD",
+                  "_title": "kD"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kFF",
+                  "_title": "kFF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/max",
+                  "_title": "max"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/min",
+                  "_title": "min"
+                }
+              ]
+            }
+          },
+          "13,3": {
+            "size": [
+              2,
+              7
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor PID A",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kP",
+                  "_title": "kP"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kI",
+                  "_title": "kI"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kIz",
+                  "_title": "kIz"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kD",
+                  "_title": "kD"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kFF",
+                  "_title": "kFF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/max",
+                  "_title": "max"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/min",
+                  "_title": "min"
+                }
+              ]
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor B",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorB/velocity",
+                  "_title": "velocity"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorB/velocity avg",
+                  "_title": "velocity avg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorB/volts",
+                  "_title": "volts"
+                }
+              ]
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor A",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorA/velocity",
+                  "_title": "velocity"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorA/velocity avg",
+                  "_title": "velocity avg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorA/volts",
+                  "_title": "volts"
+                }
+              ]
+            }
+          },
+          "11,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/TurnEnc/velocity",
+              "_title": "Shuffleboard/Swerve/TurnEnc/velocity"
+            }
+          },
+          "6,0": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Velocity Setpoints",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "HIDDEN",
+              "_children": {
+                "0,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/0",
+                  "_title": "SmartDashboard/0"
+                },
+                "1,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/50",
+                  "_title": "SmartDashboard/50"
+                },
+                "2,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/100",
+                  "_title": "SmartDashboard/100"
+                },
+                "0,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/150",
+                  "_title": "SmartDashboard/150"
+                },
+                "1,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/Apply",
+                  "_title": "SmartDashboard/Apply"
+                },
+                "2,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Apply Value",
+                  "_title": "SmartDashboard/Apply Value"
+                }
+              }
+            }
+          },
+          "13,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Output",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Output/Rotation",
+                  "_title": "Shuffleboard/Swerve/Output/Rotation"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Output/Translation",
+                  "_title": "Calc Wheel Trans RPM"
+                }
+              ]
+            }
+          },
+          "10,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kP",
+              "_title": "Shuffleboard/Swerve/Motor PID/A PID/kP"
+            }
+          },
+          "10,5": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kIz",
+              "_title": "Shuffleboard/Swerve/Motor PID/A PID/kIz"
+            }
+          },
+          "0,3": {
+            "size": [
+              10,
+              8
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///Shuffleboard/Swerve/Output/Translation",
+              "_title": "Shuffleboard/Swerve/Output/Translation",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/Shuffleboard/Swerve/Output/Translation": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A PID",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/max",
+              "_title": "max"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kFF",
+              "_title": "kFF"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kD",
+              "_title": "kD"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kI",
+              "_title": "kI"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kIz",
+              "_title": "kIz"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/min",
+              "_title": "min"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kP",
+              "_title": "kP"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -1688.0,
+    "y": -8.0,
+    "width": 1696.0,
+    "height": 1026.0
+  }
+}
