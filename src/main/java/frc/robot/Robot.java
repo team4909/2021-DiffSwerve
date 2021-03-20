@@ -97,6 +97,8 @@ public class Robot extends TimedRobot {
   MedianFilter m_a_avg = new MedianFilter(50);
   MedianFilter m_b_avg = new MedianFilter(50);
 
+  final double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+
   public void robotInit() {
     m_driveMotorA = new CANSparkMax(driveMotorChannelA, MotorType.kBrushless);
     m_driveEncoderA = m_driveMotorA.getEncoder();
@@ -340,71 +342,29 @@ public class Robot extends TimedRobot {
 
     double rot = ((aMotorRPM + bMotorRPM) / 2) / 5;
 
-    double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+    final double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
     double tra = ((aMotorRPM - bMotorRPM) / GEAR_RATIO_12)*2;
     return tra;
   }
 
   public MotorRPMs getMotorSpeeds(double translateRPM, double rotateRPM) {
-    // chris did the invers matrix of
+    // chris did the inverse matrix of
     // .1,     .1
     // .09444, -.09444
     // .09444 is 2 over the translation gear ratio
     // .1 is the rotation gear ratio
-    double a = 5.294 * rotateRPM + 5 * translateRPM;
-    double b = 5.294 * rotateRPM - 5 * translateRPM;
+    // double a = 5.294 * rotateRPM + 5 * translateRPM;
+    // double b = 5.294 * rotateRPM - 5 * translateRPM;
+
+    // solve the equations in getWheelVelocity for a and b
+    double a = (translateRPM * 10)/2 + (rotateRPM * GEAR_RATIO_12) / 4;
+    double b = (rotateRPM * GEAR_RATIO_12) / 4 - (translateRPM * 10) / 2;
     return new MotorRPMs(a, b);
   }
 
   public void teleopInit() { 
     m_turningEncoder.reset(); //reset the encoder on teleop init (for testing)
   }
-
-//   public static SwerveModuleState getState(double aVel, double bVel) {
-    
-//     Vec2d vecA = MOTOR_1_VECTOR.scale(aVel);
-//     //System.out.println("A -- x:" + vecA.getX() + " y:" + vecA.getY() + " m:" + vecA.getMagnitude() + " a:" + vecA.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
-
-//     Vec2d vecB = MOTOR_2_VECTOR.scale(bVel);
-//     //System.out.println("B -- x:" + vecB.getX() + " y:" + vecB.getY() + " m:" + vecB.getMagnitude() + " a:" + vecB.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
-
-//     Vec2d powerVec = vecA.add(vecB);
-
-//     double speed = powerVec.getX();
-//     double turn = powerVec.getY();
-    
-//     return new SwerveModuleState(speed, Rotation2d.fromDegrees(turn));
-//   }
-
-  //takes vector in power vector coordinate system
-  // ^(x component is relative translation power and y component is relative MODULE rotation power)
-  //calculates motor powers that will result in the desired ratio of module translation and module rotation
-  //sets motors to appropriate powers
-//   public static MotorRPMs calcMotorPowers (Vec2d powerVector, double MAX_MOTOR_POWER) {
-    
-//     // final double MAX_MOTOR_POWER = 10; //motor power in volts?
-//     //this is one way to convert desired ratio of module translation and module rotation to motor powers
-//     //vectors are not strictly necessary for this, but made it easier to visualize
-//     //more documentation on this visualization method coming soon
-//     Vec2d motor1Unscaled = powerVector.projection(MOTOR_1_VECTOR);
-//     Vec2d motor2Unscaled = powerVector.projection(MOTOR_2_VECTOR);
-
-//     //makes sure no vector magnitudes exceed the maximum motor power
-//     Vec2d[] motorPowersScaled = Vec2d.batchNormalize(MAX_MOTOR_POWER, motor1Unscaled, motor2Unscaled);
-//     double motor1power = motorPowersScaled[0].getMagnitude();
-//     double motor2power = motorPowersScaled[1].getMagnitude();
-
-//     //this is to add sign to magnitude, which returns an absolute value
-//     if (motorPowersScaled[0].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_1_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
-//         motor1power *= -1;
-//     }
-//     if (motorPowersScaled[1].getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN) != MOTOR_2_VECTOR.getAngleDouble(Angle.AngleType.NEG_180_TO_180_CARTESIAN)) {
-//         motor2power *= -1;
-//     }
-
-//     return new MotorRPMs(motor1power, motor2power);
-// }
-
 
   public void autonomousInit() {}
   public void autonomousPeriodic() {}
