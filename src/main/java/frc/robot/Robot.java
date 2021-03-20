@@ -10,10 +10,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -43,6 +45,8 @@ public class Robot extends TimedRobot {
   static final Vec2d MOTOR_1_VECTOR = new Vec2d(1/Math.sqrt(2), 1/Math.sqrt(2));
   static final Vec2d MOTOR_2_VECTOR = new Vec2d(-1/Math.sqrt(2), 1/Math.sqrt(2));
 
+  private PIDController pid_drive;
+
   private ShuffleboardTab sb_tab;
 
   private ShuffleboardLayout sb_turnEnc;
@@ -54,6 +58,8 @@ public class Robot extends TimedRobot {
   private NetworkTableEntry sb_heading;
   private NetworkTableEntry sb_a_volts;
   private NetworkTableEntry sb_b_volts;
+  private NetworkTableEntry sb_drive_ff;
+  // private NetworkTableEntry sb_turn_ff;
 
   private ShuffleboardLayout sb_motorA;
   private NetworkTableEntry sb_velA;
@@ -66,6 +72,14 @@ public class Robot extends TimedRobot {
   private ShuffleboardLayout sb_output;
   private NetworkTableEntry  sb_rot;
   private NetworkTableEntry  sb_trans;
+
+  private ShuffleboardLayout sb_debug;
+  private NetworkTableEntry  sb_use_volts;
+  // private NetworkTableEntry  sb_pid_drive;
+
+  private ShuffleboardLayout sb_pid;
+  private NetworkTableEntry  sb_turn_calc;
+  private NetworkTableEntry  sb_drive_calc;
 
   private final double MAX_VOLTAGE=10;
 
@@ -80,6 +94,8 @@ public class Robot extends TimedRobot {
     final int kEncoderResolution = 128; //grayhill encoder
     m_turningEncoder.setDistancePerPulse(-360 / kEncoderResolution);
 
+    pid_drive = new PIDController(.06, 0, 0);
+
     sb_tab = Shuffleboard.getTab("Swerve");
 
     sb_turnEnc   = sb_tab.getLayout("TurnEnc", BuiltInLayouts.kList);
@@ -92,9 +108,12 @@ public class Robot extends TimedRobot {
     sb_a_volts   = sb_inputs.add("a volts", 0).getEntry();
     sb_b_volts   = sb_inputs.add("b volts", 0).getEntry();
 
+    sb_drive_ff   = sb_inputs.add("drive ff", .000175).getEntry();
+    // sb_drive_ff   = sb_inputs.add("drive ff", 0).getEntry();
+
     sb_motorA    = sb_tab.getLayout("MotorA", BuiltInLayouts.kList);
     sb_velA      = sb_motorA.add("velocity",  0).getEntry();
-    sb_voltsA = sb_motorA.add("volts",  0).getEntry();
+    sb_voltsA    = sb_motorA.add("volts",  0).getEntry();
 
     sb_motorB    = sb_tab.getLayout("MotorB", BuiltInLayouts.kList);
     sb_velB      = sb_motorB.add("velocity",  0).getEntry();
@@ -102,7 +121,19 @@ public class Robot extends TimedRobot {
 
     sb_output    = sb_tab.getLayout("Output", BuiltInLayouts.kList);
     sb_rot       = sb_output.add("Rotation",  0).getEntry();
-    sb_trans      = sb_output.add("Translation",  0).getEntry();
+    sb_trans     = sb_output.add("Translation",  0).getEntry();
+
+    sb_debug     = sb_tab.getLayout("Debug", BuiltInLayouts.kList);
+    sb_use_volts = sb_debug.add("UseVolts", false).getEntry();
+    // sb_pid_turn  = sb_pid.add("TurnPID",  false).getEntry();
+
+    sb_pid         = sb_tab.getLayout("PID Calc", BuiltInLayouts.kList);
+    sb_turn_calc   = sb_pid.add("Rotation",  0).getEntry();
+    sb_drive_calc  = sb_pid.add("Translation",  0).getEntry();
+    
+    SmartDashboard.putBoolean("50", false);
+    SmartDashboard.putBoolean("100", false);
+    SmartDashboard.putBoolean("150", false);
   }
 
   public void robotPeriodic() {
@@ -112,6 +143,10 @@ public class Robot extends TimedRobot {
     
     sb_velA.setDouble(m_driveEncoderA.getVelocity());
     sb_velB.setDouble(m_driveEncoderB.getVelocity());
+
+    // sb_pid_drive.
+
+    // sb_pid
 
     // double aVolts  = sb_a_volts.getDouble(0);
     // double bVolts = sb_b_volts.getDouble(0);
@@ -124,33 +159,53 @@ public class Robot extends TimedRobot {
 
 
   public void teleopPeriodic() {
-    double desiredTurnVelocity  = sb_heading.getDouble(0);  //degrees, 0=from home to down-field; degrees increase clockwise
-    double desiredDriveVelocity = sb_velocity.getDouble(0); //input is [-1,1]
+
+    if (SmartDashboard.getBoolean("50", false)) {
+      SmartDashboard.putBoolean("50", false);
+      sb_velocity.setDouble(50.0);
+    }
+    if (SmartDashboard.getBoolean("100", false)) {
+      SmartDashboard.putBoolean("100", false);
+      sb_velocity.setDouble(100.0);
+    }
+    if (SmartDashboard.getBoolean("150", false)) {
+      SmartDashboard.putBoolean("150", false);
+      sb_velocity.setDouble(150.0);
+    }
+
+    
 
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
 
-    //chris
-    double rot = a*.101 + b*.101;
-    double tra = a*.091 + b*-.093;
+    double actualDriveVelocity = getWheelVelocity(a, b);
 
+    // report to dashboard
+    // sb_rot.setDouble(rot);
+    sb_trans.setDouble(actualDriveVelocity);
+    
+    double desiredTurnVelocity  = sb_heading.getDouble(0);  //degrees, 0=from home to down-field; degrees increase clockwise
+    double desiredDriveVelocity = sb_velocity.getDouble(0); //input is [-1,1]
 
-    // double rot = ((a+b)/2) / 5;
-    // double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
-    // double tra = ((a-b) / GEAR_RATIO_12)*2;
+    double driveFF = sb_drive_ff.getDouble(0);
+    if (desiredDriveVelocity == 0) {
+      driveFF = 0;
+    }
+
+    // double calcTurnVelocity  = 
+    double calcDriveVelocity = pid_drive.calculate(actualDriveVelocity, desiredDriveVelocity) + driveFF;
+
+    sb_drive_calc.setDouble(calcDriveVelocity);
+
+    MotorPowers res = Robot.calcMotorPowers(new Vec2d(calcDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
+    double aVolts = res.a;
+    double bVolts = res.b;
 
     
-    sb_rot.setDouble(rot);
-    sb_trans.setDouble(tra);
-    
-    
-    double aVolts  = sb_a_volts.getDouble(0);
-    double bVolts = sb_b_volts.getDouble(0);
-
-
-    // MotorPowers res = Robot.calcMotorPowers(new Vec2d(desiredDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
-    // double aVolts  = res.a;
-    // double bVolts = res.b;
+    if (sb_use_volts.getBoolean(false)) {
+      aVolts = sb_a_volts.getDouble(0);
+      bVolts = sb_b_volts.getDouble(0);
+    }
 
     //-12 to 12 input
     m_driveMotorA.setVoltage( aVolts );
@@ -161,25 +216,38 @@ public class Robot extends TimedRobot {
     sb_voltsB.setDouble( bVolts );
   }
 
+
+  public double getWheelVelocity(double a, double b) {
+    //ChrisJ
+    // double rot = a*.101 + b*.101;
+    double tra = a*.091 + b*-.093; // translation
+
+
+    // double rot = ((a+b)/2) / 5;
+    // double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
+    // double tra = ((a-b) / GEAR_RATIO_12)*2;
+    return tra;
+  }
+
   public void teleopInit() {
     m_turningEncoder.reset(); //reset the encoder on teleop init (for testing)
   }
 
-  public static SwerveModuleState getState(double aVel, double bVel) {
+//   public static SwerveModuleState getState(double aVel, double bVel) {
     
-    Vec2d vecA = MOTOR_1_VECTOR.scale(aVel);
-    //System.out.println("A -- x:" + vecA.getX() + " y:" + vecA.getY() + " m:" + vecA.getMagnitude() + " a:" + vecA.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
+//     Vec2d vecA = MOTOR_1_VECTOR.scale(aVel);
+//     //System.out.println("A -- x:" + vecA.getX() + " y:" + vecA.getY() + " m:" + vecA.getMagnitude() + " a:" + vecA.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
 
-    Vec2d vecB = MOTOR_2_VECTOR.scale(bVel);
-    //System.out.println("B -- x:" + vecB.getX() + " y:" + vecB.getY() + " m:" + vecB.getMagnitude() + " a:" + vecB.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
+//     Vec2d vecB = MOTOR_2_VECTOR.scale(bVel);
+//     //System.out.println("B -- x:" + vecB.getX() + " y:" + vecB.getY() + " m:" + vecB.getMagnitude() + " a:" + vecB.getAngleDouble(AngleType.NEG_180_TO_180_CARTESIAN));
 
-    Vec2d powerVec = vecA.add(vecB);
+//     Vec2d powerVec = vecA.add(vecB);
 
-    double speed = powerVec.getX();
-    double turn = powerVec.getY();
+//     double speed = powerVec.getX();
+//     double turn = powerVec.getY();
     
-    return new SwerveModuleState(speed, Rotation2d.fromDegrees(turn));
-  }
+//     return new SwerveModuleState(speed, Rotation2d.fromDegrees(turn));
+//   }
 
   //takes vector in power vector coordinate system
   // ^(x component is relative translation power and y component is relative MODULE rotation power)
@@ -215,6 +283,10 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
   public void disabledInit() {}
   public void disabledPeriodic() {}
-  public void testInit() {}
-  public void testPeriodic() {}
+  public void testInit() {
+    teleopInit();
+  }
+  public void testPeriodic() {
+    teleopPeriodic();
+  }
 }
