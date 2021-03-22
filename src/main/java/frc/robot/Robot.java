@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.MedianFilter;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -111,9 +112,10 @@ public class Robot extends TimedRobot {
     m_driveMotorB.restoreFactoryDefaults();
     m_bPID = m_driveMotorB.getPIDController();
 
-    m_turningEncoder = new Encoder(dioEncoderChanA, dioEncoderChanB);
-    final int kEncoderResolution = 128; //grayhill encoder
-    m_turningEncoder.setDistancePerPulse(-360 / kEncoderResolution);
+    m_turningEncoder = new Encoder(dioEncoderChanA, dioEncoderChanB, true, EncodingType.k4X);
+    final double kRad2RPM = 2 * Math.PI;
+    final double kEncoderTicksPerRev = 128.0 * kRad2RPM; //grayhill encoder
+    m_turningEncoder.setDistancePerPulse(360.0 / kEncoderTicksPerRev);
 
     pid_drive = new PIDController(.06, 0, 0);
 
@@ -278,16 +280,36 @@ public class Robot extends TimedRobot {
       sb_b_volts.setDouble(-150.0);
     }
 
-    
-
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
 
     double actualDriveVelocity = getWheelVelocity(a, b);
 
     // report to dashboard
-    // sb_rot.setDouble(rot);
+    sb_rot.setDouble(getModuleYaw(a, b));
     sb_trans.setDouble(actualDriveVelocity);
+
+    // step 1 - tune the motor internal PIDs
+    if (sb_use_volts.getBoolean(false)) {
+      double aVolts = sb_a_volts.getDouble(0);
+      double bVolts = sb_b_volts.getDouble(0);
+      //-12 to 12 input
+      m_aPID.setReference(aVolts, ControlType.kVelocity);
+      m_bPID.setReference(bVolts, ControlType.kVelocity);
+
+       // report to dashboard
+      sb_voltsA.setDouble(-1);
+      sb_voltsB.setDouble(-1);
+      return;
+    }
+
+    
+
+    
+
+    
+
+    
     
     double desiredTurnVelocity  = sb_heading.getDouble(0);  //degrees, 0=from home to down-field; degrees increase clockwise
     double desiredDriveVelocity = sb_velocity.getDouble(0); //input is [-1,1]
@@ -308,19 +330,7 @@ public class Robot extends TimedRobot {
     double aVel = velocities.a;
     double bVel = velocities.b;
 
-    // step 1 - tune the motor internal PIDs
-    if (sb_use_volts.getBoolean(false)) {
-      double aVolts = sb_a_volts.getDouble(0);
-      double bVolts = sb_b_volts.getDouble(0);
-      //-12 to 12 input
-      m_aPID.setReference(aVolts, ControlType.kVelocity);
-      m_bPID.setReference(bVolts, ControlType.kVelocity);
-
-       // report to dashboard
-      sb_voltsA.setDouble(-1);
-      sb_voltsB.setDouble(-1);
-      return;
-    }
+    
 
     //-12 to 12 input
     // m_driveMotorA.set( aVel );
@@ -340,12 +350,21 @@ public class Robot extends TimedRobot {
     // double rot = a*.101 + b*.101;
     // double tra = a*.091 + b*-.093; // translation
 
+    // final double GEAR_RATIO_12  =  (80.0/10.0) * (90.0/34.0);
+    final double GEAR_RATIO_123 =  (80.0/10.0) * (90.0/34.0) * (21.0/82.0);
 
-    double rot = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_123;
+    // double moduleYawRPM = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_123;
 
     // final double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
-    double tra = ((aMotorRPM - bMotorRPM) / GEAR_RATIO_12)*2;
-    return tra;
+    double wheelRPM = ((aMotorRPM - bMotorRPM) / (GEAR_RATIO_123 * 2) );    // does not work
+
+    // double wheelRPM = ((aMotorRPM - bMotorRPM) / GEAR_RATIO_12) * 2; //works
+    return wheelRPM;
+  }
+
+  public double getModuleYaw(double aMotorRPM, double bMotorRPM) {
+    double moduleYawRPM = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_12;
+    return moduleYawRPM;
   }
 
   public MotorRPMs getMotorSpeeds(double translateRPM, double rotateRPM) {
@@ -358,9 +377,10 @@ public class Robot extends TimedRobot {
     // double b = 5.294 * rotateRPM - 5 * translateRPM;
 
     // solve the equations in getWheelVelocity for a and b
-    double a = (rotateRPM * GEAR_RATIO_12) / 4 + (translateRPM * GEAR_RATIO_123);
-    double b = (rotateRPM * GEAR_RATIO_12) / 4 - (translateRPM * GEAR_RATIO_123);
-    return new MotorRPMs(a, b);
+    throw new Error("CHECK GEAR_RATIO_12 calculation");
+    // double a = (rotateRPM * GEAR_RATIO_12) / 4 + (translateRPM * GEAR_RATIO_123);
+    // double b = (rotateRPM * GEAR_RATIO_12) / 4 - (translateRPM * GEAR_RATIO_123);
+    // return new MotorRPMs(a, b);
   }
 
   public void teleopInit() { 
