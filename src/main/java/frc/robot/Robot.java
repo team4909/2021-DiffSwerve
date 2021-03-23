@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
     final double kEncoderTicksPerRev = 128.0 * kRad2RPM; //grayhill encoder
     m_turningEncoder.setDistancePerPulse(360.0 / kEncoderTicksPerRev);
 
-    pid_yaw = new PIDController(.06, 0, 0);
+    pid_yaw = new PIDController(2, 0, 0);
     pid_yaw.enableContinuousInput(-90.0, 90.0);
 
     sb_tab = Shuffleboard.getTab("Swerve");
@@ -186,9 +186,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Apply Value", 250);
   }
 
+  public double getHeadingDeg() {
+    return (m_turningEncoder.getDistance()* 180.0 / Math.PI) / 10.0;
+  }
+
   public void robotPeriodic() {
     // outputs we always want updated
-    sb_turnDist.setDouble(m_turningEncoder.getDistance());
+    
+    sb_turnDist.setDouble(getHeadingDeg());
     sb_turnVelo.setDouble(m_turningEncoder.getRate());
     
     sb_velA.setDouble(m_driveEncoderA.getVelocity());
@@ -235,6 +240,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     velSetpointsShuffleboard();
+    headingSetpointsShuffleboard();
 
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
@@ -266,7 +272,7 @@ public class Robot extends TimedRobot {
     // double calcTurnVelocity  = 
     // double calcDriveVelocity = desiredDriveVelocity; //pid_drive.calculate(actualDriveVelocity, desiredDriveVelocity) + driveFF;
 
-    double yaw_pid_calc = pid_yaw.calculate(m_turningEncoder.getDistance(), desiredYawAngle);
+    double yaw_pid_calc = pid_yaw.calculate(getHeadingDeg(), desiredYawAngle);
 
     // report to dashboard
     sb_turn_calc.setDouble(yaw_pid_calc);
@@ -362,6 +368,34 @@ public class Robot extends TimedRobot {
       sb_velocity.setDouble(150.0);
       sb_a_volts.setDouble(150.0);
       sb_b_volts.setDouble(-150.0);
+    }
+  }
+
+  public void headingSetpointsShuffleboard() {
+    if (SmartDashboard.getBoolean("head _ Apply", false)) {
+      SmartDashboard.putBoolean("head _ Apply", false);
+      double val = SmartDashboard.getNumber("head _ Apply Value", 0);
+      sb_velocity.setDouble(val);
+      sb_a_volts.setDouble(val);
+      sb_b_volts.setDouble(-val);
+    }
+    if (SmartDashboard.getBoolean("head _ 0", false)) {
+      SmartDashboard.putBoolean("head _ 0", false);
+      sb_velocity.setDouble(0.0);
+
+    }
+    if (SmartDashboard.getBoolean("head _ 90", false)) {
+      SmartDashboard.putBoolean("head _ 90", false);
+      sb_velocity.setDouble(90.0);
+
+    }
+    if (SmartDashboard.getBoolean("head _ -90", false)) {
+      SmartDashboard.putBoolean("head _ -90", false);
+      sb_velocity.setDouble(-90);
+    }
+    if (SmartDashboard.getBoolean("head _ 180", false)) {
+      SmartDashboard.putBoolean("head _ 180", false);
+      sb_velocity.setDouble(180.0);
     }
   }
 }
