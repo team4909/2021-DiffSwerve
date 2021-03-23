@@ -46,51 +46,42 @@ public class Robot extends TimedRobot {
   private ShuffleboardTab sb_tab;
 
   private ShuffleboardLayout sb_yawEnc;
-  private NetworkTableEntry sb_yawDist;
-  private NetworkTableEntry sb_yawVelo;
+  private NetworkTableEntry sb_yawDist, sb_yawVelo;
 
   private ShuffleboardLayout sb_inputs;
   private NetworkTableEntry sb_velocity, sb_heading, sb_a_motorRPM, sb_b_motorRPM;
 
   private ShuffleboardLayout sb_motorA;
-  private NetworkTableEntry sb_velA;
-  private NetworkTableEntry sb_velA_avg;
+  private NetworkTableEntry sb_velA, sb_velA_avg;
 
   private ShuffleboardLayout sb_motorB;
-  private NetworkTableEntry sb_velB;
-  private NetworkTableEntry sb_velB_avg;
+  private NetworkTableEntry sb_velB, sb_velB_avg;
 
   private ShuffleboardLayout sb_output;
-  private NetworkTableEntry  sb_rot;
-  private NetworkTableEntry  sb_trans;
+  private NetworkTableEntry  sb_yaw, sb_trans;
 
   private ShuffleboardLayout sb_debug;
-  private NetworkTableEntry  sb_use_motorRPM;
-  private NetworkTableEntry  sb_pid_apply;
+  private NetworkTableEntry  sb_use_motorRPM, sb_pid_apply;
 
   private ShuffleboardLayout sb_pid;
-  private NetworkTableEntry  sb_yaw_calc;
-  private NetworkTableEntry  sb_drive_calc;
+  private NetworkTableEntry  sb_yaw_calc, sb_drive_calc;
 
-  private ShuffleboardLayout sb_motor_pid;
-  private ShuffleboardLayout sb_apid;
+  private ShuffleboardLayout sb_motor_pid, sb_apid;
   private NetworkTableEntry  sb_apid_kp, sb_apid_ki, sb_apid_kd, sb_apid_kiz, sb_apid_kff, sb_apid_max, sb_apid_min;
 
   private ShuffleboardLayout sb_bpid;
   private NetworkTableEntry  sb_bpid_kp, sb_bpid_ki, sb_bpid_kd, sb_bpid_kiz, sb_bpid_kff, sb_bpid_max, sb_bpid_min;
-
-  double akp, aki, akd, akiz, akff, bkp, bki, bkd, bkiz, bkff;
 
   MedianFilter m_a_avg = new MedianFilter(50);
   MedianFilter m_b_avg = new MedianFilter(50);
 
   // Gear ratio of first two pairs of gears
   // Yaw does not depend on the third pair
-  final double GEAR_RATIO_12  =  (80.0/10.0) * (90.0/34.0);
+  final double GEAR_RATIO_12  =  (10.0/80.0) * (34.0/90.0);
 
   // Gear ratio of all three pairs of gears
   // Wheel speed depends on all three
-  final double GEAR_RATIO_123 =  (80.0/10.0) * (90.0/34.0) * (21.0/82.0);
+  final double GEAR_RATIO_123 =  (10.0/80.0) * (34.0/90.0) * (82.0/21.0);
 
   public void robotInit() {
     m_driveMotorA = new CANSparkMax(driveMotorChannelA, MotorType.kBrushless);
@@ -104,15 +95,20 @@ public class Robot extends TimedRobot {
     m_bPID = m_driveMotorB.getPIDController();
 
     m_yawEncoder = new Encoder(dioEncoderChanA, dioEncoderChanB, true, EncodingType.k4X);
-    final double kRad2RPM = 2 * Math.PI;
-    final double kEncoderTicksPerRev = 128.0 * kRad2RPM; //grayhill encoder
-    m_yawEncoder.setDistancePerPulse(360.0 / kEncoderTicksPerRev);
+    // final double kRad2RPM = 2 * Math.PI;
+    final double kEncoderTicksPerRev = 128.0; //grayhill encoder
+    final double kEncoderDegPerPulse = 360 / kEncoderTicksPerRev;
+    m_yawEncoder.setDistancePerPulse(kEncoderDegPerPulse);
 
     // Create a PID to enforce specified module direction
+    // See pid_yaw.calculate for an explanation of how the PID value is used
+    // We attempted to set the kp near use but found it broke the shuffleboard
+    // pid calibarion tooling.
     pid_yaw = new PIDController(2, 0, 0);
 
-    // TODO: This looks wrong. Shouldn't it be (-180.0, 180.0) ?
-    pid_yaw.enableContinuousInput(-90.0, 90.0);
+    // When values outside this range are fed into the setpoint of the PID
+    // the requested value is mapped onto this range.
+    pid_yaw.enableContinuousInput(-180.0, 180.0);
 
     // Initialize all of the shuffleboard inputs and outputs
     initShuffleboard();
@@ -120,7 +116,7 @@ public class Robot extends TimedRobot {
 
   public void robotPeriodic() {
     // shuffleboard outputs we always want updated
-    sb_yawDist.setDouble(getHeadingDeg());
+    sb_yawDist.setDouble(m_yawEncoder.getDistance());
     sb_yawVelo.setDouble(m_yawEncoder.getRate());
     
     sb_velA.setDouble(m_driveEncoderA.getVelocity());
@@ -129,35 +125,24 @@ public class Robot extends TimedRobot {
     sb_velB.setDouble(m_driveEncoderB.getVelocity());
     sb_velB_avg.setDouble(m_b_avg.calculate(m_driveEncoderB.getVelocity()));
 
-    // retrieve motor PID values from shuffleboard. Used in testInit
-    akp = sb_apid_kp.getDouble(0);
-    aki = sb_apid_ki.getDouble(0);
-    akd = sb_apid_kd.getDouble(0);
-    akiz = sb_apid_kiz.getDouble(0);
-    akff = sb_apid_kff.getDouble(0);
 
-    bkp = sb_bpid_kp.getDouble(0);
-    bki = sb_bpid_ki.getDouble(0);
-    bkd = sb_bpid_kd.getDouble(0);
-    bkiz = sb_bpid_kiz.getDouble(0);
-    bkff = sb_bpid_kff.getDouble(0);
 
     // allow overriding settings of PIDs during running test
     if (sb_pid_apply.getBoolean(false)) {
       sb_pid_apply.setBoolean(false);
 
-      m_aPID.setP(akp);
-      m_aPID.setI(aki);
-      m_aPID.setD(akd);
-      m_aPID.setIZone(akiz);
-      m_aPID.setFF(akff);
+      m_aPID.setP(sb_apid_kp.getDouble(0));
+      m_aPID.setI(sb_apid_ki.getDouble(0));
+      m_aPID.setD(sb_apid_kd.getDouble(0));
+      m_aPID.setIZone(sb_apid_kiz.getDouble(0));
+      m_aPID.setFF(sb_apid_kff.getDouble(0));
       m_aPID.setOutputRange(sb_apid_min.getDouble(0), sb_apid_max.getDouble(0));
 
-      m_bPID.setP(bkp);
-      m_bPID.setI(bki);
-      m_bPID.setD(bkd);
-      m_bPID.setIZone(bkiz);
-      m_bPID.setFF(bkff);
+      m_bPID.setP(sb_bpid_kp.getDouble(0));
+      m_bPID.setI(sb_bpid_ki.getDouble(0));
+      m_bPID.setD(sb_bpid_kd.getDouble(0));
+      m_bPID.setIZone(sb_bpid_kiz.getDouble(0));
+      m_bPID.setFF(sb_bpid_kff.getDouble(0));
       m_bPID.setOutputRange(sb_bpid_min.getDouble(0), sb_bpid_max.getDouble(0));
     }
 
@@ -175,12 +160,12 @@ public class Robot extends TimedRobot {
     double bMotorRPM = m_driveEncoderB.getVelocity();
 
     // calculate the wheel speeds from those motor speeds
-    double currentWheelRpm      = motorRPMsToWheelRPM(aMotorRPM, bMotorRPM);
+    double currentWheelRPM      = motorRPMsToWheelRPM(aMotorRPM, bMotorRPM);
     double currentModuleYawRPM  = motorRPMsToModuleYawRPM(aMotorRPM, bMotorRPM);
 
     // report to dashboard
-    sb_rot.setDouble(currentModuleYawRPM);
-    sb_trans.setDouble(currentWheelRpm);
+    sb_yaw.setDouble(currentModuleYawRPM);
+    sb_trans.setDouble(currentWheelRPM);
 
     // step 1 - tune the motor internal PIDs
     // allow overriding desired motor speeds during running test
@@ -198,29 +183,24 @@ public class Robot extends TimedRobot {
     double desiredYawDeg = sb_heading.getDouble(0);
     double desiredWheelRPM = sb_velocity.getDouble(0);
 
-    // double pidCalculatedWheelRPM = pid_wheel.calculate(currentWheelRpm, desiredWheelRPM) + driveFF;
-    double pidCalculatedWheelRPM  = desiredWheelRPM; // TODO: OVERRIDES LINE ABOVE!
-
-    // TODO: This looks wrong. We obtain a heading in degrees from
-    // shuffleboard (desiredYawDeg) and the current module heading in
-    // degrees from the the encoder, and then expect to get back an
-    // RPM?????
-    double pidCalculatedYawRPM = pid_yaw.calculate(getHeadingDeg(), desiredYawDeg);
+    // PID is being used to convert the yaw error into the RPM to get there. For example,
+    // if the encoder is currently at 90 degrees and desired is 180 degrees, the error
+    // is 90 degrees initially. With a kP value of 2, this would yield an RPM of 180. As
+    // the error decreases, the RPM decreases until eventually the error is zero and thus
+    // the RPM is zero. See the constructor for the PID values.
+    double pidCalculatedYawRPM = pid_yaw.calculate(m_yawEncoder.getDistance(), desiredYawDeg);
 
     // report to dashboard
-    sb_drive_calc.setDouble(pidCalculatedWheelRPM);
+    sb_drive_calc.setDouble(desiredWheelRPM);
     sb_yaw_calc.setDouble(pidCalculatedYawRPM);
 
     // Given the desired wheel and yaw RPM, calculate the motor speeds
     // necessary to achieve them
-    var motorSpeedsRPM = getMotorSpeedsRPM(pidCalculatedWheelRPM, pidCalculatedYawRPM);
-
-    double aDesiredMotorRPM = motorSpeedsRPM.a;
-    double bDesiredMotorRPM = motorSpeedsRPM.b;
+    var desiredMotorSpeedsRPM = getMotorSpeedsRPM(desiredWheelRPM, pidCalculatedYawRPM);
 
     // Set the reference speeds (setpoints) in the two PIDs
-    m_aPID.setReference(aDesiredMotorRPM, ControlType.kVelocity);
-    m_bPID.setReference(bDesiredMotorRPM, ControlType.kVelocity);
+    m_aPID.setReference(desiredMotorSpeedsRPM.a, ControlType.kVelocity);
+    m_bPID.setReference(desiredMotorSpeedsRPM.b, ControlType.kVelocity);
   }
 
   public void teleopInit() {
@@ -241,47 +221,34 @@ public class Robot extends TimedRobot {
 
   public void testInit() {
     teleopInit();
-
-    // set up the PIDs using values previously read from shuffleboard
-    sb_apid_kp.setDouble(akp);
-    sb_apid_ki.setDouble(aki);
-    sb_apid_kd.setDouble(akd);
-    sb_apid_kiz.setDouble(akiz);
-    sb_apid_kff.setDouble(akff);
-
-    sb_bpid_kp.setDouble(bkp);
-    sb_bpid_ki.setDouble(bki);
-    sb_bpid_kd.setDouble(bkd);
-    sb_bpid_kiz.setDouble(bkiz);
-    sb_bpid_kff.setDouble(bkff);
   }
   public void testPeriodic() {
     teleopPeriodic();
   }
 
-  // retrieve heading from encoder; convert it from radians to degrees
-  public double getHeadingDeg() {
-    return (m_yawEncoder.getDistance()* 180.0 / Math.PI) / 10.0;
-  }
-
   // get wheel translation in RPM
   public double motorRPMsToWheelRPM(double aMotorRPM, double bMotorRPM) {
-    // TODO: describe the math that got us here
-    double wheelRPM = ((aMotorRPM - bMotorRPM) / (GEAR_RATIO_123 * 2) );
+    // Translation is calculated as half the difference of a and b,
+    // adjusted by gear ratio. Translation is dependent on all three
+    // pairs of gears. The differential pinion generates translation 
+    // as a function of the speed of the top and bottom differential gears.
+    double wheelRPM = ((aMotorRPM - bMotorRPM) / 2) * GEAR_RATIO_123 ;
     return wheelRPM;
   }
 
   // get module yaw in RPM
   public double motorRPMsToModuleYawRPM(double aMotorRPM, double bMotorRPM) {
-    // TODO: describe the math that got us here
-    double moduleYawRPM = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_12;
+    // Yaw is calculated as the average of a and b, adjusted by gear ratio
+    // Yaw does not depend on the third pair of gears, thus GEAR_RATIO_12
+    // only includes the first two gear reductions.
+    double moduleYawRPM = ((aMotorRPM + bMotorRPM) / 2) * GEAR_RATIO_12;
     return moduleYawRPM;
   }
 
   // convert desired translation and yaw RPMs to motor RPMs
   public MotorRPMs getMotorSpeedsRPM(double wheelRPM, double yawRPM) {
-    double a = (yawRPM * GEAR_RATIO_12) + (wheelRPM * GEAR_RATIO_123);
-    double b = (yawRPM * GEAR_RATIO_12) - (wheelRPM * GEAR_RATIO_123);
+    double a = (yawRPM / GEAR_RATIO_12) + (wheelRPM / GEAR_RATIO_123);
+    double b = (yawRPM / GEAR_RATIO_12) - (wheelRPM / GEAR_RATIO_123);
     return new MotorRPMs(a, b);
   }
 
@@ -308,7 +275,7 @@ public class Robot extends TimedRobot {
     sb_velB_avg     = sb_motorB.add("velocity avg",  0).getEntry();
 
     sb_output       = sb_tab.getLayout("Output", BuiltInLayouts.kList);
-    sb_rot          = sb_output.add("Rotation",  0).getEntry();
+    sb_yaw          = sb_output.add("Rotation",  0).getEntry();
     sb_trans        = sb_output.add("Translation",  0).getEntry();
 
     sb_debug        = sb_tab.getLayout("Debug", BuiltInLayouts.kList);
