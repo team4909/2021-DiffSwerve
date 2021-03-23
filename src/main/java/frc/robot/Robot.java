@@ -84,7 +84,12 @@ public class Robot extends TimedRobot {
   MedianFilter m_a_avg = new MedianFilter(50);
   MedianFilter m_b_avg = new MedianFilter(50);
 
+  // Gear ratio of first two pairs of gears
+  // Yaw does not depend on the third pair
   final double GEAR_RATIO_12  =  (80.0/10.0) * (90.0/34.0);
+
+  // Gear ratio of all three pairs of gears
+  // Wheel speed depends on all three
   final double GEAR_RATIO_123 =  (80.0/10.0) * (90.0/34.0) * (21.0/82.0);
 
   public void robotInit() {
@@ -103,7 +108,10 @@ public class Robot extends TimedRobot {
     final double kEncoderTicksPerRev = 128.0 * kRad2RPM; //grayhill encoder
     m_yawEncoder.setDistancePerPulse(360.0 / kEncoderTicksPerRev);
 
+    // Create a PID to enforce specified module direction
     pid_yaw = new PIDController(2, 0, 0);
+
+    // TODO: This looks wrong. Shouldn't it be (-180.0, 180.0) ?
     pid_yaw.enableContinuousInput(-90.0, 90.0);
 
     // Initialize all of the shuffleboard inputs and outputs
@@ -158,16 +166,17 @@ public class Robot extends TimedRobot {
 
 
   public void teleopPeriodic() {
-
     // read shuffleboard inputs
     velSetpointsShuffleboard();
     headingSetpointsShuffleboard();
 
+    // get the motor speeds
     double aMotorRPM = m_driveEncoderA.getVelocity();
     double bMotorRPM = m_driveEncoderB.getVelocity();
 
-    double currentWheelRpm = getWheelVelocityRPM(aMotorRPM, bMotorRPM);
-    double currentModuleYawRPM   = getModuleYawRPM(aMotorRPM, bMotorRPM);
+    // calculate the wheel speeds from those motor speeds
+    double currentWheelRpm      = motorRPMsToWheelRPM(aMotorRPM, bMotorRPM);
+    double currentModuleYawRPM  = motorRPMsToModuleYawRPM(aMotorRPM, bMotorRPM);
 
     // report to dashboard
     sb_rot.setDouble(currentModuleYawRPM);
@@ -185,25 +194,33 @@ public class Robot extends TimedRobot {
       return;
     }
     
-    double desiredAngleDeg = sb_heading.getDouble(0);
+    // Get desired yaw and wheel speed
+    double desiredYawDeg = sb_heading.getDouble(0);
     double desiredWheelRPM = sb_velocity.getDouble(0);
 
     // double pidCalculatedWheelRPM = pid_wheel.calculate(currentWheelRpm, desiredWheelRPM) + driveFF;
     double pidCalculatedWheelRPM  = desiredWheelRPM; // TODO: OVERRIDES LINE ABOVE!
 
-    double pidCalculatedYawRPM = pid_yaw.calculate(getHeadingDeg(), desiredAngleDeg);
+    // TODO: This looks wrong. We obtain a heading in degrees from
+    // shuffleboard (desiredYawDeg) and the current module heading in
+    // degrees from the the encoder, and then expect to get back an
+    // RPM?????
+    double pidCalculatedYawRPM = pid_yaw.calculate(getHeadingDeg(), desiredYawDeg);
 
     // report to dashboard
     sb_drive_calc.setDouble(pidCalculatedWheelRPM);
     sb_yaw_calc.setDouble(pidCalculatedYawRPM);
 
+    // Given the desired wheel and yaw RPM, calculate the motor speeds
+    // necessary to achive them
     var motorSpeedsRPM = getMotorSpeedsRPM(pidCalculatedWheelRPM, pidCalculatedYawRPM);
 
-    double aMotorRPM = motorSpeedsRPM.a;
-    double bMotorRPM = motorSpeedsRPM.b;
+    double aDesiredMotorRPM = motorSpeedsRPM.a;
+    double bDesiredMotorRPM = motorSpeedsRPM.b;
 
-    m_aPID.setReference(aMotorRPM, ControlType.kVelocity);
-    m_bPID.setReference(bMotorRPM, ControlType.kVelocity);
+    // Set the reference speeds (setpoints) in the two PIDs
+    m_aPID.setReference(aDesiredMotorRPM, ControlType.kVelocity);
+    m_bPID.setReference(bDesiredMotorRPM, ControlType.kVelocity);
   }
 
   public void teleopInit() {
@@ -225,6 +242,7 @@ public class Robot extends TimedRobot {
   public void testInit() {
     teleopInit();
 
+    // set up the PIDs using values previously read from shuffleboard
     sb_apid_kp.setDouble(akp);
     sb_apid_ki.setDouble(aki);
     sb_apid_kd.setDouble(akd);
@@ -247,27 +265,27 @@ public class Robot extends TimedRobot {
   }
 
   // get wheel translation in RPM
-  public double getWheelVelocityRPM(double aMotorRPM, double bMotorRPM) {
-    //final double GEAR_RATIO_123 =  (80.0/10.0) * (90.0/34.0) * (21.0/82.0);
+  public double motorRPMsToWheelRPM(double aMotorRPM, double bMotorRPM) {
+    // TODO: describe the math that got us here
     double wheelRPM = ((aMotorRPM - bMotorRPM) / (GEAR_RATIO_123 * 2) );
     return wheelRPM;
   }
 
   // get module yaw in RPM
-  public double getModuleYawRPM(double aMotorRPM, double bMotorRPM) {
-    // final double GEAR_RATIO_12  =  (80.0/10.0) * (90.0/34.0);
+  public double motorRPMsToModuleYawRPM(double aMotorRPM, double bMotorRPM) {
+    // TODO: describe the math that got us here
     double moduleYawRPM = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_12;
     return moduleYawRPM;
   }
 
   // convert desired translation and yaw RPMs to motor RPMs
   public MotorRPMs getMotorSpeedsRPM(double wheelRPM, double yawRPM) {
-    // solve the equations in getWheelVelocityRPM for a and b
     double a = (yawRPM * GEAR_RATIO_12) + (wheelRPM * GEAR_RATIO_123);
     double b = (yawRPM * GEAR_RATIO_12) - (wheelRPM * GEAR_RATIO_123);
     return new MotorRPMs(a, b);
   }
 
+  // create/initialize all of the shuffleboard inputs and outputs
   private void initShuffleboard() {
     sb_tab = Shuffleboard.getTab("Swerve");
 
@@ -328,6 +346,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Apply Value", 250);
   }
 
+  // set up for wheel velocity quick-change from shuffleboard
   public void velSetpointsShuffleboard() {
     if (SmartDashboard.getBoolean("Apply", false)) {
       SmartDashboard.putBoolean("Apply", false);
@@ -362,6 +381,7 @@ public class Robot extends TimedRobot {
     }
   }
 
+  // set up for heading quick-change from shuffleboard
   public void headingSetpointsShuffleboard() {
     if (SmartDashboard.getBoolean("head _ Apply", false)) {
       SmartDashboard.putBoolean("head _ Apply", false);
