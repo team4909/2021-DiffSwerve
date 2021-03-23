@@ -51,7 +51,7 @@ public class Robot extends TimedRobot {
   static final Vec2d MOTOR_1_VECTOR = new Vec2d(1/Math.sqrt(2), 1/Math.sqrt(2));
   static final Vec2d MOTOR_2_VECTOR = new Vec2d(-1/Math.sqrt(2), 1/Math.sqrt(2));
 
-  private PIDController pid_drive;
+  private PIDController pid_yaw;
 
   private ShuffleboardTab sb_tab;
 
@@ -117,7 +117,8 @@ public class Robot extends TimedRobot {
     final double kEncoderTicksPerRev = 128.0 * kRad2RPM; //grayhill encoder
     m_turningEncoder.setDistancePerPulse(360.0 / kEncoderTicksPerRev);
 
-    pid_drive = new PIDController(.06, 0, 0);
+    pid_yaw = new PIDController(.06, 0, 0);
+    pid_yaw.enableContinuousInput(-90.0, 90.0);
 
     sb_tab = Shuffleboard.getTab("Swerve");
 
@@ -227,73 +228,29 @@ public class Robot extends TimedRobot {
       m_bPID.setOutputRange(sb_bpid_min.getDouble(0), sb_bpid_max.getDouble(0));
     }
 
-    
-
-
-
-
-    // sb_pid_drive.
-
-    // sb_pid
-
-    // double aVolts  = sb_a_volts.getDouble(0);
-    // double bVolts = sb_b_volts.getDouble(0);
-
-    // var res = Robot.getState(aVolts, bVolts);
-    // SmartDashboard.putNumber("angle", res.angle.getDegrees());
-    // SmartDashboard.putNumber("speed", res.speedMetersPerSecond);
-    
+    SmartDashboard.putData("Yaw PID", pid_yaw);  
   }
 
 
   public void teleopPeriodic() {
 
-    if (SmartDashboard.getBoolean("Apply", false)) {
-      SmartDashboard.putBoolean("Apply", false);
-      double val = SmartDashboard.getNumber("Apply Value", 0);
-      sb_velocity.setDouble(val);
-      sb_a_volts.setDouble(val);
-      sb_b_volts.setDouble(-val);
-    }
-    if (SmartDashboard.getBoolean("0", false)) {
-      SmartDashboard.putBoolean("0", false);
-      sb_velocity.setDouble(0.0);
-      sb_a_volts.setDouble(0.0);
-      sb_b_volts.setDouble(0.0);
-    }
-    if (SmartDashboard.getBoolean("50", false)) {
-      SmartDashboard.putBoolean("50", false);
-      sb_velocity.setDouble(50.0);
-      sb_a_volts.setDouble(50.0);
-      sb_b_volts.setDouble(-50.0);
-    }
-    if (SmartDashboard.getBoolean("100", false)) {
-      SmartDashboard.putBoolean("100", false);
-      sb_velocity.setDouble(100.0);
-      sb_a_volts.setDouble(100.0);
-      sb_b_volts.setDouble(-100.0);
-    }
-    if (SmartDashboard.getBoolean("150", false)) {
-      SmartDashboard.putBoolean("150", false);
-      sb_velocity.setDouble(150.0);
-      sb_a_volts.setDouble(150.0);
-      sb_b_volts.setDouble(-150.0);
-    }
+    velSetpointsShuffleboard();
 
     double a = m_driveEncoderA.getVelocity();
     double b = m_driveEncoderB.getVelocity();
 
-    double actualDriveVelocity = getWheelVelocity(a, b);
+    double actualDriveRPM = getWheelVelocity(a, b);
+    double actualYawRPM   = getModuleYaw(a, b);
 
     // report to dashboard
-    sb_rot.setDouble(getModuleYaw(a, b));
-    sb_trans.setDouble(actualDriveVelocity);
+    sb_rot.setDouble(actualYawRPM);
+    sb_trans.setDouble(actualDriveRPM);
 
     // step 1 - tune the motor internal PIDs
     if (sb_use_volts.getBoolean(false)) {
       double aVolts = sb_a_volts.getDouble(0);
       double bVolts = sb_b_volts.getDouble(0);
-      //-12 to 12 input
+     
       m_aPID.setReference(aVolts, ControlType.kVelocity);
       m_bPID.setReference(bVolts, ControlType.kVelocity);
 
@@ -302,39 +259,23 @@ public class Robot extends TimedRobot {
       sb_voltsB.setDouble(-1);
       return;
     }
-
     
-
-    
-
-    
-
-    
-    
-    double desiredTurnVelocity  = sb_heading.getDouble(0);  //degrees, 0=from home to down-field; degrees increase clockwise
-    double desiredDriveVelocity = sb_velocity.getDouble(0); //input is [-1,1]
-
-    double driveFF = sb_drive_ff.getDouble(0);
-    if (desiredDriveVelocity == 0) {
-      driveFF = 0;
-    }
+    double desiredYawAngle = sb_heading.getDouble(0);  //degrees, 0=from home to down-field; degrees increase clockwise
+    double desiredDriveRPM = sb_velocity.getDouble(0); //input is [-1,1]
 
     // double calcTurnVelocity  = 
-    double calcDriveVelocity = desiredDriveVelocity; //pid_drive.calculate(actualDriveVelocity, desiredDriveVelocity) + driveFF;
+    // double calcDriveVelocity = desiredDriveVelocity; //pid_drive.calculate(actualDriveVelocity, desiredDriveVelocity) + driveFF;
 
-    sb_drive_calc.setDouble(calcDriveVelocity);
+    double yaw_pid_calc = pid_yaw.calculate(m_turningEncoder.getDistance(), desiredYawAngle);
 
-    var velocities = getMotorSpeeds(calcDriveVelocity, desiredTurnVelocity);
+    // report to dashboard
+    sb_turn_calc.setDouble(yaw_pid_calc);
 
-    // MotorRPMs res = Robot.calcMotorPowers(new Vec2d(calcDriveVelocity, desiredTurnVelocity), MAX_VOLTAGE);
+    var velocities = getMotorSpeeds(desiredDriveRPM, yaw_pid_calc);
+
     double aVel = velocities.a;
     double bVel = velocities.b;
 
-    
-
-    //-12 to 12 input
-    // m_driveMotorA.set( aVel );
-    // m_driveMotorB.set( bVel );
     m_aPID.setReference(aVel, ControlType.kVelocity);
     m_bPID.setReference(bVel, ControlType.kVelocity);
 
@@ -342,7 +283,6 @@ public class Robot extends TimedRobot {
     sb_voltsA.setDouble( -1 );
     sb_voltsB.setDouble( -1 );
   }
-
 
   // wheel translation RPM
   public double getWheelVelocity(double aMotorRPM, double bMotorRPM) {
@@ -389,5 +329,39 @@ public class Robot extends TimedRobot {
   }
   public void testPeriodic() {
     teleopPeriodic();
+  }
+
+  public void velSetpointsShuffleboard() {
+    if (SmartDashboard.getBoolean("Apply", false)) {
+      SmartDashboard.putBoolean("Apply", false);
+      double val = SmartDashboard.getNumber("Apply Value", 0);
+      sb_velocity.setDouble(val);
+      sb_a_volts.setDouble(val);
+      sb_b_volts.setDouble(-val);
+    }
+    if (SmartDashboard.getBoolean("0", false)) {
+      SmartDashboard.putBoolean("0", false);
+      sb_velocity.setDouble(0.0);
+      sb_a_volts.setDouble(0.0);
+      sb_b_volts.setDouble(0.0);
+    }
+    if (SmartDashboard.getBoolean("50", false)) {
+      SmartDashboard.putBoolean("50", false);
+      sb_velocity.setDouble(50.0);
+      sb_a_volts.setDouble(50.0);
+      sb_b_volts.setDouble(-50.0);
+    }
+    if (SmartDashboard.getBoolean("100", false)) {
+      SmartDashboard.putBoolean("100", false);
+      sb_velocity.setDouble(100.0);
+      sb_a_volts.setDouble(100.0);
+      sb_b_volts.setDouble(-100.0);
+    }
+    if (SmartDashboard.getBoolean("150", false)) {
+      SmartDashboard.putBoolean("150", false);
+      sb_velocity.setDouble(150.0);
+      sb_a_volts.setDouble(150.0);
+      sb_b_volts.setDouble(-150.0);
+    }
   }
 }

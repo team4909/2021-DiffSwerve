@@ -98,6 +98,17 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "13,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///SmartDashboard/Yaw PID",
+              "_title": "Yaw PID"
+            }
           }
         }
       }
@@ -213,11 +224,6 @@
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/heading",
-                  "_title": "heading"
-                },
-                {
-                  "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Swerve/Inputs/a volts",
                   "_title": "a volts"
                 },
@@ -230,6 +236,11 @@
                   "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Swerve/Inputs/velocity",
                   "_title": "velocity"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/heading",
+                  "_title": "heading"
                 }
               ]
             }
@@ -388,13 +399,13 @@
           },
           "11,0": {
             "size": [
-              2,
+              3,
               1
             ],
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Swerve/TurnEnc/velocity",
-              "_title": "Shuffleboard/Swerve/TurnEnc/velocity"
+              "_title": "Yaw RPM - Measured"
             }
           },
           "6,0": {
@@ -442,7 +453,7 @@
               }
             }
           },
-          "13,0": {
+          "14,0": {
             "size": [
               3,
               3
@@ -455,7 +466,7 @@
                 {
                   "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Swerve/Output/Rotation",
-                  "_title": "Shuffleboard/Swerve/Output/Rotation"
+                  "_title": "Calc Module Yaw"
                 },
                 {
                   "_type": "Text View",
@@ -501,6 +512,28 @@
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
               "Visible data/Shuffleboard/Swerve/Output/Translation": true
+            }
+          },
+          "11,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/TurnEnc/distance",
+              "_title": "Yaw Heading - Measured"
+            }
+          },
+          "17,5": {
+            "size": [
+              3,
+              4
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///SmartDashboard/Yaw PID",
+              "_title": "SmartDashboard/Yaw PID"
             }
           }
         }
