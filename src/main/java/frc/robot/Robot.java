@@ -346,41 +346,22 @@ public class Robot extends TimedRobot {
 
   // wheel translation RPM
   public double getWheelVelocity(double aMotorRPM, double bMotorRPM) {
-    //ChrisJ
-    // double rot = a*.101 + b*.101;
-    // double tra = a*.091 + b*-.093; // translation
-
-    // final double GEAR_RATIO_12  =  (80.0/10.0) * (90.0/34.0);
-    final double GEAR_RATIO_123 =  (80.0/10.0) * (90.0/34.0) * (21.0/82.0);
-
-    // double moduleYawRPM = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_123;
-
-    // final double GEAR_RATIO_12 =  ( (80.0/10.0) * (90.0/34.0) );
-    double wheelRPM = ((aMotorRPM - bMotorRPM) / (GEAR_RATIO_123 * 2) );    // does not work
-
-    // double wheelRPM = ((aMotorRPM - bMotorRPM) / GEAR_RATIO_12) * 2; //works
+    //final double GEAR_RATIO_123 =  (80.0/10.0) * (90.0/34.0) * (21.0/82.0);
+    double wheelRPM = ((aMotorRPM - bMotorRPM) / (GEAR_RATIO_123 * 2) );
     return wheelRPM;
   }
 
   public double getModuleYaw(double aMotorRPM, double bMotorRPM) {
+    // final double GEAR_RATIO_12  =  (80.0/10.0) * (90.0/34.0);
     double moduleYawRPM = ((aMotorRPM + bMotorRPM) / 2) / GEAR_RATIO_12;
     return moduleYawRPM;
   }
 
   public MotorRPMs getMotorSpeeds(double translateRPM, double rotateRPM) {
-    // chris did the inverse matrix of
-    // .1,     .1
-    // .09444, -.09444
-    // .09444 is 2 over the translation gear ratio
-    // .1 is the rotation gear ratio
-    // double a = 5.294 * rotateRPM + 5 * translateRPM;
-    // double b = 5.294 * rotateRPM - 5 * translateRPM;
-
     // solve the equations in getWheelVelocity for a and b
-    throw new Error("CHECK GEAR_RATIO_12 calculation");
-    // double a = (rotateRPM * GEAR_RATIO_12) / 4 + (translateRPM * GEAR_RATIO_123);
-    // double b = (rotateRPM * GEAR_RATIO_12) / 4 - (translateRPM * GEAR_RATIO_123);
-    // return new MotorRPMs(a, b);
+    double a = (rotateRPM * GEAR_RATIO_12) + (translateRPM * GEAR_RATIO_123);
+    double b = (rotateRPM * GEAR_RATIO_12) - (translateRPM * GEAR_RATIO_123);
+    return new MotorRPMs(a, b);
   }
 
   public void teleopInit() { 
