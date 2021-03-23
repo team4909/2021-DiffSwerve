@@ -185,11 +185,11 @@ public class Robot extends TimedRobot {
     // step 1 - tune the motor internal PIDs
     // allow overriding desired motor speeds during running test
     if (sb_use_motorRPM.getBoolean(false)) {
-      double aUseMotorRPM = sb_a_motorRPM.getDouble(0);
-      double bUseMotorRPM = sb_b_motorRPM.getDouble(0);
+      double aDesiredMotorRPM = sb_a_motorRPM.getDouble(0);
+      double bDesiredMotorRPM = sb_b_motorRPM.getDouble(0);
      
-      m_aPID.setReference(aUseMotorRPM, ControlType.kVelocity);
-      m_bPID.setReference(bUseMotorRPM, ControlType.kVelocity);
+      m_aPID.setReference(aDesiredMotorRPM, ControlType.kVelocity);
+      m_bPID.setReference(bDesiredMotorRPM, ControlType.kVelocity);
 
       return;
     }
@@ -212,7 +212,7 @@ public class Robot extends TimedRobot {
     sb_yaw_calc.setDouble(pidCalculatedYawRPM);
 
     // Given the desired wheel and yaw RPM, calculate the motor speeds
-    // necessary to achive them
+    // necessary to achieve them
     var motorSpeedsRPM = getMotorSpeedsRPM(pidCalculatedWheelRPM, pidCalculatedYawRPM);
 
     double aDesiredMotorRPM = motorSpeedsRPM.a;
