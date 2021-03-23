@@ -12,6 +12,9 @@ import frc.robot.Vec2d;
 public class SwerveStateTest {
 
 
+/*
+  NOTE: This needs to be reimplemented. Called functions no longer exist.
+
   @Before // this method will run before each test
   public void setup() {
   }
@@ -81,4 +84,5 @@ public class SwerveStateTest {
 
 
   }
+*/
 }
