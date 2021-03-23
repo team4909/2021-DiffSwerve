@@ -83,16 +83,41 @@ public class Robot extends TimedRobot {
   // Wheel speed depends on all three
   final double GEAR_RATIO_123 =  (10.0/80.0) * (34.0/90.0) * (82.0/21.0);
 
+  final double kMotorP = 0.000090;
+  final double kMotorI = 0.000001;
+  final double kMotorD = 0.000090;
+  final double kMotorIz = 100.0;
+  final double kMotorFf = 0.000090;
+
+  // To keep the motor closer to peek power, we limit the max output.
+  // See torque/speed curves on https://motors.vex.com/
+  final double kMotorMax = .7;
+  final double kMotorMin = -.7;
+  // @todo current limits on the motor
+
   public void robotInit() {
     m_driveMotorA = new CANSparkMax(driveMotorChannelA, MotorType.kBrushless);
     m_driveEncoderA = m_driveMotorA.getEncoder();
     m_driveMotorA.restoreFactoryDefaults();
     m_aPID = m_driveMotorA.getPIDController();
+    m_aPID.setP(kMotorP);
+    m_aPID.setI(kMotorI);
+    m_aPID.setD(kMotorD);
+    m_aPID.setIZone(kMotorIz);
+    m_aPID.setFF(kMotorFf);
+    m_aPID.setOutputRange(kMotorMin, kMotorMax);
+
     
     m_driveMotorB = new CANSparkMax(driveMotorChannelB, MotorType.kBrushless);
     m_driveEncoderB = m_driveMotorB.getEncoder();
     m_driveMotorB.restoreFactoryDefaults();
     m_bPID = m_driveMotorB.getPIDController();
+    m_bPID.setP(kMotorP);
+    m_bPID.setI(kMotorI);
+    m_bPID.setD(kMotorD);
+    m_bPID.setIZone(kMotorIz);
+    m_bPID.setFF(kMotorFf);
+    m_bPID.setOutputRange(kMotorMin, kMotorMax);
 
     m_yawEncoder = new Encoder(dioEncoderChanA, dioEncoderChanB, true, EncodingType.k4X);
     // final double kRad2RPM = 2 * Math.PI;
@@ -288,22 +313,22 @@ public class Robot extends TimedRobot {
 
     sb_motor_pid    = sb_tab.getLayout("Motor PID", BuiltInLayouts.kList);
     sb_apid         = sb_motor_pid.getLayout("A PID", BuiltInLayouts.kList);
-    sb_apid_kp      = sb_apid.addPersistent("kP",  .000_06  ).getEntry();
-    sb_apid_ki      = sb_apid.addPersistent("kI",  0        ).getEntry();
-    sb_apid_kd      = sb_apid.addPersistent("kD",  0        ).getEntry();
-    sb_apid_kiz     = sb_apid.addPersistent("kIz", 0        ).getEntry();
-    sb_apid_kff     = sb_apid.addPersistent("kFF", .000_175 ).getEntry();
-    sb_apid_max     = sb_apid.addPersistent("max", .7       ).getEntry();
-    sb_apid_min     = sb_apid.addPersistent("min", -.7      ).getEntry();
+    sb_apid_kp      = sb_apid.addPersistent("kP", kMotorP).getEntry();
+    sb_apid_ki      = sb_apid.addPersistent("kI", kMotorI).getEntry();
+    sb_apid_kd      = sb_apid.addPersistent("kD", kMotorD).getEntry();
+    sb_apid_kiz     = sb_apid.addPersistent("kIz", kMotorIz).getEntry();
+    sb_apid_kff     = sb_apid.addPersistent("kFF", kMotorFf).getEntry();
+    sb_apid_max     = sb_apid.addPersistent("max", kMotorMax).getEntry();
+    sb_apid_min     = sb_apid.addPersistent("min", kMotorMin).getEntry();
 
     sb_bpid         = sb_motor_pid.getLayout("B PID", BuiltInLayouts.kList);
-    sb_bpid_kp      = sb_bpid.addPersistent("kP",  .000_06   ).getEntry();
-    sb_bpid_ki      = sb_bpid.addPersistent("kI",  0         ).getEntry();
-    sb_bpid_kd      = sb_bpid.addPersistent("kD",  0         ).getEntry();
-    sb_bpid_kiz     = sb_bpid.addPersistent("kIz", 0         ).getEntry();
-    sb_bpid_kff     = sb_bpid.addPersistent("kFF", .000_175  ).getEntry();
-    sb_bpid_max     = sb_bpid.addPersistent("max", .7        ).getEntry();
-    sb_bpid_min     = sb_bpid.addPersistent("min", -.7       ).getEntry();
+    sb_bpid_kp      = sb_bpid.addPersistent("kP", kMotorP).getEntry();
+    sb_bpid_ki      = sb_bpid.addPersistent("kI", kMotorI).getEntry();
+    sb_bpid_kd      = sb_bpid.addPersistent("kD", kMotorD).getEntry();
+    sb_bpid_kiz     = sb_bpid.addPersistent("kIz", kMotorIz).getEntry();
+    sb_bpid_kff     = sb_bpid.addPersistent("kFF", kMotorFf).getEntry();
+    sb_bpid_max     = sb_bpid.addPersistent("max", kMotorMax).getEntry();
+    sb_bpid_min     = sb_bpid.addPersistent("min", kMotorMin).getEntry();
 
     SmartDashboard.putBoolean("0", false);
     SmartDashboard.putBoolean("50", false);
