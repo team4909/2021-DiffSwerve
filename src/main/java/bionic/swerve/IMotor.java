@@ -22,17 +22,15 @@ package bionic.swerve;
  * In either case, the PID values are provided by an external configuration,
  * and typically should not be hard-coded in the class implementing this
  * interface.
+ *
+ * The constructor might include (but not be limited to) the following:
+ *
+ *   - instantiate an appropriate motor controller instance
+ *   - set factory defaults
+ *   - set initial motor PID values
  */
 public interface IMotor
 {
-  /*
-   * The constructor might include (but not be limited to) the following:
-   *
-   *   - instantiate an appropriate motor controller instance
-   *   - set factory defaults
-   *   - set initial motor PID values
-   */
-
   /**
    * Set the PID setpoint
    *
