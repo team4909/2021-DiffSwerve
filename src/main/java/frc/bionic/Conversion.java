@@ -23,7 +23,7 @@ public class Conversion
    * @return
    *   Converted value
    */
-  static double inchesToMeters(inches)
+  static public double inchesToMeters(double inches)
   {
     return inches * 0.0254;
   }
@@ -37,7 +37,7 @@ public class Conversion
    * @return
    *   Converted value
    */
-  static double metersToInches(meters)
+  static public double metersToInches(double meters)
   {
     return meters * 39.3701;
   }
@@ -54,7 +54,7 @@ public class Conversion
    * @return
    *   Equivalent number of meters traveled
    */
-  static double wheelRevsToMetersTraveled(double revs, double wheelDiameterMeters)
+  static public double wheelRevsToMetersTraveled(double revs, double wheelDiameterMeters)
   {
     double          circumferenceMeters = Math.PI * wheelDiameterMeters;
     return circumferenceMeters * revs;
@@ -72,10 +72,10 @@ public class Conversion
    * @return
    *   Equivalent number of revolutions traveled
    */
-  static double wheelMetersTraveledToRevs(double meters, double wheelDiameterMeters)
+  static public double wheelMetersTraveledToRevs(double meters, double wheelDiameterMeters)
   {
     double          circumferenceMeters = Math.PI * wheelDiameterMeters;
-    return meters / cirfumerenceMeters;
+    return meters / circumferenceMeters;
   }
 
   /**
@@ -90,7 +90,7 @@ public class Conversion
    * @return
    *   Revolutions per minute converted into meters per second
    */
-  static double rpmToMps(double rpm, double wheelDiameterMeters)
+  static public double rpmToMps(double rpm, double wheelDiameterMeters)
   {
     double          circumferenceMeters = Math.PI * wheelDiameterMeters;
     return rpm * circumferenceMeters / 60;
@@ -108,7 +108,7 @@ public class Conversion
    * @return
    *   Meters per second converted into revolutions per minute
    */
-  static double mpsToRpm(double mps, double wheelDiameterMeters)
+  static public double mpsToRpm(double mps, double wheelDiameterMeters)
   {
     double          circumferenceMeters = Math.PI * wheelDiameterMeters;
     return mps * 60 / circumferenceMeters;
@@ -126,9 +126,9 @@ public class Conversion
    * @return
    *   Degrees of motion resulting from specified number of ticks
    */
-  static double rotaryEncoderTicksToDegrees(ticks, ticksPerRev)
+  static public double rotaryEncoderTicksToDegrees(double ticks, double ticksPerRev)
   {
-    return ticks * (360 / ticksPerRev)
+    return ticks * (360.0 / ticksPerRev);
   }
 
   /**
@@ -143,9 +143,9 @@ public class Conversion
    * @return
    *   Ticks resulting from specified degrees of motion
    */
-  static double degreesToRotaryEncoderTicks(degrees, ticksPerRev)
+  static public double degreesToRotaryEncoderTicks(double degrees, double ticksPerRev)
   {
-    return degrees / (360 / ticksPerRev);
+    return degrees / (360.0 / ticksPerRev);
   }
 
   /**
@@ -158,7 +158,7 @@ public class Conversion
    * @return
    *   The degrees converted to radians
    */
-  static double degreesToRadians(double degrees)
+  static public double degreesToRadians(double degrees)
   {
     while (degrees > 360.0)
     {
@@ -167,7 +167,7 @@ public class Conversion
 
     while (degrees < 0.0)
     {
-      degress += 360.0;
+      degrees += 360.0;
     }
     
     return (Math.PI * 2) * (degrees / 360);
@@ -183,7 +183,7 @@ public class Conversion
    * @return
    *   The radians converted to degrees
    */
-  static double radiansToDegrees(double degrees)
+  static public double radiansToDegrees(double radians)
   {
     while (radians > 2 * Math.PI)
     {

@@ -1,3 +1,4 @@
+/*
 import static org.junit.Assert.*;
 
 import static org.junit.Assert.assertEquals;
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import frc.robot.MotorRPMs;
 import frc.robot.Robot;
 import frc.robot.Vec2d;
+*/
 
 public class SwerveStateTest {
 
