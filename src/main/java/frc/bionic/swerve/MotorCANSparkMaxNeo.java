@@ -10,7 +10,7 @@
  *   See the LICENSE file in the project's top-level directory for details.
  */
 
-package bionic.swerve;
+package frc.bionic.swerve;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;

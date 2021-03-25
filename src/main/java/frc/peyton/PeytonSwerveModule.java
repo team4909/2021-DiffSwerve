@@ -25,17 +25,14 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
   // Maximum yaw speed in RPM
   private static final double       MAX_YAW_SPEED_RPM = 200;
 
-  // Wheel diameter in meters
-  private static final double       WHEEL_DIAMETER_METERS = frc.bionic.Conversion.inchesToMeters(3.0);
-
-  PeytonSwerveModule(int pwmMotorChannelA, int pwmMotorChannelB,
-                     int dioEncoderChannelA, int dioEncoderChannelB,
-                     String name, String shuffleboardTabName)
+  public PeytonSwerveModule(int pwmMotorChannelA, int pwmMotorChannelB,
+                            int dioEncoderChannelA, int dioEncoderChannelB,
+                            String name, String shuffleboardTabName)
   {
     super(GEAR_RATIO_12, GEAR_RATIO_123, MAX_YAW_SPEED_RPM, 
           pwmMotorChannelA, pwmMotorChannelB,
           dioEncoderChannelA, dioEncoderChannelB,
-          WHEEL_DIAMETER_METERS,
+          frc.bionic.Conversion.inchesToMeters(3.0),
           name, shuffleboardTabName);
   }
 }

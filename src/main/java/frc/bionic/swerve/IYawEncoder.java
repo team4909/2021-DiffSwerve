@@ -63,7 +63,7 @@ public interface IYawEncoder
    */
   default double getDistanceRadians()
   {
-    return bionic.Conversion.degreesToRadians(getDistanceDegrees());
+    return frc.bionic.Conversion.degreesToRadians(getDistanceDegrees());
   }
 
   /**

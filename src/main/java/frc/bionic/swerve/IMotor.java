@@ -10,7 +10,7 @@
  *   See the LICENSE file in the project's top-level directory for details.
  */
 
-package bionic.swerve;
+package frc.bionic.swerve;
 
 /**
  * This is the interface expected to be implemented for a motor / motor
