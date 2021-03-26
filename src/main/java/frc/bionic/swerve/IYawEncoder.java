@@ -84,22 +84,6 @@ public interface IYawEncoder
   double getOutputSignedPercent();
 
   /**
-   * Calculate the PID output, given the current condition. The new setpoint
-   * is established prior to calculating the output to be returned.
-   *
-   * @param current
-   *   The current value, as read from sensors, etc., of the process being
-   *   controlled by this PID
-   *
-   * @param setpoint
-   *   A new setpoint to establish.
-   *
-   * @return
-   *   The PID output, as calculated, taking into consideration the the
-   *   established kP, kI, kD values, and the current process value and the
-   *   setpoint.
-   */
-  /**
    * Calculate output based on previous goal provided to
    * `setGoalDegrees`, given the current condition.
    *
