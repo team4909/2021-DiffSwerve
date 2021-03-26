@@ -44,11 +44,11 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
   private String            name;
   private String            shuffleboardTabName;
 
-  NetworkTableEntry         sb_angle;
-  NetworkTableEntry         sb_goal;
-  NetworkTableEntry         sb_goal_set;
-  NetworkTableEntry         sb_output;
-  NetworkTableEntry         sb_apply;
+  private NetworkTableEntry sb_angle;
+  private NetworkTableEntry sb_goal;
+  private NetworkTableEntry sb_goal_set;
+  private NetworkTableEntry sb_output;
+  private NetworkTableEntry sb_apply;
 
 
   /**
@@ -66,7 +66,7 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
    * @param shuffleboardTabName
    *   Tab on which to place shuffleboard fields
    */
-  YawEncoderGrayhill63R128(int dioChannelA, int dioChannelB, String name, String shuffleboardTabName)
+  public YawEncoderGrayhill63R128(int dioChannelA, int dioChannelB, String name, String shuffleboardTabName)
   {
     // Save parameter values used elsewhere
     this.name = name;

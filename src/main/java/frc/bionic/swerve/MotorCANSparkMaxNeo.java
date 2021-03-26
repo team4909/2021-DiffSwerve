@@ -75,7 +75,7 @@ public class MotorCANSparkMaxNeo implements IMotor
    * @param shuffleboardTabName
    *   Tab on which to place shuffleboard fields
    */
-  MotorCANSparkMaxNeo(int pwmChannel, String name, String shuffleboardTabName)
+  public MotorCANSparkMaxNeo(int pwmChannel, String name, String shuffleboardTabName)
   {
     // Save parameter values used elsewhere
     this.name = name;

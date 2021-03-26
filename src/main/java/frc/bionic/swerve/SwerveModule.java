@@ -42,54 +42,84 @@ public class SwerveModule
   public double             desiredYawDegrees;
   
   // Devices, Sensors, Actuators
-  MotorCANSparkMaxNeo       m_driveMotorA;
-  MotorCANSparkMaxNeo       m_driveMotorB;
-  YawEncoderGrayhill63R128  m_yawEncoder;
+  IMotor                    m_driveMotorA;
+  IMotor                    m_driveMotorB;
+  IYawEncoder               m_yawEncoder;
   
   // Shuffleboard-related
   private String            name;
   private String            shuffleboardTabName;
-  private NetworkTableEntry sb_yaw;
-  private NetworkTableEntry sb_wheel_rpm;
   private NetworkTableEntry sb_wheel_calc;
   private NetworkTableEntry sb_yaw_calc;
   private NetworkTableEntry sb_trans;
+  private NetworkTableEntry sb_yaw_set;
+  private NetworkTableEntry sb_wheel_rpm_set;
+  private NetworkTableEntry sb_apply;
 
+  // Block periodic until we're initialized
+  private boolean           bInitialized = false;
   
   
 
 
-  public SwerveModule(double gearRatio12, double gearRatio123, double maxYawSpeedRpm,
-                      int driveMotorChannelA, int driveMotorChannelB,
-                      int dioEncoderChannelA, int dioEncoderChannelB,
-                      double wheelDiameterMeters,
-                      String name, String shuffleboardTabName)
+  public SwerveModule(String name, String shuffleboardTabName)
   {
     // Save arguments
-    GEAR_RATIO_12             = gearRatio12;
-    GEAR_RATIO_123            = gearRatio123;
+    this.name = name;
+    this.shuffleboardTabName = shuffleboardTabName;
+
+    // Initialize all of the shuffleboard inputs and outputs
+    initShuffleboard();
+  }
+
+  /**
+   * Initialize this module with the details provided by the robot-specific
+   * subclass.
+   *
+   * @param gearRatioYaw
+   *   The gear ratio, possibly only using a subset of the gear pairs in the
+   *   module, which is responsible for the amount of yaw as a function of the
+   *   two motors' speeds
+   *
+   * @param gearRatioWheelSpeed
+   *   The gear ratio, typically consisting of all gear pairs in the module,
+   *   responsible for the amount of wheel rotation as a function of the two
+   *   motors' speed
+   *
+   * @param maxYawSpeedRpm
+   *   The maximum speed that yaw should be allowed. This value is scaled by
+   *   the encoder output, to adjust the yaw of the module
+   *
+   * @param motorA
+   *   Instance of the first of the two motors used for differential swerve
+   *
+   * @param motorB
+   *   Instance of the second of the two motors used for differential swerve
+   *
+   * @param encoder
+   *   Instance of the encoder used for ascertaining the module's yaw
+   *
+   * @param wheelDiameterMeters
+   *   The diameter of the module's wheel, in meters
+   */
+  public void initialize(double gearRatioYaw, double gearRatioWheelSpeed, double maxYawSpeedRpm,
+                         IMotor motorA, IMotor motorB, IYawEncoder encoder, double wheelDiameterMeters)
+  {
+    // Save arguments
+    m_driveMotorA             = motorA;
+    m_driveMotorB             = motorB;
+    m_yawEncoder              = encoder;
+    GEAR_RATIO_YAW            = gearRatioYaw;
+    GEAR_RATIO_WHEEL_SPEED    = gearRatioWheelSpeed;
     MAX_YAW_SPEED_RPM         = maxYawSpeedRpm;
     WHEEL_DIAMETER_METERS     = wheelDiameterMeters;
-    this.name                 = name;
-    this.shuffleboardTabName  = shuffleboardTabName;
-
-    // Instantiate the two swerve motors our swerve module incorporates
-    m_driveMotorA =
-      new MotorCANSparkMaxNeo(driveMotorChannelA, name + " A", shuffleboardTabName);
-    m_driveMotorB =
-      new MotorCANSparkMaxNeo(driveMotorChannelB, name + " B", shuffleboardTabName);
-
-    // Instantiate the yaw encoder our swerve module incorporates
-    m_yawEncoder =
-      new YawEncoderGrayhill63R128(dioEncoderChannelA, dioEncoderChannelB, "Grayhill", shuffleboardTabName);
 
     // If we're using a relative encoder, assume the robot starts up
     // facing to the zero position. If we're using an absolute
     // encoder, the `setZero` method is a no-op.
     m_yawEncoder.setZero();
 
-    // Initialize all of the shuffleboard inputs and outputs
-    initShuffleboard();
+    // We're now initialized, so periodic() can be entered
   }
 
   /**
@@ -116,8 +146,8 @@ public class SwerveModule
     desiredYawDegrees = state.angle.getDegrees();
 
     // Keep shuffleboard up to date with provided state
-    sb_yaw.setDouble(desiredYawDegrees);
-    sb_wheel_rpm.setDouble(desiredWheelSpeedRPM);
+    sb_yaw_set.setDouble(desiredYawDegrees);
+    sb_wheel_rpm_set.setDouble(desiredWheelSpeedRPM);
   }
 
   /**
@@ -139,9 +169,15 @@ public class SwerveModule
   {
     double                    calculatedYawRPM;
 
+    // If we're not yet initialized, wait for next time
+    if (! bInitialized)
+    {
+      return;
+    }
+
     // Get desired yaw and wheel speed
-    desiredYawDegrees = sb_yaw.getDouble(0);
-    desiredWheelSpeedRPM = sb_wheel_rpm.getDouble(0);
+    desiredYawDegrees = sb_yaw_set.getDouble(0);
+    desiredWheelSpeedRPM = sb_wheel_rpm_set.getDouble(0);
 
     // Determine the percentage of output, based on difference between
     // yaw goal and actual angle, to be used in the RPM calculation.
@@ -221,10 +257,15 @@ public class SwerveModule
     ShuffleboardTab           tab;
     ShuffleboardLayout        layout;
 
-    tab            = Shuffleboard.getTab(shuffleboardTabName);
-    layout         = tab.getLayout("Module " + name, BuiltInLayouts.kList);
+    tab              = Shuffleboard.getTab(shuffleboardTabName);
+    layout           = tab.getLayout("Module " + name, BuiltInLayouts.kList);
 
-    sb_trans       = layout.add("Translation",  0).getEntry();
+    sb_trans         = layout.add("Translation",  0).getEntry();
+
+
+    sb_wheel_rpm_set = layout.add("wheel set rpm",  0).getEntry();
+    sb_yaw_set       = layout.add("yaw set deg",  0).getEntry();
+    sb_apply         = layout.add("Apply", false).getEntry();
   }
 
   /**

@@ -23,7 +23,7 @@ public class Robot extends TimedRobot
 
   public void robotInit()
   {
-    swerveRF = new PeytonSwerveModule(1,2, 0, 1, "RF", "Peyton");
+    swerveRF = new PeytonSwerveModule(1, 2, 0, 1, "RF", "Peyton");
     swerveLF = new PeytonSwerveModule(3, 4, 2, 3, "LF", "Peyton");
     swerveLR = new PeytonSwerveModule(5, 6, 4, 5, "LR", "Peyton");
     swerveRR = new PeytonSwerveModule(7, 8, 6, 7, "RR", "Peyton");
