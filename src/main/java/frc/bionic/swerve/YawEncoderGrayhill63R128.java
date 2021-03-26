@@ -21,19 +21,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
-/*
- * This is the interface expected to be implemented for the encoder that
- * ascertains the yaw of the swerve module to be used with Bionic
- * Swerve.
- *
- * The constructor might include (but not be limited to) the following:
- *
- *   - instantiate an encoder instance
- *   - set factory defaults
- *   - set zero point, if not an absolute encoder
- *   - instantiate and initialize the yaw PID
- *   - set yaw PID's continuous output range
- */
 public class YawEncoderGrayhill63R128 implements IYawEncoder
 {
   // Devices, Sensors, Actuators
