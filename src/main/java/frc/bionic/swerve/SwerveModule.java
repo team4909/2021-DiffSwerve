@@ -259,6 +259,8 @@ public class SwerveModule
 
     sb_trans         = layout.add("translation",  0).getEntry();
 
+    sb_wheel_calc    = layout.add("calc wheel rpm", 0).getEntry();
+    sb_yaw_calc      = layout.add("calc yaw rpm", 0).getEntry();
 
     sb_wheel_rpm_set = layout.add("wheel set rpm",  0).getEntry();
     sb_yaw_set       = layout.add("yaw set deg",  0).getEntry();
