@@ -93,5 +93,10 @@ public interface IYawEncoder
    * @return
    *   The calculated output, in range [-1.0, 1.0].
    */
-  double getOutputSignedPercent(double goalDegrees);
+  default double getOutputSignedPercent(double goalDegrees)
+  {
+    setGoalDegrees(goalDegrees);
+    return getOutputSignedPercent();
+  }
+
 }

@@ -132,13 +132,6 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
     return pid.calculate(getDistanceDegrees(), getGoalDegrees()) / 180.0;
   }
 
-  // interface implementation
-  public double getOutputSignedPercent(double goalDegrees)
-  {
-    pid.setSetpoint(goalDegrees);
-    return getOutputSignedPercent();
-  }
-
   /**
    * Initialize the shuffleboard interface for this motor
    */
