@@ -175,10 +175,6 @@ public class SwerveModule
       return;
     }
 
-    // Get desired yaw and wheel speed
-    desiredYawDegrees = sb_yaw_set.getDouble(0);
-    desiredWheelSpeedRPM = sb_wheel_rpm_set.getDouble(0);
-
     // Determine the percentage of output, based on difference between
     // yaw goal and actual angle, to be used in the RPM calculation.
     calculatedYawRPM = m_yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
