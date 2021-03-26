@@ -160,17 +160,9 @@ public class Conversion
    */
   static public double degreesToRadians(double degrees)
   {
-    while (degrees > 360.0)
-    {
-      degrees -= 360.0;
-    }
-
-    while (degrees < 0.0)
-    {
-      degrees += 360.0;
-    }
-    
-    return (Math.PI * 2) * (degrees / 360);
+    // Normalize provided degrees to be within [0.0, 360.0]
+    degrees = normalize(degrees, 0.0, 360.0);
+    return (2 * Math.PI) * (degrees / 360);
   }
 
   /**
@@ -185,16 +177,32 @@ public class Conversion
    */
   static public double radiansToDegrees(double radians)
   {
-    while (radians > 2 * Math.PI)
-    {
-      radians -= 2 * Math.PI;
-    }
+    // Normalize provided radians to be in range [0.0, 2 * PI]
+    radians = normalize(radians, 0.0, 2 * Math.PI);
+    return 360 * radians / 2 * Math.PI;
+  }
 
-    while (radians < 0.0)
-    {
-      radians += 2 * Math.PI;
-    }
+  /**
+   * Normalize a value to be within a rnage
+   * https://stackoverflow.com/a/2021986
+   *
+   * @param value
+   *   The value to be normalized
+   *
+   * @param rangeStart
+   *   The beginning of the range
+   *
+   * @param rangeEnd
+   *   The end of the range
+   *
+   * @return
+   *   The normalized value
+   */
+  static public double normalize(double value, double rangeStart, double rangeEnd)
+  {
+    final double              width = rangeEnd - rangeStart;
+    final double              offsetValue = value - rangeStart; // value relative to 0
 
-    return 360 * (radians / (Math.PI * 2));
+    return (offsetValue - (Math.floor(offsetValue / width) * width)) + rangeStart;
   }
 }
