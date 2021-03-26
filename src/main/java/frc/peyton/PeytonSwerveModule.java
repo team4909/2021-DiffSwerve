@@ -42,7 +42,7 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
 
     // Instantiate the yaw encoder our swerve module incorporates
     IYawEncoder encoder = new YawEncoderGrayhill63R128(dioEncoderChannelA, dioEncoderChannelB, 
-                                           name + " Grayhill", shuffleboardTabName);
+                                                       name, shuffleboardTabName);
 
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 
                motorA, motorB, encoder, WHEEL_DIAMETER_METERS);
