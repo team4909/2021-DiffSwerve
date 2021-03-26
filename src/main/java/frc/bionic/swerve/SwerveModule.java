@@ -120,6 +120,7 @@ public class SwerveModule
     m_yawEncoder.setZero();
 
     // We're now initialized, so periodic() can be entered
+    bInitialized = true;
   }
 
   /**
