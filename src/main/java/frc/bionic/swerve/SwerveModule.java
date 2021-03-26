@@ -260,7 +260,7 @@ public class SwerveModule
     tab              = Shuffleboard.getTab(shuffleboardTabName);
     layout           = tab.getLayout("Module " + name, BuiltInLayouts.kList);
 
-    sb_trans         = layout.add("Translation",  0).getEntry();
+    sb_trans         = layout.add("translation",  0).getEntry();
 
 
     sb_wheel_rpm_set = layout.add("wheel set rpm",  0).getEntry();
