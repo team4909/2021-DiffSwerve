@@ -84,8 +84,8 @@ public interface IYawEncoder
   double getOutputSignedPercent();
 
   /**
-   * Calculate output based on previous goal provided to
-   * `setGoalDegrees`, given the current condition.
+   * Calculate output based on a new goal, given the current
+   * condition. Saves the new goal.
    *
    * @param goal
    *   A new goal, in degrees, to attempt to attain
