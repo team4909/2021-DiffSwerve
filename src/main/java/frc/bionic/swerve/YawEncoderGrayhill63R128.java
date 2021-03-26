@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class YawEncoderGrayhill63R128 implements IYawEncoder
 {
@@ -70,7 +71,7 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
 
     // Create a PID. 
     pid = new PIDController(1, 0, 0);
-    pid.enableContinuousInput(0.0, 1.0);
+    pid.enableContinuousInput(-180.0, 180.0);
 
     // Initialize the shuffleboard interface
     initShuffleboard();
@@ -98,6 +99,7 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
   // interface implementation
   public void setGoalDegrees(double goalDegrees)
   {
+    SmartDashboard.putNumber("req goal deg", goalDegrees);
     pid.setSetpoint(goalDegrees);
   }
 
@@ -116,7 +118,11 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
     // Since we have `setContinuousInput(-180.0, 180.0)`, the PID will
     // always yield a result in that range. Scale it for the documented, 
     // standardized output of range [-1.0, 1.0].
-    return pid.calculate(getDistanceDegrees(), getGoalDegrees()) / 180.0;
+    double pidCalc = pid.calculate(getDistanceDegrees(), getGoalDegrees());
+    SmartDashboard.putNumber("yaw dist deg", getDistanceDegrees());
+    SmartDashboard.putNumber("yaw goal deg", getGoalDegrees());
+    SmartDashboard.putNumber("yaw pidCalc", pidCalc);
+    return pidCalc / 180.0;
   }
 
   /**

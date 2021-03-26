@@ -12,6 +12,8 @@
 
 package frc.bionic.swerve;
 
+import java.util.Map;
+
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -20,9 +22,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.MedianFilter;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class MotorCANSparkMaxNeo implements IMotor
@@ -97,13 +101,23 @@ public class MotorCANSparkMaxNeo implements IMotor
     // Prepare to display (on shuffleboard) recent average RPM
     velAverage = new MedianFilter(50);
 
+    pid.setP(kMotorP);
+    pid.setI(kMotorI);
+    pid.setD(kMotorD);
+    pid.setIZone(kMotorIz);
+    pid.setFF(kMotorFf);
+    pid.setOutputRange(kMotorMax, kMotorMin);
+
     // Initialize the shuffleboard interface
     initShuffleboard();
+
+    
   }
 
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
+    SmartDashboard.putNumber(name + " goal", goalRPM);
     pid.setReference(goalRPM, ControlType.kVelocity);
   }
 
@@ -129,14 +143,17 @@ public class MotorCANSparkMaxNeo implements IMotor
     ShuffleboardLayout        layout;
     ShuffleboardLayout        sublayout;
 
-    tab            = Shuffleboard.getTab(shuffleboardTabName);
-    layout         = tab.getLayout("Motor " + name, BuiltInLayouts.kList);
+    tab            = Shuffleboard.getTab(shuffleboardTabName+" Motors");
+    layout         = tab.getLayout("Motor " + name, BuiltInLayouts.kGrid);
+    layout.withSize(3, 8);
+    layout.withPosition(9, 3);
+    layout.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
 
-    sublayout      = layout.getLayout("Velocity", BuiltInLayouts.kList);
-    sb_vel_rpm     = sublayout.add("rpm",  0).getEntry();
+    sublayout      = layout.getLayout("Velocity", BuiltInLayouts.kGrid);
+    sb_vel_rpm     = sublayout.add("rpm",  0).withWidget(BuiltInWidgets.kTextView).getEntry();
     sb_vel_avg     = sublayout.add("avg",  0).getEntry();
     sb_vel_rpm_set = sublayout.add("set rpm", 0).getEntry();
-    sb_vel_apply   = sublayout.add("Apply", false).getEntry();
+    sb_vel_apply   = sublayout.add("Apply", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
     sublayout      = layout.getLayout("PID", BuiltInLayouts.kList);
     sb_pid_kp      = sublayout.addPersistent("kP", kMotorP).getEntry();
@@ -144,9 +161,10 @@ public class MotorCANSparkMaxNeo implements IMotor
     sb_pid_kd      = sublayout.addPersistent("kD", kMotorD).getEntry();
     sb_pid_kiz     = sublayout.addPersistent("kIz", kMotorIz).getEntry();
     sb_pid_kff     = sublayout.addPersistent("kFF", kMotorFf).getEntry();
+    sublayout      = layout.getLayout("Debug", BuiltInLayouts.kList);
     sb_pid_max     = sublayout.addPersistent("max", kMotorMax).getEntry();
     sb_pid_min     = sublayout.addPersistent("min", kMotorMin).getEntry();
-    sb_pid_apply   = sublayout.add("Apply", false).getEntry();
+    sb_pid_apply   = sublayout.add("Apply", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
   }
 
   /**

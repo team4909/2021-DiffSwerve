@@ -131,6 +131,94 @@
               "_source0": "network_table:///SmartDashboard/Desired Angle",
               "_title": "Desired Angle"
             }
+          },
+          "17,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw pidCalc",
+              "_title": "yaw pidCalc"
+            }
+          },
+          "18,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw dist deg",
+              "_title": "yaw dist deg"
+            }
+          },
+          "19,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw goal deg",
+              "_title": "yaw goal deg"
+            }
+          },
+          "20,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/req goal deg",
+              "_title": "req goal deg"
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF Agoal",
+              "_title": "RF Agoal"
+            }
+          },
+          "15,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF Bgoal",
+              "_title": "RF Bgoal"
+            }
+          },
+          "16,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF A goal",
+              "_title": "RF A goal"
+            }
+          },
+          "17,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF B goal",
+              "_title": "RF B goal"
+            }
           }
         }
       }
@@ -191,32 +279,32 @@
                 {
                   "_type": "Encoder",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]",
-                  "_title": "/LiveWindow/Ungrouped/Encoder[1]"
+                  "_title": "Encoder[1]"
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[3]",
-                  "_title": "/LiveWindow/Ungrouped/PIDController[3]"
+                  "_title": "PIDController[3]"
                 },
                 {
                   "_type": "Encoder",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[2]",
-                  "_title": "/LiveWindow/Ungrouped/Encoder[2]"
+                  "_title": "Encoder[2]"
                 },
                 {
                   "_type": "Encoder",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[3]",
-                  "_title": "/LiveWindow/Ungrouped/Encoder[3]"
+                  "_title": "Encoder[3]"
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
-                  "_title": "/LiveWindow/Ungrouped/PIDController[2]"
+                  "_title": "PIDController[2]"
                 },
                 {
                   "_type": "Gyro",
                   "_source0": "network_table:///LiveWindow/Ungrouped/AnalogGyro[0]",
-                  "_title": "/LiveWindow/Ungrouped/AnalogGyro[0]",
+                  "_title": "AnalogGyro[0]",
                   "Visuals/Major tick spacing": 45.0,
                   "Visuals/Starting angle": 180.0,
                   "Visuals/Show tick mark ring": true,
@@ -225,7 +313,7 @@
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[4]",
-                  "_title": "/LiveWindow/Ungrouped/PIDController[4]"
+                  "_title": "PIDController[4]"
                 }
               ]
             }
@@ -684,6 +772,346 @@
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kP",
               "_title": "kP"
+            }
+          },
+          "7,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Grid Layout",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {}
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Peyton",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "5,0": {
+            "size": [
+              2,
+              8
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Module RF",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/translation",
+                  "_title": "translation"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/calc wheel rpm",
+                  "_title": "calc wheel rpm"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/calc yaw rpm",
+                  "_title": "calc yaw rpm"
+                },
+                {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/Apply",
+                  "_title": "Apply"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/yaw set deg",
+                  "_title": "yaw set deg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/wheel set rpm",
+                  "_title": "wheel set rpm"
+                }
+              ]
+            }
+          },
+          "7,0": {
+            "size": [
+              2,
+              8
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Yaw Encoder RF",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/angle deg",
+                  "_title": "angle deg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/goal deg",
+                  "_title": "goal deg"
+                },
+                {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/Apply",
+                  "_title": "Apply"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/output +-%",
+                  "_title": "output +-%"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/goal set deg",
+                  "_title": "goal set deg"
+                }
+              ]
+            }
+          },
+          "9,0": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Motor RF A",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 1,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 2,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/Apply",
+                      "_title": "Apply"
+                    },
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/avg",
+                      "_title": "avg"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/rpm",
+                      "_title": "rpm"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/set rpm",
+                      "_title": "set rpm"
+                    }
+                  }
+                },
+                "0,0": {
+                  "_type": "Grid Layout",
+                  "_title": "PID",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 5,
+                  "Layout/Label position": "LEFT",
+                  "_children": {
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/max",
+                      "_title": "max"
+                    },
+                    "1,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/min",
+                      "_title": "min"
+                    },
+                    "1,2": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/Apply",
+                      "_title": "Apply"
+                    },
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kP",
+                      "_title": "kP"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kI",
+                      "_title": "kI"
+                    },
+                    "0,4": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kIz",
+                      "_title": "kIz"
+                    },
+                    "0,3": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kFF",
+                      "_title": "kFF"
+                    },
+                    "0,2": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kD",
+                      "_title": "kD"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "9,4": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Motor RF B",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 2,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/Apply",
+                      "_title": "Apply"
+                    },
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/avg",
+                      "_title": "avg"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/rpm",
+                      "_title": "rpm"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/set rpm",
+                      "_title": "set rpm"
+                    }
+                  }
+                },
+                "0,0": {
+                  "_type": "Grid Layout",
+                  "_title": "PID",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 5,
+                  "Layout/Label position": "LEFT",
+                  "_children": {
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/max",
+                      "_title": "max"
+                    },
+                    "1,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/min",
+                      "_title": "min"
+                    },
+                    "1,2": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/Apply",
+                      "_title": "Apply"
+                    },
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kP",
+                      "_title": "kP"
+                    },
+                    "0,2": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kD",
+                      "_title": "kD"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kI",
+                      "_title": "kI"
+                    },
+                    "0,3": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kFF",
+                      "_title": "kFF"
+                    },
+                    "0,4": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kIz",
+                      "_title": "kIz"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "7,10": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw pidCalc",
+              "_title": "SmartDashboard/yaw pidCalc"
+            }
+          },
+          "7,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw dist deg",
+              "_title": "SmartDashboard/yaw dist deg"
+            }
+          },
+          "7,9": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw goal deg",
+              "_title": "SmartDashboard/yaw goal deg"
+            }
+          },
+          "16,2": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/Apply",
+              "_title": "Shuffleboard/Peyton/Motor RF A/PID/Apply",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }

@@ -38,8 +38,8 @@ public class SwerveModule
 
   // Desired state -- velocity of wheel in RPM, angle in degrees
   // Angles are measured counter-clockwise, with zero being "robot forward"
-  public double             desiredWheelSpeedRPM;
-  public double             desiredYawDegrees;
+  public double             desiredWheelSpeedRPM = 0.0;
+  public double             desiredYawDegrees = 0.0;
   
   // Devices, Sensors, Actuators
   IMotor                    m_driveMotorA;
