@@ -23,13 +23,12 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class SwerveModule
 {
-  // Gear ratio of first two pairs of gears.
-  // Yaw does not depend on the third pair.
-  private double             GEAR_RATIO_12;
+  // Gear ratio for yaw. This may not include all pairs of gears.
+  private double             GEAR_RATIO_YAW;
 
-  // Gear ratio of all three pairs of gears.
-  // Wheel speed depends on all three.
-  private double             GEAR_RATIO_123;
+  // Gear ratio for wheel speed. Typically, this includes all pairs of
+  // gears.
+  private double             GEAR_RATIO_WHEEL_SPEED;
 
   // Maximum yaw speed in RPM
   private double            MAX_YAW_SPEED_RPM;
@@ -187,10 +186,11 @@ public class SwerveModule
   protected double motorRPMsToWheelRPM(double aMotorRPM, double bMotorRPM)
   {
     // Translation is calculated as half the difference of a and b,
-    // adjusted by gear ratio. Translation is dependent on all three
-    // pairs of gears. The differential pinion generates translation 
-    // as a function of the speed of the top and bottom differential gears.
-    return ((aMotorRPM - bMotorRPM) / 2) * GEAR_RATIO_123 ;
+    // adjusted by gear ratio. Translation is typically dependent on
+    // all three pairs of gears. The differential pinion generates
+    // translation as a function of the speed of the top and bottom
+    // differential gears.
+    return ((aMotorRPM - bMotorRPM) / 2) * GEAR_RATIO_WHEEL_SPEED ;
   }
 
   /**
@@ -208,16 +208,14 @@ public class SwerveModule
   protected double motorRPMsToModuleYawRPM(double aMotorRPM, double bMotorRPM)
   {
     // Yaw is calculated as the average of a and b, adjusted by gear ratio
-    // Yaw does not depend on the third pair of gears, thus GEAR_RATIO_12
-    // only includes the first two gear reductions.
-    return ((aMotorRPM + bMotorRPM) / 2) * GEAR_RATIO_12;
+    return ((aMotorRPM + bMotorRPM) / 2) * GEAR_RATIO_YAW;
   }
 
   // convert desired translation and yaw RPMs to motor RPMs
   protected void setMotorSpeedsRPM(double wheelRPM, double yawRPM)
   {
-    double aRPM = (yawRPM / GEAR_RATIO_12) + (wheelRPM / GEAR_RATIO_123);
-    double bRPM = (yawRPM / GEAR_RATIO_12) - (wheelRPM / GEAR_RATIO_123);
+    double aRPM = (yawRPM / GEAR_RATIO_YAW) + (wheelRPM / GEAR_RATIO_WHEEL_SPEED);
+    double bRPM = (yawRPM / GEAR_RATIO_YAW) - (wheelRPM / GEAR_RATIO_WHEEL_SPEED);
 
     m_driveMotorA.setGoalRPM(aRPM);
     m_driveMotorB.setGoalRPM(bRPM);
