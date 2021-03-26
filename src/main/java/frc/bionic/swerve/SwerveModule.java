@@ -278,6 +278,19 @@ public class SwerveModule
     double                    bMotorRPM;
     double                    currentWheelRPM;
 
+    // allow overriding settings during running test
+    if (sb_apply.getBoolean(false))
+    {
+      // reset pushbutton so it's ready for additional user changes
+      sb_apply.setBoolean(false);
+
+      // Convert the state to our internally-used units, and save
+      desiredWheelSpeedRPM = sb_wheel_rpm_set.getDouble(0);
+      desiredYawDegrees = sb_yaw_set.getDouble(0);
+
+      // periodic() will use the above values on its next invocation
+    }
+
     // get the motor speeds
     aMotorRPM = m_driveMotorA.getVelocityRPM();
     bMotorRPM = m_driveMotorB.getVelocityRPM();
