@@ -284,7 +284,7 @@ public class SwerveModule
       // reset pushbutton so it's ready for additional user changes
       sb_apply.setBoolean(false);
 
-      // Convert the state to our internally-used units, and save
+      // Save desired settings
       desiredWheelSpeedRPM = sb_wheel_rpm_set.getDouble(0);
       desiredYawDegrees = sb_yaw_set.getDouble(0);
 
