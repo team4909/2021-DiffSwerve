@@ -164,14 +164,6 @@ public class SwerveModule
   }
 
   /**
-   * Zero the yaw encoder
-   */
-  public void setZeroYaw()
-  {
-    m_yawEncoder.setZero();
-  }
-
-  /**
    * Get wheel speed in RPM
    *
    * @param aMotorRPM
