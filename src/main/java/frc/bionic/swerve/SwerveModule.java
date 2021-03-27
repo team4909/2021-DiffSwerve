@@ -271,7 +271,7 @@ public class SwerveModule
     sb_yaw_set       = layout.add("yaw set deg",  0).getEntry();
     sb_apply         = layout.add("Apply", false).getEntry();
 
-    sb_control       = layout.add("Control", false).getEntry();
+    sb_control       = layout.add("Control", true).getEntry();
   }
 
   /**

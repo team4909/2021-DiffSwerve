@@ -29,8 +29,7 @@ public class Drivetrain
   private final double kHalfWheelBaseLengthMeters;
 
   private final double kMaxSpeed;
-  private final double kMaxAngularSpeed;
-
+  
   private final Translation2d m_frontLeftLocation;
   private final Translation2d m_frontRightLocation;
   private final Translation2d m_backLeftLocation;
@@ -48,7 +47,6 @@ public class Drivetrain
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
   
     kMaxSpeed = 3.0; // 3 meters per second
-    kMaxAngularSpeed = Math.PI; // 1/2 rotation per second
   
     m_frontLeftLocation  =
       new Translation2d( kHalfWheelBaseWidthMeters,  kHalfWheelBaseLengthMeters);
@@ -63,17 +61,17 @@ public class Drivetrain
                                              m_backLeftLocation, m_backRightLocation);
 
     swerveRF = new PeytonSwerveModule(1, 2, 0, 1, "RF", "Peyton");
-    // swerveLF = new PeytonSwerveModule(3, 4, 2, 3, "LF", "Peyton");
-    // swerveLR = new PeytonSwerveModule(5, 6, 4, 5, "LR", "Peyton");
-    // swerveRR = new PeytonSwerveModule(7, 8, 6, 7, "RR", "Peyton");
+    swerveLF = new PeytonSwerveModule(3, 4, 2, 3, "LF", "Peyton");
+    swerveLR = new PeytonSwerveModule(5, 6, 4, 5, "LR", "Peyton");
+    swerveRR = new PeytonSwerveModule(7, 8, 6, 7, "RR", "Peyton");
   }
 
   public void periodic()
   {
     swerveRF.periodic();
-    // swerveLF.periodic();
-    // swerveLR.periodic();
-    // swerveRR.periodic();
+    swerveLF.periodic();
+    swerveLR.periodic();
+    swerveRR.periodic();
   }
 
   /**
@@ -89,8 +87,8 @@ public class Drivetrain
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
     
     swerveRF.setModuleState(swerveModuleStates[0]);
-    // swerveLF.setDesiredState(swerveModuleStates[1]);
-    // swerveLR.setDesiredState(swerveModuleStates[2]);
-    // swerveRR.setDesiredState(swerveModuleStates[3]);
+    swerveLF.setModuleState(swerveModuleStates[1]);
+    swerveLR.setModuleState(swerveModuleStates[2]);
+    swerveRR.setModuleState(swerveModuleStates[3]);
   }
 }
