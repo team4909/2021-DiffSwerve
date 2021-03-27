@@ -1212,19 +1212,6 @@
               "_source0": "network_table:///SmartDashboard/yaw goal deg",
               "_title": "yaw goal deg"
             }
-          },
-          "16,2": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/Apply",
-              "_title": "Shuffleboard/Peyton/Motor RF A/PID/Apply",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
           }
         }
       }
