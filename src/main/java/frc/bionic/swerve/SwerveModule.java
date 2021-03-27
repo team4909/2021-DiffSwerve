@@ -55,6 +55,7 @@ public class SwerveModule
   private NetworkTableEntry sb_yaw_set;
   private NetworkTableEntry sb_wheel_rpm_set;
   private NetworkTableEntry sb_apply;
+  private NetworkTableEntry sb_control;
 
   // Block periodic until we're initialized
   private boolean           bInitialized = false;
@@ -180,13 +181,17 @@ public class SwerveModule
     // yaw goal and actual angle, to be used in the RPM calculation.
     calculatedYawRPM = m_yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
 
+    if (sb_control.getBoolean(false))
+    {
+
+      // Given the desired wheel and yaw RPM, calculate and specify the
+      // motor speeds necessary to achieve them
+      setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+    }
+
     // report to dashboard
     sb_wheel_calc.setDouble(desiredWheelSpeedRPM);
     sb_yaw_calc.setDouble(calculatedYawRPM);
-
-    // Given the desired wheel and yaw RPM, calculate and specify the
-    // motor speeds necessary to achieve them
-    setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
 
     // Ensure that our motor and encoder periodic functions are called, too
     m_driveMotorA.periodic();
@@ -265,6 +270,8 @@ public class SwerveModule
     sb_wheel_rpm_set = layout.add("wheel set rpm",  0).getEntry();
     sb_yaw_set       = layout.add("yaw set deg",  0).getEntry();
     sb_apply         = layout.add("Apply", false).getEntry();
+
+    sb_control       = layout.add("Control", false).getEntry();
   }
 
   /**

@@ -34,10 +34,8 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
 
   private NetworkTableEntry sb_angle;
   private NetworkTableEntry sb_goal;
-  private NetworkTableEntry sb_goal_set;
   private NetworkTableEntry sb_output;
-  private NetworkTableEntry sb_apply;
-
+  
 
   /**
    * Constructor for a Grayhill 63R128 encoder implementation
@@ -139,9 +137,6 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
     sb_angle       = layout.add("angle deg",  0).getEntry();
     sb_goal        = layout.add("goal deg",  0).getEntry();
     sb_output      = layout.add("output +-%",  0).getEntry();
-
-    sb_goal_set    = layout.add("goal set deg",  0).getEntry();
-    sb_apply       = layout.add("Apply", false).getEntry();
   }
   
   /**
@@ -150,16 +145,6 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
    */
   private void syncShuffleboard()
   {
-    // allow overriding settings during running test
-    if (sb_apply.getBoolean(false))
-    {
-      // reset pushbutton so it's ready for additional user changes
-      sb_apply.setBoolean(false);
-
-      // Set the goal based on shuffleboard input
-      setGoalDegrees(sb_goal_set.getDouble(0));
-    }
-
     // Display encoder attributes
     sb_angle.setDouble(encoder.getDistance());
     sb_goal.setDouble(getGoalDegrees());

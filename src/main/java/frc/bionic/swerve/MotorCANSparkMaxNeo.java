@@ -106,12 +106,10 @@ public class MotorCANSparkMaxNeo implements IMotor
     pid.setD(kMotorD);
     pid.setIZone(kMotorIz);
     pid.setFF(kMotorFf);
-    pid.setOutputRange(kMotorMax, kMotorMin);
+    pid.setOutputRange(kMotorMin, kMotorMax);
 
     // Initialize the shuffleboard interface
     initShuffleboard();
-
-    
   }
 
   // interface implementation
@@ -143,7 +141,7 @@ public class MotorCANSparkMaxNeo implements IMotor
     ShuffleboardLayout        layout;
     ShuffleboardLayout        sublayout;
 
-    tab            = Shuffleboard.getTab(shuffleboardTabName+" Motors");
+    tab            = Shuffleboard.getTab(shuffleboardTabName);
     layout         = tab.getLayout("Motor " + name, BuiltInLayouts.kGrid);
     layout.withSize(3, 8);
     layout.withPosition(9, 3);
@@ -161,10 +159,9 @@ public class MotorCANSparkMaxNeo implements IMotor
     sb_pid_kd      = sublayout.addPersistent("kD", kMotorD).getEntry();
     sb_pid_kiz     = sublayout.addPersistent("kIz", kMotorIz).getEntry();
     sb_pid_kff     = sublayout.addPersistent("kFF", kMotorFf).getEntry();
-    sublayout      = layout.getLayout("Debug", BuiltInLayouts.kList);
     sb_pid_max     = sublayout.addPersistent("max", kMotorMax).getEntry();
     sb_pid_min     = sublayout.addPersistent("min", kMotorMin).getEntry();
-    sb_pid_apply   = sublayout.add("Apply", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+    sb_pid_apply   = sublayout.add("Apply", false).getEntry();
   }
 
   /**

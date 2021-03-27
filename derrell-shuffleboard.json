@@ -219,6 +219,111 @@
               "_source0": "network_table:///SmartDashboard/RF B goal",
               "_title": "RF B goal"
             }
+          },
+          "18,1": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Override State",
+              "_title": "Override State",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "20,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "ySpeed"
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Override State - Angle",
+              "_title": "Override State - Angle"
+            }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/State - speed",
+              "_title": "State - speed"
+            }
+          },
+          "2,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Override",
+              "_title": "Override",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/xSpeed",
+              "_title": "xSpeed"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rot",
+              "_title": "rot"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Override State - Speed",
+              "_title": "Override State - Speed"
+            }
+          },
+          "7,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/ZERO",
+              "_title": "ZERO",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
@@ -657,9 +762,11 @@
               "_source0": "network_table:///Shuffleboard/Swerve/Output/Translation",
               "_title": "Shuffleboard/Swerve/Output/Translation",
               "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul"
             }
           },
           "11,1": {
@@ -840,6 +947,11 @@
                   "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Peyton/Module RF/wheel set rpm",
                   "_title": "wheel set rpm"
+                },
+                {
+                  "_type": "Toggle Switch",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/Control",
+                  "_title": "Control"
                 }
               ]
             }
@@ -1076,7 +1188,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/yaw pidCalc",
-              "_title": "SmartDashboard/yaw pidCalc"
+              "_title": "yaw pidCalc"
             }
           },
           "7,8": {
@@ -1087,7 +1199,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/yaw dist deg",
-              "_title": "SmartDashboard/yaw dist deg"
+              "_title": "yaw dist deg"
             }
           },
           "7,9": {
@@ -1098,7 +1210,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/yaw goal deg",
-              "_title": "SmartDashboard/yaw goal deg"
+              "_title": "yaw goal deg"
             }
           },
           "16,2": {
