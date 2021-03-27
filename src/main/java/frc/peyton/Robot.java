@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
     // table.getEntry("")
     SmartDashboard.putBoolean("Override", false);
     SmartDashboard.putBoolean("ZERO", false);
+    SmartDashboard.putBoolean("Enable Slew", true);
   }
 
   @Override
@@ -104,6 +105,13 @@ public class Robot extends TimedRobot {
       xSpeed = 0;
       ySpeed = 0;
       rot    = 0;
+    }
+
+    if (SmartDashboard.getBoolean("Enable Slew", false)) {
+      
+      xSpeed = m_xspeedLimiter.calculate(xSpeed);
+      ySpeed = m_yspeedLimiter.calculate(ySpeed);
+      rot    = m_rotLimiter.calculate(rot);
     }
 
     SmartDashboard.putNumber("xSpeed", xSpeed);
