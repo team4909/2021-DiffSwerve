@@ -86,8 +86,8 @@ public class Drivetrain
     var swerveModuleStates = m_kinematics.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, rot));
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
     
-    swerveRF.setModuleState(swerveModuleStates[0]);
-    swerveLF.setModuleState(swerveModuleStates[1]);
+    swerveLF.setModuleState(swerveModuleStates[0]);
+    swerveRF.setModuleState(swerveModuleStates[1]);
     swerveLR.setModuleState(swerveModuleStates[2]);
     swerveRR.setModuleState(swerveModuleStates[3]);
   }
