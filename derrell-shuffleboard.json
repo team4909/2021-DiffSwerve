@@ -324,6 +324,72 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF A goal",
+              "_title": "LF A goal"
+            }
+          },
+          "10,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF B goal",
+              "_title": "LF B goal"
+            }
+          },
+          "11,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR A goal",
+              "_title": "LR A goal"
+            }
+          },
+          "12,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR B goal",
+              "_title": "LR B goal"
+            }
+          },
+          "15,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR A goal",
+              "_title": "RR A goal"
+            }
+          },
+          "16,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR B goal",
+              "_title": "RR B goal"
+            }
           }
         }
       }
@@ -1211,6 +1277,176 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/yaw goal deg",
               "_title": "yaw goal deg"
+            }
+          },
+          "10,9": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Control",
+              "_title": "Shuffleboard/Peyton/Module LF/Control"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 8",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "12,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance",
+              "_title": "Right Front"
+            }
+          },
+          "6,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]/Distance",
+              "_title": "Left Front"
+            }
+          },
+          "6,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[2]/Distance",
+              "_title": "Left Rear"
+            }
+          },
+          "12,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[3]/Distance",
+              "_title": "Right Rear"
+            }
+          },
+          "6,1": {
+            "size": [
+              10,
+              1
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Front",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {}
+            }
+          },
+          "8,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LR/translation",
+              "_title": "Shuffleboard/Peyton/Module LR/translation"
+            }
+          },
+          "8,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/translation",
+              "_title": "Shuffleboard/Peyton/Module LF/translation"
+            }
+          },
+          "14,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module RF/translation",
+              "_title": "Shuffleboard/Peyton/Module RF/translation"
+            }
+          },
+          "14,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module RR/translation",
+              "_title": "Shuffleboard/Peyton/Module RR/translation"
+            }
+          },
+          "7,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Override",
+              "_title": "SmartDashboard/Override"
+            }
+          },
+          "13,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rot",
+              "_title": "SmartDashboard/rot"
+            }
+          },
+          "9,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/xSpeed",
+              "_title": "SmartDashboard/xSpeed"
+            }
+          },
+          "11,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "SmartDashboard/ySpeed"
             }
           }
         }
