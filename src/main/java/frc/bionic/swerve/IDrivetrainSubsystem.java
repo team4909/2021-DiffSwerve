@@ -1,5 +1,22 @@
+/*
+ * Team 4909, Bionics
+ * Billerica Memorial High School
+ *
+ * Copyright:
+ *   2021 Bionics
+ *
+ * License:
+ *   MIT: https://opensource.org/licenses/MIT
+ *   See the LICENSE file in the project's top-level directory for details.
+ */
+
 package frc.bionic.swerve;
 
+/**
+ * The Drivetrain subsystem should implement both Subsystem and this
+ * interface. This one defines the additional methods that must be implemented
+ * in a Drivetrain class.
+ */
 public interface IDrivetrainSubsystem {
 
   /**
@@ -20,7 +37,7 @@ public interface IDrivetrainSubsystem {
 
   /**
    * To defend a position and make the robot hard to push 
-   * move every module to 45 degrees.
+   * move modules to opposing 45 degree angles.
    */
   void lockInPlace(); 
 }

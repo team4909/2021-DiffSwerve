@@ -66,8 +66,8 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     m_backLeftLocation   = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
     m_backRightLocation  = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
 
-    m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation,
-        m_backRightLocation);
+    m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation,
+                                             m_backLeftLocation, m_backRightLocation);
 
     swerveRF = new PeytonSwerveModule(1, 2, 0, 1, "RF", "Peyton");
     swerveLF = new PeytonSwerveModule(3, 4, 2, 3, "LF", "Peyton");
@@ -79,6 +79,7 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     SmartDashboard.putBoolean("NavX Reset", false);
   }
 
+  // interface (Subsystem) implementation
   public void periodic() {
     swerveRF.periodic();
     swerveLF.periodic();
@@ -94,13 +95,7 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
 
   }
 
-  /**
-   * Method to drive the robot using joystick info.
-   *
-   * @param xSpeed Speed of the robot in the x direction (forward) on the range [-1, 1].
-   * @param ySpeed Speed of the robot in the y direction (sideways) on the range [-1, 1].
-   * @param rot    Angular rate of the robot on the range [-1, 1].
-   */
+  // interface (IDrivetrainSubsystem) implementation
   public void drive(double xSpeed, double ySpeed, double rot) {
     var robotAngle = Rotation2d.fromDegrees(-navX.getAngle());
     var a = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, robotAngle);
@@ -123,7 +118,7 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     swerveRR.setModuleState(swerveModuleStates[3]);
   }
 
-  // Interface Implementation
+  // interface (IDrivetrainSubsystem) implementation
   public void lockInPlace() {
     swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));

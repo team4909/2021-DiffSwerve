@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.bionic.swerve.DriveWithJoystickCmd;
+import frc.bionic.swerve.command.DriveWithJoystick;
 import frc.peyton.Drivetrain;
 
 public class Robot extends TimedRobot {
@@ -38,28 +38,19 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().onCommandFinish(command -> Shuffleboard.addEventMarker(
         "Command finished", command.getName(), EventImportance.kNormal));
 
-    m_swerve.setDefaultCommand(new DriveWithJoystickCmd(m_swerve, m_controller));
+    m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
 
     new JoystickButton(m_controller, 11).whileHeld(() -> m_swerve.lockInPlace(), m_swerve);
-
-    
   }
 
   @Override
   public void robotPeriodic() {
     m_swerve.periodic();
-    
   }
 
   @Override
   public void teleopInit() {
   }
-
-  // @Override
-  // public void autonomousPeriodic() {
-  //   driveWithJoystick(false);
-  //   m_swerve.updateOdometry();
-  // }
 
   @Override
   public void teleopPeriodic() {

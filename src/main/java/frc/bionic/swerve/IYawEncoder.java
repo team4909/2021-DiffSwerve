@@ -98,5 +98,4 @@ public interface IYawEncoder
     setGoalDegrees(goalDegrees);
     return getOutputSignedPercent();
   }
-
 }

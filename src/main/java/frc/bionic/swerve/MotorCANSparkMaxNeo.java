@@ -71,7 +71,8 @@ public class MotorCANSparkMaxNeo implements IMotor
    * Constructor for a CAN Spark Max / Neo motor implementation
    *
    * @param canDeviceId
-   *   The PWM channel to which this motor controller is connected
+   *   The CAN device ID which this motor controller is configured to
+   *   listen on
    *
    * @param name
    *   Name used for debugging and for shuffleboard fields
@@ -101,6 +102,7 @@ public class MotorCANSparkMaxNeo implements IMotor
     // Prepare to display (on shuffleboard) recent average RPM
     velAverage = new MedianFilter(50);
 
+    // Set initial PID constants
     pid.setP(kMotorP);
     pid.setI(kMotorI);
     pid.setD(kMotorD);
