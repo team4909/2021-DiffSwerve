@@ -12,22 +12,19 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.bionic.swerve.command.DriveWithJoystick;
 import frc.peyton.Drivetrain;
 
 public class Robot extends TimedRobot {
-  private final Joystick m_controller = new Joystick(0);
-  private final Drivetrain m_swerve = new Drivetrain();
-
+  private final Drivetrain drivetrain = new Drivetrain();
 
   @Override
   public void robotInit() {
+    // Register objects that may be controlled via the user itnerface
+    UserInterface.registerObject("Drivetrain", drivetrain);
 
     // Set the scheduler to log Shuffleboard events for command initialize, interrupt, finish
     CommandScheduler.getInstance().onCommandInitialize(command -> Shuffleboard.addEventMarker(
@@ -36,26 +33,15 @@ public class Robot extends TimedRobot {
         "Command interrupted", command.getName(), EventImportance.kNormal));
     CommandScheduler.getInstance().onCommandFinish(command -> Shuffleboard.addEventMarker(
         "Command finished", command.getName(), EventImportance.kNormal));
-
-    m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
-
-    new JoystickButton(m_controller, 11).whileHeld(() -> m_swerve.lockInPlace(), m_swerve);
   }
 
   @Override
   public void robotPeriodic() {
-    m_swerve.periodic();
-  }
-
-  @Override
-  public void teleopInit() {
+    drivetrain.periodic();
   }
 
   @Override
   public void teleopPeriodic() {
-    // driveWithJoystick();
     CommandScheduler.getInstance().run();
   }
-
-  
 }

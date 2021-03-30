@@ -39,5 +39,11 @@ public interface IDrivetrainSubsystem {
    * To defend a position and make the robot hard to push 
    * move modules to opposing 45 degree angles.
    */
-  void lockInPlace(); 
+  void lockInPlace();
+
+  /**
+   * Reset the encoders so that zero is at the current position. This is
+   * a rudimentary calibration facility.
+   */
+  void resetEncoders();
 }

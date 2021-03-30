@@ -122,4 +122,12 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }
+
+  // interface (IDrivetrainSubsystem) implementation
+  public void resetEncoders() {
+    swerveLF.setZero();
+    swerveRF.setZero();
+    swerveLR.setZero();
+    swerveRR.setZero();
+  }
 }
