@@ -38,11 +38,21 @@ public class UserInterface
     objectRegistry.put(id, obj);
   }
 
-  /*
+  /**
    * Create the default user interface. All required objects are expected to
    * have been registered before this function is called.
    */
   public static void createDefaultUI()
+  {
+    createUIJoystick0();
+    createUIJoystick1();
+    createUIDashboard();
+  }
+
+  /**
+   * Create the user interface operated via Joystick 0
+   */
+  private static void createUIJoystick0()
   {
     Joystick                  joystick0 = new Joystick(0);
     Drivetrain                drivetrain = (Drivetrain) objectRegistry.get("Drivetrain");
@@ -63,5 +73,21 @@ public class UserInterface
     // Add a mapping to the primary joystick, to reset all encoders to zero
     new JoystickButton(joystick0, 12)
       .whenPressed(() -> drivetrain.resetEncoders(), drivetrain);
+  }
+
+  /**
+   * Create the user interface operated via Joystick 0
+   */
+  private static void createUIJoystick1()
+  {
+    // nothing yet
+  }
+
+  /**
+   * Create the user interface operated via a dashboard, e.g., Shuffleboard
+   */
+  private static void createUIDashboard()
+  {
+    // nothing yet
   }
 }
