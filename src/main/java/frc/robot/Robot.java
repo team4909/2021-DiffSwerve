@@ -33,6 +33,9 @@ public class Robot extends TimedRobot {
         "Command interrupted", command.getName(), EventImportance.kNormal));
     CommandScheduler.getInstance().onCommandFinish(command -> Shuffleboard.addEventMarker(
         "Command finished", command.getName(), EventImportance.kNormal));
+
+    // Create the user interface
+    UserInterface.createDefaultUI();
   }
 
   @Override
