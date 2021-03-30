@@ -70,7 +70,7 @@ public class MotorCANSparkMaxNeo implements IMotor
   /**
    * Constructor for a CAN Spark Max / Neo motor implementation
    *
-   * @param pwmChannel
+   * @param canDeviceId
    *   The PWM channel to which this motor controller is connected
    *
    * @param name
@@ -79,14 +79,14 @@ public class MotorCANSparkMaxNeo implements IMotor
    * @param shuffleboardTabName
    *   Tab on which to place shuffleboard fields
    */
-  public MotorCANSparkMaxNeo(int pwmChannel, String name, String shuffleboardTabName)
+  public MotorCANSparkMaxNeo(int canDeviceId, String name, String shuffleboardTabName)
   {
     // Save parameter values used elsewhere
     this.name = name;
     this.shuffleboardTabName = shuffleboardTabName;
 
     // Get access to the specified motor controller
-    motorController = new CANSparkMax(pwmChannel, MotorType.kBrushless);
+    motorController = new CANSparkMax(canDeviceId, MotorType.kBrushless);
     motorController.restoreFactoryDefaults();
 
     // Get the encoder and PID controller from the motor controller
