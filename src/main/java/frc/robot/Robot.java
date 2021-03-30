@@ -26,6 +26,9 @@ public class Robot extends TimedRobot {
     // Register objects that may be controlled via the user itnerface
     UserInterface.registerObject("Drivetrain", drivetrain);
 
+    // Create the user interface
+    UserInterface.createDefaultUI();
+
     // Set the scheduler to log Shuffleboard events for command initialize, interrupt, finish
     CommandScheduler.getInstance().onCommandInitialize(command -> Shuffleboard.addEventMarker(
         "Command initialized", command.getName(), EventImportance.kNormal));
@@ -33,9 +36,6 @@ public class Robot extends TimedRobot {
         "Command interrupted", command.getName(), EventImportance.kNormal));
     CommandScheduler.getInstance().onCommandFinish(command -> Shuffleboard.addEventMarker(
         "Command finished", command.getName(), EventImportance.kNormal));
-
-    // Create the user interface
-    UserInterface.createDefaultUI();
   }
 
   @Override
