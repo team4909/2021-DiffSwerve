@@ -1,66 +1,32 @@
-/*
- * Team 4909, Bionics
- * Billerica Memorial High School
- *
- * Copyright:
- *   2021 Bionics
- *
- * License:
- *   MIT: https://opensource.org/licenses/MIT
- *   See the LICENSE file in the project's top-level directory for details.
- */
+package frc.bionic.swerve;
 
-package frc.peyton;
-
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.peyton.Drivetrain;
 
-public class Robot extends TimedRobot {
-  private final Joystick m_controller = new Joystick(0);
-  private final Drivetrain m_swerve = new Drivetrain();
+public class DriveWithJoystickCmd extends CommandBase {
+
+  private final Drivetrain m_subsystem;
+  private final Joystick m_controller;
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(3);
   private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
+  private final SlewRateLimiter m_rotLimiter    = new SlewRateLimiter(3);
 
-  @Override
-  public void robotInit() {
-    // NetworkTable table = NetworkTableInstance.getDefault().getTable("MyTable");
-    // table.getEntry("")
-    SmartDashboard.putBoolean("Override", false);
-    SmartDashboard.putBoolean("ZERO", false);
-    SmartDashboard.putBoolean("Enable Slew", true);
+  public DriveWithJoystickCmd(Drivetrain subsystem, Joystick controller) {
+    m_subsystem = subsystem;
+    m_controller = controller;
+    addRequirements(m_subsystem);
+
+    SmartDashboard.putNumber("xSpeed", 0);
+    SmartDashboard.putNumber("ySpeed", 0);
+    SmartDashboard.putNumber("rot",    0);
   }
 
-  @Override
-  public void robotPeriodic() {
-    m_swerve.periodic();
-  }
-
-  @Override
-  public void teleopInit() {
-  }
-
-  // @Override
-  // public void autonomousPeriodic() {
-  //   driveWithJoystick(false);
-  //   m_swerve.updateOdometry();
-  // }
-
-  @Override
-  public void teleopPeriodic() {
-    driveWithJoystick(true);
-  }
-
-  private void driveWithJoystick(boolean fieldRelative) {
+  public void execute() {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
     double xSpeed = -m_controller.getY();
@@ -100,13 +66,6 @@ public class Robot extends TimedRobot {
       rot    = SmartDashboard.getNumber("rot",    0);
     }
 
-    if (SmartDashboard.getBoolean("ZERO", false)) {
-      SmartDashboard.putBoolean("ZERO", false);
-      xSpeed = 0;
-      ySpeed = 0;
-      rot    = 0;
-    }
-
     if (SmartDashboard.getBoolean("Enable Slew", false)) {
       
       xSpeed = m_xspeedLimiter.calculate(xSpeed);
@@ -118,6 +77,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("rot",    rot);
 
-    m_swerve.drive(xSpeed, ySpeed, rot);
+    m_subsystem.drive(xSpeed, ySpeed, rot);
   }
 }

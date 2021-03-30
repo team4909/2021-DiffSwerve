@@ -12,16 +12,26 @@
 
 package frc.peyton;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.bionic.swerve.IDrivetrainSubsystem;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.kauailabs.navx.frc.*;
 
-public class Drivetrain {
+public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
   public PeytonSwerveModule swerveRF; // right front
   public PeytonSwerveModule swerveLF; // left front
   public PeytonSwerveModule swerveLR; // left rear
@@ -51,10 +61,10 @@ public class Drivetrain {
 
     kMaxSpeed = 3.0; // 3 meters per second
 
-    m_frontLeftLocation = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
+    m_frontLeftLocation  = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
     m_frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
-    m_backLeftLocation = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
-    m_backRightLocation = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
+    m_backLeftLocation   = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
+    m_backRightLocation  = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
 
     m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation,
         m_backRightLocation);
@@ -75,7 +85,7 @@ public class Drivetrain {
     swerveLR.periodic();
     swerveRR.periodic();
     SmartDashboard.putData("NavX", navX);
-    SmartDashboard.putNumber("Gyro Angle", this.getGyroAngle());
+    SmartDashboard.putNumber("Gyro Angle", navX.getAngle());
 
     if (SmartDashboard.getBoolean("NavX Reset", false)) {
       SmartDashboard.putBoolean("NavX Reset", false);
@@ -87,19 +97,25 @@ public class Drivetrain {
   /**
    * Method to drive the robot using joystick info.
    *
-   * @param xSpeed Speed of the robot in the x direction (forward).
-   * @param ySpeed Speed of the robot in the y direction (sideways).
-   * @param rot    Angular rate of the robot.
+   * @param xSpeed Speed of the robot in the x direction (forward) on the range [-1, 1].
+   * @param ySpeed Speed of the robot in the y direction (sideways) on the range [-1, 1].
+   * @param rot    Angular rate of the robot on the range [-1, 1].
    */
   public void drive(double xSpeed, double ySpeed, double rot) {
-    var a = new ChassisSpeeds();
-    a = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(-
-    this.getGyroAngle()));
+    var robotAngle = Rotation2d.fromDegrees(-navX.getAngle());
+    var a = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, robotAngle);
 
-    
+    SmartDashboard.putString("ChassisSpeeds", a.toString());
 
     var swerveModuleStates = m_kinematics.toSwerveModuleStates(a);
+
+    List<String> thing1 = Arrays.asList(swerveModuleStates).stream().map(i -> i.toString()).collect(Collectors.toList());
+    SmartDashboard.putString("BeforeNormalize", thing1.toString());
+
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
+
+    List<String> thing2 = Arrays.asList(swerveModuleStates).stream().map(i -> i.toString()).collect(Collectors.toList());
+    SmartDashboard.putString("AfterNormalize", thing2.toString());
     
     swerveLF.setModuleState(swerveModuleStates[0]);
     swerveRF.setModuleState(swerveModuleStates[1]);
@@ -107,8 +123,11 @@ public class Drivetrain {
     swerveRR.setModuleState(swerveModuleStates[3]);
   }
 
-  public double getGyroAngle(){
-    return navX.getAngle();
+  // Interface Implementation
+  public void lockInPlace() {
+    swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }
-
 }
