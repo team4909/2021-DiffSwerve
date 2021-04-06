@@ -32,6 +32,7 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
 
   public PeytonSwerveModule(int canDeviceChannelA, int canDeviceChannelB,
                             int dioEncoderChannelA, int dioEncoderChannelB,
+                            double initialEncoderOffset,
                             String name, String shuffleboardTabName)
   {
     super(name, shuffleboardTabName);
@@ -42,9 +43,9 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
 
     // Instantiate the yaw encoder our swerve module incorporates
     IYawEncoder encoder;
-    if (name == "RR")   // currently, right-rear has RevHex encoder; others have Grayhill
+    if (name == "RR" || true)   // currently, right-rear has RevHex encoder; others have Grayhill
     {
-      encoder = new YawEncoderRevHex(dioEncoderChannelA, name, shuffleboardTabName);
+      encoder = new YawEncoderRevHex(dioEncoderChannelA, initialEncoderOffset, name, shuffleboardTabName);
     }
     else
     {

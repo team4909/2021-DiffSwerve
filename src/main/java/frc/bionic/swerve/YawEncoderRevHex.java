@@ -27,6 +27,9 @@ public class YawEncoderRevHex implements IYawEncoder
   private DutyCycleEncoder  encoder;
   private PIDController     pid;
 
+  // Offset to zero position, provided to constructor (possibly overridden by dashboard)
+  private double encoderOffset = 0.0;
+
   // Shuffleboard-related
   private String            name;
   private String            shuffleboardTabName;
@@ -48,11 +51,12 @@ public class YawEncoderRevHex implements IYawEncoder
    * @param shuffleboardTabName
    *   Tab on which to place shuffleboard fields
    */
-  public YawEncoderRevHex(int dioChannel, String name, String shuffleboardTabName)
+  public YawEncoderRevHex(int dioChannel, double initialEncoderOffset, String name, String shuffleboardTabName)
   {
     // Save parameter values used elsewhere
     this.name = name;
     this.shuffleboardTabName = shuffleboardTabName;
+    this.encoderOffset = initialEncoderOffset;
 
     // Get access to the encoder
     encoder = new DutyCycleEncoder(dioChannel);
@@ -81,7 +85,7 @@ public class YawEncoderRevHex implements IYawEncoder
   // interface implementation
   public double getDistanceDegrees()
   {
-    return frc.bionic.Conversion.normalize(encoder.getDistance(), -180, 180);
+    return frc.bionic.Conversion.normalize(encoder.getDistance() + encoderOffset, -180, 180);
   }
 
   // interface implementation
@@ -136,7 +140,7 @@ public class YawEncoderRevHex implements IYawEncoder
   private void syncShuffleboard()
   {
     // Display encoder attributes
-    sb_angle.setDouble(encoder.getDistance());
+    sb_angle.setDouble(getDistanceDegrees());
     sb_goal.setDouble(getGoalDegrees());
     sb_output.setDouble(getOutputSignedPercent());
   }
