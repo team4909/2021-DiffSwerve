@@ -30,19 +30,27 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
   // The wheel diameter, in meters
   private static final double      WHEEL_DIAMETER_METERS    = frc.bionic.Conversion.inchesToMeters(3.0);
 
-  public PeytonSwerveModule(int pwmMotorChannelA, int pwmMotorChannelB,
+  public PeytonSwerveModule(int canDeviceChannelA, int canDeviceChannelB,
                             int dioEncoderChannelA, int dioEncoderChannelB,
                             String name, String shuffleboardTabName)
   {
     super(name, shuffleboardTabName);
 
     // Instantiate the two swerve motors our swerve module incorporates
-    IMotor motorA = new MotorCANSparkMaxNeo(pwmMotorChannelA, name + " A", shuffleboardTabName);
-    IMotor motorB = new MotorCANSparkMaxNeo(pwmMotorChannelB, name + " B", shuffleboardTabName);
+    IMotor motorA = new MotorCANSparkMaxNeo(canDeviceChannelA, name + " A", shuffleboardTabName);
+    IMotor motorB = new MotorCANSparkMaxNeo(canDeviceChannelB, name + " B", shuffleboardTabName);
 
     // Instantiate the yaw encoder our swerve module incorporates
-    IYawEncoder encoder = new YawEncoderGrayhill63R128(dioEncoderChannelA, dioEncoderChannelB, 
-                                                       name, shuffleboardTabName);
+    IYawEncoder encoder;
+    if (name == "RR")   // currently, right-rear has RevHex encoder; others have Grayhill
+    {
+      encoder = new YawEncoderRevHex(dioEncoderChannelA, name, shuffleboardTabName);
+    }
+    else
+    {
+      encoder = new YawEncoderGrayhill63R128(dioEncoderChannelA, dioEncoderChannelB, 
+                                              name, shuffleboardTabName);
+    }
 
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 
                motorA, motorB, encoder, WHEEL_DIAMETER_METERS);
