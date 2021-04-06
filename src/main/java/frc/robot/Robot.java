@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.peyton.Drivetrain;
+import frc.bionic.UserInterfaceElement;
 
 public class Robot extends TimedRobot {
   private final Drivetrain drivetrain = new Drivetrain();
@@ -24,7 +25,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Register objects that may be controlled via the user itnerface
-    UserInterface.registerObject("Drivetrain", drivetrain);
+    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<Drivetrain>(drivetrain));
 
     // Create the user interface
     UserInterface.createDefaultUI();

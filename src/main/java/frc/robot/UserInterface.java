@@ -12,17 +12,19 @@
 
 package frc.robot;
 
-import java.lang.Object;
 import java.util.HashMap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.peyton.Drivetrain;
+import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
 
+@SuppressWarnings("rawtypes")
+@SuppressWarnings("unchecked")
 public class UserInterface
 {
   // Registry of objects that our user interface can operate on
-  private static HashMap<String, Object> objectRegistry = new HashMap<String, Object>();
+  private static HashMap<String, UserInterfaceElement> objectRegistry = new HashMap<String, UserInterfaceElement>();
 
   /**
    * Add an object to the registry
@@ -33,7 +35,7 @@ public class UserInterface
    * @param obj
    *   The object accessed via reference by the provided ID
    */
-  public static void registerObject(String id, Object obj)
+  public static void registerObject(String id, UserInterfaceElement obj)
   {
     objectRegistry.put(id, obj);
   }
@@ -54,8 +56,9 @@ public class UserInterface
    */
   private static void createUIJoystick0()
   {
-    Joystick                  joystick0 = new Joystick(0);
-    Drivetrain                drivetrain = (Drivetrain) objectRegistry.get("Drivetrain");
+    Joystick                           joystick0 = new Joystick(0);
+    UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
+    Drivetrain                         drivetrain = drivetrainElem.get();
 
     if (drivetrain == null)
     {
