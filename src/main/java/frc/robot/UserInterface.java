@@ -60,11 +60,6 @@ public class UserInterface
     UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
     Drivetrain                         drivetrain = drivetrainElem.get();
 
-    if (drivetrain == null)
-    {
-      throw new Error("`Drivetrain` has not been registered with UserInterface");
-    }
-
     // Set the default command
     drivetrain.setDefaultCommand(new DriveWithJoystick(drivetrain, joystick0));
 
