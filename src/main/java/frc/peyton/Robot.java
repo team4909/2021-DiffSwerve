@@ -77,13 +77,13 @@ public class Robot extends TimedRobot {
         // -m_rotLimiter.calculate()
         //     * frc.robot.Drivetrain.kMaxAngularSpeed;
 
-    if (Math.abs(rot) < .1) {
+    if (Math.abs(rot) < .5) {
       rot = 0;
     }
-    if (Math.abs(xSpeed) < .1) {
+    if (Math.abs(xSpeed) < .2) {
       xSpeed = 0;
     }
-    if (Math.abs(ySpeed) < .1) {
+    if (Math.abs(ySpeed) < .2) {
       ySpeed = 0;
     }
 
