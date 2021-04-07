@@ -183,7 +183,7 @@ public class Conversion
   }
 
   /**
-   * Normalize a value to be within a rnage
+   * Normalize a value to be within a range
    * https://stackoverflow.com/a/2021986
    *
    * @param value

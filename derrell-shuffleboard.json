@@ -390,6 +390,168 @@
               "_source0": "network_table:///SmartDashboard/RR B goal",
               "_title": "RR B goal"
             }
+          },
+          "0,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Enable Slew",
+              "_title": "Enable Slew",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "17,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro Angle",
+              "_title": "Gyro Angle"
+            }
+          },
+          "16,6": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/NavX",
+              "_title": "NavX",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "9,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/NavX Reset",
+              "_title": "NavX Reset",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "20,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ChassisSpeeds",
+              "_title": "ChassisSpeeds"
+            }
+          },
+          "11,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BeforeNormalize",
+              "_title": "BeforeNormalize"
+            }
+          },
+          "12,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AfterNormalize",
+              "_title": "AfterNormalize"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey get",
+              "_title": "lamprey get"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey dist",
+              "_title": "lamprey dist"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey freq",
+              "_title": "lamprey freq"
+            }
+          },
+          "9,5": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey dist",
+              "_title": "/SmartDashboard/lamprey dist"
+            }
+          },
+          "6,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey freq",
+              "_title": "/SmartDashboard/lamprey freq"
+            }
+          },
+          "13,5": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey get",
+              "_title": "/SmartDashboard/lamprey get"
+            }
+          },
+          "15,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey Heading",
+              "_title": "lamprey Heading"
+            }
           }
         }
       }
@@ -485,6 +647,49 @@
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[4]",
                   "_title": "PIDController[4]"
+                },
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor",
+                  "_title": "navX-Sensor",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[0]/Value",
+                  "_title": "Counter[0]/Value"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[8]/Value",
+                  "_title": "DigitalInput[8]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[0]/Frequency",
+                  "_title": "Duty Cycle[0]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[0]/Output",
+                  "_title": "Duty Cycle[0]/Output"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[8]/Distance",
+                  "_title": "DutyCycle Encoder[8]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[8]/Is Connected",
+                  "_title": "DutyCycle Encoder[8]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -828,11 +1033,9 @@
               "_source0": "network_table:///Shuffleboard/Swerve/Output/Translation",
               "_title": "Shuffleboard/Swerve/Output/Translation",
               "Graph/Visible time": 30.0,
-              "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Lower bound": -1.0
             }
           },
           "11,1": {
@@ -1246,7 +1449,7 @@
               }
             }
           },
-          "7,10": {
+          "3,5": {
             "size": [
               2,
               1
@@ -1257,7 +1460,7 @@
               "_title": "yaw pidCalc"
             }
           },
-          "7,8": {
+          "3,3": {
             "size": [
               2,
               1
@@ -1268,7 +1471,7 @@
               "_title": "yaw dist deg"
             }
           },
-          "7,9": {
+          "3,4": {
             "size": [
               2,
               1
@@ -1279,7 +1482,7 @@
               "_title": "yaw goal deg"
             }
           },
-          "10,9": {
+          "2,0": {
             "size": [
               2,
               2
@@ -1288,6 +1491,61 @@
               "_type": "Toggle Switch",
               "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Control",
               "_title": "Shuffleboard/Peyton/Module LF/Control"
+            }
+          },
+          "17,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/xSpeed",
+              "_title": "/SmartDashboard/xSpeed"
+            }
+          },
+          "17,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "/SmartDashboard/ySpeed"
+            }
+          },
+          "17,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rot",
+              "_title": "/SmartDashboard/rot"
+            }
+          },
+          "0,9": {
+            "size": [
+              20,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AfterNormalize",
+              "_title": "/SmartDashboard/AfterNormalize"
+            }
+          },
+          "0,8": {
+            "size": [
+              20,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BeforeNormalize",
+              "_title": "/SmartDashboard/BeforeNormalize"
             }
           }
         }
@@ -1303,7 +1561,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "12,2": {
+          "11,1": {
             "size": [
               2,
               2
@@ -1311,10 +1569,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance",
-              "_title": "Right Front"
+              "_title": "/LiveWindow/Ungrouped/Encoder[0]/Distance"
             }
           },
-          "6,2": {
+          "5,1": {
             "size": [
               2,
               2
@@ -1322,10 +1580,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]/Distance",
-              "_title": "Left Front"
+              "_title": "/LiveWindow/Ungrouped/Encoder[1]/Distance"
             }
           },
-          "6,8": {
+          "5,7": {
             "size": [
               2,
               2
@@ -1333,10 +1591,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[2]/Distance",
-              "_title": "Left Rear"
+              "_title": "/LiveWindow/Ungrouped/Encoder[2]/Distance"
             }
           },
-          "12,8": {
+          "11,7": {
             "size": [
               2,
               2
@@ -1344,10 +1602,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[3]/Distance",
-              "_title": "Right Rear"
+              "_title": "/LiveWindow/Ungrouped/Encoder[3]/Distance"
             }
           },
-          "6,1": {
+          "5,0": {
             "size": [
               10,
               1
@@ -1361,7 +1619,7 @@
               "_children": {}
             }
           },
-          "8,8": {
+          "7,7": {
             "size": [
               2,
               2
@@ -1369,10 +1627,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Peyton/Module LR/translation",
-              "_title": "Shuffleboard/Peyton/Module LR/translation"
+              "_title": "/Shuffleboard/Peyton/Module LR/translation"
             }
           },
-          "8,2": {
+          "7,1": {
             "size": [
               2,
               2
@@ -1380,10 +1638,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Peyton/Module LF/translation",
-              "_title": "Shuffleboard/Peyton/Module LF/translation"
+              "_title": "/Shuffleboard/Peyton/Module LF/translation"
             }
           },
-          "14,2": {
+          "13,1": {
             "size": [
               2,
               2
@@ -1391,10 +1649,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Peyton/Module RF/translation",
-              "_title": "Shuffleboard/Peyton/Module RF/translation"
+              "_title": "/Shuffleboard/Peyton/Module RF/translation"
             }
           },
-          "14,8": {
+          "13,7": {
             "size": [
               2,
               2
@@ -1402,10 +1660,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Peyton/Module RR/translation",
-              "_title": "Shuffleboard/Peyton/Module RR/translation"
+              "_title": "/Shuffleboard/Peyton/Module RR/translation"
             }
           },
-          "7,5": {
+          "9,3": {
             "size": [
               2,
               2
@@ -1416,37 +1674,141 @@
               "_title": "SmartDashboard/Override"
             }
           },
-          "13,5": {
+          "12,5": {
             "size": [
-              2,
+              3,
               2
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Slider",
               "_source0": "network_table:///SmartDashboard/rot",
-              "_title": "SmartDashboard/rot"
+              "_title": "SmartDashboard/rot",
+              "Slider Settings/Min": -1.0,
+              "Slider Settings/Max": 1.0,
+              "Slider Settings/Block increment": 0.0625
             }
           },
-          "9,5": {
+          "5,5": {
             "size": [
-              2,
+              3,
               2
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Number Slider",
               "_source0": "network_table:///SmartDashboard/xSpeed",
-              "_title": "SmartDashboard/xSpeed"
+              "_title": "SmartDashboard/xSpeed",
+              "Slider Settings/Min": -1.0,
+              "Slider Settings/Max": 1.0,
+              "Slider Settings/Block increment": 0.0625
             }
           },
-          "11,5": {
+          "8,5": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "SmartDashboard/ySpeed",
+              "Slider Settings/Min": -1.0,
+              "Slider Settings/Max": 1.0,
+              "Slider Settings/Block increment": 0.0625
+            }
+          },
+          "16,0": {
             "size": [
               2,
               2
             ],
             "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Enable Slew",
+              "_title": "SmartDashboard/Enable Slew"
+            }
+          },
+          "16,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/ySpeed",
-              "_title": "SmartDashboard/ySpeed"
+              "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor/Value",
+              "_title": "/LiveWindow/Ungrouped/navX-Sensor/Value"
+            }
+          },
+          "16,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro Angle",
+              "_title": "/SmartDashboard/Gyro Angle"
+            }
+          },
+          "16,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/NavX Reset",
+              "_title": "SmartDashboard/NavX Reset"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Lamprey",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "8,0": {
+            "size": [
+              8,
+              6
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey dist",
+              "_title": "SmartDashboard/lamprey dist"
+            }
+          },
+          "8,6": {
+            "size": [
+              8,
+              5
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/lamprey get",
+              "_title": "SmartDashboard/lamprey get",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/lamprey get": true
+            }
+          },
+          "0,0": {
+            "size": [
+              8,
+              6
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey Heading",
+              "_title": "SmartDashboard/lamprey Heading"
             }
           }
         }
