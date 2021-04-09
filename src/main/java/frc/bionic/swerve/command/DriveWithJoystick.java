@@ -75,8 +75,6 @@ public class DriveWithJoystick extends CommandBase {
       ySpeed = 0;
     }
 
-    
-
     if (SmartDashboard.getBoolean("Override", false)) {
       xSpeed = SmartDashboard.getNumber("xSpeed", 0);
       ySpeed = SmartDashboard.getNumber("ySpeed", 0);
