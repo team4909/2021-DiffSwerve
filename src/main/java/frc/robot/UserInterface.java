@@ -19,8 +19,7 @@ import frc.peyton.Drivetrain;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
 
-@SuppressWarnings("rawtypes")
-@SuppressWarnings("unchecked")
+@SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
 {
   // Registry of objects that our user interface can operate on
