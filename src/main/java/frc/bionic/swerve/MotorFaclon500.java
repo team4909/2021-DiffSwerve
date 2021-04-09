@@ -20,13 +20,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorFaclon500 implements IMotor{
     
     // Initial, default PID constants, overridden by persistent shuffleboard fields
-    private static final double kMotorP = 1.0;
-    private static final double kMotorI = 0.0;
-    private static final double kMotorD = 0.0;
-    private static final double kMotorIz = 0.0;
-    private static final double kMotorFf = 0.0;
+    private static final double kMotorP  = 0.2;
+    private static final double kMotorI  = 0.000001;
+    private static final double kMotorD  = 0.000090;
+    private static final double kMotorIz = 100.0;
+    private static final double kMotorFf = 0.000090;
     private static final int kMotorSlot = 0;
-
+  
     /**
     To keep the motor closer to peek power, we limit the max output.
     See torque/speed curves on https://motors.vex.com/  
