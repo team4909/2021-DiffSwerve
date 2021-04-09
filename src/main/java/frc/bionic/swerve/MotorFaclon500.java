@@ -19,9 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MotorFaclon500 implements IMotor{
     
-    //TODO test values
     // Initial, default PID constants, overridden by persistent shuffleboard fields
-    private static final double kMotorP = 0.0;
+    private static final double kMotorP = 1.0;
     private static final double kMotorI = 0.0;
     private static final double kMotorD = 0.0;
     private static final double kMotorIz = 0.0;
@@ -33,7 +32,7 @@ public class MotorFaclon500 implements IMotor{
     See torque/speed curves on https://motors.vex.com/  
     */ 
     private static final double kMotorMax = 0.7;
-    private static final double kMotorMin = -0.7;
+    private static final double kMotorMin = 0.7;
 
     //Devices, Sensors, Actuators
     private MedianFilter velAverage; //For displaying average RPM
@@ -96,7 +95,7 @@ public class MotorFaclon500 implements IMotor{
 
     //Interface Implementation
     public double getVelocityRPM(){
-        return motor.getActiveTrajectoryVelocity(); //THIS IS PER 100MS, change if needed in RPM
+        return motor.getSelectedSensorVelocity() * 10 * 60;
     }
 
     //Interface Implementaion
@@ -178,6 +177,4 @@ public class MotorFaclon500 implements IMotor{
     }
   }
 
-}class t {
-    
 }

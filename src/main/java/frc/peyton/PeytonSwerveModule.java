@@ -31,7 +31,7 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
   private static final double      WHEEL_DIAMETER_METERS    = frc.bionic.Conversion.inchesToMeters(3.0);
 
   public PeytonSwerveModule(int canDeviceChannelA, int canDeviceChannelB,
-                            int dioEncoderChannelA, int dioEncoderChannelB,
+                            int dioEncoderChannel,
                             double initialEncoderOffset,
                             String name, String shuffleboardTabName)
   {
@@ -43,7 +43,7 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
 
     // Instantiate the yaw encoder our swerve module incorporates
     IYawEncoder encoder;
-    encoder = new YawEncoderRevHex(dioEncoderChannelA, initialEncoderOffset, name, shuffleboardTabName);
+    encoder = new YawEncoderRevHex(dioEncoderChannel, initialEncoderOffset, name, shuffleboardTabName);
 
     // Now we have everything our superclass needs to do its thing. Do it!
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 

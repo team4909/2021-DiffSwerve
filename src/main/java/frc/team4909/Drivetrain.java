@@ -12,6 +12,12 @@
 
 package frc.team4909;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -21,18 +27,13 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.bionic.swerve.IDrivetrainSubsystem;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.kauailabs.navx.frc.*;
+import frc.peyton.PeytonSwerveModule;
 
 public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
-  public team4909SwerveModule swerveRF; // right front
-  public team4909SwerveModule swerveLF; // left front
-  public team4909SwerveModule swerveLR; // left rear
-  public team4909SwerveModule swerveRR; // right rear
+  public SwerveModule swerveRF; // right front
+  public PeytonSwerveModule swerveLF; // left front
+  public PeytonSwerveModule swerveLR; // left rear
+  public PeytonSwerveModule swerveRR; // right rear
 
   private final double kHalfWheelBaseWidthInches;
   private final double kHalfWheelBaseWidthMeters;
@@ -50,12 +51,11 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
   private AHRS navX;
 
   public Drivetrain() {
-    //TODO Test Values
-    kHalfWheelBaseWidthInches = 0;
-    kHalfWheelBaseWidthMeters = 0.0;
+    kHalfWheelBaseWidthInches = 16.825108;
+    kHalfWheelBaseWidthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
 
-    kHalfWheelBaseLengthInches = 0.0;
-    kHalfWheelBaseLengthMeters = 0.0;
+    kHalfWheelBaseLengthInches = 16.825108;
+    kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
     kMaxSpeed = 0.0; // x meters per second
 
@@ -67,10 +67,10 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation,
                                              m_backLeftLocation, m_backRightLocation);
 
-    swerveRF = new team4909SwerveModule(1, 2, 0, 1, "RF", "Bionic");
-    swerveLF = new team4909SwerveModule(3, 4, 2, 3, "LF", "Bionic");
-    swerveLR = new team4909SwerveModule(5, 6, 4, 5, "LR", "Bionic");
-    swerveRR = new team4909SwerveModule(7, 8, 6, 7, "RR", "Bionic");
+    swerveRF = new SwerveModule(1, 2, 0, 0.0, "RF", "Bionic");
+    swerveLF = new PeytonSwerveModule(3, 4, 2, 0.0, "LF", "Bionic");
+    swerveLR = new PeytonSwerveModule(5, 6, 4, 0.0, "LR", "Bionic");
+    swerveRR = new PeytonSwerveModule(7, 8, 6, 0.0, "RR", "Bionic");
 
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
@@ -90,7 +90,6 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
       SmartDashboard.putBoolean("NavX Reset", false);
       navX.reset();
     }
-
   }
 
   // interface (IDrivetrainSubsystem) implementation
