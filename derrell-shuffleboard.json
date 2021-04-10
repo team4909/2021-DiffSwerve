@@ -430,7 +430,7 @@
               "Visuals/Counter clockwise": false
             }
           },
-          "9,3": {
+          "1,7": {
             "size": [
               2,
               2
@@ -690,6 +690,127 @@
                   "_title": "DutyCycle Encoder[8]/Is Connected",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[6]/Value",
+                  "_title": "DigitalInput[6]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[6]/Distance",
+                  "_title": "DutyCycle Encoder[6]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[6]/Is Connected",
+                  "_title": "DutyCycle Encoder[6]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[4]/Value",
+                  "_title": "DigitalInput[4]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[0]/Distance",
+                  "_title": "DutyCycle Encoder[0]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[0]/Is Connected",
+                  "_title": "DutyCycle Encoder[0]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[1]/Frequency",
+                  "_title": "Duty Cycle[1]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[1]/Output",
+                  "_title": "Duty Cycle[1]/Output"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[2]/Value",
+                  "_title": "DigitalInput[2]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[0]/Value",
+                  "_title": "DigitalInput[0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[1]/Value",
+                  "_title": "Counter[1]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[2]/Value",
+                  "_title": "Counter[2]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[4]/Distance",
+                  "_title": "DutyCycle Encoder[4]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[4]/Is Connected",
+                  "_title": "DutyCycle Encoder[4]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[3]/Frequency",
+                  "_title": "Duty Cycle[3]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[3]/Output",
+                  "_title": "Duty Cycle[3]/Output"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[2]/Frequency",
+                  "_title": "Duty Cycle[2]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[2]/Output",
+                  "_title": "Duty Cycle[2]/Output"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[2]/Distance",
+                  "_title": "DutyCycle Encoder[2]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[2]/Is Connected",
+                  "_title": "DutyCycle Encoder[2]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[3]/Value",
+                  "_title": "Counter[3]/Value"
                 }
               ]
             }
@@ -1779,9 +1900,13 @@
               6
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/lamprey dist",
-              "_title": "SmartDashboard/lamprey dist"
+              "_title": "SmartDashboard/lamprey dist",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0
             }
           },
           "8,6": {
@@ -1795,9 +1920,8 @@
               "_title": "SmartDashboard/lamprey get",
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Visible data/SmartDashboard/lamprey get": true
+              "Y-axis/Upper bound": 0.55,
+              "Y-axis/Lower bound": 0.45
             }
           },
           "0,0": {
@@ -1806,9 +1930,37 @@
               6
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/lamprey Heading",
-              "_title": "SmartDashboard/lamprey Heading"
+              "_title": "SmartDashboard/lamprey Heading",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 185.0,
+              "Y-axis/Lower bound": 170.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Modules",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "6,2": {
+            "size": [
+              3,
+              7
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A",
+              "_title": "Shuffleboard/Peyton/Motor LF A"
             }
           }
         }

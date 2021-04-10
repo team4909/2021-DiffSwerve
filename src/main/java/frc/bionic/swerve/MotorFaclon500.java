@@ -3,6 +3,7 @@ package frc.bionic.swerve;
 import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -56,7 +57,7 @@ public class MotorFaclon500 implements IMotor{
     NetworkTableEntry         sb_pid_min;
     NetworkTableEntry         sb_pid_apply;
 
-    public MotorFaclon500(int deviceId, String name, String shuffleboardTabName){
+    public MotorFaclon500(int deviceId, boolean bClockwise, String name, String shuffleboardTabName){
 
         //Save parameter values to be used elsewhere
         this.name = name;
@@ -67,6 +68,9 @@ public class MotorFaclon500 implements IMotor{
         
         //Resets the motor to default
         motor.configFactoryDefault();
+
+        // Set direction, since one motor faces up; the other, down.
+        motor.setInverted(bClockwise ? TalonFXInvertType.Clockwise : TalonFXInvertType.CounterClockwise);
 
         //Initially set RPM to 0 (Stopped Motor)
         setGoalRPM(0.0);
@@ -79,8 +83,8 @@ public class MotorFaclon500 implements IMotor{
         motor.config_kD(kMotorSlot, kMotorD);
         motor.config_IntegralZone(kMotorSlot, kMotorIz);
         motor.config_kF(kMotorSlot, kMotorFf);
-        motor.configPeakOutputForward(kMotorMax);
-        motor.configPeakOutputReverse(kMotorMin);
+        // motor.configPeakOutputForward(kMotorMax);
+        // motor.configPeakOutputReverse(kMotorMin);
 
         //Initilize Shuffleboard Interface
         initShuffleboard();

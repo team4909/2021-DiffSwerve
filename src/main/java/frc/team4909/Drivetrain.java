@@ -67,10 +67,10 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation,
                                              m_backLeftLocation, m_backRightLocation);
 
-    swerveRF = new SwerveModule(1, 2, 0, 0.0, "RF", "Bionic");
-    swerveLF = new PeytonSwerveModule(3, 4, 2, 0.0, "LF", "Bionic");
-    swerveLR = new PeytonSwerveModule(5, 6, 4, 0.0, "LR", "Bionic");
-    swerveRR = new PeytonSwerveModule(7, 8, 6, 0.0, "RR", "Bionic");
+    swerveRF = new SwerveModule(1, 2, 0, 0.0, "RF", "Peyton");
+    swerveLF = new PeytonSwerveModule(3, 4, 2, 0.0, "LF", "Peyton");
+    swerveLR = new PeytonSwerveModule(5, 6, 4, 0.0, "LR", "Peyton");
+    swerveRR = new PeytonSwerveModule(7, 8, 6, 0.0, "RR", "Peyton");
 
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
