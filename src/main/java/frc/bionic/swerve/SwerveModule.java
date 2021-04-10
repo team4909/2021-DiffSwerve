@@ -143,6 +143,9 @@ public class SwerveModule
    */
   public void setModuleState(SwerveModuleState state)
   {
+    // Optimize to avoid large module rotations
+    state = SwerveModuleState.optimize(state, this.getModuleState().angle);
+
     // Convert the state to our internally-used units, and save
     desiredWheelSpeedRPM = frc.bionic.Conversion.mpsToRpm(state.speedMetersPerSecond, WHEEL_DIAMETER_METERS);
     desiredYawDegrees = state.angle.getDegrees();
