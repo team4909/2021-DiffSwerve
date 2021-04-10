@@ -49,7 +49,7 @@ public class Drivetrain {
     kHalfWheelBaseLengthInches = 15.0;
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
-    kMaxSpeed = 3.0; // 3 meters per second
+    kMaxSpeed = 6.0; // 3 meters per second
 
     m_frontLeftLocation = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
     m_frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
@@ -91,13 +91,16 @@ public class Drivetrain {
    * @param rot    Angular rate of the robot.
    */
   public void drive(double xSpeed, double ySpeed, double rot) {
-    var a = new ChassisSpeeds();
-    a = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(-
-    this.getGyroAngle()));
+    // Scale requested speed percentage [-1, 1] to meters per second
+    xSpeed *= kMaxSpeed;
+    ySpeed *= kMaxSpeed;
+    rot *= kMaxSpeed;
 
-    
+    var chassisSpeeds = 
+      ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, 
+                                            Rotation2d.fromDegrees(-this.getGyroAngle()));
 
-    var swerveModuleStates = m_kinematics.toSwerveModuleStates(a);
+    var swerveModuleStates = m_kinematics.toSwerveModuleStates(chassisSpeeds);
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
     
     swerveLF.setModuleState(swerveModuleStates[0]);
