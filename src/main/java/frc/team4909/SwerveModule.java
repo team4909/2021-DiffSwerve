@@ -29,7 +29,8 @@ public class SwerveModule extends frc.bionic.swerve.SwerveModule{
     super(name, shuffleboardTabName);
 
     // Instantiate the two swerve motors our swerve module incorporates
-    IMotor motorA = new MotorFaclon500(canDeviceChannelA, false, name + " A", shuffleboardTabName);
+    //true makes the motor go clockwise, if both motors are going clockwise, then positve values = translation
+    IMotor motorA = new MotorFaclon500(canDeviceChannelA, true, name + " A", shuffleboardTabName);
     IMotor motorB = new MotorFaclon500(canDeviceChannelB, true,  name + " B", shuffleboardTabName);
 
     // Instantiate the yaw encoder our swerve module incorporates

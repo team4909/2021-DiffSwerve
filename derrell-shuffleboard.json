@@ -415,7 +415,7 @@
               "_title": "Gyro Angle"
             }
           },
-          "16,6": {
+          "16,5": {
             "size": [
               3,
               3
@@ -1393,38 +1393,9 @@
               "_type": "Grid Layout",
               "_title": "Motor RF A",
               "Layout/Number of columns": 2,
-              "Layout/Number of rows": 1,
+              "Layout/Number of rows": 2,
               "Layout/Label position": "BOTTOM",
               "_children": {
-                "1,0": {
-                  "_type": "Grid Layout",
-                  "_title": "Velocity",
-                  "Layout/Number of columns": 2,
-                  "Layout/Number of rows": 2,
-                  "Layout/Label position": "TOP",
-                  "_children": {
-                    "1,1": {
-                      "_type": "Toggle Button",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/Apply",
-                      "_title": "Apply"
-                    },
-                    "0,0": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/avg",
-                      "_title": "avg"
-                    },
-                    "0,1": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/rpm",
-                      "_title": "rpm"
-                    },
-                    "1,0": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/set rpm",
-                      "_title": "set rpm"
-                    }
-                  }
-                },
                 "0,0": {
                   "_type": "Grid Layout",
                   "_title": "PID",
@@ -1473,6 +1444,35 @@
                       "_title": "kD"
                     }
                   }
+                },
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 2,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/avg",
+                      "_title": "avg"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/rpm",
+                      "_title": "rpm"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/set rpm",
+                      "_title": "/Shuffleboard/Peyton/Motor RF A/Velocity/set rpm"
+                    },
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/Apply",
+                      "_title": "Shuffleboard/Peyton/Motor RF A/Velocity/Apply"
+                    }
+                  }
                 }
               }
             }
@@ -1489,35 +1489,6 @@
               "Layout/Number of rows": 2,
               "Layout/Label position": "BOTTOM",
               "_children": {
-                "1,0": {
-                  "_type": "Grid Layout",
-                  "_title": "Velocity",
-                  "Layout/Number of columns": 2,
-                  "Layout/Number of rows": 2,
-                  "Layout/Label position": "TOP",
-                  "_children": {
-                    "1,1": {
-                      "_type": "Toggle Button",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/Apply",
-                      "_title": "Apply"
-                    },
-                    "0,0": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/avg",
-                      "_title": "avg"
-                    },
-                    "0,1": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/rpm",
-                      "_title": "rpm"
-                    },
-                    "1,0": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/set rpm",
-                      "_title": "set rpm"
-                    }
-                  }
-                },
                 "0,0": {
                   "_type": "Grid Layout",
                   "_title": "PID",
@@ -1564,6 +1535,35 @@
                       "_type": "Text View",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kIz",
                       "_title": "kIz"
+                    }
+                  }
+                },
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 2,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/avg",
+                      "_title": "avg"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/rpm",
+                      "_title": "rpm"
+                    },
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/Apply",
+                      "_title": "Shuffleboard/Peyton/Motor RF B/Velocity/Apply"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/set rpm",
+                      "_title": "/Shuffleboard/Peyton/Motor RF B/Velocity/set rpm"
                     }
                   }
                 }
@@ -1616,7 +1616,7 @@
           },
           "17,1": {
             "size": [
-              1,
+              3,
               1
             ],
             "content": {
@@ -1627,7 +1627,7 @@
           },
           "17,2": {
             "size": [
-              1,
+              3,
               1
             ],
             "content": {
@@ -1638,7 +1638,7 @@
           },
           "17,3": {
             "size": [
-              1,
+              3,
               1
             ],
             "content": {

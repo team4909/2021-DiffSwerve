@@ -2,6 +2,7 @@ package frc.bionic.swerve;
 
 import java.util.Map;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -68,6 +69,9 @@ public class MotorFaclon500 implements IMotor{
         
         //Resets the motor to default
         motor.configFactoryDefault();
+
+        //Sets motor to brake mode, to prevent forced motor rotation
+        motor.setNeutralMode(NeutralMode.Brake);
 
         // Set direction, since one motor faces up; the other, down.
         motor.setInverted(bClockwise ? TalonFXInvertType.Clockwise : TalonFXInvertType.CounterClockwise);
@@ -176,8 +180,8 @@ public class MotorFaclon500 implements IMotor{
         motor.config_kD(kMotorSlot, sb_pid_kd.getDouble(0));
         motor.config_IntegralZone(kMotorSlot, sb_pid_kiz.getDouble(0));
         motor.config_kF(kMotorSlot, sb_pid_kff.getDouble(0));
-        motor.configPeakOutputForward(sb_pid_max.getDouble(0));
-        motor.configPeakOutputReverse(sb_pid_max.getDouble(0));
+//        motor.configPeakOutputForward(sb_pid_max.getDouble(0));
+//        motor.configPeakOutputReverse(sb_pid_max.getDouble(0));
     }
   }
 
