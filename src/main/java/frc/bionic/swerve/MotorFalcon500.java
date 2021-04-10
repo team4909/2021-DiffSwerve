@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * MotorFaclon500
  */
-public class MotorFaclon500 implements IMotor{
+public class MotorFalcon500 implements IMotor{
     
     // Initial, default PID constants, overridden by persistent shuffleboard fields
     private static final double kMotorP  = 0.2;
@@ -33,8 +33,6 @@ public class MotorFaclon500 implements IMotor{
     To keep the motor closer to peek power, we limit the max output.
     See torque/speed curves on https://motors.vex.com/  
     */ 
-    private static final double kMotorMax = 0.7;
-    private static final double kMotorMin = 0.7;
 
     //Devices, Sensors, Actuators
     private MedianFilter velAverage; //For displaying average RPM
@@ -54,11 +52,9 @@ public class MotorFaclon500 implements IMotor{
     NetworkTableEntry         sb_pid_kd;
     NetworkTableEntry         sb_pid_kiz;
     NetworkTableEntry         sb_pid_kff;
-    NetworkTableEntry         sb_pid_max;
-    NetworkTableEntry         sb_pid_min;
     NetworkTableEntry         sb_pid_apply;
 
-    public MotorFaclon500(int deviceId, boolean bClockwise, String name, String shuffleboardTabName){
+    public MotorFalcon500(int deviceId, boolean bClockwise, String name, String shuffleboardTabName){
 
         //Save parameter values to be used elsewhere
         this.name = name;
@@ -87,8 +83,6 @@ public class MotorFaclon500 implements IMotor{
         motor.config_kD(kMotorSlot, kMotorD);
         motor.config_IntegralZone(kMotorSlot, kMotorIz);
         motor.config_kF(kMotorSlot, kMotorFf);
-        // motor.configPeakOutputForward(kMotorMax);
-        // motor.configPeakOutputReverse(kMotorMin);
 
         //Initilize Shuffleboard Interface
         initShuffleboard();
@@ -103,7 +97,7 @@ public class MotorFaclon500 implements IMotor{
 
     //Interface Implementation
     public double getVelocityRPM(){
-        return motor.getSelectedSensorVelocity() * 10 * 60;
+        return (motor.getSelectedSensorVelocity() / 2048) * 10 * 60;
     }
 
     //Interface Implementaion
@@ -134,8 +128,6 @@ public class MotorFaclon500 implements IMotor{
     sb_pid_kd      = sublayout.addPersistent("kD", kMotorD).getEntry();
     sb_pid_kiz     = sublayout.addPersistent("kIz", kMotorIz).getEntry();
     sb_pid_kff     = sublayout.addPersistent("kFF", kMotorFf).getEntry();
-    sb_pid_max     = sublayout.addPersistent("max", kMotorMax).getEntry();
-    sb_pid_min     = sublayout.addPersistent("min", kMotorMin).getEntry();
     sb_pid_apply   = sublayout.add("Apply", false).getEntry();
   }
 
@@ -180,8 +172,6 @@ public class MotorFaclon500 implements IMotor{
         motor.config_kD(kMotorSlot, sb_pid_kd.getDouble(0));
         motor.config_IntegralZone(kMotorSlot, sb_pid_kiz.getDouble(0));
         motor.config_kF(kMotorSlot, sb_pid_kff.getDouble(0));
-//        motor.configPeakOutputForward(sb_pid_max.getDouble(0));
-//        motor.configPeakOutputReverse(sb_pid_max.getDouble(0));
     }
   }
 

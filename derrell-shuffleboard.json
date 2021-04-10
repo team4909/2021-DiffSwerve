@@ -1462,15 +1462,15 @@
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/rpm",
                       "_title": "rpm"
                     },
-                    "1,0": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/set rpm",
-                      "_title": "/Shuffleboard/Peyton/Motor RF A/Velocity/set rpm"
-                    },
                     "1,1": {
                       "_type": "Toggle Button",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/Apply",
                       "_title": "Shuffleboard/Peyton/Motor RF A/Velocity/Apply"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/set rpm",
+                      "_title": "/Shuffleboard/Peyton/Motor RF A/Velocity/set rpm"
                     }
                   }
                 }
@@ -1506,11 +1506,6 @@
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/min",
                       "_title": "min"
                     },
-                    "1,2": {
-                      "_type": "Toggle Button",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/Apply",
-                      "_title": "Apply"
-                    },
                     "0,0": {
                       "_type": "Text View",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kP",
@@ -1538,6 +1533,11 @@
                     }
                   }
                 },
+                "0,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/Apply",
+                  "_title": "Apply"
+                },
                 "1,0": {
                   "_type": "Grid Layout",
                   "_title": "Velocity",
@@ -1555,15 +1555,15 @@
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/rpm",
                       "_title": "rpm"
                     },
-                    "1,1": {
-                      "_type": "Toggle Button",
-                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/Apply",
-                      "_title": "Shuffleboard/Peyton/Motor RF B/Velocity/Apply"
-                    },
                     "1,0": {
                       "_type": "Text View",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/set rpm",
                       "_title": "/Shuffleboard/Peyton/Motor RF B/Velocity/set rpm"
+                    },
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/Apply",
+                      "_title": "Shuffleboard/Peyton/Motor RF B/Velocity/Apply"
                     }
                   }
                 }
@@ -1614,7 +1614,7 @@
               "_title": "Shuffleboard/Peyton/Module LF/Control"
             }
           },
-          "17,1": {
+          "17,0": {
             "size": [
               3,
               1
