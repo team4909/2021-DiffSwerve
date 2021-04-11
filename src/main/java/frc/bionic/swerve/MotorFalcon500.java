@@ -14,13 +14,11 @@ package frc.bionic.swerve;
 
 import java.util.Map;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.MedianFilter;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.MedianFilter;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -28,15 +26,17 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
-public class MotorCANSparkMaxNeo implements IMotor
-{
+/**
+ * MotorFalcon500
+ */
+public class MotorFalcon500 implements IMotor{
   // Initial, default PID constants, overridden by persistent shuffleboard fields
-  private static final double kMotorP  = 0.000090;
-  private static final double kMotorI  = 0.000001;
-  private static final double kMotorD  = 0.000090;
-  private static final double kMotorIz = 100.0;
-  private static final double kMotorFf = 0.000090;
+  private static final double kMotorP = 0.0;
+  private static final double kMotorI = 0.0;
+  private static final double kMotorD = 0.0;
+  private static final double kMotorIz = 0.0;
+  private static final double kMotorFf = 0.0;
+  private static final int kMotorSlot = 0;
 
   // To keep the motor closer to peek power, we limit the max output.
   // See torque/speed curves on https://motors.vex.com/
@@ -44,10 +44,8 @@ public class MotorCANSparkMaxNeo implements IMotor
   private static final double kMotorMin = -0.7;
 
   // Devices, Sensors, Actuators
-  private CANSparkMax       motorController;  // the motor controller
-  private CANEncoder        encoder;          // internal encoder
-  private CANPIDController  pid;              // internal PID controller
-  private MedianFilter      velAverage;       // for displaying average RPM
+  private MedianFilter velAverage; //For displaying average RPM
+  private TalonFX motor;
 
   // Shuffleboard-related
   private String            name;
@@ -68,7 +66,7 @@ public class MotorCANSparkMaxNeo implements IMotor
   NetworkTableEntry         sb_pid_apply;
 
   /**
-   * Constructor for a CAN Spark Max / Neo motor implementation
+   * Constructor for Falcon500/TalonFX
    *
    * @param deviceId
    *   The CAN channel to which this motor controller is connected
@@ -79,21 +77,16 @@ public class MotorCANSparkMaxNeo implements IMotor
    * @param shuffleboardTabName
    *   Tab on which to place shuffleboard fields
    */
-  public MotorCANSparkMaxNeo(int deviceId, String name, String shuffleboardTabName)
-  {
+  public MotorFalcon500(int deviceId, boolean bReverse, String name, String shuffleboardTabName){
     // Save parameter values used elsewhere
     this.name = name;
     this.shuffleboardTabName = shuffleboardTabName;
 
-    // Get access to the specified motor controller
-    motorController = new CANSparkMax(deviceId, MotorType.kBrushless);
-    motorController.restoreFactoryDefaults();
+    // Makes a new Talon motor
+    motor = new TalonFX(deviceId);
 
-    // Get the encoder and PID controller from the motor controller
-    encoder = motorController.getEncoder();
-    pid = motorController.getPIDController();
-
-    // @todo current limits on the motor
+    // Resets the motor to default
+    motor.configFactoryDefault();
 
     // Set zero RPM (motor stopped), initially
     setGoalRPM(0.0);
@@ -101,28 +94,30 @@ public class MotorCANSparkMaxNeo implements IMotor
     // Prepare to display (on shuffleboard) recent average RPM
     velAverage = new MedianFilter(50);
 
-    pid.setP(kMotorP);
-    pid.setI(kMotorI);
-    pid.setD(kMotorD);
-    pid.setIZone(kMotorIz);
-    pid.setFF(kMotorFf);
-    pid.setOutputRange(kMotorMin, kMotorMax);
+    motor.config_kP(kMotorSlot, kMotorP);
+    motor.config_kI(kMotorSlot, kMotorI);
+    motor.config_kD(kMotorSlot, kMotorD);
+    motor.config_IntegralZone(kMotorSlot, kMotorIz);
+    motor.config_kF(kMotorSlot, kMotorFf);
+    motor.configPeakOutputForward(kMotorMax);
+    motor.configPeakOutputReverse(kMotorMin);
 
-    // Initialize the shuffleboard interface
+    // Initilize Shuffleboard Interface
     initShuffleboard();
+
   }
 
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
     SmartDashboard.putNumber(name + " goal", goalRPM);
-    pid.setReference(goalRPM, ControlType.kVelocity);
+    motor.set(TalonFXControlMode.Velocity, goalRPM);
   }
 
   // interface implementation
   public double getVelocityRPM()
   {
-    return encoder.getVelocity();
+    return motor.getActiveTrajectoryVelocity(); //THIS IS PER 100MS, change if needed in RPM
   }
 
   // interface implementation
@@ -200,12 +195,13 @@ public class MotorCANSparkMaxNeo implements IMotor
       sb_pid_apply.setBoolean(false);
 
       // set PID constants based on shuffleboard input
-      pid.setP(sb_pid_kp.getDouble(0));
-      pid.setI(sb_pid_ki.getDouble(0));
-      pid.setD(sb_pid_kd.getDouble(0));
-      pid.setIZone(sb_pid_kiz.getDouble(0));
-      pid.setFF(sb_pid_kff.getDouble(0));
-      pid.setOutputRange(sb_pid_max.getDouble(0), sb_pid_min.getDouble(0));
+      motor.config_kP(kMotorSlot, sb_pid_kp.getDouble(0));
+      motor.config_kI(kMotorSlot, sb_pid_ki.getDouble(0));
+      motor.config_kD(kMotorSlot, sb_pid_kd.getDouble(0));
+      motor.config_IntegralZone(kMotorSlot, sb_pid_kiz.getDouble(0));
+      motor.config_kF(kMotorSlot, sb_pid_kff.getDouble(0));
+      motor.configPeakOutputForward(sb_pid_max.getDouble(0));
+      motor.configPeakOutputReverse(sb_pid_max.getDouble(0));
     }
   }
 }

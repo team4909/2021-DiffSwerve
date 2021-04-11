@@ -10,26 +10,37 @@
  *   See the LICENSE file in the project's top-level directory for details.
  */
 
-package frc.peyton;
+package frc.robot;
 
+import frc.bionic.swerve.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Robot extends TimedRobot {
-  private final Joystick m_controller = new Joystick(0);
-  private final Drivetrain m_swerve = new Drivetrain();
+  private final Joystick        joystickController = new Joystick(0);
+  private AbstractDrivetrain    drivetrain;
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(3);
   private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(3);
   private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
 
+  // Shuffleboard-related
+  NetworkTableEntry         sb_robot_type;
+
+
   @Override
   public void robotInit() {
-    // NetworkTable table = NetworkTableInstance.getDefault().getTable("MyTable");
-    // table.getEntry("")
+    ShuffleboardTab           tab;
+
+    tab = Shuffleboard.getTab("Robot Selection");
+    sb_robot_type = tab.addPersistent("Drivetrain Type",  "Enter 'peyton' or 'team4909'").getEntry();
+
     SmartDashboard.putBoolean("Override", false);
     SmartDashboard.putBoolean("ZERO", false);
     SmartDashboard.putBoolean("Enable Slew", true);
@@ -37,18 +48,27 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    m_swerve.periodic();
+    String type;
+    
+    // If we're not yet configured with a drivetrain type...
+    if (drivetrain == null) {
+      // See if the user has entered a known drivetrain type
+      type = sb_robot_type.getString("UNCONFIGURED");
+      if (type == "peyton") {
+        drivetrain = new frc.peyton.Drivetrain();
+      } else if (type == "team4909") {
+        drivetrain = new frc.team4909.Drivetrain();
+      } else {
+        System.out.println("Shuffleboard's 'Robot Selection/Drivetrain Type' has not been configured!");
+        return;
+      }
+    }
+    drivetrain.periodic();
   }
 
   @Override
   public void teleopInit() {
   }
-
-  // @Override
-  // public void autonomousPeriodic() {
-  //   driveWithJoystick(false);
-  //   m_swerve.updateOdometry();
-  // }
 
   @Override
   public void teleopPeriodic() {
@@ -58,66 +78,57 @@ public class Robot extends TimedRobot {
   private void driveWithJoystick(boolean fieldRelative) {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
-    double xSpeed = -m_controller.getY();
-        // -m_xspeedLimiter.calculate(m_controller.getY(GenericHID.Hand.kLeft))
-        //     * frc.robot.Drivetrain.kMaxSpeed;
+    double xSpeed = -joystickController.getY();
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
-    double ySpeed = -m_controller.getX();
-        // -m_yspeedLimiter.calculate(m_controller.getX(GenericHID.Hand.kLeft))
-        //     * frc.robot.Drivetrain.kMaxSpeed;
+    double ySpeed = -joystickController.getX();
 
-    // Get the rate of angular rotation. We are inverting this because we want a
+    // Get the rate of angular rotation. We invert this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to
     // the right by default.
-    double rot = 0;
+    double rotate = 0;
     
     // only allow turning if thumb button is presses
-    if (m_controller.getRawButton(2)) {
-      rot = -m_controller.getZ();
-    }
-        // -m_rotLimiter.calculate()
-        //     * frc.robot.Drivetrain.kMaxAngularSpeed;
-
-    if (Math.abs(rot) < .5) {
-      rot = 0;
-    }
-    if (Math.abs(xSpeed) < .2) {
-      xSpeed = 0;
-    }
-    if (Math.abs(ySpeed) < .2) {
-      ySpeed = 0;
+    if (joystickController.getRawButton(2)) {
+      rotate = -joystickController.getZ();
     }
 
-    
+    // Implement dead zones on joystick to avoid inadvertent movement
+    if (Math.abs(rotate) < .5)   rotate = 0;
+    if (Math.abs(xSpeed) < .2)   xSpeed = 0;
+    if (Math.abs(ySpeed) < .2)   ySpeed = 0;
 
+    // Allow overriding speeds from dashboard
     if (SmartDashboard.getBoolean("Override", false)) {
       xSpeed = SmartDashboard.getNumber("xSpeed", 0);
       ySpeed = SmartDashboard.getNumber("ySpeed", 0);
-      rot    = SmartDashboard.getNumber("rot",    0);
+      rotate = SmartDashboard.getNumber("rotate",    0);
     }
 
+    // Quickly zero all speeds from dashboard
     if (SmartDashboard.getBoolean("ZERO", false)) {
       SmartDashboard.putBoolean("ZERO", false);
       xSpeed = 0;
       ySpeed = 0;
-      rot    = 0;
+      rotate = 0;
     }
 
+    // Use the slew limited on joystick input, if enabled from dashboard
     if (SmartDashboard.getBoolean("Enable Slew", false)) {
-      
       xSpeed = m_xspeedLimiter.calculate(xSpeed);
       ySpeed = m_yspeedLimiter.calculate(ySpeed);
-      rot    = m_rotLimiter.calculate(rot);
+      rotate = m_rotLimiter.calculate(rotate);
     }
 
+    // Log speeds to dashboard
     SmartDashboard.putNumber("xSpeed", xSpeed);
     SmartDashboard.putNumber("ySpeed", ySpeed);
-    SmartDashboard.putNumber("rot",    rot);
+    SmartDashboard.putNumber("rotate", rotate);
 
-    m_swerve.drive(xSpeed, ySpeed, rot);
+    // Do it!
+    drivetrain.drive(xSpeed, ySpeed, rotate);
   }
 }

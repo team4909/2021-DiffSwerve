@@ -14,7 +14,7 @@ package frc.peyton;
 
 import frc.bionic.swerve.*;
 
-public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
+public class SwerveModule extends AbstractSwerveModule
 {
   // Gear ratio of first two pairs of gears.
   // Yaw does not depend on the third pair.
@@ -30,8 +30,8 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
   // The wheel diameter, in meters
   private static final double      WHEEL_DIAMETER_METERS    = frc.bionic.Conversion.inchesToMeters(3.0);
 
-  public PeytonSwerveModule(int canDeviceChannelA, int canDeviceChannelB,
-                            int dioEncoderChannelA, int dioEncoderChannelB,
+  public SwerveModule(int canDeviceChannelA, int canDeviceChannelB,
+                            int dioEncoderChannel,
                             double initialEncoderOffset,
                             String name, String shuffleboardTabName)
   {
@@ -43,7 +43,7 @@ public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
 
     // Instantiate the yaw encoder our swerve module incorporates
     IYawEncoder encoder;
-    encoder = new YawEncoderRevHex(dioEncoderChannelA, initialEncoderOffset, name, shuffleboardTabName);
+    encoder = new YawEncoderRevHex(dioEncoderChannel, initialEncoderOffset, name, shuffleboardTabName);
 
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 
                motorA, motorB, encoder, WHEEL_DIAMETER_METERS);

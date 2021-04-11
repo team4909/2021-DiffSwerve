@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
-public class SwerveModule
+public class AbstractSwerveModule
 {
   // Gear ratio for yaw. This may not include all pairs of gears.
   private double             GEAR_RATIO_YAW;
@@ -63,7 +63,7 @@ public class SwerveModule
   
 
 
-  public SwerveModule(String name, String shuffleboardTabName)
+  public AbstractSwerveModule(String name, String shuffleboardTabName)
   {
     // Save arguments
     this.name = name;
