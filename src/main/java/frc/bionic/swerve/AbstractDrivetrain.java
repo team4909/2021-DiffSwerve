@@ -30,7 +30,11 @@ public abstract class AbstractDrivetrain {
 
   /*
    * Extending class must implement `getGyroAngle` method which returns the
-   * robot's rotation in degrees
+   * robot's rotation in degrees. Degrees can be continuous, so result may be
+   * outside range of [0.0, 360.0]. Degrees are measured *counterclockwise*
+   * from zero, where zero is down-field towards opponent. Because degrees are
+   * measured counterclockwise, the result may need to be negated, as devices
+   * like NavX return degrees measured cockwise from zero.
    */
   abstract public double getGyroAngle();
 
@@ -95,7 +99,7 @@ public abstract class AbstractDrivetrain {
 
     var chassisSpeeds = 
       ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate, 
-                                            Rotation2d.fromDegrees(-this.getGyroAngle()));
+                                            Rotation2d.fromDegrees(this.getGyroAngle()));
 
     var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);

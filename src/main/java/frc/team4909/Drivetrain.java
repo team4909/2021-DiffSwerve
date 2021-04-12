@@ -60,7 +60,10 @@ public class Drivetrain extends AbstractDrivetrain {
 
   // abstract superclass implementation
   public double getGyroAngle(){
-    return navX.getAngle();
+    // negate result because NavX returns degrees measured clockwise from zero,
+    // whereas the defined interface that this method implements states that
+    // the method must return degrees measured counterclockwise from zero.
+    return -navX.getAngle();
   }
 
   public void lockInPlace() {
