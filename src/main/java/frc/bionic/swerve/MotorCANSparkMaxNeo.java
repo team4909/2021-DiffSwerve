@@ -154,13 +154,13 @@ public class MotorCANSparkMaxNeo implements IMotor
     sb_vel_apply   = sublayout.add("Apply", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
     sublayout      = layout.getLayout("PID", BuiltInLayouts.kList);
-    sb_pid_kp      = sublayout.addPersistent("kP", kMotorP).getEntry();
-    sb_pid_ki      = sublayout.addPersistent("kI", kMotorI).getEntry();
-    sb_pid_kd      = sublayout.addPersistent("kD", kMotorD).getEntry();
-    sb_pid_kiz     = sublayout.addPersistent("kIz", kMotorIz).getEntry();
-    sb_pid_kff     = sublayout.addPersistent("kFF", kMotorFf).getEntry();
-    sb_pid_max     = sublayout.addPersistent("max", kMotorMax).getEntry();
-    sb_pid_min     = sublayout.addPersistent("min", kMotorMin).getEntry();
+    sb_pid_kp      = sublayout.addPersistent("MotorCANSparkMaxNeo-kP", kMotorP).getEntry();
+    sb_pid_ki      = sublayout.addPersistent("MotorCANSparkMaxNeo-kI", kMotorI).getEntry();
+    sb_pid_kd      = sublayout.addPersistent("MotorCANSparkMaxNeo-kD", kMotorD).getEntry();
+    sb_pid_kiz     = sublayout.addPersistent("MotorCANSparkMaxNeo-kIz", kMotorIz).getEntry();
+    sb_pid_kff     = sublayout.addPersistent("MotorCANSparkMaxNeo-kFF", kMotorFf).getEntry();
+    sb_pid_max     = sublayout.addPersistent("MotorCANSparkMaxNeo-max", kMotorMax).getEntry();
+    sb_pid_min     = sublayout.addPersistent("MotorCANSparkMaxNeo-min", kMotorMin).getEntry();
     sb_pid_apply   = sublayout.add("Apply", false).getEntry();
   }
 

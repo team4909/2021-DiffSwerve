@@ -149,13 +149,13 @@ public class MotorFalcon500 implements IMotor{
     sb_vel_apply   = sublayout.add("Apply", false).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
     sublayout      = layout.getLayout("PID", BuiltInLayouts.kList);
-    sb_pid_kp      = sublayout.addPersistent("kP", kMotorP).getEntry();
-    sb_pid_ki      = sublayout.addPersistent("kI", kMotorI).getEntry();
-    sb_pid_kd      = sublayout.addPersistent("kD", kMotorD).getEntry();
-    sb_pid_kiz     = sublayout.addPersistent("kIz", kMotorIz).getEntry();
-    sb_pid_kff     = sublayout.addPersistent("kFF", kMotorFf).getEntry();
-    sb_pid_max     = sublayout.addPersistent("max", kMotorMax).getEntry();
-    sb_pid_min     = sublayout.addPersistent("min", kMotorMin).getEntry();
+    sb_pid_kp      = sublayout.addPersistent("MotorFalcon500-kP", kMotorP).getEntry();
+    sb_pid_ki      = sublayout.addPersistent("MotorFalcon500-kI", kMotorI).getEntry();
+    sb_pid_kd      = sublayout.addPersistent("MotorFalcon500-kD", kMotorD).getEntry();
+    sb_pid_kiz     = sublayout.addPersistent("MotorFalcon500-kIz", kMotorIz).getEntry();
+    sb_pid_kff     = sublayout.addPersistent("MotorFalcon500-kFF", kMotorFf).getEntry();
+    sb_pid_max     = sublayout.addPersistent("MotorFalcon500-max", kMotorMax).getEntry();
+    sb_pid_min     = sublayout.addPersistent("MotorFalcon500-min", kMotorMin).getEntry();
     sb_pid_apply   = sublayout.add("Apply", false).getEntry();
   }
 
