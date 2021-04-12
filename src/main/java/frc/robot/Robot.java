@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
       } else if (type.equals("team4909")) {
         drivetrain = new frc.team4909.Drivetrain();
       } else {
-        System.out.println("Shuffleboard's 'Robot Selection/Drivetrain Type' is still " + type);
+        System.out.println("Shuffleboard's 'Robot Selection/Drivetrain Type' is invalid: " + type);
         return;
       }
     }
