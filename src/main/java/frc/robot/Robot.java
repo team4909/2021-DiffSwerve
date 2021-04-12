@@ -54,12 +54,12 @@ public class Robot extends TimedRobot {
     if (drivetrain == null) {
       // See if the user has entered a known drivetrain type
       type = sb_robot_type.getString("UNCONFIGURED");
-      if (type == "peyton") {
+      if (type.equals("peyton")) {
         drivetrain = new frc.peyton.Drivetrain();
-      } else if (type == "team4909") {
+      } else if (type.equals("team4909")) {
         drivetrain = new frc.team4909.Drivetrain();
       } else {
-        System.out.println("Shuffleboard's 'Robot Selection/Drivetrain Type' has not been configured!");
+        System.out.println("Shuffleboard's 'Robot Selection/Drivetrain Type' is still " + type);
         return;
       }
     }
