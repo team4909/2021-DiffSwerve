@@ -18,14 +18,17 @@ import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.bionic.swerve.MotorFalcon500;
+import frc.bionic.swerve.SwerveModule;
 import frc.bionic.swerve.command.DriveWithJoystick;
-import frc.team4909.Drivetrain;
+import frc.peyton.Drivetrain;
+import frc.peyton.PeytonSwerveModule;
 
 public class Robot extends TimedRobot {
   private final Joystick m_controller = new Joystick(0);
-  private final Drivetrain m_swerve = new Drivetrain();
-
-
+  //private final Drivetrain m_swerve = new Drivetrain();
+  private final SwerveModule mod = new SwerveModule("name", "Team 4909");
+  
 
   @Override
   public void robotInit() {
@@ -38,14 +41,15 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().onCommandFinish(command -> Shuffleboard.addEventMarker(
         "Command finished", command.getName(), EventImportance.kNormal));
 
-    m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
+    //m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
 
-    new JoystickButton(m_controller, 11).whileHeld(() -> m_swerve.lockInPlace(), m_swerve);
+    //new JoystickButton(m_controller, 11).whileHeld(() -> m_swerve.lockInPlace(), m_swerve);
   }
 
   @Override
   public void robotPeriodic() {
-    m_swerve.periodic();
+    //m_swerve.periodic();
+    mod.periodic();
   }
 
   @Override

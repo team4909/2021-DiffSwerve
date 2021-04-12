@@ -426,8 +426,7 @@
               "_title": "NavX",
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
-              "Visuals/Show tick mark ring": true,
-              "Visuals/Counter clockwise": false
+              "Visuals/Show tick mark ring": true
             }
           },
           "1,7": {
@@ -552,6 +551,50 @@
               "_source0": "network_table:///SmartDashboard/lamprey Heading",
               "_title": "lamprey Heading"
             }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/top goal",
+              "_title": "top goal"
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/bottom goal",
+              "_title": "bottom goal"
+            }
+          },
+          "16,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/A goal",
+              "_title": "A goal"
+            }
+          },
+          "17,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/B goal",
+              "_title": "B goal"
+            }
           }
         }
       }
@@ -640,8 +683,7 @@
                   "_title": "AnalogGyro[0]",
                   "Visuals/Major tick spacing": 45.0,
                   "Visuals/Starting angle": 180.0,
-                  "Visuals/Show tick mark ring": true,
-                  "Visuals/Counter clockwise": false
+                  "Visuals/Show tick mark ring": true
                 },
                 {
                   "_type": "PID Controller",
@@ -654,8 +696,7 @@
                   "_title": "navX-Sensor",
                   "Visuals/Major tick spacing": 45.0,
                   "Visuals/Starting angle": 180.0,
-                  "Visuals/Show tick mark ring": true,
-                  "Visuals/Counter clockwise": false
+                  "Visuals/Show tick mark ring": true
                 },
                 {
                   "_type": "Text View",
@@ -1153,10 +1194,7 @@
               "_type": "Graph",
               "_source0": "network_table:///Shuffleboard/Swerve/Output/Translation",
               "_title": "Shuffleboard/Swerve/Output/Translation",
-              "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Graph/Visible time": 30.0
             }
           },
           "11,1": {
@@ -1903,10 +1941,7 @@
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/lamprey dist",
               "_title": "SmartDashboard/lamprey dist",
-              "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Graph/Visible time": 30.0
             }
           },
           "8,6": {
@@ -1918,10 +1953,7 @@
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/lamprey get",
               "_title": "SmartDashboard/lamprey get",
-              "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 0.55,
-              "Y-axis/Lower bound": 0.45
+              "Graph/Visible time": 30.0
             }
           },
           "0,0": {
@@ -1933,10 +1965,7 @@
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/lamprey Heading",
               "_title": "SmartDashboard/lamprey Heading",
-              "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 185.0,
-              "Y-axis/Lower bound": 170.0
+              "Graph/Visible time": 30.0
             }
           }
         }
@@ -1968,7 +1997,7 @@
     }
   ],
   "windowGeometry": {
-    "x": -1688.0,
+    "x": -8.0,
     "y": -8.0,
     "width": 1696.0,
     "height": 1026.0

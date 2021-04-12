@@ -92,12 +92,14 @@ public class MotorFalcon500 implements IMotor{
     //Interface Implementation
     public void setGoalRPM(double goalRPM){
         SmartDashboard.putNumber(name + " goal", goalRPM);
-        motor.set(TalonFXControlMode.Velocity, goalRPM);
+        // Multiply RPM by 2048 (ticks per rev) * 600 (ms per min) because Velocity Control wants ticks per 100 ms
+        motor.set(TalonFXControlMode.Velocity, (goalRPM * 2048) * 60 * 10);
     }
 
     //Interface Implementation
     public double getVelocityRPM(){
-        return (motor.getSelectedSensorVelocity() / 2048) * 10 * 60;
+      // Divide by 2048 (ticks per rev) / 600 (ms per min) because the method gives us ticks per 100 ms and we want rev per min
+        return (motor.getSelectedSensorVelocity() / 2048) / (10 * 60);
     }
 
     //Interface Implementaion
