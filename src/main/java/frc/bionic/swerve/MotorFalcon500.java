@@ -22,11 +22,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorFalcon500 implements IMotor{
     
     // Initial, default PID constants, overridden by persistent shuffleboard fields
-    private static final double kMotorP  = 0.2;
-    private static final double kMotorI  = 0.000001;
-    private static final double kMotorD  = 0.000090;
+    private static final double kMotorP  = 0.09;
+    private static final double kMotorI  = 0.0000;
+    private static final double kMotorD  = 0.0000;
     private static final double kMotorIz = 100.0;
-    private static final double kMotorFf = 0.000090;
+    private static final double kMotorFf = 0.0475;
     private static final int kMotorSlot = 0;
   
     /**
@@ -93,13 +93,13 @@ public class MotorFalcon500 implements IMotor{
     public void setGoalRPM(double goalRPM){
         SmartDashboard.putNumber(name + " goal", goalRPM);
         // Multiply RPM by 2048 (ticks per rev) * 600 (ms per min) because Velocity Control wants ticks per 100 ms
-        motor.set(TalonFXControlMode.Velocity, (goalRPM * 2048) * 60 * 10);
+        motor.set(TalonFXControlMode.Velocity, (goalRPM * 2048) / (60 * 10));
     }
 
     //Interface Implementation
     public double getVelocityRPM(){
       // Divide by 2048 (ticks per rev) / 600 (ms per min) because the method gives us ticks per 100 ms and we want rev per min
-        return (motor.getSelectedSensorVelocity() / 2048) / (10 * 60);
+        return (motor.getSelectedSensorVelocity() * 60 * 10) / (2048); 
     }
 
     //Interface Implementaion

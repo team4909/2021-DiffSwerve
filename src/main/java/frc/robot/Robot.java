@@ -17,17 +17,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.bionic.swerve.MotorFalcon500;
-import frc.bionic.swerve.SwerveModule;
-import frc.bionic.swerve.command.DriveWithJoystick;
-import frc.peyton.Drivetrain;
-import frc.peyton.PeytonSwerveModule;
+import frc.team4909.SwerveModule;
 
 public class Robot extends TimedRobot {
   private final Joystick m_controller = new Joystick(0);
   //private final Drivetrain m_swerve = new Drivetrain();
-  private final SwerveModule mod = new SwerveModule("name", "Team 4909");
+  private final SwerveModule mod = new SwerveModule(1, 2, 0, 0, "RF", "Team 4909");
+  // private final MotorFalcon500 motorA = new MotorFalcon500(1, true, "RF A", "Team 4909");
+  // private final MotorFalcon500 motorB = new MotorFalcon500(2, true, "RF B", "Team 4909");
+
   
 
   @Override
@@ -48,8 +47,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    //m_swerve.periodic();
     mod.periodic();
+    // motorA.periodic();
+    // motorB.periodic();
   }
 
   @Override

@@ -1663,7 +1663,7 @@
               "_title": "/SmartDashboard/xSpeed"
             }
           },
-          "17,2": {
+          "17,1": {
             "size": [
               3,
               1
@@ -1674,7 +1674,7 @@
               "_title": "/SmartDashboard/ySpeed"
             }
           },
-          "17,3": {
+          "17,2": {
             "size": [
               3,
               1
@@ -1990,6 +1990,327 @@
               "_type": "Network Table Tree",
               "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A",
               "_title": "Shuffleboard/Peyton/Motor LF A"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Team 4909",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "3,4": {
+            "size": [
+              8,
+              2
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "ENCODER!",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Team 4909/Yaw Encoder RF/angle deg",
+                  "_title": "Shuffleboard/Team 4909/Yaw Encoder RF/angle deg"
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Team 4909/Yaw Encoder RF/output +-%",
+                  "_title": "Shuffleboard/Team 4909/Yaw Encoder RF/output +-%"
+                },
+                "2,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Team 4909/Yaw Encoder RF/goal deg",
+                  "_title": "Shuffleboard/Team 4909/Yaw Encoder RF/goal deg"
+                }
+              }
+            }
+          },
+          "7,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "RF A",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 1,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Grid Layout",
+                  "_title": "RF A PID",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 5,
+                  "Layout/Label position": "BOTTOM",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/PID/kP",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/PID/kP"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/PID/kI",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/PID/kI"
+                    },
+                    "0,2": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/PID/kD",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/PID/kD"
+                    },
+                    "0,3": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/PID/kIz",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/PID/kIz"
+                    },
+                    "1,0": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/PID/Apply",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/PID/Apply"
+                    },
+                    "0,4": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/PID/kFF",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/PID/kFF"
+                    }
+                  }
+                },
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "RF A Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 3,
+                  "Layout/Label position": "BOTTOM",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/Velocity/rpm",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/Velocity/rpm"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/Velocity/avg",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/Velocity/avg"
+                    },
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/Velocity/Apply",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/Velocity/Apply"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF A/Velocity/set rpm",
+                      "_title": "Shuffleboard/Team 4909/Motor RF A/Velocity/set rpm"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "3,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "RF B",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 1,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Grid Layout",
+                  "_title": "RF B PID",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 5,
+                  "Layout/Label position": "BOTTOM",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/PID/kP",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/PID/kP"
+                    },
+                    "0,2": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/PID/kD",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/PID/kD"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/PID/kI",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/PID/kI"
+                    },
+                    "0,3": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/PID/kIz",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/PID/kIz"
+                    },
+                    "0,4": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/PID/kFF",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/PID/kFF"
+                    },
+                    "1,0": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/PID/Apply",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/PID/Apply"
+                    }
+                  }
+                },
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "RF B Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 3,
+                  "Layout/Label position": "BOTTOM",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/Velocity/rpm",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/Velocity/rpm"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/Velocity/avg",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/Velocity/avg"
+                    },
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/Velocity/Apply",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/Velocity/Apply"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Team 4909/Motor RF B/Velocity/set rpm",
+                      "_title": "Shuffleboard/Team 4909/Motor RF B/Velocity/set rpm"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 13",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "2,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Module RF/Apply",
+              "_title": "Shuffleboard/Team 4909/Module RF/Apply"
+            }
+          },
+          "2,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Module RF/Control",
+              "_title": "Shuffleboard/Team 4909/Module RF/Control"
+            }
+          },
+          "2,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Module RF/calc wheel rpm",
+              "_title": "Shuffleboard/Team 4909/Module RF/calc wheel rpm"
+            }
+          },
+          "2,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Module RF/calc yaw rpm",
+              "_title": "Shuffleboard/Team 4909/Module RF/calc yaw rpm"
+            }
+          },
+          "8,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Module RF/translation",
+              "_title": "Shuffleboard/Team 4909/Module RF/translation"
+            }
+          },
+          "5,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Module RF/wheel set rpm",
+              "_title": "/Shuffleboard/Team 4909/Module RF/wheel set rpm"
+            }
+          },
+          "5,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Module RF/yaw set deg",
+              "_title": "/Shuffleboard/Team 4909/Module RF/yaw set deg"
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Yaw Encoder RF/angle deg",
+              "_title": "Shuffleboard/Team 4909/Yaw Encoder RF/angle deg"
+            }
+          },
+          "8,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team 4909/Yaw Encoder RF/goal deg",
+              "_title": "Shuffleboard/Team 4909/Yaw Encoder RF/goal deg"
             }
           }
         }
