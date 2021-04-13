@@ -31,10 +31,10 @@ public class Drivetrain extends AbstractDrivetrain {
     double                kHalfWheelBaseWidthInches = 16.825108;
     double                kHalfWheelBaseLengthInches = 16.825108;
 
-    swerveRF = new frc.team4909.SwerveModule(1, 2, 0,   10.4, "RF", "Peyton");
-    swerveLF = new frc.peyton.SwerveModule(3, 4, 2,  -21.8, "LF", "Peyton");
-    swerveLR = new frc.peyton.SwerveModule(5, 6, 4,    2.3, "LR", "Peyton");
-    swerveRR = new frc.peyton.SwerveModule(7, 8, 6,  -18.9, "RR", "Peyton");
+    swerveRF = new frc.team4909.SwerveModule(1, 2, 0, "RF", "Peyton");
+    swerveLF = new frc.peyton.SwerveModule(3, 4, 2,  "LF", "Peyton");
+    swerveLR = new frc.peyton.SwerveModule(5, 6, 4,  "LR", "Peyton");
+    swerveRR = new frc.peyton.SwerveModule(7, 8, 6,  "RR", "Peyton");
 
 
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,

@@ -32,7 +32,6 @@ public class SwerveModule extends AbstractSwerveModule
 
   public SwerveModule(int canDeviceChannelA, int canDeviceChannelB,
                             int dioEncoderChannel,
-                            double initialEncoderOffset,
                             String name, String shuffleboardTabName)
   {
     super(name, shuffleboardTabName);
@@ -42,8 +41,7 @@ public class SwerveModule extends AbstractSwerveModule
     IMotor motorB = new MotorCANSparkMaxNeo(canDeviceChannelB, name + " B", shuffleboardTabName);
 
     // Instantiate the yaw encoder our swerve module incorporates
-    IYawEncoder encoder;
-    encoder = new YawEncoderRevHex(dioEncoderChannel, initialEncoderOffset, name, shuffleboardTabName);
+    IYawEncoder encoder = new YawEncoderRevHex(dioEncoderChannel, name, shuffleboardTabName);
 
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 
                motorA, motorB, encoder, WHEEL_DIAMETER_METERS);

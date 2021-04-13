@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     ShuffleboardTab           tab;
 
-    tab = Shuffleboard.getTab("Robot Selection");
+    tab = Shuffleboard.getTab("Robot Setup");
     sb_robot_type = tab.addPersistent("Drivetrain Type",  "Enter 'peyton' or 'team4909'").getEntry();
 
     SmartDashboard.putBoolean("Override", false);

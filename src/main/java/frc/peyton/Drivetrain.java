@@ -29,10 +29,10 @@ public class Drivetrain extends AbstractDrivetrain {
     double             kHalfWheelBaseWidthInches = 15.0;
     double             kHalfWheelBaseLengthInches = 15.0;
 
-    swerveRF = new SwerveModule(1, 2, 0,   10.4, "RF", "Peyton");
-    swerveLF = new SwerveModule(3, 4, 2,  -21.8, "LF", "Peyton");
-    swerveLR = new SwerveModule(5, 6, 4,    2.3, "LR", "Peyton");
-    swerveRR = new SwerveModule(7, 8, 6,  -18.9, "RR", "Peyton");
+    swerveRF = new SwerveModule(1, 2, 0,  "RF", "Peyton");
+    swerveLF = new SwerveModule(3, 4, 2,  "LF", "Peyton");
+    swerveLR = new SwerveModule(5, 6, 4,  "LR", "Peyton");
+    swerveRR = new SwerveModule(7, 8, 6,  "RR", "Peyton");
 
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
                     kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches);

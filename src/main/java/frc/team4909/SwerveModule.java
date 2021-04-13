@@ -23,7 +23,6 @@ public class SwerveModule extends AbstractSwerveModule{
 
   public SwerveModule(int canDeviceChannelA, int canDeviceChannelB,
                               int dioEncoderChannel,
-                              double initialEncoderOffset,
                               String name, String shuffleboardTabName)
   {
     super(name, shuffleboardTabName);
@@ -34,8 +33,7 @@ public class SwerveModule extends AbstractSwerveModule{
     IMotor motorB = new MotorFalcon500(canDeviceChannelB, true,  name + " B", shuffleboardTabName);
 
     // Instantiate the yaw encoder our swerve module incorporates
-    IYawEncoder encoder;
-    encoder = new YawEncoderRevHex(dioEncoderChannel, initialEncoderOffset, name, shuffleboardTabName);
+    IYawEncoder encoder = new YawEncoderRevHex(dioEncoderChannel, name, shuffleboardTabName);
 
     // Now we have everything our superclass needs to do its thing. Do it!
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 
