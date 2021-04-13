@@ -552,6 +552,17 @@
               "_source0": "network_table:///SmartDashboard/lamprey Heading",
               "_title": "lamprey Heading"
             }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rotate",
+              "_title": "rotate"
+            }
           }
         }
       }
@@ -1465,12 +1476,12 @@
                     "1,1": {
                       "_type": "Toggle Button",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/Apply",
-                      "_title": "Shuffleboard/Peyton/Motor RF A/Velocity/Apply"
+                      "_title": "Apply"
                     },
                     "1,0": {
                       "_type": "Text View",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/set rpm",
-                      "_title": "/Shuffleboard/Peyton/Motor RF A/Velocity/set rpm"
+                      "_title": "set rpm"
                     }
                   }
                 }
@@ -1558,12 +1569,12 @@
                     "1,0": {
                       "_type": "Text View",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/set rpm",
-                      "_title": "/Shuffleboard/Peyton/Motor RF B/Velocity/set rpm"
+                      "_title": "set rpm"
                     },
                     "1,1": {
                       "_type": "Toggle Button",
                       "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/Apply",
-                      "_title": "Shuffleboard/Peyton/Motor RF B/Velocity/Apply"
+                      "_title": "Apply"
                     }
                   }
                 }
@@ -1668,12 +1679,45 @@
               "_source0": "network_table:///SmartDashboard/BeforeNormalize",
               "_title": "/SmartDashboard/BeforeNormalize"
             }
+          },
+          "16,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/NavX Reset",
+              "_title": "SmartDashboard/NavX Reset"
+            }
+          },
+          "15,7": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF B goal",
+              "_title": "SmartDashboard/RF B goal"
+            }
+          },
+          "15,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF A goal",
+              "_title": "SmartDashboard/RF A goal"
+            }
           }
         }
       }
     },
     {
-      "title": "Tab 8",
+      "title": "Joystick Override",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -1870,7 +1914,7 @@
               "_title": "/SmartDashboard/Gyro Angle"
             }
           },
-          "16,2": {
+          "9,9": {
             "size": [
               2,
               2
@@ -1952,15 +1996,48 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "6,2": {
+          "6,1": {
             "size": [
               3,
-              7
+              4
             ],
             "content": {
               "_type": "Network Table Tree",
-              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A",
-              "_title": "Shuffleboard/Peyton/Motor LF A"
+              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder LF",
+              "_title": "Shuffleboard/Peyton/Yaw Encoder LF"
+            }
+          },
+          "9,1": {
+            "size": [
+              3,
+              4
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder LR",
+              "_title": "Shuffleboard/Peyton/Yaw Encoder LR"
+            }
+          },
+          "12,1": {
+            "size": [
+              3,
+              4
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF",
+              "_title": "Shuffleboard/Peyton/Yaw Encoder RF"
+            }
+          },
+          "15,1": {
+            "size": [
+              3,
+              4
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RR",
+              "_title": "Shuffleboard/Peyton/Yaw Encoder RR"
             }
           }
         }
