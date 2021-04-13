@@ -31,11 +31,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MotorFalcon500 implements IMotor{
   // Initial, default PID constants, overridden by persistent shuffleboard fields
-  private static final double kMotorP = 0.0;
+  private static final double kMotorP = 0.09;
   private static final double kMotorI = 0.0;
   private static final double kMotorD = 0.0;
-  private static final double kMotorIz = 0.0;
-  private static final double kMotorFf = 0.0;
+  private static final double kMotorIz = 100.0;
+  private static final double kMotorFf = 0.0475;
   private static final int kMotorSlot = 0;
 
   // To keep the motor closer to peek power, we limit the max output.
@@ -99,8 +99,8 @@ public class MotorFalcon500 implements IMotor{
     motor.config_kD(kMotorSlot, kMotorD);
     motor.config_IntegralZone(kMotorSlot, kMotorIz);
     motor.config_kF(kMotorSlot, kMotorFf);
-    motor.configPeakOutputForward(kMotorMax);
-    motor.configPeakOutputReverse(kMotorMin);
+//    motor.configPeakOutputForward(kMotorMax);
+//    motor.configPeakOutputReverse(kMotorMin);
 
     // Initilize Shuffleboard Interface
     initShuffleboard();
