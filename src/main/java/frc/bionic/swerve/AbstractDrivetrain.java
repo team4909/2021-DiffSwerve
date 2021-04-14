@@ -12,12 +12,13 @@
 
 package frc.bionic.swerve;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 
-public abstract class AbstractDrivetrain {
+public abstract class AbstractDrivetrain  extends Subsystem {
   private AbstractSwerveModule    swerveRF; // right front
   private AbstractSwerveModule    swerveLF; // left front
   private AbstractSwerveModule    swerveLR; // left rear

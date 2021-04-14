@@ -14,20 +14,24 @@ package frc.peyton;
 
 import frc.bionic.swerve.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.*;
 
 public class Drivetrain extends AbstractDrivetrain {
-  public SwerveModule   swerveRF; // right front
-  public SwerveModule   swerveLF; // left front
-  public SwerveModule   swerveLR; // left rear
-  public SwerveModule   swerveRR; // right rear
+  private SwerveModule   swerveRF; // right front
+  private SwerveModule   swerveLF; // left front
+  private SwerveModule   swerveLR; // left rear
+  private SwerveModule   swerveRR; // right rear
+
+  private Command m_defaultCommand = null;
 
   private AHRS navX;
 
-  public Drivetrain() {
+  public Drivetrain(Command defaultCommand) {
     double             kHalfWheelBaseWidthInches = 15.0;
     double             kHalfWheelBaseLengthInches = 15.0;
+    m_defaultCommand = defaultCommand;
 
     swerveRF = new SwerveModule(1, 2, 0,  "RF", "Peyton");
     swerveLF = new SwerveModule(3, 4, 2,  "LF", "Peyton");
@@ -55,10 +59,17 @@ public class Drivetrain extends AbstractDrivetrain {
   }
 
   // abstract superclass implementation
-  public double getGyroAngle(){
+  public double getGyroAngle() {
     // negate result because NavX returns degrees measured clockwise from zero,
     // whereas the defined interface that this method implements states that
     // the method must return degrees measured counterclockwise from zero.
     return -navX.getAngle();
+  }
+
+  @Override
+  protected void initDefaultCommand() {
+    if (m_defaultCommand != null) {
+      setDefaultCommand(m_defaultCommand);
+    }
   }
 }
