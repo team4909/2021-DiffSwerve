@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpiutil.math.MathUtil;
 
 /**
  * MotorFaclon500
@@ -22,12 +23,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorFalcon500 implements IMotor{
     
     // Initial, default PID constants, overridden by persistent shuffleboard fields
-    private static final double kMotorP  = 0.09;
-    private static final double kMotorI  = 0.0000;
-    private static final double kMotorD  = 0.0000;
-    private static final double kMotorIz = 100.0;
-    private static final double kMotorFf = 0.0475;
-    private static final int kMotorSlot = 0;
+    private static final double kMotorP    = 0.09;
+    private static final double kMotorI    = 0.0000;
+    private static final double kMotorD    = 0.0000;
+    private static final double kMotorIz   = 100.0;
+    private static final double kMotorFf   = 0.0475;
+    private static final int    kMotorSlot = 0;
+
+    //Motor Nominal Output Constants
+    private static final double nominalOutput = 0.2;
+    private static final double nominalMinRPM = 150;
+    private static final double nominalMaxRPM = 2500;
   
     /**
     To keep the motor closer to peek power, we limit the max output.
@@ -93,6 +99,12 @@ public class MotorFalcon500 implements IMotor{
     public void setGoalRPM(double goalRPM){
         SmartDashboard.putNumber(name + " goal", goalRPM);
         // Multiply RPM by 2048 (ticks per rev) * 600 (ms per min) because Velocity Control wants ticks per 100 ms
+        // boolean negative = (goalRPM < 0 ? true : false);
+        // if( goalRPM != 0) {
+        //   MathUtil.clamp(Math.abs(goalRPM), nominalMinRPM, nominalMaxRPM);
+          
+        // }
+        // goalRPM = (negative ? -Math.abs(goalRPM) : Math.abs(goalRPM));
         motor.set(TalonFXControlMode.Velocity, (goalRPM * 2048) / (60 * 10));
     }
 

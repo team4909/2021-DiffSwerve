@@ -23,11 +23,7 @@ import frc.team4909.SwerveModule;
 public class Robot extends TimedRobot {
   private final Joystick m_controller = new Joystick(0);
   //private final Drivetrain m_swerve = new Drivetrain();
-  private final SwerveModule mod = new SwerveModule(1, 2, 0, 0, "RF", "Team 4909");
-  // private final MotorFalcon500 motorA = new MotorFalcon500(1, true, "RF A", "Team 4909");
-  // private final MotorFalcon500 motorB = new MotorFalcon500(2, true, "RF B", "Team 4909");
-
-  
+  private final SwerveModule mod = new SwerveModule(1, 2, 0, 0, "RF", "Team 4909"); 
 
   @Override
   public void robotInit() {
@@ -40,7 +36,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().onCommandFinish(command -> Shuffleboard.addEventMarker(
         "Command finished", command.getName(), EventImportance.kNormal));
 
-    //m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
+    // m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
 
     //new JoystickButton(m_controller, 11).whileHeld(() -> m_swerve.lockInPlace(), m_swerve);
   }
