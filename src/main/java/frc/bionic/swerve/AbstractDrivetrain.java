@@ -75,11 +75,11 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
     // Assume our current pose is 5 meters along long end of field, in
     // the center of the field along the short end, and facing forward.
-    odometry = new SwerveDriveOdometry(
+/*     odometry = new SwerveDriveOdometry(
       kinematics,
       Rotation2d.fromDegrees(getGyroAngle()),
       new Pose2d(5.0, 13.5, new Rotation2d()));
-  }
+ */  }
 
   public double getMaxSpeed() {
     return kMaxSpeed;
