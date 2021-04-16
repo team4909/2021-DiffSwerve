@@ -13,8 +13,6 @@
 package frc.robot;
 
 import frc.bionic.swerve.AbstractDrivetrain;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,13 +20,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Robot extends TimedRobot {
-  private final Joystick        joystickController = new Joystick(0);
   private AbstractDrivetrain    drivetrain;
-
-  // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
-  private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
 
   // Shuffleboard-related
   NetworkTableEntry         sb_robot_type;
