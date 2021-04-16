@@ -1,0 +1,4 @@
+This directory is for generic Swerve-related commands that likely
+apply to any Team 4909 swerve robot. Do not put robot-specific
+commands here. Instead, place robot-specific commands in
+robot/command.
