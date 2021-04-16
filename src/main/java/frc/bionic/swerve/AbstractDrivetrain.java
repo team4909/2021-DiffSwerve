@@ -12,10 +12,13 @@
 
 package frc.bionic.swerve;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class AbstractDrivetrain extends SubsystemBase {
@@ -25,6 +28,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private AbstractSwerveModule    swerveRR; // right rear
 
   private SwerveDriveKinematics   kinematics;
+  private SwerveDriveOdometry     odometry;
 
   private double                  kMaxSpeed = 6.0;  // meters per second
 
@@ -68,6 +72,13 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     backRightLocation = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
 
     kinematics = new SwerveDriveKinematics(frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
+
+    // Assume our current pose is 5 meters along long end of field, in
+    // the center of the field along the short end, and facing forward.
+    odometry = new SwerveDriveOdometry(
+      kinematics,
+      Rotation2d.fromDegrees(getGyroAngle()),
+      new Pose2d(5.0, 13.5, new Rotation2d()));
   }
 
   public double getMaxSpeed() {
