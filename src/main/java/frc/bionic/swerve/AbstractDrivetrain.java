@@ -29,7 +29,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private double                  kMaxSpeed = 6.0;  // meters per second
 
 
-  /*
+  /**
    * Extending class must implement `getGyroAngle` method which returns the
    * robot's rotation in degrees. Degrees can be continuous, so result may be
    * outside range of [0.0, 360.0]. Degrees are measured *counterclockwise*
@@ -109,5 +109,16 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     swerveRF.setModuleState(swerveModuleStates[1]);
     swerveLR.setModuleState(swerveModuleStates[2]);
     swerveRR.setModuleState(swerveModuleStates[3]);
+  }
+
+  /**
+   * Orient the wheels such that the robot attempts to prevent being pushed
+   * around by other robots.
+   */
+  public void lockInPlace() {
+    swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }
 }
