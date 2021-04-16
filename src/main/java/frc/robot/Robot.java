@@ -17,6 +17,7 @@ import frc.bionic.swerve.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
 
       UserInterface.createDefaultUI();
     }
+
     drivetrain.periodic();
+    CommandScheduler.getInstance().run();
   }
 }
