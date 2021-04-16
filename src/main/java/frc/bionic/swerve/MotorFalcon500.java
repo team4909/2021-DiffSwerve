@@ -14,7 +14,9 @@ package frc.bionic.swerve;
 
 import java.util.Map;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -31,17 +33,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MotorFalcon500 implements IMotor{
   // Initial, default PID constants, overridden by persistent shuffleboard fields
-  private static final double kMotorP = 0.09;
-  private static final double kMotorI = 0.0;
-  private static final double kMotorD = 0.0;
+  private static final double kMotorP  = 0.2;
+  private static final double kMotorI  = 0.000001;
+  private static final double kMotorD  = 0.000090;
   private static final double kMotorIz = 100.0;
-  private static final double kMotorFf = 0.0475;
+  private static final double kMotorFf = 0.000090;
   private static final int kMotorSlot = 0;
-
-  // To keep the motor closer to peek power, we limit the max output.
-  // See torque/speed curves on https://motors.vex.com/
-  private static final double kMotorMax = 0.7;
-  private static final double kMotorMin = -0.7;
 
   // Devices, Sensors, Actuators
   private MedianFilter velAverage; //For displaying average RPM
@@ -61,8 +58,6 @@ public class MotorFalcon500 implements IMotor{
   NetworkTableEntry         sb_pid_kd;
   NetworkTableEntry         sb_pid_kiz;
   NetworkTableEntry         sb_pid_kff;
-  NetworkTableEntry         sb_pid_max;
-  NetworkTableEntry         sb_pid_min;
   NetworkTableEntry         sb_pid_apply;
 
   /**
@@ -71,13 +66,16 @@ public class MotorFalcon500 implements IMotor{
    * @param deviceId
    *   The CAN channel to which this motor controller is connected
    *
+   * @param bClockwise
+   *   Whether to set `inverted` to clockwise or counterclockwise
+   *
    * @param name
    *   Name used for debugging and for shuffleboard fields
    *
    * @param shuffleboardTabName
    *   Tab on which to place shuffleboard fields
    */
-  public MotorFalcon500(int deviceId, boolean bReverse, String name, String shuffleboardTabName){
+  public MotorFalcon500(int deviceId, boolean bClockwise, String name, String shuffleboardTabName){
     // Save parameter values used elsewhere
     this.name = name;
     this.shuffleboardTabName = shuffleboardTabName;
@@ -87,6 +85,12 @@ public class MotorFalcon500 implements IMotor{
 
     // Resets the motor to default
     motor.configFactoryDefault();
+
+    //Sets motor to brake mode, to prevent forced motor rotation
+    motor.setNeutralMode(NeutralMode.Brake);
+
+    // Set direction, since one motor faces up; the other, down.
+    motor.setInverted(bClockwise ? TalonFXInvertType.Clockwise : TalonFXInvertType.CounterClockwise);
 
     // Set zero RPM (motor stopped), initially
     setGoalRPM(0.0);
@@ -99,8 +103,6 @@ public class MotorFalcon500 implements IMotor{
     motor.config_kD(kMotorSlot, kMotorD);
     motor.config_IntegralZone(kMotorSlot, kMotorIz);
     motor.config_kF(kMotorSlot, kMotorFf);
-//    motor.configPeakOutputForward(kMotorMax);
-//    motor.configPeakOutputReverse(kMotorMin);
 
     // Initilize Shuffleboard Interface
     initShuffleboard();
@@ -117,7 +119,7 @@ public class MotorFalcon500 implements IMotor{
   // interface implementation
   public double getVelocityRPM()
   {
-    return motor.getActiveTrajectoryVelocity(); //THIS IS PER 100MS, change if needed in RPM
+    return (motor.getSelectedSensorVelocity() / 2048) * 10 * 60;
   }
 
   // interface implementation
@@ -154,8 +156,6 @@ public class MotorFalcon500 implements IMotor{
     sb_pid_kd      = sublayout.addPersistent("MotorFalcon500-kD", kMotorD).getEntry();
     sb_pid_kiz     = sublayout.addPersistent("MotorFalcon500-kIz", kMotorIz).getEntry();
     sb_pid_kff     = sublayout.addPersistent("MotorFalcon500-kFF", kMotorFf).getEntry();
-    sb_pid_max     = sublayout.addPersistent("MotorFalcon500-max", kMotorMax).getEntry();
-    sb_pid_min     = sublayout.addPersistent("MotorFalcon500-min", kMotorMin).getEntry();
     sb_pid_apply   = sublayout.add("Apply", false).getEntry();
   }
 
@@ -200,8 +200,6 @@ public class MotorFalcon500 implements IMotor{
       motor.config_kD(kMotorSlot, sb_pid_kd.getDouble(0));
       motor.config_IntegralZone(kMotorSlot, sb_pid_kiz.getDouble(0));
       motor.config_kF(kMotorSlot, sb_pid_kff.getDouble(0));
-      motor.configPeakOutputForward(sb_pid_max.getDouble(0));
-      motor.configPeakOutputReverse(sb_pid_max.getDouble(0));
     }
   }
 }
