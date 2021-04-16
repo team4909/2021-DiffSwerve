@@ -69,7 +69,7 @@ public class UserInterface
   }
 
   /**
-   * Create the user interface operated via Joystick 0
+   * Create the user interface operated via Joystick 1
    */
   private static void createUIJoystick1()
   {
