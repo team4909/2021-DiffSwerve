@@ -43,6 +43,7 @@ public class SwerveModule extends AbstractSwerveModule
     // Instantiate the yaw encoder our swerve module incorporates
     IYawEncoder encoder = new YawEncoderRevHex(dioEncoderChannel, name, shuffleboardTabName);
 
+    // Now we have everything our superclass needs to do its thing. Do it!
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 
                motorA, motorB, encoder, WHEEL_DIAMETER_METERS);
   }

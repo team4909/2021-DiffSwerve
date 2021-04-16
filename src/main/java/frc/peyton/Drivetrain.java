@@ -42,11 +42,12 @@ public class Drivetrain extends AbstractDrivetrain {
     SmartDashboard.putBoolean("NavX Reset", false);
   }
 
+  // interface (Subsystem) implementation
   public void periodic() {
     super.periodic();
     
     SmartDashboard.putData("NavX", navX);
-    SmartDashboard.putNumber("Gyro Angle", this.getGyroAngle());
+    SmartDashboard.putNumber("Gyro Angle", navX.getAngle());
 
     if (SmartDashboard.getBoolean("NavX Reset", false)) {
       SmartDashboard.putBoolean("NavX Reset", false);

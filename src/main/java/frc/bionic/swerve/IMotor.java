@@ -41,10 +41,12 @@ public interface IMotor
   }
 
   /**
-   * Set the PID setpoint, in revolutions per minute
+   * Set the RPM goal, in revolutions per minute. The implementing class is
+   * expected to cause the motor to maintain this RPM, through the use of PIDs
+   * or similar mechanism.
    *
-   * @param setpointRPM
-   *   The requested RPM which the PID attempts to attain
+   * @param goalRPM
+   *   The requested RPM to be maintained
    */
   void setGoalRPM(double goalRPM);
 

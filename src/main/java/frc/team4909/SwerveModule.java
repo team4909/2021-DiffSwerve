@@ -16,7 +16,7 @@ public class SwerveModule extends AbstractSwerveModule{
   private static final double       GEAR_RATIO_WHEEL_SPEED  =  (13.0 / 82.0) * (45.0 / 15.0) * (28.0 / 36.0);
 
   // Maximum yaw speed in RPM
-  private static final double       MAX_YAW_SPEED_RPM       = 200;
+  private static final double       MAX_YAW_SPEED_RPM       = 470;
 
   // The wheel diameter, in meters
   private static final double      WHEEL_DIAMETER_METERS    = 0.07208;
