@@ -12,6 +12,7 @@
 
 package frc.robot;
 
+import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -41,19 +42,25 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     String type;
+    frc.peyton.Drivetrain drivetrainPeyton;
+    frc.team4909.Drivetrain drivetrain4909;
     
     // If we're not yet configured with a drivetrain type...
     if (drivetrain == null) {
       // See if the user has entered a known drivetrain type
       type = sb_robot_type.getString("UNCONFIGURED");
       if (type.equals("peyton")) {
-        drivetrain = new frc.peyton.Drivetrain();
+        drivetrain = drivetrainPeyton = new frc.peyton.Drivetrain();
+        UserInterface.registerObject("Drivetrain", new UserInterfaceElement<frc.peyton.Drivetrain>(drivetrainPeyton));
       } else if (type.equals("team4909")) {
-        drivetrain = new frc.team4909.Drivetrain();
+        drivetrain = drivetrain4909 = new frc.team4909.Drivetrain();
+        UserInterface.registerObject("Drivetrain", new UserInterfaceElement<frc.team4909.Drivetrain>(drivetrain4909));
       } else {
         System.out.println("Shuffleboard's 'Robot Selection/Drivetrain Type' is invalid: " + type);
         return;
       }
+
+      UserInterface.createDefaultUI();
     }
     drivetrain.periodic();
   }
