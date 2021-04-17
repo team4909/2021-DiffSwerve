@@ -1,15 +1,12 @@
 package frc.trajectories;
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import frc.bionic.Conversion;
-import frc.bionic.UserInterfaceElement;
 import frc.peyton.Drivetrain;
-import frc.robot.UserInterface;
 
-public class Straight {
+public class Straight extends Trajectory{
 
   Drivetrain drivetrain;
 

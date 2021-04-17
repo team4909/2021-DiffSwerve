@@ -13,16 +13,13 @@
 package frc.peyton;
 
 import edu.wpi.first.wpilibj.SerialPort;
-<<<<<<< Updated upstream
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
-=======
->>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.IDrivetrainSubsystem;
 
 import java.util.Arrays;
@@ -31,7 +28,7 @@ import java.util.stream.Collectors;
 
 import com.kauailabs.navx.frc.*;
 
-public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
+public class Drivetrain extends AbstractDrivetrain implements IDrivetrainSubsystem {
   public PeytonSwerveModule swerveRF; // right front
   public PeytonSwerveModule swerveLF; // left front
   public PeytonSwerveModule swerveLR; // left rear
@@ -59,7 +56,6 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     kHalfWheelBaseLengthInches = 15.0;
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
-<<<<<<< Updated upstream
     kMaxSpeed = 3.0; // 3 meters per second
 
     m_frontLeftLocation  = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
@@ -74,13 +70,11 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     swerveLF = new PeytonSwerveModule(3, 4, 2, -18.5, "LF", "Peyton");
     swerveLR = new PeytonSwerveModule(5, 6, 4,   6.0, "LR", "Peyton");
     swerveRR = new PeytonSwerveModule(7, 8, 6,   5.0, "RR", "Peyton");
-=======
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
     
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
                     kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches);
->>>>>>> Stashed changes
 
 
     SmartDashboard.putBoolean("NavX Reset", false);
@@ -131,5 +125,10 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+  }
+
+  @Override
+  public double getGyroAngle() {
+    return navX.getAngle();
   }
 }

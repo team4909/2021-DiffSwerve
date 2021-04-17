@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().onCommandFinish(command -> Shuffleboard.addEventMarker(
         "Command finished", command.getName(), EventImportance.kNormal));
 
-    m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
+    // m_swerve.setDefaultCommand(new DriveWithJoystick(m_swerve, m_controller));
 
     new JoystickButton(m_controller, 11).whileHeld(() -> m_swerve.lockInPlace(), m_swerve);
   }

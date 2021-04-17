@@ -32,6 +32,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private Pose2d                  currentPose;
 
   private double                  kMaxSpeed = 2.0;  // meters per second
+  public SwerveModuleState[] swerveModuleStates;
 
 
   /**
@@ -116,7 +117,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
       ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate, 
                                             Rotation2d.fromDegrees(this.getGyroAngle()));
 
-    var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
+    swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
     
     actuateModules(swerveModuleStates);
@@ -148,6 +149,10 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
   public Pose2d getCurrentPose(){
     return currentPose;
+  }
+
+  public SwerveModuleState[] getSwerveModuleStates(){
+    return swerveModuleStates;
   }
 
 

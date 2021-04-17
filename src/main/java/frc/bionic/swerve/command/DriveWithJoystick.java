@@ -16,28 +16,27 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.team4909.Drivetrain;
+import frc.peyton.Drivetrain;
 
 public class DriveWithJoystick extends CommandBase {
 
-  private final Drivetrain m_subsystem;
-  private final Joystick m_controller;
+  private final Drivetrain drivetrain;
+  private final Joystick joystick;
 
   // Joystick returns [-1.0, 1.0] with 0 being the center point on
   // each axis. Provide a small dead zone so that small hand movements
   // when the joystick is centered are ignored
-  private final double JOYSTICK_XY_DEADZONE = 0.2;
-  private final double JOYSTICK_Z_DEADZONE = 0.4;
+  private final double JOYSTICK_DEADZONE = 0.1;
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
-  private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter m_yspeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter m_rotLimiter    = new SlewRateLimiter(3);
+  private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(3);
+  private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(3);
+  private final SlewRateLimiter rotLimiter    = new SlewRateLimiter(3);
 
-  public DriveWithJoystick(Drivetrain subsystem, Joystick controller) {
-    m_subsystem = subsystem;
-    m_controller = controller;
-    addRequirements(m_subsystem);
+  public DriveWithJoystick(Drivetrain drivetrain, Joystick joystick) {
+    this.drivetrain = drivetrain;
+    this.joystick = joystick;
+    addRequirements(drivetrain);
 
     SmartDashboard.putNumber("xSpeed", 0);
     SmartDashboard.putNumber("ySpeed", 0);
@@ -47,40 +46,26 @@ public class DriveWithJoystick extends CommandBase {
   public void execute() {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
-<<<<<<< Updated upstream
-    double xSpeed = -m_controller.getY();
-        // -m_xspeedLimiter.calculate(m_controller.getY(GenericHID.Hand.kLeft))
-        //     * frc.robot.Drivetrain.kMaxSpeed;
-=======
     double xSpeed = -joystick.getX();
->>>>>>> Stashed changes
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
-<<<<<<< Updated upstream
-    double ySpeed = -m_controller.getX();
-        // -m_yspeedLimiter.calculate(m_controller.getX(GenericHID.Hand.kLeft))
-        //     * frc.robot.Drivetrain.kMaxSpeed;
-=======
     double ySpeed = joystick.getY();
->>>>>>> Stashed changes
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to
     // the right by default.
-    double rot = -m_controller.getZ();
-        // -m_rotLimiter.calculate()
-        //     * frc.robot.Drivetrain.kMaxAngularSpeed;
+    double rot = -joystick.getZ();
 
-    if (Math.abs(rot) < JOYSTICK_Z_DEADZONE) {
+    if (Math.abs(rot) < JOYSTICK_DEADZONE) {
       rot = 0;
     }
-    if (Math.abs(xSpeed) < JOYSTICK_XY_DEADZONE) {
+    if (Math.abs(xSpeed) < JOYSTICK_DEADZONE) {
       xSpeed = 0;
     }
-    if (Math.abs(ySpeed) < JOYSTICK_XY_DEADZONE) {
+    if (Math.abs(ySpeed) < JOYSTICK_DEADZONE) {
       ySpeed = 0;
     }
 
@@ -91,19 +76,15 @@ public class DriveWithJoystick extends CommandBase {
     }
 
     if (SmartDashboard.getBoolean("Enable Slew", false)) {
-      xSpeed = m_xspeedLimiter.calculate(xSpeed);
-      ySpeed = m_yspeedLimiter.calculate(ySpeed);
-      rot    = m_rotLimiter.calculate(rot);
+      xSpeed = xspeedLimiter.calculate(xSpeed);
+      ySpeed = yspeedLimiter.calculate(ySpeed);
+      rot    = rotLimiter.calculate(rot);
     }
 
     SmartDashboard.putNumber("xSpeed", xSpeed);
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("rot",    rot);
 
-<<<<<<< Updated upstream
-    m_subsystem.drive(xSpeed, ySpeed, rot);
-=======
     drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
->>>>>>> Stashed changes
   }
 }

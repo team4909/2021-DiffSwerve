@@ -89,13 +89,6 @@ public class MotorFalcon500 implements IMotor{
         
     }
 
-<<<<<<< Updated upstream
-    //Interface Implementation
-    public void setGoalRPM(double goalRPM){
-        SmartDashboard.putNumber(name + " goal", goalRPM);
-        motor.set(TalonFXControlMode.Velocity, goalRPM);
-    }
-=======
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
@@ -114,7 +107,6 @@ public class MotorFalcon500 implements IMotor{
     SmartDashboard.putNumber(name + " goal", calculatedRPM);
     motor.set(TalonFXControlMode.Velocity, calculatedRPM);
   }
->>>>>>> Stashed changes
 
     //Interface Implementation
     public double getVelocityRPM(){

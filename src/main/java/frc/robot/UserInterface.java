@@ -19,6 +19,7 @@ import frc.peyton.Drivetrain;
 import frc.trajectories.Straight;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
+import frc.bionic.swerve.command.TrajectoryFollow;
 
 @SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
@@ -72,7 +73,7 @@ public class UserInterface
   private static void toTrajectory(){
     UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
     Drivetrain                         drivetrain = drivetrainElem.get();
-    new Straight(drivetrain);
+    TrajectoryFollow.supply(new Straight(drivetrain), drivetrain);
 
   }
 

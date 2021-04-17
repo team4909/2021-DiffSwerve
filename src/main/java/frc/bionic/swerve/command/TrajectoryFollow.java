@@ -49,11 +49,10 @@ public class TrajectoryFollow extends SwerveControllerCommand {
     PIDController xController = new PIDController(1, 0, 0);
     PIDController yController = new PIDController(1, 0, 0);
     ProfiledPIDController thetaController = new ProfiledPIDController(1, 0, 0, TrapezoidProfile.Constraints(6.28, 3.14));
+    Consumer<SwerveModuleState[]> outputModuleStates;
+    outputModuleStates.accept(drivetrain.getSwerveModuleStates());
     
-
-
-
-    new TrajectoryFollow(trajectory, pose, kinematics, xController, yController, thetaController, outputModuleStates, drivetrain)
+    new TrajectoryFollow(trajectory, currentPose, kinematics, xController, yController, thetaController, outputModuleStates, drivetrain);
   }
 
 }

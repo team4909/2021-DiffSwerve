@@ -14,7 +14,7 @@ package frc.peyton;
 
 import frc.bionic.swerve.*;
 
-public class PeytonSwerveModule extends frc.bionic.swerve.SwerveModule
+public class PeytonSwerveModule extends AbstractSwerveModule
 {
   // Gear ratio of first two pairs of gears.
   // Yaw does not depend on the third pair.
