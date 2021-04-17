@@ -89,11 +89,32 @@ public class MotorFalcon500 implements IMotor{
         
     }
 
+<<<<<<< Updated upstream
     //Interface Implementation
     public void setGoalRPM(double goalRPM){
         SmartDashboard.putNumber(name + " goal", goalRPM);
         motor.set(TalonFXControlMode.Velocity, goalRPM);
     }
+=======
+  // interface implementation
+  public void setGoalRPM(double goalRPM)
+  {
+    double calculatedRPM = goalRPM;
+
+    // Since the Falcon500 requires some power to operate, but
+    // PIDs may request less power when not yet at goal,
+    // apply a minimum power if "too low" (determined empirically)
+    if (Math.abs(goalRPM) >= 28 && Math.abs(goalRPM) <= 150)
+    {
+      calculatedRPM += 150 * (goalRPM < 0 ? -1 : 1);
+    }
+
+    // Convert RPM to ticks per 100ms
+    calculatedRPM = calculatedRPM * 2048 / (10 * 60);
+    SmartDashboard.putNumber(name + " goal", calculatedRPM);
+    motor.set(TalonFXControlMode.Velocity, calculatedRPM);
+  }
+>>>>>>> Stashed changes
 
     //Interface Implementation
     public double getVelocityRPM(){

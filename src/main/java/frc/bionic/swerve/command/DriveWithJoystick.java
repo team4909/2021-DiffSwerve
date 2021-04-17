@@ -26,7 +26,8 @@ public class DriveWithJoystick extends CommandBase {
   // Joystick returns [-1.0, 1.0] with 0 being the center point on
   // each axis. Provide a small dead zone so that small hand movements
   // when the joystick is centered are ignored
-  private final double JOYSTICK_DEADZONE = 0.1;
+  private final double JOYSTICK_XY_DEADZONE = 0.2;
+  private final double JOYSTICK_Z_DEADZONE = 0.4;
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   private final SlewRateLimiter m_xspeedLimiter = new SlewRateLimiter(3);
@@ -46,16 +47,24 @@ public class DriveWithJoystick extends CommandBase {
   public void execute() {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
+<<<<<<< Updated upstream
     double xSpeed = -m_controller.getY();
         // -m_xspeedLimiter.calculate(m_controller.getY(GenericHID.Hand.kLeft))
         //     * frc.robot.Drivetrain.kMaxSpeed;
+=======
+    double xSpeed = -joystick.getX();
+>>>>>>> Stashed changes
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
+<<<<<<< Updated upstream
     double ySpeed = -m_controller.getX();
         // -m_yspeedLimiter.calculate(m_controller.getX(GenericHID.Hand.kLeft))
         //     * frc.robot.Drivetrain.kMaxSpeed;
+=======
+    double ySpeed = joystick.getY();
+>>>>>>> Stashed changes
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
@@ -65,13 +74,13 @@ public class DriveWithJoystick extends CommandBase {
         // -m_rotLimiter.calculate()
         //     * frc.robot.Drivetrain.kMaxAngularSpeed;
 
-    if (Math.abs(rot) < JOYSTICK_DEADZONE) {
+    if (Math.abs(rot) < JOYSTICK_Z_DEADZONE) {
       rot = 0;
     }
-    if (Math.abs(xSpeed) < JOYSTICK_DEADZONE) {
+    if (Math.abs(xSpeed) < JOYSTICK_XY_DEADZONE) {
       xSpeed = 0;
     }
-    if (Math.abs(ySpeed) < JOYSTICK_DEADZONE) {
+    if (Math.abs(ySpeed) < JOYSTICK_XY_DEADZONE) {
       ySpeed = 0;
     }
 
@@ -91,6 +100,10 @@ public class DriveWithJoystick extends CommandBase {
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("rot",    rot);
 
+<<<<<<< Updated upstream
     m_subsystem.drive(xSpeed, ySpeed, rot);
+=======
+    drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
+>>>>>>> Stashed changes
   }
 }

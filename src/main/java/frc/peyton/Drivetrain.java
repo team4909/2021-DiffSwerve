@@ -13,10 +13,13 @@
 package frc.peyton;
 
 import edu.wpi.first.wpilibj.SerialPort;
+<<<<<<< Updated upstream
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+=======
+>>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -56,6 +59,7 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     kHalfWheelBaseLengthInches = 15.0;
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
+<<<<<<< Updated upstream
     kMaxSpeed = 3.0; // 3 meters per second
 
     m_frontLeftLocation  = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
@@ -70,9 +74,15 @@ public class Drivetrain implements Subsystem, IDrivetrainSubsystem {
     swerveLF = new PeytonSwerveModule(3, 4, 2, -18.5, "LF", "Peyton");
     swerveLR = new PeytonSwerveModule(5, 6, 4,   6.0, "LR", "Peyton");
     swerveRR = new PeytonSwerveModule(7, 8, 6,   5.0, "RR", "Peyton");
-
+=======
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
+    
+    this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
+                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches);
+>>>>>>> Stashed changes
+
+
     SmartDashboard.putBoolean("NavX Reset", false);
   }
 
