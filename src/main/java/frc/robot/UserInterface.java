@@ -13,7 +13,10 @@
 package frc.robot;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.peyton.Drivetrain;
 import frc.trajectories.Straight;
@@ -73,6 +76,7 @@ public class UserInterface
   private static void toTrajectory(){
     UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
     Drivetrain                         drivetrain = drivetrainElem.get();
+    
     TrajectoryFollow.supply(new Straight(drivetrain), drivetrain);
 
   }
