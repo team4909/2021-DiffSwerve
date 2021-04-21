@@ -68,6 +68,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     kHalfWheelBaseWidthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
+    //Locations of the modules relative to the center of the robot
     frontLeftLocation = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
     frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
     backLeftLocation = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
@@ -75,8 +76,11 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
     kinematics = new SwerveDriveKinematics(frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
 
-    // Assume our current pose is 5 meters along long end of field, in
-    // the center of the field along the short end, and facing forward.
+    /**
+     * Assume our current pose is 5 meters along long end of field, in
+     * the center of the field along the short end, and facing forward.
+     * */
+
      odometry = new SwerveDriveOdometry(
       kinematics,
       Rotation2d.fromDegrees(getGyroAngle()),
@@ -97,7 +101,12 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     swerveLR.periodic();
     swerveRR.periodic();
     
-    currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()), swerveRF.getModuleState(), swerveLF.getModuleState(), swerveLR.getModuleState(), swerveRR.getModuleState());
+    //Negated gyro angle as WPILIB uses opposite conventions than the gyro outputs
+    currentPose = odometry.update(Rotation2d.fromDegrees(-getGyroAngle()),
+                                  swerveRF.getModuleState(), 
+                                  swerveLF.getModuleState(), 
+                                  swerveLR.getModuleState(), 
+                                  swerveRR.getModuleState());
   }
 
   /**
@@ -141,8 +150,11 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }
 
-  //Acessor Methods
+  public void resetOdometry(Pose2d resetPose){
+    odometry.resetPosition(resetPose, resetPose.getRotation());
+  }
 
+  //Acessor Methods
   public SwerveDriveKinematics getKinematics(){
     return kinematics;
   }

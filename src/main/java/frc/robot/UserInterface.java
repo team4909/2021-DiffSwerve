@@ -13,16 +13,19 @@
 package frc.robot;
 
 import java.util.HashMap;
-import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.peyton.Drivetrain;
-import frc.trajectories.Straight;
+import frc.bionic.Conversion;
+import frc.bionic.GenerateTrajectory;
+import frc.bionic.TrajectoryUtil;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
-import frc.bionic.swerve.command.TrajectoryFollow;
 
 @SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
@@ -73,11 +76,16 @@ public class UserInterface
       .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
   }
 
-  private static void toTrajectory(){
+  public static void runTrajectory(){
     UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
     Drivetrain                         drivetrain = drivetrainElem.get();
-    
-    TrajectoryFollow.supply(new Straight(drivetrain), drivetrain);
+    Rotation2d angle = Rotation2d.fromDegrees(drivetrain.getGyroAngle()); 
+    TrajectoryUtil.supply(new GenerateTrajectory(new Pose2d(0, 0, angle), 
+                                                 new Pose2d(0, 36, angle), 
+                                                 new TrajectoryConfig(Conversion.inchesToMeters(144), 
+                                                 Conversion.inchesToMeters(144)), 
+                                                 new Translation2d(18, drivetrain.getGyroAngle())).returnTrajectory(), 
+                          drivetrain);
 
   }
 
