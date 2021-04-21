@@ -825,6 +825,19 @@
                 }
               ]
             }
+          },
+          "14,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Drivetrain",
+              "_title": "Drivetrain",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
           }
         }
       }
@@ -2046,8 +2059,8 @@
   ],
   "windowGeometry": {
     "x": -1688.0,
-    "y": -8.0,
-    "width": 1696.0,
-    "height": 1026.0
+    "y": 0.0,
+    "width": 1697.0,
+    "height": 1017.0
   }
 }

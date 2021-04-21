@@ -104,7 +104,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
    * @param rotate Angular rate of the robot.
    */
   public void drive(double xSpeed, double ySpeed, double rotate) {
-    // Scale requested speed percentage [-1, 1] to meters per second
+    // Scale requested speed percentage [-1, 1]. to meters per second
     xSpeed *= kMaxSpeed;
     ySpeed *= kMaxSpeed;
     rotate *= kMaxSpeed;

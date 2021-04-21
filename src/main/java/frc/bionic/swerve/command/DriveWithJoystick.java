@@ -14,6 +14,7 @@ package frc.bionic.swerve.command;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.peyton.Drivetrain;
@@ -26,7 +27,8 @@ public class DriveWithJoystick extends CommandBase {
   // Joystick returns [-1.0, 1.0] with 0 being the center point on
   // each axis. Provide a small dead zone so that small hand movements
   // when the joystick is centered are ignored
-  private final double JOYSTICK_DEADZONE = 0.1;
+  private final double JOYSTICK_DEADZONE = 0.2;
+
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
   private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(3);
@@ -46,12 +48,12 @@ public class DriveWithJoystick extends CommandBase {
   public void execute() {
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
-    double xSpeed = -joystick.getY();
+    double xSpeed = -joystick.getX();
 
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
-    double ySpeed = -joystick.getX();
+    double ySpeed = joystick.getY();
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
@@ -85,6 +87,6 @@ public class DriveWithJoystick extends CommandBase {
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("rot",    rot);
 
-    drivetrain.drive(xSpeed, ySpeed, rot);
+    drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
   }
 }
