@@ -22,8 +22,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.peyton.Drivetrain;
 import frc.bionic.Conversion;
-import frc.bionic.GenerateTrajectory;
-import frc.bionic.TrajectoryUtil;
+import frc.bionic.TrajectoryUtils;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
 
@@ -80,13 +79,12 @@ public class UserInterface
     UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
     Drivetrain                         drivetrain = drivetrainElem.get();
     Rotation2d angle = Rotation2d.fromDegrees(drivetrain.getGyroAngle()); 
-    TrajectoryUtil.supply(new GenerateTrajectory(new Pose2d(0, 0, angle), 
-                                                 new Pose2d(0, 36, angle), 
-                                                 new TrajectoryConfig(Conversion.inchesToMeters(144), 
-                                                 Conversion.inchesToMeters(144)), 
-                                                 new Translation2d(18, drivetrain.getGyroAngle())).returnTrajectory(), 
+    TrajectoryUtils.supply(new TrajectoryUtils().generateTrajectory((new Pose2d(0, 0, angle)), 
+                                                                     new Pose2d(0, 36, angle), 
+                                                                     new TrajectoryConfig(Conversion.inchesToMeters(144), 
+                                                                     Conversion.inchesToMeters(144)), 
+                                                                     new Translation2d(18, drivetrain.getGyroAngle())), 
                           drivetrain);
-
   }
 
   /**
