@@ -84,10 +84,11 @@ public class UserInterface
     SmartDashboard.putBoolean("Generate Trajectory Running", false);
     SmartDashboard.putBoolean("Swerve Controller Command Running", false);
     TrajectoryUtils.supply(new TrajectoryUtils().generateTrajectory((new Pose2d(0, 0, angle)), 
-                                                                     new Pose2d(0, 36, angle), 
+                                                                     new Pose2d(0, 144, angle), 
                                                                      new TrajectoryConfig(Conversion.inchesToMeters(144), 
                                                                      Conversion.inchesToMeters(144)), 
-                                                                     new Translation2d(18, drivetrain.getGyroAngle())), 
+                                                                     drivetrain,
+                                                                     new Translation2d(72, angle)),
                           drivetrain);
   }
 

@@ -7,6 +7,8 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
@@ -56,10 +58,12 @@ public class TrajectoryUtils {
        * @param interiorWaypoints An Arraylist of Translation 2d object which generate the path in between the start and end
        * @return The generated trajectory based off of the given parameters
        */
-      public Trajectory generateTrajectory(Pose2d startPos, Pose2d endPos, TrajectoryConfig config, Translation2d... interiorWaypoints) {
+      public Trajectory generateTrajectory(Pose2d startPos, Pose2d endPos, TrajectoryConfig config, AbstractDrivetrain drivetrain, Translation2d... interiorWaypoints) {
         //Updates Shuffleboard
         SmartDashboard.putBoolean("Generate Trajectory Running", true);
         Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(startPos, Arrays.asList(interiorWaypoints), endPos, config);
+        //Transforms the trajectory to current position of the robot
+        returnTrajectory.transformBy(new Transform2d(drivetrain.getCurrentPose().getTranslation(), Rotation2d.fromDegrees(0)));
         return returnTrajectory;
       }
 

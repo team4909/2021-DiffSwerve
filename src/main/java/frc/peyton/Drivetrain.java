@@ -69,7 +69,7 @@ public class Drivetrain extends AbstractDrivetrain implements IDrivetrainSubsyst
     swerveRF = new PeytonSwerveModule(1, 2, 0,   6.0, "RF", "Peyton");
     swerveLF = new PeytonSwerveModule(3, 4, 2, -18.5, "LF", "Peyton");
     swerveLR = new PeytonSwerveModule(5, 6, 4,   6.0, "LR", "Peyton");
-    swerveRR = new PeytonSwerveModule(7, 8, 6,   5.0, "RR", "Peyton");
+    swerveRR = new PeytonSwerveModule(7, 8, 6,   93, "RR", "Peyton");
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
     
