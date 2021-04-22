@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class AbstractDrivetrain extends SubsystemBase {
@@ -84,7 +85,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
      odometry = new SwerveDriveOdometry(
       kinematics,
       Rotation2d.fromDegrees(getGyroAngle()),
-      new Pose2d(5.0, 13.5, new Rotation2d()));
+      new Pose2d(0, 0, new Rotation2d()));
    }
 
   public double getMaxSpeed() {
@@ -107,6 +108,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
                                   swerveLF.getModuleState(), 
                                   swerveLR.getModuleState(), 
                                   swerveRR.getModuleState());
+
+    SmartDashboard.putString("Current Pose", currentPose.toString());
   }
 
   /**
