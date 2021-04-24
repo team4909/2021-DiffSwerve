@@ -34,12 +34,13 @@ public class Drivetrain extends AbstractDrivetrain {
     swerveLR = new SwerveModule(5, 6, 4,  "LR", "Peyton");
     swerveRR = new SwerveModule(7, 8, 6,  "RR", "Peyton");
 
-    this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
-                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches);
-
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
     SmartDashboard.putBoolean("NavX Reset", false);
+
+    this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
+                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches);
+
   }
 
   public void periodic() {

@@ -15,6 +15,8 @@ package frc.robot;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -66,5 +68,11 @@ public class Robot extends TimedRobot {
 
     drivetrain.periodic();
     CommandScheduler.getInstance().run();
+  }
+
+  @Override
+  public void autonomousInit(){
+    //Starts the process of generating a trajectory
+    UserInterface.runTrajectory();
   }
 }

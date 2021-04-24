@@ -14,8 +14,15 @@ package frc.robot;
 
 import java.util.HashMap;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.peyton.Drivetrain;
+import frc.bionic.Conversion;
+import frc.bionic.TrajectoryUtils;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
 
@@ -66,6 +73,22 @@ public class UserInterface
     // module rotation in place
     new JoystickButton(joystick0, 11)
       .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
+  }
+
+  public static void runTrajectory(){
+    UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
+    Drivetrain                         drivetrain = drivetrainElem.get();
+    Rotation2d angle = Rotation2d.fromDegrees(drivetrain.getGyroAngle()); 
+    SmartDashboard.putBoolean("Supply Running", false);
+    SmartDashboard.putBoolean("Generate Trajectory Running", false);
+    SmartDashboard.putBoolean("Swerve Controller Command Running", false);
+    TrajectoryUtils.supply(new TrajectoryUtils().generateTrajectory((new Pose2d(0, 0, angle)), 
+                                                                     new Pose2d(0, 144, angle), 
+                                                                     new TrajectoryConfig(Conversion.inchesToMeters(144), 
+                                                                     Conversion.inchesToMeters(144)), 
+                                                                     drivetrain,
+                                                                     new Translation2d(72, angle)),
+                          drivetrain);
   }
 
   /**

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class AbstractDrivetrain extends SubsystemBase {
@@ -26,11 +27,14 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private AbstractSwerveModule    swerveLF; // left front
   private AbstractSwerveModule    swerveLR; // left rear
   private AbstractSwerveModule    swerveRR; // right rear
+  public SwerveModuleState[]      swerveModuleStates;
+
 
   private SwerveDriveKinematics   kinematics;
   private SwerveDriveOdometry     odometry;
+  private Pose2d                  currentPose;
 
-  private double                  kMaxSpeed = 6.0;  // meters per second
+  private double                  kMaxSpeed = 2.0;  // meters per second
 
 
   /**
@@ -73,13 +77,12 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
     kinematics = new SwerveDriveKinematics(frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
 
-    // Assume our current pose is 5 meters along long end of field, in
-    // the center of the field along the short end, and facing forward.
-/*     odometry = new SwerveDriveOdometry(
+    //Initilizes odometry with all 0 values (0,0,0)
+    odometry = new SwerveDriveOdometry(
       kinematics,
       Rotation2d.fromDegrees(getGyroAngle()),
-      new Pose2d(5.0, 13.5, new Rotation2d()));
- */  }
+      new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)));
+  }
 
   public double getMaxSpeed() {
     return kMaxSpeed;
@@ -94,6 +97,17 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     swerveLF.periodic();
     swerveLR.periodic();
     swerveRR.periodic();
+
+    currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
+                                  swerveRF.getModuleState(), 
+                                  swerveLF.getModuleState(), 
+                                  swerveLR.getModuleState(), 
+                                  swerveRR.getModuleState());
+
+    SmartDashboard.putNumber("Current Pose X", currentPose.getTranslation().getX());
+    SmartDashboard.putNumber("Current Pose Y", currentPose.getTranslation().getY());
+    SmartDashboard.putNumber("Current Pose Rotation", currentPose.getRotation().getDegrees());
+
   }
 
   /**
@@ -116,10 +130,14 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
     
-    swerveLF.setModuleState(swerveModuleStates[0]);
-    swerveRF.setModuleState(swerveModuleStates[1]);
-    swerveLR.setModuleState(swerveModuleStates[2]);
-    swerveRR.setModuleState(swerveModuleStates[3]);
+    actuateModules(swerveModuleStates);
+  }
+
+  public void actuateModules(SwerveModuleState[] states){
+    swerveLF.setModuleState(states[0]);
+    swerveRF.setModuleState(states[1]);
+    swerveLR.setModuleState(states[2]);
+    swerveRR.setModuleState(states[3]);
   }
 
   /**
@@ -132,4 +150,22 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }
+
+  public void resetOdometry(Pose2d resetPose){
+    odometry.resetPosition(resetPose, resetPose.getRotation());
+  }
+
+  //Acessor Methods
+  public SwerveDriveKinematics getKinematics(){
+    return kinematics;
+  }
+
+  public Pose2d getCurrentPose(){
+    return currentPose;
+  }
+
+  public SwerveModuleState[] getSwerveModuleStates(){
+    return swerveModuleStates;
+  }
+
 }
