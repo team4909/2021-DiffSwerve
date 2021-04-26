@@ -14,6 +14,8 @@ package frc.peyton;
 
 import frc.bionic.swerve.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.*;
 
@@ -61,5 +63,9 @@ public class Drivetrain extends AbstractDrivetrain {
     // whereas the defined interface that this method implements states that
     // the method must return degrees measured counterclockwise from zero.
     return -navX.getAngle();
+  }
+
+  public void resetNavx(){
+    navX.reset();
   }
 }

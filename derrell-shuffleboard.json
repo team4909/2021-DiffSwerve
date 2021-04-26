@@ -428,7 +428,7 @@
               "Visuals/Counter clockwise": false
             }
           },
-          "1,7": {
+          "3,6": {
             "size": [
               2,
               2
@@ -505,9 +505,9 @@
               "_title": "lamprey freq"
             }
           },
-          "9,5": {
+          "10,5": {
             "size": [
-              3,
+              2,
               2
             ],
             "content": {
@@ -619,9 +619,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "18,3": {
+          "12,8": {
             "size": [
-              2,
+              8,
               2
             ],
             "content": {
