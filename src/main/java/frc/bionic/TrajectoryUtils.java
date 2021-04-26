@@ -38,11 +38,12 @@ public class TrajectoryUtils {
         //Sets the kinematics from the AbstractDrivetrain object
         SwerveDriveKinematics kinematics = drivetrain.getKinematics();
         //Makes new PID Controllers
-        PIDController xController = new PIDController(1, 0, 0);
+        PIDController xController = new PIDController(0, 0, 0);
         PIDController yController = new PIDController(1, 0, 0);
-        ProfiledPIDController thetaController = new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(6.28, 3.14));
+        ProfiledPIDController thetaController = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(6.28, 3.14));
         //Stores the value of .accept
-        Consumer<SwerveModuleState[]> outputModuleStates = states -> {};
+        Consumer<SwerveModuleState[]> outputModuleStates = states -> {drivetrain.actuateModules(states);};
+        System.out.println("ESIaTED THE DRIVING");
         //Gets the swerve module states and stores is
         outputModuleStates.accept(drivetrain.getSwerveModuleStates());
 
@@ -77,9 +78,10 @@ public class TrajectoryUtils {
                                                                               endPos, 
                                                                               config);
         //Transforms the trajectory to current position of the robot
-        return returnTrajectory.transformBy(
+      System.out.println(returnTrajectory.toString());
+        return returnTrajectory;/*.transformBy(
                                       new Transform2d(drivetrain.getCurrentPose().getTranslation(), 
-                                      Rotation2d.fromDegrees(0)));
+                                      Rotation2d.fromDegrees(0))); */
       }
 
       public void followTrajectory(Trajectory trajectory, Supplier<Pose2d> pose, SwerveDriveKinematics kinematics,
@@ -97,7 +99,7 @@ public class TrajectoryUtils {
                                                                                       drivetrain::actuateModules, 
                                                                                       drivetrain);
         //Resets Initial Odometry to the first Pose in the Trajectory
-        drivetrain.resetOdometry(trajectory.getInitialPose()); 
+        // drivetrain.resetOdometry(trajectory.getInitialPose()); 
         //Runs the trajectory and then stops the drivetrain
         returnCommand = swerveControllerCommand.andThen(() -> drivetrain.drive(0, 0, 0));
       }

@@ -12,6 +12,7 @@
 
 package frc.robot;
 
+import frc.bionic.TrajectoryUtils;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -71,8 +72,14 @@ public class Robot extends TimedRobot {
   }
 
   @Override
+  public void teleopInit() {
+    
+  }
+
+  @Override
   public void autonomousInit(){
     //Starts the process of generating a trajectory
     UserInterface.runTrajectory();
+    new TrajectoryUtils().getSwerveControllerCommand().schedule();
   }
 }

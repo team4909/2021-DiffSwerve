@@ -70,12 +70,12 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     kHalfWheelBaseWidthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
-    frontLeftLocation = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
     frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
+    frontLeftLocation = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
     backLeftLocation = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
     backRightLocation = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
 
-    kinematics = new SwerveDriveKinematics(frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
+    kinematics = new SwerveDriveKinematics(frontRightLocation, frontLeftLocation, backLeftLocation, backRightLocation);
 
     //Initilizes odometry with all 0 values (0,0,0)
     odometry = new SwerveDriveOdometry(
@@ -134,8 +134,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   }
 
   public void actuateModules(SwerveModuleState[] states){
-    swerveLF.setModuleState(states[0]);
-    swerveRF.setModuleState(states[1]);
+    swerveRF.setModuleState(states[0]);
+    swerveLF.setModuleState(states[1]);
     swerveLR.setModuleState(states[2]);
     swerveRR.setModuleState(states[3]);
   }
@@ -145,8 +145,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
    * around by other robots.
    */
   public void lockInPlace() {
-    swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }
