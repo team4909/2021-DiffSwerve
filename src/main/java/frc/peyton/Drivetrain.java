@@ -12,12 +12,11 @@
 
 package frc.peyton;
 
-import frc.bionic.swerve.AbstractDrivetrain;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.kauailabs.navx.frc.*;
+import frc.bionic.swerve.AbstractDrivetrain;
 
 public class Drivetrain extends AbstractDrivetrain {
   public SwerveModule   swerveRF; // right front

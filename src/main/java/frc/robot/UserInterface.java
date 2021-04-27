@@ -13,20 +13,12 @@
 package frc.robot;
 
 import java.util.HashMap;
+
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.peyton.Drivetrain;
-import frc.bionic.Conversion;
-import frc.bionic.TrajectoryUtils;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
+import frc.peyton.Drivetrain;
 
 @SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
@@ -75,26 +67,6 @@ public class UserInterface
     // module rotation in place
     new JoystickButton(joystick0, 11)
       .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
-  }
-
-  public static void runTrajectory() {
-    UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
-    Drivetrain                         drivetrain = drivetrainElem.get();
-    Rotation2d angle = Rotation2d.fromDegrees(drivetrain.getGyroAngle()); 
-    SmartDashboard.putBoolean("Supply Running", false);
-    SmartDashboard.putBoolean("Generate Trajectory Running", false);
-    SmartDashboard.putBoolean("Swerve Controller Command Running", false);
-    TrajectoryUtils.supply(new TrajectoryUtils().generateTrajectory(new Pose2d(drivetrain.getCurrentPose().getX(), 
-                                                                                drivetrain.getCurrentPose().getY(), 
-                                                                                Rotation2d.fromDegrees(0)),
-                                                                     new Pose2d(drivetrain.getCurrentPose().getX() + 1_000, 
-                                                                                drivetrain.getCurrentPose().getY() + 1_000_00, 
-                                                                                Rotation2d.fromDegrees(0)), 
-                                                                     new TrajectoryConfig(Conversion.inchesToMeters(144), 
-                                                                     Conversion.inchesToMeters(480)), 
-                                                                     drivetrain,
-                                                                     new Translation2d(drivetrain.getCurrentPose().getX(), 500_00)),
-                          drivetrain);
   }
 
   /**
