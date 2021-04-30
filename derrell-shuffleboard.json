@@ -428,17 +428,6 @@
               "Visuals/Counter clockwise": false
             }
           },
-          "3,6": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/NavX Reset",
-              "_title": "NavX Reset"
-            }
-          },
           "20,2": {
             "size": [
               1,
@@ -630,6 +619,17 @@
               "_title": "Swerve Controller Command Running",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/NavX Reset",
+              "_title": "SmartDashboard/NavX Reset"
             }
           }
         }

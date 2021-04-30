@@ -1,15 +1,21 @@
 package frc.bionic;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -20,9 +26,9 @@ public class TrajectoryFollow {
   public SequentialCommandGroup getAutonomousCommand(AbstractDrivetrain drivetrain) {
 
     // Creates a new PID Controller to control the X position of the Robot
-    PIDController xController = new PIDController(1, 0, 0);
+    PIDController xController = new PIDController(3, 0, 0);
     // Creates a new PID Controller to control the Y Position of the Robot
-    PIDController yController = new PIDController(1, 0, 0);
+    PIDController yController = new PIDController(3, 0, 0);
     // Creates a new PID Controller to control the angle of the robot, with Max Velocity and Max Acceleration constraints
     ProfiledPIDController thetaController = new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(6.28, 3.14));
     
@@ -37,7 +43,7 @@ public class TrajectoryFollow {
         .setKinematics(drivetrain.getKinematics());
 
       // // Creates a new Trajectory | ALL UNITS ARE IN METERS
-      Trajectory trajectory =
+      /* Trajectory trajectory =
           TrajectoryGenerator.generateTrajectory(
               // Start at the origin facing the +X direction
             new Pose2d(0, 0, new Rotation2d(0)),
@@ -45,7 +51,18 @@ public class TrajectoryFollow {
             List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
             // End 3 meters straight ahead of where we started, facing forward
             new Pose2d(3, 0, new Rotation2d(0)),
-              config);
+              config); */
+
+      String trajectoryJSON = "paths/bad_circle.wpilib.json";
+      Trajectory trajectory = new Trajectory();
+      
+      try {
+        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+        trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+      } catch (IOException ex) {
+        SmartDashboard.putBoolean("HOLY $HIT FIX YOUR CODE", true);
+        DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+      }
 
       // Makes sure that the PID outputs values from -180 to 180 degrees
       thetaController.enableContinuousInput(-Math.PI, Math.PI);
