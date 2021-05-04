@@ -38,7 +38,8 @@ public class Drivetrain extends AbstractDrivetrain {
 
 
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
-                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches);
+                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
+                    "FRC4909");
 
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();

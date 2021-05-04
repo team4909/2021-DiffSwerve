@@ -12,19 +12,13 @@
 
 package frc.robot;
 
-import org.opencv.core.RotatedRect;
-
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.bionic.Conversion;
 import frc.bionic.TrajectoryFollow;
-import frc.bionic.TrajectoryUtils;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 
@@ -82,8 +76,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    // Starts the process of generating a trajectory
-    // UserInterface.runTrajectory();
-    new TrajectoryFollow().getAutonomousCommand(drivetrain).schedule();
+    // Starts the process of following a trajectory
+    new TrajectoryFollow().getAutonomousCommand(drivetrain, "paths/flower.json").schedule();
   }
 }

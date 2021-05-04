@@ -86,6 +86,7 @@ public class DriveWithJoystick extends CommandBase {
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("rot",    rot);
 
+    // Calls the drive method in Drivetrain. The rotation is only allowed when Button 2 is pressed
     drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
   }
 }

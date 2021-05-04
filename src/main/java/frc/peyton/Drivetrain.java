@@ -40,7 +40,8 @@ public class Drivetrain extends AbstractDrivetrain {
     SmartDashboard.putBoolean("NavX Reset", false);
 
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
-                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches);
+                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
+                    "Peyton");
 
   }
 

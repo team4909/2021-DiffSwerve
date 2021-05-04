@@ -12,6 +12,7 @@
 
 package frc.bionic.swerve;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -19,7 +20,10 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class AbstractDrivetrain extends SubsystemBase {
@@ -35,6 +39,14 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private Pose2d                  currentPose;
 
   private double                  kMaxSpeed = 2.0;  // meters per second
+
+  //Shuffleboard Related
+  private String                   name;
+  private NetworkTableEntry        sb_Current_Pose_X;
+  private NetworkTableEntry        sb_Current_Pose_Y;
+  private NetworkTableEntry        sb_Current_Pose_Rotation;
+
+
 
 
   /**
@@ -53,7 +65,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
                           AbstractSwerveModule swerveLR,
                           AbstractSwerveModule swerveRR,
                           double kHalfWheelBaseWidthInches,
-                          double kHalfWheelBaseLengthInches) {
+                          double kHalfWheelBaseLengthInches,
+                          String name) {
 
     double                  kHalfWheelBaseWidthMeters;
     double                  kHalfWheelBaseLengthMeters;
@@ -66,6 +79,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     this.swerveLF = swerveLF;
     this.swerveLR = swerveLR;
     this.swerveRR = swerveRR;
+
+    this.name = name;
     
     kHalfWheelBaseWidthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
@@ -82,6 +97,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
       kinematics,
       Rotation2d.fromDegrees(getGyroAngle()),
       new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)));
+
+    initShuffleboard();
   }
 
   public double getMaxSpeed() {
@@ -104,10 +121,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
                                   swerveLR.getModuleState(), 
                                   swerveRR.getModuleState());
 
-    SmartDashboard.putNumber("Current Pose X", currentPose.getTranslation().getX());
-    SmartDashboard.putNumber("Current Pose Y", currentPose.getTranslation().getY());
-    SmartDashboard.putNumber("Current Pose Rotation", currentPose.getRotation().getDegrees());
-
+    syncShuffleboard();
   }
 
   /**
@@ -166,6 +180,33 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
   public SwerveModuleState[] getSwerveModuleStates(){
     return swerveModuleStates;
+  }
+
+  /**
+   * Initialize the shuffleboard interface for this motor
+  */
+  protected void initShuffleboard(){
+    ShuffleboardTab           tab;
+    ShuffleboardLayout        layout;
+
+    tab              = Shuffleboard.getTab(name);
+    layout           = tab.getLayout("Current Pose: " + name, BuiltInLayouts.kList);
+
+    sb_Current_Pose_X = layout.add("X", 0).getEntry();
+    sb_Current_Pose_Y = layout.add("Y", 0).getEntry();
+    sb_Current_Pose_Rotation = layout.add("Rotation", 0).getEntry();
+  }
+
+  /**
+   * Update dynamic values on shuffleboard, and read values and reset based on
+   * read values, any settable parameters.
+  */
+  void syncShuffleboard(){
+    // Sets the current pose X , Y, and Rotation to the shuffleboard variables to get updated
+    sb_Current_Pose_X.setDouble(odometry.getPoseMeters().getX());
+    sb_Current_Pose_Y.setDouble(odometry.getPoseMeters().getY());
+    sb_Current_Pose_Rotation.setDouble(odometry.getPoseMeters().getRotation().getDegrees());
+
   }
 
 }
