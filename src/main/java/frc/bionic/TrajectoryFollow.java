@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -16,7 +17,7 @@ import frc.bionic.swerve.AbstractDrivetrain;
 
 public class TrajectoryFollow {
 
-  public SequentialCommandGroup getAutonomousCommand(AbstractDrivetrain drivetrain, String trajectoryJSON) {
+  public SequentialCommandGroup getAutonomousCommand(AbstractDrivetrain drivetrain, String trajectoryJSON, Pose2D relativePose) {
 
     // Creates a new PID Controller to control the X position of the Robot
     PIDController xController = new PIDController(3, 0, 0);
@@ -35,6 +36,8 @@ public class TrajectoryFollow {
     } catch (IOException ex) {
         DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
+    
+    trajectory = trajectory.relativeTo(relativePose);
 
     // Creates a new SwerveControllerCommand
     SwerveControllerCommand swerveControllerCommand =
