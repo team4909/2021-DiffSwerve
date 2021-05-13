@@ -77,6 +77,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // Starts the process of following a trajectory
-    new TrajectoryFollow().getAutonomousCommand(drivetrain, "paths/flower.json").schedule();
+    UserInterface.followTrajectory();
   }
 }
