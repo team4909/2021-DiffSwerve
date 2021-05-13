@@ -68,6 +68,13 @@ public class UserInterface
     new JoystickButton(joystick0, 11)
       .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
   }
+  
+  public static SequentialCommandGroup followTrajectory(){
+    UserInterfaceElement<frc.team4909.Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
+    frc.team4909.Drivetrain            drivetrain = drivetrainElem.get();
+    return new TrajectoryFollow().getAutonomousCommand(drivetrain, "paths/flower.json", drivetrain.getAbsolutePosition());
+    
+  }
 
   /**
    * Create the user interface operated via Joystick 1
