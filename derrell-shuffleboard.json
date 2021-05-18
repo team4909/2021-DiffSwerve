@@ -1026,6 +1026,17 @@
               "Layout/Label position": "BOTTOM",
               "_children": []
             }
+          },
+          "18,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///LiveWindow/Vision",
+              "_title": "Vision"
+            }
           }
         }
       }

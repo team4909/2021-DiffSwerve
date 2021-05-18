@@ -21,9 +21,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
+import frc.bionic.swerve.Vision;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
+  private Vision vision;
 
   // Shuffleboard-related
   NetworkTableEntry sb_robot_type;
@@ -34,6 +36,8 @@ public class Robot extends TimedRobot {
 
     tab = Shuffleboard.getTab("Robot Setup");
     sb_robot_type = tab.addPersistent("Drivetrain Type", "Enter 'peyton' or 'team4909'").getEntry();
+
+    vision = new Vision(0, 0, 0, 0, 0);
 
     SmartDashboard.putBoolean("Override", false);
     SmartDashboard.putBoolean("ZERO", false);
@@ -77,6 +81,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // Starts the process of following a trajectory
-    new TrajectoryFollow().getAutonomousCommand(drivetrain, "paths/flower.json").schedule();
+    new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/flower.json").schedule();
+    new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/line.json").schedule();
+
   }
 }

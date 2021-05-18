@@ -52,13 +52,13 @@ public class DriveWithJoystick extends CommandBase {
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
-    double ySpeed = -joystick.getX();
+    double ySpeed = joystick.getX();
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
     // mathematics). Xbox controllers return positive values when you pull to
     // the right by default.
-    double rot = -joystick.getZ();
+    double rot = joystick.getZ();
 
     if (Math.abs(rot) < JOYSTICK_DEADZONE) {
       rot = 0;
@@ -69,12 +69,7 @@ public class DriveWithJoystick extends CommandBase {
     if (Math.abs(ySpeed) < JOYSTICK_DEADZONE) {
       ySpeed = 0;
     }
-
-    if (SmartDashboard.getBoolean("Override", false)) {
-      xSpeed = SmartDashboard.getNumber("xSpeed", 0);
-      ySpeed = SmartDashboard.getNumber("ySpeed", 0);
-      rot    = SmartDashboard.getNumber("rot",    0);
-    }
+ 
 
     if (SmartDashboard.getBoolean("Enable Slew", false)) {
       xSpeed = xspeedLimiter.calculate(xSpeed);
@@ -87,6 +82,6 @@ public class DriveWithJoystick extends CommandBase {
     SmartDashboard.putNumber("rot",    rot);
 
     // Calls the drive method in Drivetrain. The rotation is only allowed when Button 2 is pressed
-    drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
+    // drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
   }
 }

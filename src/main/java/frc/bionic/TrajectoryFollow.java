@@ -16,7 +16,7 @@ import frc.bionic.swerve.AbstractDrivetrain;
 
 public class TrajectoryFollow {
 
-  public SequentialCommandGroup getAutonomousCommand(AbstractDrivetrain drivetrain, String trajectoryJSON) {
+  public SequentialCommandGroup getTrajectoryCommand(AbstractDrivetrain drivetrain, String trajectoryJSON) {
 
     // Creates a new PID Controller to control the X position of the Robot
     PIDController xController = new PIDController(3, 0, 0);
@@ -28,6 +28,7 @@ public class TrajectoryFollow {
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     Trajectory trajectory = new Trajectory();
+    Trajectory t = new Trajectory();
     
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
