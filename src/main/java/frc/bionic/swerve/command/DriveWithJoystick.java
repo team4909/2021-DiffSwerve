@@ -12,8 +12,11 @@
 
 package frc.bionic.swerve.command;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SlewRateLimiter;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.peyton.Drivetrain;
@@ -22,6 +25,8 @@ public class DriveWithJoystick extends CommandBase {
 
   private final Drivetrain drivetrain;
   private final Joystick joystick;
+  private final String name = "Maintenance";
+  private NetworkTableEntry sb_enable_joystick_drive;
 
   // Joystick returns [-1.0, 1.0] with 0 being the center point on
   // each axis. Provide a small dead zone so that small hand movements
@@ -39,6 +44,7 @@ public class DriveWithJoystick extends CommandBase {
     this.joystick = joystick;
     addRequirements(drivetrain);
 
+    initShuffleboard();
     SmartDashboard.putNumber("xSpeed", 0);
     SmartDashboard.putNumber("ySpeed", 0);
     SmartDashboard.putNumber("rot",    0);
@@ -52,6 +58,7 @@ public class DriveWithJoystick extends CommandBase {
     // Get the y speed or sideways/strafe speed. We are inverting this because
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
+
     double ySpeed = joystick.getX();
 
     // Get the rate of angular rotation. We are inverting this because we want a
@@ -82,6 +89,16 @@ public class DriveWithJoystick extends CommandBase {
     SmartDashboard.putNumber("rot",    rot);
 
     // Calls the drive method in Drivetrain. The rotation is only allowed when Button 2 is pressed
-    // drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
+    if (sb_enable_joystick_drive.getBoolean(true))
+    {
+      drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
+    }
+  }
+  protected void initShuffleboard(){
+    ShuffleboardTab           tab;
+
+    tab = Shuffleboard.getTab(name);
+
+    sb_enable_joystick_drive = tab.add("joystick enabled", true).getEntry();
   }
 }

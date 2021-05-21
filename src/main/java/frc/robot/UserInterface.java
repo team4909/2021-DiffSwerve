@@ -15,7 +15,9 @@ package frc.robot;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.command.DriveWithJoystick;
 import frc.peyton.Drivetrain;
@@ -72,7 +74,7 @@ public class UserInterface
   public static SequentialCommandGroup followTrajectory(){
     UserInterfaceElement<frc.team4909.Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
     frc.team4909.Drivetrain            drivetrain = drivetrainElem.get();
-    return new TrajectoryFollow().getAutonomousCommand(drivetrain, "paths/flower.json", drivetrain.getAbsolutePosition());
+    return new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/flower.json");
     
   }
 

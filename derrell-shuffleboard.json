@@ -1521,10 +1521,10 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "5,0": {
+          "0,2": {
             "size": [
               2,
-              8
+              1
             ],
             "content": {
               "_type": "List Layout",
@@ -1793,7 +1793,7 @@
               }
             }
           },
-          "3,5": {
+          "0,6": {
             "size": [
               2,
               1
@@ -1804,7 +1804,7 @@
               "_title": "yaw pidCalc"
             }
           },
-          "3,3": {
+          "0,4": {
             "size": [
               2,
               1
@@ -1815,7 +1815,7 @@
               "_title": "yaw dist deg"
             }
           },
-          "3,4": {
+          "0,5": {
             "size": [
               2,
               1
@@ -1826,7 +1826,7 @@
               "_title": "yaw goal deg"
             }
           },
-          "2,0": {
+          "0,0": {
             "size": [
               2,
               2
@@ -1923,6 +1923,39 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/RF A goal",
               "_title": "SmartDashboard/RF A goal"
+            }
+          },
+          "5,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Control",
+              "_title": "Shuffleboard/Peyton/Module LF/Control"
+            }
+          },
+          "5,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Apply",
+              "_title": "Shuffleboard/Peyton/Module LF/Apply"
+            }
+          },
+          "5,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/wheel set rpm",
+              "_title": "Shuffleboard/Peyton/Module LF/wheel set rpm"
             }
           }
         }
@@ -2168,115 +2201,126 @@
       }
     },
     {
-      "title": "Lamprey",
+      "title": "Maintenance",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 64.0,
+        "gridSize": 128.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "8,0": {
+          "9,4": {
             "size": [
-              8,
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///Shuffleboard/DriveWithJoystick/joystick enabled",
+              "_title": "Shuffleboard/DriveWithJoystick/joystick enabled"
+            }
+          },
+          "1,0": {
+            "size": [
+              2,
               6
             ],
             "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/lamprey dist",
-              "_title": "SmartDashboard/lamprey dist",
-              "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "_type": "Grid Layout",
+              "_title": "LF",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {}
             }
           },
-          "8,6": {
+          "5,4": {
             "size": [
-              8,
-              5
+              1,
+              1
             ],
             "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/lamprey get",
-              "_title": "SmartDashboard/lamprey get",
-              "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 0.55,
-              "Y-axis/Lower bound": 0.45
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LR/yaw set deg",
+              "_title": "/Shuffleboard/Peyton/Module LR/yaw set deg"
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LR/wheel set rpm",
+              "_title": "Shuffleboard/Peyton/Module LR/wheel set rpm"
             }
           },
           "0,0": {
             "size": [
-              8,
-              6
+              1,
+              1
             ],
             "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/lamprey Heading",
-              "_title": "SmartDashboard/lamprey Heading",
-              "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 185.0,
-              "Y-axis/Lower bound": 170.0
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Modules",
-      "autoPopulate": false,
-      "autoPopulatePrefix": "",
-      "widgetPane": {
-        "gridSize": 64.0,
-        "showGrid": true,
-        "hgap": 16.0,
-        "vgap": 16.0,
-        "tiles": {
-          "6,1": {
-            "size": [
-              3,
-              4
-            ],
-            "content": {
-              "_type": "Network Table Tree",
-              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder LF",
-              "_title": "Shuffleboard/Peyton/Yaw Encoder LF"
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Maintenance/joystick enabled",
+              "_title": "Shuffleboard/Maintenance/joystick enabled"
             }
           },
-          "9,1": {
+          "5,1": {
             "size": [
-              3,
-              4
+              1,
+              1
             ],
             "content": {
-              "_type": "Network Table Tree",
-              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder LR",
-              "_title": "Shuffleboard/Peyton/Yaw Encoder LR"
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Apply",
+              "_title": "Shuffleboard/Peyton/Module LF/Apply"
             }
           },
-          "12,1": {
+          "8,1": {
             "size": [
-              3,
-              4
+              1,
+              1
             ],
             "content": {
-              "_type": "Network Table Tree",
-              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF",
-              "_title": "Shuffleboard/Peyton/Yaw Encoder RF"
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Control",
+              "_title": "Shuffleboard/Peyton/Module LF/Control"
             }
           },
-          "15,1": {
+          "5,2": {
             "size": [
-              3,
-              4
+              1,
+              1
             ],
             "content": {
-              "_type": "Network Table Tree",
-              "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RR",
-              "_title": "Shuffleboard/Peyton/Yaw Encoder RR"
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/calc wheel rpm",
+              "_title": "Shuffleboard/Peyton/Module LF/calc wheel rpm"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/calc yaw rpm",
+              "_title": "Shuffleboard/Peyton/Module LF/calc yaw rpm"
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/translation",
+              "_title": "Shuffleboard/Peyton/Module LF/translation"
             }
           }
         }
