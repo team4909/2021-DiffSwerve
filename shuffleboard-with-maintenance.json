@@ -1,0 +1,2293 @@
+{
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/50",
+              "_title": "50",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/100",
+              "_title": "100",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/150",
+              "_title": "150",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/0",
+              "_title": "0",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Apply",
+              "_title": "Apply",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Apply Value",
+              "_title": "Apply Value"
+            }
+          },
+          "11,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/ReInitDash",
+              "_title": "ReInitDash",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "13,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///SmartDashboard/Yaw PID",
+              "_title": "Yaw PID"
+            }
+          },
+          "15,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Desired Speed",
+              "_title": "Desired Speed"
+            }
+          },
+          "16,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Desired Angle",
+              "_title": "Desired Angle"
+            }
+          },
+          "17,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw pidCalc",
+              "_title": "yaw pidCalc"
+            }
+          },
+          "18,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw dist deg",
+              "_title": "yaw dist deg"
+            }
+          },
+          "19,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw goal deg",
+              "_title": "yaw goal deg"
+            }
+          },
+          "20,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/req goal deg",
+              "_title": "req goal deg"
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF Agoal",
+              "_title": "RF Agoal"
+            }
+          },
+          "15,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF Bgoal",
+              "_title": "RF Bgoal"
+            }
+          },
+          "16,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF A goal",
+              "_title": "RF A goal"
+            }
+          },
+          "17,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF B goal",
+              "_title": "RF B goal"
+            }
+          },
+          "18,1": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Override State",
+              "_title": "Override State",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "20,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "ySpeed"
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Override State - Angle",
+              "_title": "Override State - Angle"
+            }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/State - speed",
+              "_title": "State - speed"
+            }
+          },
+          "2,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Override",
+              "_title": "Override",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/xSpeed",
+              "_title": "xSpeed"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rot",
+              "_title": "rot"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Override State - Speed",
+              "_title": "Override State - Speed"
+            }
+          },
+          "4,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/ZERO",
+              "_title": "ZERO"
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF A goal",
+              "_title": "LF A goal"
+            }
+          },
+          "10,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF B goal",
+              "_title": "LF B goal"
+            }
+          },
+          "11,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR A goal",
+              "_title": "LR A goal"
+            }
+          },
+          "12,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR B goal",
+              "_title": "LR B goal"
+            }
+          },
+          "15,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR A goal",
+              "_title": "RR A goal"
+            }
+          },
+          "16,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR B goal",
+              "_title": "RR B goal"
+            }
+          },
+          "0,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Enable Slew",
+              "_title": "Enable Slew",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "17,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro Angle",
+              "_title": "Gyro Angle"
+            }
+          },
+          "16,5": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/NavX",
+              "_title": "NavX",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "20,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ChassisSpeeds",
+              "_title": "ChassisSpeeds"
+            }
+          },
+          "11,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BeforeNormalize",
+              "_title": "BeforeNormalize"
+            }
+          },
+          "12,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AfterNormalize",
+              "_title": "AfterNormalize"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey get",
+              "_title": "lamprey get"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey dist",
+              "_title": "lamprey dist"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey freq",
+              "_title": "lamprey freq"
+            }
+          },
+          "10,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey dist",
+              "_title": "/SmartDashboard/lamprey dist"
+            }
+          },
+          "6,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey freq",
+              "_title": "/SmartDashboard/lamprey freq"
+            }
+          },
+          "13,5": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey get",
+              "_title": "/SmartDashboard/lamprey get"
+            }
+          },
+          "15,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey Heading",
+              "_title": "lamprey Heading"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rotate",
+              "_title": "rotate"
+            }
+          },
+          "6,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Current Pose X",
+              "_title": "Current Pose X"
+            }
+          },
+          "8,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Current Pose Y",
+              "_title": "Current Pose Y"
+            }
+          },
+          "10,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Current Pose Rotation",
+              "_title": "Current Pose Rotation"
+            }
+          },
+          "7,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Supply Running",
+              "_title": "Supply Running",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "16,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Generate Trajectory Running",
+              "_title": "Generate Trajectory Running",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "12,8": {
+            "size": [
+              8,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Swerve Controller Command Running",
+              "_title": "Swerve Controller Command Running",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/NavX Reset",
+              "_title": "SmartDashboard/NavX Reset"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+              "_title": "Ungrouped/PIDController[1]"
+            }
+          },
+          "6,0": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Encoder",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]",
+              "_title": "Ungrouped/Encoder[0]"
+            }
+          },
+          "10,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+                  "_title": "PIDController[1]"
+                },
+                {
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]",
+                  "_title": "Encoder[0]"
+                },
+                {
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]",
+                  "_title": "Encoder[1]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[3]",
+                  "_title": "PIDController[3]"
+                },
+                {
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[2]",
+                  "_title": "Encoder[2]"
+                },
+                {
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[3]",
+                  "_title": "Encoder[3]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
+                  "_title": "PIDController[2]"
+                },
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/AnalogGyro[0]",
+                  "_title": "AnalogGyro[0]",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[4]",
+                  "_title": "PIDController[4]"
+                },
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor",
+                  "_title": "navX-Sensor",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[0]/Value",
+                  "_title": "Counter[0]/Value"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[8]/Value",
+                  "_title": "DigitalInput[8]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[0]/Frequency",
+                  "_title": "Duty Cycle[0]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[0]/Output",
+                  "_title": "Duty Cycle[0]/Output"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[8]/Distance",
+                  "_title": "DutyCycle Encoder[8]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[8]/Is Connected",
+                  "_title": "DutyCycle Encoder[8]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[6]/Value",
+                  "_title": "DigitalInput[6]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[6]/Distance",
+                  "_title": "DutyCycle Encoder[6]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[6]/Is Connected",
+                  "_title": "DutyCycle Encoder[6]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[4]/Value",
+                  "_title": "DigitalInput[4]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[0]/Distance",
+                  "_title": "DutyCycle Encoder[0]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[0]/Is Connected",
+                  "_title": "DutyCycle Encoder[0]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[1]/Frequency",
+                  "_title": "Duty Cycle[1]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[1]/Output",
+                  "_title": "Duty Cycle[1]/Output"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[2]/Value",
+                  "_title": "DigitalInput[2]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[0]/Value",
+                  "_title": "DigitalInput[0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[1]/Value",
+                  "_title": "Counter[1]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[2]/Value",
+                  "_title": "Counter[2]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[4]/Distance",
+                  "_title": "DutyCycle Encoder[4]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[4]/Is Connected",
+                  "_title": "DutyCycle Encoder[4]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[3]/Frequency",
+                  "_title": "Duty Cycle[3]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[3]/Output",
+                  "_title": "Duty Cycle[3]/Output"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[2]/Frequency",
+                  "_title": "Duty Cycle[2]/Frequency"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Duty Cycle[2]/Output",
+                  "_title": "Duty Cycle[2]/Output"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[2]/Distance",
+                  "_title": "DutyCycle Encoder[2]/Distance"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DutyCycle Encoder[2]/Is Connected",
+                  "_title": "DutyCycle Encoder[2]/Is Connected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Counter[3]/Value",
+                  "_title": "Counter[3]/Value"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[5]",
+                  "_title": "PIDController[5]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[6]",
+                  "_title": "PIDController[6]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[7]",
+                  "_title": "PIDController[7]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[9]",
+                  "_title": "PIDController[9]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[10]",
+                  "_title": "PIDController[10]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[8]",
+                  "_title": "PIDController[8]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[13]",
+                  "_title": "PIDController[13]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[11]",
+                  "_title": "PIDController[11]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[12]",
+                  "_title": "PIDController[12]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[16]",
+                  "_title": "PIDController[16]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[14]",
+                  "_title": "PIDController[14]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[15]",
+                  "_title": "PIDController[15]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[18]",
+                  "_title": "PIDController[18]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[19]",
+                  "_title": "PIDController[19]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[17]",
+                  "_title": "PIDController[17]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[21]",
+                  "_title": "PIDController[21]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[20]",
+                  "_title": "PIDController[20]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[22]",
+                  "_title": "PIDController[22]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[25]",
+                  "_title": "PIDController[25]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[24]",
+                  "_title": "PIDController[24]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[23]",
+                  "_title": "PIDController[23]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[26]",
+                  "_title": "PIDController[26]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[27]",
+                  "_title": "PIDController[27]"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[28]",
+                  "_title": "PIDController[28]"
+                }
+              ]
+            }
+          },
+          "14,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Drivetrain",
+              "_title": "Drivetrain",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "18,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///LiveWindow/Vision",
+              "_title": "Vision"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Swerve",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "Shuffleboard/Swerve",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "4,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Debug",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "HIDDEN",
+              "_children": {
+                "0,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Debug/UseVolts",
+                  "_title": "UseVolts"
+                },
+                "0,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Debug/apply",
+                  "_title": "Apply PID"
+                }
+              }
+            }
+          },
+          "18,0": {
+            "size": [
+              2,
+              5
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Input",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/drive ff",
+                  "_title": "drive ff"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/a volts",
+                  "_title": "a volts"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/b volts",
+                  "_title": "b volts"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/velocity",
+                  "_title": "velocity"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Inputs/heading",
+                  "_title": "heading"
+                }
+              ]
+            }
+          },
+          "15,3": {
+            "size": [
+              2,
+              7
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor B PID",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kP",
+                  "_title": "kP"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kI",
+                  "_title": "kI"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kIz",
+                  "_title": "kIz"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kD",
+                  "_title": "kD"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/kFF",
+                  "_title": "kFF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/max",
+                  "_title": "max"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/B PID/min",
+                  "_title": "min"
+                }
+              ]
+            }
+          },
+          "13,3": {
+            "size": [
+              2,
+              7
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor PID A",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kP",
+                  "_title": "kP"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kI",
+                  "_title": "kI"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kIz",
+                  "_title": "kIz"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kD",
+                  "_title": "kD"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kFF",
+                  "_title": "kFF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/max",
+                  "_title": "max"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/min",
+                  "_title": "min"
+                }
+              ]
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor B",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorB/velocity",
+                  "_title": "velocity"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorB/velocity avg",
+                  "_title": "velocity avg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorB/volts",
+                  "_title": "volts"
+                }
+              ]
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Motor A",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorA/velocity",
+                  "_title": "velocity"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorA/velocity avg",
+                  "_title": "velocity avg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/MotorA/volts",
+                  "_title": "volts"
+                }
+              ]
+            }
+          },
+          "11,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/TurnEnc/velocity",
+              "_title": "Yaw RPM - Measured"
+            }
+          },
+          "6,0": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Velocity Setpoints",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "HIDDEN",
+              "_children": {
+                "0,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/0",
+                  "_title": "SmartDashboard/0"
+                },
+                "1,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/50",
+                  "_title": "SmartDashboard/50"
+                },
+                "2,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/100",
+                  "_title": "SmartDashboard/100"
+                },
+                "0,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/150",
+                  "_title": "SmartDashboard/150"
+                },
+                "1,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///SmartDashboard/Apply",
+                  "_title": "SmartDashboard/Apply"
+                },
+                "2,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Apply Value",
+                  "_title": "SmartDashboard/Apply Value"
+                }
+              }
+            }
+          },
+          "14,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Output",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Output/Rotation",
+                  "_title": "Calc Module Yaw"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Swerve/Output/Translation",
+                  "_title": "Calc Wheel Trans RPM"
+                }
+              ]
+            }
+          },
+          "10,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kP",
+              "_title": "Shuffleboard/Swerve/Motor PID/A PID/kP"
+            }
+          },
+          "10,5": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kIz",
+              "_title": "Shuffleboard/Swerve/Motor PID/A PID/kIz"
+            }
+          },
+          "0,3": {
+            "size": [
+              10,
+              8
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///Shuffleboard/Swerve/Output/Translation",
+              "_title": "Shuffleboard/Swerve/Output/Translation",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0
+            }
+          },
+          "11,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/TurnEnc/distance",
+              "_title": "Yaw Heading - Measured"
+            }
+          },
+          "17,5": {
+            "size": [
+              3,
+              4
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///SmartDashboard/Yaw PID",
+              "_title": "SmartDashboard/Yaw PID"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A PID",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/max",
+              "_title": "max"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kFF",
+              "_title": "kFF"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kD",
+              "_title": "kD"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kI",
+              "_title": "kI"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kIz",
+              "_title": "kIz"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/min",
+              "_title": "min"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Swerve/Motor PID/A PID/kP",
+              "_title": "kP"
+            }
+          },
+          "7,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Grid Layout",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {}
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Peyton",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Module RF",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/translation",
+                  "_title": "translation"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/calc wheel rpm",
+                  "_title": "calc wheel rpm"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/calc yaw rpm",
+                  "_title": "calc yaw rpm"
+                },
+                {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/Apply",
+                  "_title": "Apply"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/yaw set deg",
+                  "_title": "yaw set deg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/wheel set rpm",
+                  "_title": "wheel set rpm"
+                },
+                {
+                  "_type": "Toggle Switch",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/Control",
+                  "_title": "Control"
+                }
+              ]
+            }
+          },
+          "7,0": {
+            "size": [
+              2,
+              8
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Yaw Encoder RF",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/angle deg",
+                  "_title": "angle deg"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/goal deg",
+                  "_title": "goal deg"
+                },
+                {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/Apply",
+                  "_title": "Apply"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/output +-%",
+                  "_title": "output +-%"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Yaw Encoder RF/goal set deg",
+                  "_title": "goal set deg"
+                }
+              ]
+            }
+          },
+          "9,0": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Motor RF A",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Grid Layout",
+                  "_title": "PID",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 5,
+                  "Layout/Label position": "LEFT",
+                  "_children": {
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/max",
+                      "_title": "max"
+                    },
+                    "1,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/min",
+                      "_title": "min"
+                    },
+                    "1,2": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/Apply",
+                      "_title": "Apply"
+                    },
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kP",
+                      "_title": "kP"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kI",
+                      "_title": "kI"
+                    },
+                    "0,4": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kIz",
+                      "_title": "kIz"
+                    },
+                    "0,3": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kFF",
+                      "_title": "kFF"
+                    },
+                    "0,2": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/PID/kD",
+                      "_title": "kD"
+                    }
+                  }
+                },
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 2,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/avg",
+                      "_title": "avg"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/rpm",
+                      "_title": "rpm"
+                    },
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/Apply",
+                      "_title": "Apply"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/set rpm",
+                      "_title": "set rpm"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "9,4": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Motor RF B",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Grid Layout",
+                  "_title": "PID",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 5,
+                  "Layout/Label position": "LEFT",
+                  "_children": {
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/max",
+                      "_title": "max"
+                    },
+                    "1,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/min",
+                      "_title": "min"
+                    },
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kP",
+                      "_title": "kP"
+                    },
+                    "0,2": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kD",
+                      "_title": "kD"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kI",
+                      "_title": "kI"
+                    },
+                    "0,3": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kFF",
+                      "_title": "kFF"
+                    },
+                    "0,4": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/kIz",
+                      "_title": "kIz"
+                    }
+                  }
+                },
+                "0,1": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/PID/Apply",
+                  "_title": "Apply"
+                },
+                "1,0": {
+                  "_type": "Grid Layout",
+                  "_title": "Velocity",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 2,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/avg",
+                      "_title": "avg"
+                    },
+                    "0,1": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/rpm",
+                      "_title": "rpm"
+                    },
+                    "1,0": {
+                      "_type": "Text View",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/set rpm",
+                      "_title": "set rpm"
+                    },
+                    "1,1": {
+                      "_type": "Toggle Button",
+                      "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/Apply",
+                      "_title": "Apply"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "0,6": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw pidCalc",
+              "_title": "yaw pidCalc"
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw dist deg",
+              "_title": "yaw dist deg"
+            }
+          },
+          "0,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw goal deg",
+              "_title": "yaw goal deg"
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Control",
+              "_title": "Shuffleboard/Peyton/Module LF/Control"
+            }
+          },
+          "17,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/xSpeed",
+              "_title": "/SmartDashboard/xSpeed"
+            }
+          },
+          "17,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "/SmartDashboard/ySpeed"
+            }
+          },
+          "17,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rot",
+              "_title": "/SmartDashboard/rot"
+            }
+          },
+          "0,9": {
+            "size": [
+              20,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AfterNormalize",
+              "_title": "/SmartDashboard/AfterNormalize"
+            }
+          },
+          "0,8": {
+            "size": [
+              20,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BeforeNormalize",
+              "_title": "/SmartDashboard/BeforeNormalize"
+            }
+          },
+          "16,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/NavX Reset",
+              "_title": "SmartDashboard/NavX Reset"
+            }
+          },
+          "15,7": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF B goal",
+              "_title": "SmartDashboard/RF B goal"
+            }
+          },
+          "15,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF A goal",
+              "_title": "SmartDashboard/RF A goal"
+            }
+          },
+          "5,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Control",
+              "_title": "Shuffleboard/Peyton/Module LF/Control"
+            }
+          },
+          "5,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Apply",
+              "_title": "Shuffleboard/Peyton/Module LF/Apply"
+            }
+          },
+          "5,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/wheel set rpm",
+              "_title": "Shuffleboard/Peyton/Module LF/wheel set rpm"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Joystick Override",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "11,1": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance",
+              "_title": "/LiveWindow/Ungrouped/Encoder[0]/Distance"
+            }
+          },
+          "5,1": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]/Distance",
+              "_title": "/LiveWindow/Ungrouped/Encoder[1]/Distance"
+            }
+          },
+          "5,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[2]/Distance",
+              "_title": "/LiveWindow/Ungrouped/Encoder[2]/Distance"
+            }
+          },
+          "11,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[3]/Distance",
+              "_title": "/LiveWindow/Ungrouped/Encoder[3]/Distance"
+            }
+          },
+          "5,0": {
+            "size": [
+              10,
+              1
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Front",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {}
+            }
+          },
+          "7,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LR/translation",
+              "_title": "/Shuffleboard/Peyton/Module LR/translation"
+            }
+          },
+          "7,1": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/translation",
+              "_title": "/Shuffleboard/Peyton/Module LF/translation"
+            }
+          },
+          "13,1": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module RF/translation",
+              "_title": "/Shuffleboard/Peyton/Module RF/translation"
+            }
+          },
+          "13,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module RR/translation",
+              "_title": "/Shuffleboard/Peyton/Module RR/translation"
+            }
+          },
+          "9,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Override",
+              "_title": "SmartDashboard/Override"
+            }
+          },
+          "12,5": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///SmartDashboard/rot",
+              "_title": "SmartDashboard/rot",
+              "Slider Settings/Min": -1.0,
+              "Slider Settings/Max": 1.0,
+              "Slider Settings/Block increment": 0.0625
+            }
+          },
+          "5,5": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/xSpeed",
+              "_title": "SmartDashboard/xSpeed"
+            }
+          },
+          "8,5": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "SmartDashboard/ySpeed"
+            }
+          },
+          "16,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Enable Slew",
+              "_title": "SmartDashboard/Enable Slew"
+            }
+          },
+          "16,4": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor/Value",
+              "_title": "/LiveWindow/Ungrouped/navX-Sensor/Value"
+            }
+          },
+          "16,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro Angle",
+              "_title": "/SmartDashboard/Gyro Angle"
+            }
+          },
+          "9,7": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/NavX Reset",
+              "_title": "SmartDashboard/NavX Reset"
+            }
+          },
+          "5,9": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Current Pose X",
+              "_title": "SmartDashboard/Current Pose X"
+            }
+          },
+          "7,9": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Current Pose Y",
+              "_title": "SmartDashboard/Current Pose Y"
+            }
+          },
+          "9,9": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Current Pose Rotation",
+              "_title": "SmartDashboard/Current Pose Rotation"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Maintenance",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "1,0": {
+            "size": [
+              1,
+              6
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "LF",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 6,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,5": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Apply",
+                  "_title": "Shuffleboard/Peyton/Module LF/Apply"
+                },
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/wheel set rpm",
+                  "_title": "wheel set rpm"
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/yaw set deg",
+                  "_title": "yaw set deg"
+                },
+                "0,2": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/calc wheel rpm",
+                  "_title": "calc wheel rpm"
+                },
+                "0,3": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/calc yaw rpm",
+                  "_title": "calc yaw rpm"
+                },
+                "0,4": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/translation",
+                  "_title": "translation"
+                }
+              }
+            }
+          },
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Maintenance/joystick enabled",
+              "_title": "Shuffleboard/Maintenance/joystick enabled"
+            }
+          },
+          "3,1": {
+            "size": [
+              3,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "LR",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 6,
+              "Layout/Label position": "BOTTOM",
+              "_children": {}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -1688.0,
+    "y": -8.0,
+    "width": 1696.0,
+    "height": 1026.0
+  }
+}
