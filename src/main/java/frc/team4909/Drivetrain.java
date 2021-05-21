@@ -73,4 +73,29 @@ public class Drivetrain extends AbstractDrivetrain {
     swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }
+  
+  //Infinite Recharge Game specific
+  public Pose2d getAbsolutePosition(){
+    //Distance to the powerport from the robot
+    double hypoteneuse = new Vision(-56.4, 109.95, 29, 5, 0).calculateDistanceFromCameraHeight();
+    //Distance from the powerport to the initiation line
+    double base1 = 120;
+    //Distance from the robot to the interseciton of the powerport and the initiaiton line
+    double base2 = Math.pow(hypoteneuse, 2) - Math.pow(base1, 2);
+    //Distace from the robot to the edge closest to the powerport
+    double position = base2 + 10; //TODO make the value added be right (check CAD)
+    //Sets the position in relationto the side of the field closes to the powerport
+    Pose2d absolutePosition = getInversePose(new Pose2d(120, position, this.getCurrentPose().getRotation()));
+    return absolutePosition;
+  }
+
+  // Might have to do this the other way around, needs more thought / discussion`
+  public Pose2d getInversePose(Pose2d targetPose){
+    //Target Position - Current Position gives the position in relation to target posiiton
+    Pose2d returnPose = new Pose2d(targetPose.getX() - this.getCurrentPose().getX(),
+                                   targetPose.getY() - this.getCurrentPose().getY(),
+                                   new Rotation2d(targetPose.getRotation().getDegrees() - 
+                                                  this.getCurrentPose().getRotation().getDegrees()));
+    return returnPose;
+  }
 }
