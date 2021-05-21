@@ -2222,11 +2222,6 @@
               "Layout/Number of rows": 6,
               "Layout/Label position": "BOTTOM",
               "_children": {
-                "0,5": {
-                  "_type": "Toggle Button",
-                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Apply",
-                  "_title": "Shuffleboard/Peyton/Module LF/Apply"
-                },
                 "0,0": {
                   "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Peyton/Module LF/wheel set rpm",
@@ -2237,20 +2232,25 @@
                   "_source0": "network_table:///Shuffleboard/Peyton/Module LF/yaw set deg",
                   "_title": "yaw set deg"
                 },
-                "0,2": {
+                "0,5": {
                   "_type": "Text View",
-                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/calc wheel rpm",
-                  "_title": "calc wheel rpm"
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/translation",
+                  "_title": "translation"
                 },
-                "0,3": {
+                "0,4": {
                   "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Peyton/Module LF/calc yaw rpm",
                   "_title": "calc yaw rpm"
                 },
-                "0,4": {
+                "0,3": {
                   "_type": "Text View",
-                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/translation",
-                  "_title": "translation"
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/calc wheel rpm",
+                  "_title": "calc wheel rpm"
+                },
+                "0,2": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Apply",
+                  "_title": "Apply"
                 }
               }
             }
@@ -2266,10 +2266,10 @@
               "_title": "Shuffleboard/Maintenance/joystick enabled"
             }
           },
-          "3,1": {
+          "3,0": {
             "size": [
-              3,
-              4
+              1,
+              6
             ],
             "content": {
               "_type": "Grid Layout",
@@ -2277,7 +2277,128 @@
               "Layout/Number of columns": 1,
               "Layout/Number of rows": 6,
               "Layout/Label position": "BOTTOM",
-              "_children": {}
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LR/wheel set rpm",
+                  "_title": "wheel set rpm"
+                },
+                "0,5": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LR/translation",
+                  "_title": "translation"
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LR/yaw set deg",
+                  "_title": "yaw set deg"
+                },
+                "0,4": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LR/calc yaw rpm",
+                  "_title": "calc yaw rpm"
+                },
+                "0,3": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LR/calc wheel rpm",
+                  "_title": "calc wheel rpm"
+                },
+                "0,2": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module LR/Apply",
+                  "_title": "Apply"
+                }
+              }
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              6
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "RR",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 6,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RR/yaw set deg",
+                  "_title": "yaw set deg"
+                },
+                "0,2": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RR/Apply",
+                  "_title": "Apply"
+                },
+                "0,3": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RR/calc wheel rpm",
+                  "_title": "calc wheel rpm"
+                },
+                "0,4": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RR/calc yaw rpm",
+                  "_title": "calc yaw rpm"
+                },
+                "0,5": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RR/translation",
+                  "_title": "translation"
+                },
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RR/wheel set rpm",
+                  "_title": "wheel set rpm"
+                }
+              }
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              6
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "RF",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 6,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,2": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/Apply",
+                  "_title": "Apply"
+                },
+                "0,3": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/calc wheel rpm",
+                  "_title": "calc wheel rpm"
+                },
+                "0,4": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/calc yaw rpm",
+                  "_title": "calc yaw rpm"
+                },
+                "0,5": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/translation",
+                  "_title": "translation"
+                },
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/wheel set rpm",
+                  "_title": "wheel set rpm"
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Peyton/Module RF/yaw set deg",
+                  "_title": "yaw set deg"
+                }
+              }
             }
           }
         }
