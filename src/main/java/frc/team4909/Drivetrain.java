@@ -13,7 +13,9 @@
 package frc.team4909;
 
 import frc.bionic.swerve.AbstractDrivetrain;
+import frc.bionic.swerve.Vision;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -77,7 +79,7 @@ public class Drivetrain extends AbstractDrivetrain {
   //Infinite Recharge Game specific
   public Pose2d getAbsolutePosition(){
     //Distance to the powerport from the robot
-    double hypoteneuse = new Vision(-56.4, 109.95, 29, 5, 0).calculateDistanceFromCameraHeight();
+    double hypoteneuse = new Vision(-56.4, 109.95, 29, 5, 0).calculateDistanceFromCameraHeight(0,0,0);
     //Distance from the powerport to the initiation line
     double base1 = 120;
     //Distance from the robot to the interseciton of the powerport and the initiaiton line
