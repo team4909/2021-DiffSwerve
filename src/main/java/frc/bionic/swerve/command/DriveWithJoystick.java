@@ -31,7 +31,7 @@ public class DriveWithJoystick extends CommandBase {
   // Joystick returns [-1.0, 1.0] with 0 being the center point on
   // each axis. Provide a small dead zone so that small hand movements
   // when the joystick is centered are ignored
-  private final double JOYSTICK_DEADZONE = 0.2;
+  private final double JOYSTICK_DEADZONE = 0.15;
 
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
@@ -59,7 +59,7 @@ public class DriveWithJoystick extends CommandBase {
     // we want a positive value when we pull to the left. Xbox controllers
     // return positive values when you pull to the right by default.
 
-    double ySpeed = joystick.getX();
+    double ySpeed = -joystick.getX();
 
     // Get the rate of angular rotation. We are inverting this because we want a
     // positive value when we pull to the left (remember, CCW is positive in
@@ -67,9 +67,6 @@ public class DriveWithJoystick extends CommandBase {
     // the right by default.
     double rot = joystick.getZ();
 
-    if (Math.abs(rot) < JOYSTICK_DEADZONE) {
-      rot = 0;
-    }
     if (Math.abs(xSpeed) < JOYSTICK_DEADZONE) {
       xSpeed = 0;
     }

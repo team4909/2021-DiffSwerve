@@ -2429,9 +2429,42 @@
                 "0,0": {
                   "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A/Velocity/set rpm",
-                  "_title": "set rpm"
+                  "_title": "Shuffleboard/Peyton/Motor LF A/Velocity/set rpm"
                 }
               }
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/xSpeed",
+              "_title": "SmartDashboard/xSpeed"
+            }
+          },
+          "10,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ySpeed",
+              "_title": "SmartDashboard/ySpeed"
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/rot",
+              "_title": "SmartDashboard/rot"
             }
           }
         }
