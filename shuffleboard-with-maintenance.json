@@ -631,6 +631,17 @@
               "_source0": "network_table:///SmartDashboard/NavX Reset",
               "_title": "SmartDashboard/NavX Reset"
             }
+          },
+          "21,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Goal RPM",
+              "_title": "Goal RPM"
+            }
           }
         }
       }

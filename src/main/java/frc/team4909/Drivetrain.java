@@ -39,14 +39,14 @@ public class Drivetrain extends AbstractDrivetrain {
     swerveLR = new frc.team4909.SwerveModule(5, 6, 4,  "LR", "Peyton");
     swerveRR = new frc.team4909.SwerveModule(7, 8, 6,  "RR", "Peyton");
 
-
-    this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
-                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
-                    "FRC4909");
-
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
     SmartDashboard.putBoolean("NavX Reset", false);
+
+    this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
+    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
+    "FRC4909");
+
   }
 
   // interface (Subsystem) implementation
