@@ -2412,7 +2412,7 @@
               }
             }
           },
-          "4,0": {
+          "10,4": {
             "size": [
               1,
               1
@@ -2423,7 +2423,7 @@
               "_title": "Shuffleboard/Peyton/Motor LF A/Velocity/avg"
             }
           },
-          "4,1": {
+          "9,4": {
             "size": [
               1,
               1
@@ -2498,6 +2498,61 @@
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Peyton/Motor RR B/Velocity/avg",
               "_title": "Shuffleboard/Peyton/Motor RR B/Velocity/avg"
+            }
+          },
+          "9,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///Shuffleboard/Peyton/Module LF/Control",
+              "_title": "Shuffleboard/Peyton/Module LF/Control"
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A/Velocity/set rpm",
+              "_title": "Shuffleboard/Peyton/Motor LF A/Velocity/set rpm"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A/Velocity/Apply",
+              "_title": "Shuffleboard/Peyton/Motor LF A/Velocity/Apply"
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF B/Velocity/Apply",
+              "_title": "Shuffleboard/Peyton/Motor LF B/Velocity/Apply"
+            }
+          },
+          "10,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF B/Velocity/set rpm",
+              "_title": "Shuffleboard/Peyton/Motor LF B/Velocity/set rpm"
             }
           }
         }

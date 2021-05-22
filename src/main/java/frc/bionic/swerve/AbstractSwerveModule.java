@@ -184,10 +184,8 @@ public class AbstractSwerveModule
     // yaw goal and actual angle, to be used in the RPM calculation.
     calculatedYawRPM = m_yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
 
-
-    if (sb_control.getBoolean(false))
+    if (sb_control.getBoolean(true))
     {
-
       // Given the desired wheel and yaw RPM, calculate and specify the
       // motor speeds necessary to achieve them
       setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
@@ -249,8 +247,8 @@ public class AbstractSwerveModule
   // convert desired translation and yaw RPMs to motor RPMs
   protected void setMotorSpeedsRPM(double wheelRPM, double yawRPM)
   {
-    double aRPM = (yawRPM / GEAR_RATIO_YAW) - (wheelRPM / GEAR_RATIO_WHEEL_SPEED);
-    double bRPM = (yawRPM / GEAR_RATIO_YAW) - (wheelRPM / GEAR_RATIO_WHEEL_SPEED);
+    double aRPM =  (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
+    double bRPM =  (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
 
     m_driveMotorA.setGoalRPM(aRPM);
     m_driveMotorB.setGoalRPM(bRPM);
