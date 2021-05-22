@@ -183,7 +183,7 @@ public class AbstractSwerveModule
     // yaw goal and actual angle, to be used in the RPM calculation.
     calculatedYawRPM = m_yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
 
-
+    
     setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
 
     // report to dashboard

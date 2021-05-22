@@ -2404,67 +2404,89 @@
           "4,0": {
             "size": [
               1,
-              3
+              1
             ],
             "content": {
-              "_type": "Grid Layout",
-              "_title": "LF A",
-              "Layout/Number of columns": 1,
-              "Layout/Number of rows": 3,
-              "Layout/Label position": "BOTTOM",
-              "_children": {
-                "0,1": {
-                  "_type": "Toggle Button",
-                  "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A/Velocity/Apply",
-                  "_title": "Apply"
-                },
-                "0,2": {
-                  "_type": "Simple Dial",
-                  "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A/Velocity/avg",
-                  "_title": "avg",
-                  "Range/Min": 0.0,
-                  "Range/Max": 3000.0,
-                  "Visuals/Show value": true
-                },
-                "0,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A/Velocity/set rpm",
-                  "_title": "/Shuffleboard/Peyton/Motor LF A/Velocity/set rpm"
-                }
-              }
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF A/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor LF A/Velocity/avg"
             }
           },
-          "9,2": {
+          "4,1": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/xSpeed",
-              "_title": "SmartDashboard/xSpeed"
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LF B/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor LF B/Velocity/avg"
             }
           },
-          "10,2": {
+          "6,0": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/ySpeed",
-              "_title": "SmartDashboard/ySpeed"
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LR A/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor LR A/Velocity/avg"
             }
           },
-          "10,3": {
+          "6,1": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/rot",
-              "_title": "SmartDashboard/rot"
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor LR B/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor LR B/Velocity/avg"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor RF A/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor RF A/Velocity/avg"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor RF B/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor RF B/Velocity/avg"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor RR A/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor RR A/Velocity/avg"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Peyton/Motor RR B/Velocity/avg",
+              "_title": "Shuffleboard/Peyton/Motor RR B/Velocity/avg"
             }
           }
         }

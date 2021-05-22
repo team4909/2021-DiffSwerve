@@ -148,8 +148,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   }
 
   public void actuateModules(SwerveModuleState[] states){
-    swerveLF.setModuleState(states[0]);
-    swerveRF.setModuleState(states[1]);
+    swerveRF.setModuleState(states[0]);
+    swerveLF.setModuleState(states[1]);
     swerveLR.setModuleState(states[2]);
     swerveRR.setModuleState(states[3]);
   }
@@ -159,8 +159,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
    * around by other robots.
    */
   public void lockInPlace() {
-    swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-    swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
   }

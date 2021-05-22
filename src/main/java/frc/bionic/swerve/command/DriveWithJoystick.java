@@ -31,7 +31,7 @@ public class DriveWithJoystick extends CommandBase {
   // Joystick returns [-1.0, 1.0] with 0 being the center point on
   // each axis. Provide a small dead zone so that small hand movements
   // when the joystick is centered are ignored
-  private final double JOYSTICK_DEADZONE = 0.15;
+  private final double JOYSTICK_DEADZONE = 0.2;
 
 
   // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.

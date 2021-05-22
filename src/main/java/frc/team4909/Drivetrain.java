@@ -22,10 +22,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Drivetrain extends AbstractDrivetrain {
-  public frc.team4909.SwerveModule swerveRF; // right front
-  public frc.peyton.SwerveModule   swerveLF; // left front
-  public frc.peyton.SwerveModule   swerveLR; // left rear
-  public frc.peyton.SwerveModule   swerveRR; // right rear
+  //@TODO fix
+  public frc.team4909.SwerveModule   swerveRF; // right front
+  public frc.team4909.SwerveModule   swerveLF; // left front
+  public frc.team4909.SwerveModule   swerveLR; // left rear
+  public frc.team4909.SwerveModule   swerveRR; // right rear
 
   private AHRS navX;
 
@@ -34,9 +35,9 @@ public class Drivetrain extends AbstractDrivetrain {
     double                kHalfWheelBaseLengthInches = 16.825108;
 
     swerveRF = new frc.team4909.SwerveModule(1, 2, 0, "RF", "Peyton");
-    swerveLF = new frc.peyton.SwerveModule(3, 4, 2,  "LF", "Peyton");
-    swerveLR = new frc.peyton.SwerveModule(5, 6, 4,  "LR", "Peyton");
-    swerveRR = new frc.peyton.SwerveModule(7, 8, 6,  "RR", "Peyton");
+    swerveLF = new frc.team4909.SwerveModule(3, 4, 2,  "LF", "Peyton");
+    swerveLR = new frc.team4909.SwerveModule(5, 6, 4,  "LR", "Peyton");
+    swerveRR = new frc.team4909.SwerveModule(7, 8, 6,  "RR", "Peyton");
 
 
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
