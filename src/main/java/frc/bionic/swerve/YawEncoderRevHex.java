@@ -120,6 +120,7 @@ public class YawEncoderRevHex implements IYawEncoder
     SmartDashboard.putNumber("yaw dist deg", getDistanceDegrees());
     SmartDashboard.putNumber("yaw goal deg", getGoalDegrees());
     SmartDashboard.putNumber("yaw pidCalc", pidCalc);
+    SmartDashboard.putNumber("yaw signed percent", pidCalc / 180.0);
     return pidCalc / 180.0;
   }
 
