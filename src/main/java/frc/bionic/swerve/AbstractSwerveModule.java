@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
-public class AbstractSwerveModule
+public abstract class AbstractSwerveModule
 {
   // Gear ratio for yaw. This may not include all pairs of gears.
   private double             GEAR_RATIO_YAW;
@@ -42,9 +42,9 @@ public class AbstractSwerveModule
   public double             desiredYawDegrees = 0.0;
   
   // Devices, Sensors, Actuators
-  IMotor                    m_driveMotorA;
-  IMotor                    m_driveMotorB;
-  IYawEncoder               m_yawEncoder;
+  IMotor                    motorA;
+  IMotor                    motorB;
+  IYawEncoder               yawEncoder;
   
   // Shuffleboard-related
   private String            name;
@@ -59,7 +59,7 @@ public class AbstractSwerveModule
 
   // Block periodic until we're initialized
   private boolean           bInitialized = false;
-  
+
   
 
 
@@ -107,9 +107,9 @@ public class AbstractSwerveModule
                          IMotor motorA, IMotor motorB, IYawEncoder encoder, double wheelDiameterMeters)
   {
     // Save arguments
-    m_driveMotorA             = motorA;
-    m_driveMotorB             = motorB;
-    m_yawEncoder              = encoder;
+    this.motorA               = motorA;
+    this.motorB               = motorB;
+    yawEncoder                = encoder;
     GEAR_RATIO_YAW            = gearRatioYaw;
     GEAR_RATIO_WHEEL_SPEED    = gearRatioWheelSpeed;
     MAX_YAW_SPEED_RPM         = maxYawSpeedRpm;
@@ -118,7 +118,7 @@ public class AbstractSwerveModule
     // If we're using a relative encoder, assume the robot starts up
     // facing to the zero position. If we're using an absolute
     // encoder, the `setZero` method is a no-op.
-    m_yawEncoder.setZero();
+    yawEncoder.setZero();
 
     // We're now initialized, so periodic() can be entered
     bInitialized = true;
@@ -129,7 +129,7 @@ public class AbstractSwerveModule
    */
   public void setZero()
   {
-    m_yawEncoder.setZero();
+    yawEncoder.setZero();
   }
 
   /**
@@ -182,7 +182,7 @@ public class AbstractSwerveModule
 
     // Determine the percentage of output, based on difference between
     // yaw goal and actual angle, to be used in the RPM calculation.
-    calculatedYawRPM = m_yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
+    calculatedYawRPM = yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
 
     if (sb_control.getBoolean(true))
     {
@@ -191,15 +191,14 @@ public class AbstractSwerveModule
       setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
     }
 
-
     // report to dashboard
     sb_wheel_calc.setDouble(desiredWheelSpeedRPM);
     sb_yaw_calc.setDouble(calculatedYawRPM);
 
     // Ensure that our motor and encoder periodic functions are called, too
-    m_driveMotorA.periodic();
-    m_driveMotorB.periodic();
-    m_yawEncoder.periodic();
+    motorA.periodic();
+    motorB.periodic();
+    yawEncoder.periodic();
 
     syncShuffleboard();
   }
@@ -218,6 +217,9 @@ public class AbstractSwerveModule
    */
   protected double motorRPMsToWheelRPM(double aMotorRPM, double bMotorRPM)
   {
+    // TODO: Is this calculation correct regardless of motor
+    // orientation? Always subtract?
+
     // Translation is calculated as half the difference of a and b,
     // adjusted by gear ratio. Translation is typically dependent on
     // all three pairs of gears. The differential pinion generates
@@ -240,18 +242,49 @@ public class AbstractSwerveModule
    */
   protected double motorRPMsToModuleYawRPM(double aMotorRPM, double bMotorRPM)
   {
+    // TODO: Is this calculation correct regardless of motor
+    // orientation? Always add?
+
     // Yaw is calculated as the average of a and b, adjusted by gear ratio
     return ((aMotorRPM + bMotorRPM) / 2) * GEAR_RATIO_YAW;
   }
 
-  // convert desired translation and yaw RPMs to motor RPMs
+  /**
+   * Calculate the motor A RPM. Calculating motor A and B RPMs require
+   * combinding the wheel and yaw RPMs, but the sign of the
+   * combination operation varies depending on module design. We
+   * therefore let the extending class implement each of these.
+   *
+   * The implementation will like look like this:
+   *     return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
+   * or this:
+   *     return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
+   */
+  abstract protected double getARPM(double wheelRPM, double yawRPM);
+
+  /**
+   * Calculate the motor B RPM. Calculating motor A and B RPMs require
+   * combinding the wheel and yaw RPMs, but the sign of the
+   * combination operation varies depending on module design. We
+   * therefore let the extending class implement each of these.
+   *
+   * The implementation will like look like this:
+   *     return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
+   * or this:
+   *     return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
+   */
+  abstract protected double getBRPM(double wheelRPM, double yawRPM);
+
+  /**
+   * Convert desired translation and yaw RPMs to motor RPMs
+   */
   protected void setMotorSpeedsRPM(double wheelRPM, double yawRPM)
   {
-    double aRPM =  (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
-    double bRPM =  (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
+    double aRPM =  getARPM(wheelRPM, yawRPM);
+    double bRPM =  getBRPM(wheelRPM, yawRPM);
 
-    m_driveMotorA.setGoalRPM(aRPM);
-    m_driveMotorB.setGoalRPM(bRPM);
+    motorA.setGoalRPM(aRPM);
+    motorB.setGoalRPM(bRPM);
   }
 
   /**
@@ -302,8 +335,8 @@ public class AbstractSwerveModule
     }
 
     // get the motor speeds
-    aMotorRPM = m_driveMotorA.getVelocityRPM();
-    bMotorRPM = m_driveMotorB.getVelocityRPM();
+    aMotorRPM = motorA.getVelocityRPM();
+    bMotorRPM = motorB.getVelocityRPM();
 
     // calculate the wheel speed from those motor speeds
     currentWheelRPM = motorRPMsToWheelRPM(aMotorRPM, bMotorRPM);

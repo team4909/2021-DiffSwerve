@@ -12,7 +12,7 @@ public class SwerveModule extends AbstractSwerveModule{
   // Gear ratio for yaw
   private static final double       GEAR_RATIO_YAW          =  (13.0 / 82.0);
 
-  // Gear ratio of all wheel rotation
+  // Gear ratio of wheel rotation
   private static final double       GEAR_RATIO_WHEEL_SPEED  =  (13.0 / 82.0) * (45.0 / 15.0) * (28.0 / 36.0);
 
   // Maximum yaw speed in RPM
@@ -38,5 +38,17 @@ public class SwerveModule extends AbstractSwerveModule{
     // Now we have everything our superclass needs to do its thing. Do it!
     initialize(GEAR_RATIO_YAW, GEAR_RATIO_WHEEL_SPEED, MAX_YAW_SPEED_RPM, 
                motorA, motorB, encoder, WHEEL_DIAMETER_METERS);
+  }
+
+  // abstract method implementation
+  protected double getARPM(double wheelRPM, double yawRPM)
+  {
+    return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
+  }
+
+  // abstract method implementation
+  protected double getBRPM(double wheelRPM, double yawRPM)
+  {
+    return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
   }
 }

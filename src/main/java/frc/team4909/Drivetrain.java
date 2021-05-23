@@ -22,11 +22,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Drivetrain extends AbstractDrivetrain {
-  //@TODO fix
-  public frc.team4909.SwerveModule   swerveRF; // right front
-  public frc.team4909.SwerveModule   swerveLF; // left front
-  public frc.team4909.SwerveModule   swerveLR; // left rear
-  public frc.team4909.SwerveModule   swerveRR; // right rear
+  public SwerveModule   swerveRF; // right front
+  public SwerveModule   swerveLF; // left front
+  public SwerveModule   swerveLR; // left rear
+  public SwerveModule   swerveRR; // right rear
 
   private AHRS navX;
 
@@ -34,10 +33,10 @@ public class Drivetrain extends AbstractDrivetrain {
     double                kHalfWheelBaseWidthInches = 16.825108;
     double                kHalfWheelBaseLengthInches = 16.825108;
 
-    swerveRF = new frc.team4909.SwerveModule(1, 2, 0, "RF", "Peyton");
-    swerveLF = new frc.team4909.SwerveModule(3, 4, 2,  "LF", "Peyton");
-    swerveLR = new frc.team4909.SwerveModule(5, 6, 4,  "LR", "Peyton");
-    swerveRR = new frc.team4909.SwerveModule(7, 8, 6,  "RR", "Peyton");
+    swerveRF = new SwerveModule(1, 2, 0, "RF", "Peyton");
+    swerveLF = new SwerveModule(3, 4, 2,  "LF", "Peyton");
+    swerveLR = new SwerveModule(5, 6, 4,  "LR", "Peyton");
+    swerveRR = new SwerveModule(7, 8, 6,  "RR", "Peyton");
 
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
@@ -46,7 +45,6 @@ public class Drivetrain extends AbstractDrivetrain {
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
     kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
     "FRC4909");
-
   }
 
   // interface (Subsystem) implementation
@@ -80,15 +78,22 @@ public class Drivetrain extends AbstractDrivetrain {
   //Infinite Recharge Game specific
   public Pose2d getAbsolutePosition(){
     //Distance to the powerport from the robot
-    double hypoteneuse = new Vision(-56.4, 109.95, 29, 5, 0).calculateDistanceFromCameraHeight(0,0,0);
+    double hypoteneuse =
+      new Vision(-56.4, 109.95, 29, 5, 0).calculateDistanceFromCameraHeight(0,0,0);
+
     //Distance from the powerport to the initiation line
     double base1 = 120;
+
     //Distance from the robot to the interseciton of the powerport and the initiaiton line
     double base2 = Math.pow(hypoteneuse, 2) - Math.pow(base1, 2);
+
     //Distace from the robot to the edge closest to the powerport
     double position = base2 + 10; //TODO make the value added be right (check CAD)
+
     //Sets the position in relationto the side of the field closes to the powerport
-    Pose2d absolutePosition = getInversePose(new Pose2d(120, position, this.getCurrentPose().getRotation()));
+    Pose2d absolutePosition =
+      getInversePose(new Pose2d(120, position, this.getCurrentPose().getRotation()));
+
     return absolutePosition;
   }
 
