@@ -117,10 +117,10 @@ public class YawEncoderRevHex implements IYawEncoder
     // always yield a result in that range. Scale it for the documented, 
     // standardized output of range [-1.0, 1.0].
     double pidCalc = pid.calculate(getDistanceDegrees(), getGoalDegrees());
-    SmartDashboard.putNumber("yaw dist deg", getDistanceDegrees());
-    SmartDashboard.putNumber("yaw goal deg", getGoalDegrees());
-    SmartDashboard.putNumber("yaw pidCalc", pidCalc);
-    SmartDashboard.putNumber("yaw signed percent", pidCalc / 180.0);
+    SmartDashboard.putNumber(name + " yaw dist deg", getDistanceDegrees());
+    SmartDashboard.putNumber(name + " yaw goal deg", getGoalDegrees());
+    SmartDashboard.putNumber(name + " yaw pidCalc", pidCalc);
+    SmartDashboard.putNumber(name + " yaw signed percent", pidCalc / 180.0);
     return pidCalc / 180.0;
   }
 
