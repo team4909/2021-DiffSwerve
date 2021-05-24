@@ -653,6 +653,182 @@
               "_source0": "network_table:///SmartDashboard/yaw signed percent",
               "_title": "yaw signed percent"
             }
+          },
+          "21,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF yaw dist deg",
+              "_title": "RF yaw dist deg"
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF yaw goal deg",
+              "_title": "RF yaw goal deg"
+            }
+          },
+          "18,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF yaw pidCalc",
+              "_title": "RF yaw pidCalc"
+            }
+          },
+          "19,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RF yaw signed percent",
+              "_title": "RF yaw signed percent"
+            }
+          },
+          "20,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF yaw dist deg",
+              "_title": "LF yaw dist deg"
+            }
+          },
+          "21,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF yaw goal deg",
+              "_title": "LF yaw goal deg"
+            }
+          },
+          "2,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF yaw pidCalc",
+              "_title": "LF yaw pidCalc"
+            }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF yaw signed percent",
+              "_title": "LF yaw signed percent"
+            }
+          },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR yaw dist deg",
+              "_title": "LR yaw dist deg"
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR yaw goal deg",
+              "_title": "LR yaw goal deg"
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR yaw pidCalc",
+              "_title": "LR yaw pidCalc"
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LR yaw signed percent",
+              "_title": "LR yaw signed percent"
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR yaw dist deg",
+              "_title": "RR yaw dist deg"
+            }
+          },
+          "11,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR yaw goal deg",
+              "_title": "RR yaw goal deg"
+            }
+          },
+          "12,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR yaw pidCalc",
+              "_title": "RR yaw pidCalc"
+            }
+          },
+          "13,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RR yaw signed percent",
+              "_title": "RR yaw signed percent"
+            }
           }
         }
       }
@@ -2410,15 +2586,15 @@
                   "_source0": "network_table:///Shuffleboard/Team4909/Module RF/translation",
                   "_title": "translation"
                 },
-                "0,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///Shuffleboard/Team4909/Module RF/yaw set deg",
-                  "_title": "yaw set deg"
-                },
                 "0,0": {
                   "_type": "Text View",
                   "_source0": "network_table:///Shuffleboard/Team4909/Module RF/wheel set rpm",
                   "_title": "wheel set rpm"
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Shuffleboard/Team4909/Module RF/yaw set deg",
+                  "_title": "yaw set deg"
                 }
               }
             }
@@ -2564,6 +2740,50 @@
               "_type": "Text View",
               "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/Velocity/set rpm",
               "_title": "Shuffleboard/Team4909/Motor LF B/Velocity/set rpm"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw dist deg",
+              "_title": "/SmartDashboard/LF yaw dist deg"
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw goal deg",
+              "_title": "/SmartDashboard/yaw goal deg"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw pidCalc",
+              "_title": "/SmartDashboard/LF yaw pidCalc"
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/yaw signed percent",
+              "_title": "SmartDashboard/yaw signed percent"
             }
           }
         }
