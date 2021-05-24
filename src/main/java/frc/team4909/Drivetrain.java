@@ -30,21 +30,22 @@ public class Drivetrain extends AbstractDrivetrain {
   private AHRS navX;
 
   public Drivetrain() {
+    final String          name = "Team4909";
     double                kHalfWheelBaseWidthInches = 16.825108;
     double                kHalfWheelBaseLengthInches = 16.825108;
 
-    swerveRF = new SwerveModule(1, 2, 0, "RF", "Peyton");
-    swerveLF = new SwerveModule(3, 4, 2,  "LF", "Peyton");
-    swerveLR = new SwerveModule(5, 6, 4,  "LR", "Peyton");
-    swerveRR = new SwerveModule(7, 8, 6,  "RR", "Peyton");
+    swerveRF = new SwerveModule(1, 2, 0, "RF", name);
+    swerveLF = new SwerveModule(3, 4, 2,  "LF", name);
+    swerveLR = new SwerveModule(5, 6, 4,  "LR", name);
+    swerveRR = new SwerveModule(7, 8, 6,  "RR", name);
 
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
     SmartDashboard.putBoolean("NavX Reset", false);
 
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
-    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
-    "FRC4909");
+                    kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
+                    name);
   }
 
   // interface (Subsystem) implementation
