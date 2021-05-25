@@ -112,6 +112,7 @@ public class MotorFalcon500 implements IMotor{
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
+    goalRPM = (goalRPM / (60 * 10)) * 2048;
     SmartDashboard.putNumber(name + " goal", goalRPM);
     motor.set(TalonFXControlMode.Velocity, goalRPM);
   }
@@ -121,6 +122,13 @@ public class MotorFalcon500 implements IMotor{
   {
     return (motor.getSelectedSensorVelocity() / 2048) * 10 * 60;
   }
+
+    // interface implementation
+    public double getOutput() //TODO add to IMotor and NetworkTables entry
+    {
+      SmartDashboard.putNumber("Output [Percent]", motor.getMotorOutputPercent());
+      return motor.getMotorOutputPercent() * 6000;
+    }
 
   // interface implementation
   public void periodic()
@@ -134,6 +142,7 @@ public class MotorFalcon500 implements IMotor{
    */
   private void initShuffleboard()
   {
+    
     ShuffleboardTab           tab;
     ShuffleboardLayout        layout;
     ShuffleboardLayout        sublayout;
@@ -157,6 +166,8 @@ public class MotorFalcon500 implements IMotor{
     sb_pid_kiz     = sublayout.addPersistent("MotorFalcon500-kIz", kMotorIz).getEntry();
     sb_pid_kff     = sublayout.addPersistent("MotorFalcon500-kFF", kMotorFf).getEntry();
     sb_pid_apply   = sublayout.add("Apply", false).getEntry();
+
+    getOutput();
   }
 
   /**

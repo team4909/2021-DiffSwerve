@@ -85,10 +85,12 @@ public class DriveWithJoystick extends CommandBase {
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("rot",    rot);
 
+
     // Calls the drive method in Drivetrain. The rotation is only allowed when Button 2 is pressed
-    if (sb_enable_joystick_drive.getBoolean(true))
+    if (sb_enable_joystick_drive.getBoolean(false))
     {
-      drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
+      throw new Error("DEBIG");
+      //drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
     }
   }
   protected void initShuffleboard(){
@@ -96,6 +98,7 @@ public class DriveWithJoystick extends CommandBase {
 
     tab = Shuffleboard.getTab(name);
 
-    sb_enable_joystick_drive = tab.add("joystick enabled", true).getEntry();
+    // TODO change default back to true
+    sb_enable_joystick_drive = tab.add("joystick enabled", false).getEntry();
   }
 }

@@ -184,7 +184,7 @@ public abstract class AbstractSwerveModule
     // yaw goal and actual angle, to be used in the RPM calculation.
     calculatedYawRPM = yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
 
-    if (sb_control.getBoolean(true))
+    if (!sb_control.getBoolean(true))
     {
       // Given the desired wheel and yaw RPM, calculate and specify the
       // motor speeds necessary to achieve them
@@ -307,8 +307,8 @@ public abstract class AbstractSwerveModule
     sb_yaw_set       = layout.add("yaw set deg",  0).getEntry();
     sb_apply         = layout.add("Apply", false).getEntry();
 
+    // TODO set back to false by default
     sb_control       = layout.add("Control", true).getEntry();
-
   }
 
   /**

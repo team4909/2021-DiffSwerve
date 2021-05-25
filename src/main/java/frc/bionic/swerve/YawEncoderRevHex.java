@@ -14,6 +14,7 @@ package frc.bionic.swerve;
 
 import java.util.Map;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.LinearFilter;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -31,6 +32,7 @@ public class YawEncoderRevHex implements IYawEncoder
 
   // Offset to zero position, provided to constructor (possibly overridden by dashboard)
   private double encoderOffset = 0.0;
+  private LinearFilter yawDistanceAverage;
 
   // Shuffleboard-related
   private String            name;
@@ -63,6 +65,7 @@ public class YawEncoderRevHex implements IYawEncoder
     this.fullName = "Encoder " + this.name;
     this.shuffleboardTabName = shuffleboardTabName;
     this.encoderOffset = 0.0;
+    this.yawDistanceAverage = LinearFilter.movingAverage(10);
 
     // Get access to the encoder
     encoder = new DutyCycleEncoder(dioChannel);
@@ -74,7 +77,8 @@ public class YawEncoderRevHex implements IYawEncoder
     encoder.setDistancePerRotation(360.0);
 
     // Create a PID. 
-    pid = new PIDController(1.0, 0, 0.01);
+    //pid = new PIDController(1.0, 0, 0.01);
+    pid = new PIDController(0.07, 0, 0.05);
     pid.enableContinuousInput(-180.0, 180.0);
 
     // Initialize the shuffleboard interface
@@ -91,7 +95,8 @@ public class YawEncoderRevHex implements IYawEncoder
   // interface implementation
   public double getDistanceDegrees()
   {
-    return frc.bionic.Conversion.normalize(encoder.getDistance() + encoderOffset, -180, 180);
+    double currentYawDist = this.yawDistanceAverage.calculate(encoder.getDistance());
+    return frc.bionic.Conversion.normalize(currentYawDist + encoderOffset, -180, 180);
   }
 
   // interface implementation

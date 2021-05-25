@@ -821,13 +821,24 @@
           },
           "13,4": {
             "size": [
-              1,
+              3,
               1
             ],
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/RR yaw signed percent",
               "_title": "RR yaw signed percent"
+            }
+          },
+          "22,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Output [Percent]",
+              "_title": "Output [Percent]"
             }
           }
         }
@@ -2599,7 +2610,7 @@
               }
             }
           },
-          "10,4": {
+          "9,4": {
             "size": [
               1,
               1
@@ -2610,7 +2621,7 @@
               "_title": "Shuffleboard/Team4909/Motor LF A/Velocity/avg"
             }
           },
-          "9,4": {
+          "10,4": {
             "size": [
               1,
               1
@@ -2742,17 +2753,6 @@
               "_title": "Shuffleboard/Team4909/Motor LF B/Velocity/set rpm"
             }
           },
-          "9,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/yaw dist deg",
-              "_title": "/SmartDashboard/LF yaw dist deg"
-            }
-          },
           "10,0": {
             "size": [
               1,
@@ -2764,17 +2764,6 @@
               "_title": "/SmartDashboard/yaw goal deg"
             }
           },
-          "9,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/yaw pidCalc",
-              "_title": "/SmartDashboard/LF yaw pidCalc"
-            }
-          },
           "10,1": {
             "size": [
               1,
@@ -2784,6 +2773,412 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/yaw signed percent",
               "_title": "SmartDashboard/yaw signed percent"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor RF A/Velocity/set rpm",
+              "_title": "Shuffleboard/Team4909/Motor RF A/Velocity/set rpm"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor RF A/Velocity/Apply",
+              "_title": "Shuffleboard/Team4909/Motor RF A/Velocity/Apply"
+            }
+          },
+          "4,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor RF B/Velocity/set rpm",
+              "_title": "Shuffleboard/Team4909/Motor RF B/Velocity/set rpm"
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor RF B/Velocity/Apply",
+              "_title": "Shuffleboard/Team4909/Motor RF B/Velocity/Apply"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Module RF/Control",
+              "_title": "Shuffleboard/Team4909/Module RF/Control"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 13",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/PID/Apply",
+              "_title": "Shuffleboard/Team4909/Motor LF A/PID/Apply"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kP",
+              "_title": "Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kP"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kI",
+              "_title": "Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kI"
+            }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kD",
+              "_title": "Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kD"
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kFF",
+              "_title": "Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kFF"
+            }
+          },
+          "1,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kIz",
+              "_title": "Shuffleboard/Team4909/Motor LF A/PID/MotorFalcon500-kIz"
+            }
+          },
+          "1,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/Velocity/set rpm",
+              "_title": "Shuffleboard/Team4909/Motor LF A/Velocity/set rpm"
+            }
+          },
+          "2,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/Velocity/Apply",
+              "_title": "Shuffleboard/Team4909/Motor LF A/Velocity/Apply"
+            }
+          },
+          "5,1": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/Velocity/rpm",
+              "_source1": "network_table:///SmartDashboard/Output [Percent]",
+              "_title": "Shuffleboard/Team4909/Motor LF A/Velocity/rpm",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/Shuffleboard/Team4909/Motor LF A/Velocity/rpm": true,
+              "Visible data/SmartDashboard/Output [Percent]": true
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kP",
+              "_title": "Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kP"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kI",
+              "_title": "/Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kI"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kD",
+              "_title": "/Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kD"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kFF",
+              "_title": "/Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kFF"
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kIz",
+              "_title": "Shuffleboard/Team4909/Motor LF B/PID/MotorFalcon500-kIz"
+            }
+          },
+          "4,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/Velocity/set rpm",
+              "_title": "Shuffleboard/Team4909/Motor LF B/Velocity/set rpm"
+            }
+          },
+          "5,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/Velocity/Apply",
+              "_title": "Shuffleboard/Team4909/Motor LF B/Velocity/Apply"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF B/PID/Apply",
+              "_title": "Shuffleboard/Team4909/Motor LF B/PID/Apply"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab 14",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Module LF/Apply",
+              "_title": "Shuffleboard/Team4909/Module LF/Apply"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///Shuffleboard/Team4909/Module LF/Control",
+              "_title": "Shuffleboard/Team4909/Module LF/Control"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Module LF/wheel set rpm",
+              "_title": "Shuffleboard/Team4909/Module LF/wheel set rpm"
+            }
+          },
+          "6,0": {
+            "size": [
+              5,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///Shuffleboard/Team4909/Module LF/calc yaw rpm",
+              "_title": "Shuffleboard/Team4909/Module LF/calc yaw rpm",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/Shuffleboard/Team4909/Module LF/calc yaw rpm": true
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/Team4909/Module LF/yaw set deg",
+              "_title": "Shuffleboard/Team4909/Module LF/yaw set deg"
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF yaw goal deg",
+              "_title": "SmartDashboard/LF yaw goal deg"
+            }
+          },
+          "6,3": {
+            "size": [
+              5,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/LF yaw dist deg",
+              "_title": "SmartDashboard/LF yaw dist deg",
+              "Graph/Visible time": 30.0,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/LF yaw dist deg": true
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF yaw pidCalc",
+              "_title": "SmartDashboard/LF yaw pidCalc"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF yaw signed percent",
+              "_title": "SmartDashboard/LF yaw signed percent"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF A goal",
+              "_title": "SmartDashboard/LF A goal"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LF B goal",
+              "_title": "SmartDashboard/LF B goal"
             }
           }
         }
