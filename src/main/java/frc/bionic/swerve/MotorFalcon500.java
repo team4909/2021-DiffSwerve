@@ -112,6 +112,7 @@ public class MotorFalcon500 implements IMotor{
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
+    // Convert RPM to ticks. Velocity is set in ticks per 100ms
     goalRPM = (goalRPM / (60 * 10)) * 2048;
     SmartDashboard.putNumber(name + " goal", goalRPM);
     motor.set(TalonFXControlMode.Velocity, goalRPM);
@@ -120,15 +121,15 @@ public class MotorFalcon500 implements IMotor{
   // interface implementation
   public double getVelocityRPM()
   {
+    // Convert ticks to RPM. Velocity is internally in ticks per 100ms
     return (motor.getSelectedSensorVelocity() / 2048) * 10 * 60;
   }
 
-    // interface implementation
-    public double getOutput() //TODO add to IMotor and NetworkTables entry
-    {
-      SmartDashboard.putNumber("Output [Percent]", motor.getMotorOutputPercent());
-      return motor.getMotorOutputPercent() * 6000;
-    }
+  // interface implementation
+  public double getOutputPercent() //TODO add to IMotor and NetworkTables entry
+  {
+    return motor.getMotorOutputPercent() * 6000;
+  }
 
   // interface implementation
   public void periodic()
@@ -142,7 +143,6 @@ public class MotorFalcon500 implements IMotor{
    */
   private void initShuffleboard()
   {
-    
     ShuffleboardTab           tab;
     ShuffleboardLayout        layout;
     ShuffleboardLayout        sublayout;
@@ -154,6 +154,7 @@ public class MotorFalcon500 implements IMotor{
     layout.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
 
     sublayout      = layout.getLayout("Velocity", BuiltInLayouts.kGrid);
+    sb_out_percent = sublayout.add("output%", 0).withWidget(BuiltInWidgets.kTextView).getEntry();
     sb_vel_rpm     = sublayout.add("rpm",  0).withWidget(BuiltInWidgets.kTextView).getEntry();
     sb_vel_avg     = sublayout.add("avg",  0).getEntry();
     sb_vel_rpm_set = sublayout.add("set rpm", 0).getEntry();
@@ -166,8 +167,6 @@ public class MotorFalcon500 implements IMotor{
     sb_pid_kiz     = sublayout.addPersistent("MotorFalcon500-kIz", kMotorIz).getEntry();
     sb_pid_kff     = sublayout.addPersistent("MotorFalcon500-kFF", kMotorFf).getEntry();
     sb_pid_apply   = sublayout.add("Apply", false).getEntry();
-
-    getOutput();
   }
 
   /**
@@ -190,7 +189,8 @@ public class MotorFalcon500 implements IMotor{
       setGoalRPM(sb_vel_rpm_set.getDouble(0));
     }
 
-    // display velocity and its recent average
+    // display output and  velocity and its recent average
+    sb_out_percent.setDouble(getOutputPercent());
     sb_vel_rpm.setDouble(getVelocityRPM());
     sb_vel_avg.setDouble(velAverage.calculate(getVelocityRPM()));
 

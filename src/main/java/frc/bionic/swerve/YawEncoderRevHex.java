@@ -77,7 +77,6 @@ public class YawEncoderRevHex implements IYawEncoder
     encoder.setDistancePerRotation(360.0);
 
     // Create a PID. 
-    //pid = new PIDController(1.0, 0, 0.01);
     pid = new PIDController(0.07, 0, 0.05);
     pid.enableContinuousInput(-180.0, 180.0);
 

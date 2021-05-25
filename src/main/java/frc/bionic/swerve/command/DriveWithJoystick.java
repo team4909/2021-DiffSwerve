@@ -89,10 +89,12 @@ public class DriveWithJoystick extends CommandBase {
     // Calls the drive method in Drivetrain. The rotation is only allowed when Button 2 is pressed
     if (sb_enable_joystick_drive.getBoolean(false))
     {
-      throw new Error("DEBIG");
+      // TODO remove error thrown; uncomment drive()
+      throw new Error("DEBUG");
       //drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
     }
   }
+
   protected void initShuffleboard(){
     ShuffleboardTab           tab;
 
