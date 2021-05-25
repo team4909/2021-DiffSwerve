@@ -33,11 +33,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MotorFalcon500 implements IMotor{
   // Initial, default PID constants, overridden by persistent shuffleboard fields
-  private static final double kMotorP  = 0.09;
-  private static final double kMotorI  = 0.0;
-  private static final double kMotorD  = 0;
-  private static final double kMotorIz = 100.0;
-  private static final double kMotorFf = 0.00475;
+  private static final double kMotorP  = 0.7;
+  private static final double kMotorI  = 0.005;
+  private static final double kMotorD  = 7.0;
+  private static final double kMotorIz = 300.0;
+  private static final double kMotorFf = 0.0;
   private static final int kMotorSlot = 0;
 
   // Devices, Sensors, Actuators
