@@ -2938,15 +2938,14 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///Shuffleboard/Team4909/Motor LF A/Velocity/rpm",
-              "_source1": "network_table:///SmartDashboard/Output [Percent]",
+              "_source0": "network_table:///SmartDashboard/Output [Percent]",
+              "_source1": "network_table:///Shuffleboard/Team4909/Motor LF A/Velocity/rpm",
               "_title": "Shuffleboard/Team4909/Motor LF A/Velocity/rpm",
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Visible data/Shuffleboard/Team4909/Motor LF A/Velocity/rpm": true,
-              "Visible data/SmartDashboard/Output [Percent]": true
+              "Visible data/Shuffleboard/Team4909/Motor LF A/Velocity/rpm": true
             }
           },
           "4,0": {
@@ -3131,9 +3130,9 @@
               "_source0": "network_table:///SmartDashboard/LF yaw dist deg",
               "_title": "SmartDashboard/LF yaw dist deg",
               "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 180.0,
+              "Y-axis/Lower bound": -180.0,
               "Visible data/SmartDashboard/LF yaw dist deg": true
             }
           },

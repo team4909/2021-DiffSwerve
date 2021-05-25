@@ -77,7 +77,8 @@ public class YawEncoderRevHex implements IYawEncoder
     encoder.setDistancePerRotation(360.0);
 
     // Create a PID. 
-    pid = new PIDController(0.07, 0, 0.05);
+    //pid = new PIDController(0.07, 0, 0.05);
+    pid = new PIDController(0.01, 0, 0);
     pid.enableContinuousInput(-180.0, 180.0);
 
     // Initialize the shuffleboard interface
