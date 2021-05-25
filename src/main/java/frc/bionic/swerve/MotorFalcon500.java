@@ -48,6 +48,7 @@ public class MotorFalcon500 implements IMotor{
   private String            name;
   private String            shuffleboardTabName;
 
+  NetworkTableEntry         sb_out_percent;
   NetworkTableEntry         sb_vel_rpm;
   NetworkTableEntry         sb_vel_avg;
   NetworkTableEntry         sb_vel_rpm_set;
