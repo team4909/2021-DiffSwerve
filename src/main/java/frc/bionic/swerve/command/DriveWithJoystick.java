@@ -89,8 +89,6 @@ public class DriveWithJoystick extends CommandBase {
     // Calls the drive method in Drivetrain. The rotation is only allowed when Button 2 is pressed
     if (sb_enable_joystick_drive.getBoolean(false))
     {
-      // TODO remove error thrown; uncomment drive()
-      //throw new Error("DEBUG");
       drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
     }
   }
@@ -100,7 +98,7 @@ public class DriveWithJoystick extends CommandBase {
 
     tab = Shuffleboard.getTab(name);
 
-    // TODO change default back to true
+    // TODO change default back to true (here and where used, above)
     sb_enable_joystick_drive = tab.add("joystick enabled", false).getEntry();
   }
 }
