@@ -90,8 +90,8 @@ public class DriveWithJoystick extends CommandBase {
     if (sb_enable_joystick_drive.getBoolean(false))
     {
       // TODO remove error thrown; uncomment drive()
-      throw new Error("DEBUG");
-      //drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
+      //throw new Error("DEBUG");
+      drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
     }
   }
 

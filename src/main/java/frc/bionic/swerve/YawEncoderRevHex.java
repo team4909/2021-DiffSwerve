@@ -78,8 +78,8 @@ public class YawEncoderRevHex implements IYawEncoder
 
     // Create a PID. 
     //pid = new PIDController(0.07, 0, 0.05);
-    pid = new PIDController(0.01, 0, 0);
-    pid.enableContinuousInput(-180.0, 180.0);
+    pid = new PIDController(0.4, 0.0001, 0.015);
+    pid.enableContinuousInput(-180.0, 180.0 );
 
     // Initialize the shuffleboard interface
     initShuffleboard();
@@ -102,7 +102,7 @@ public class YawEncoderRevHex implements IYawEncoder
   // interface implementation
   public void setGoalDegrees(double goalDegrees)
   {
-    SmartDashboard.putNumber("req goal deg", goalDegrees);
+    SmartDashboard.putNumber(name + "req goal deg", goalDegrees);
     pid.setSetpoint(goalDegrees);
   }
 
@@ -121,7 +121,10 @@ public class YawEncoderRevHex implements IYawEncoder
     // Since we have `setContinuousInput(-180.0, 180.0)`, the PID will
     // always yield a result in that range. Scale it for the documented, 
     // standardized output of range [-1.0, 1.0].
-    double pidCalc = pid.calculate(getDistanceDegrees(), getGoalDegrees());
+    double err = getGoalDegrees() - getDistanceDegrees(); 
+    //TODO there is a negative because the cnoder and yaw go in different directions, change.
+    double pidCalc = -pid.calculate(getDistanceDegrees(), getGoalDegrees());
+    SmartDashboard.putNumber(name + "err", err);
     SmartDashboard.putNumber(name + " yaw dist deg", getDistanceDegrees());
     SmartDashboard.putNumber(name + " yaw goal deg", getGoalDegrees());
     SmartDashboard.putNumber(name + " yaw pidCalc", pidCalc);
