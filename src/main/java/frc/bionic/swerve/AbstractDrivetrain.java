@@ -212,46 +212,208 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     sb_Current_Pose_Y = layout.add("Y", 0).getEntry();
     sb_Current_Pose_Rotation = layout.add("Rotation", 0).getEntry();
 
-    // var moduleTab = Shuffleboard.getTab("Module");
-    int row = 0;
-    // module selector
+    
+
+    // Motor tab
+    {
+      int row = 0;
+      var motorTab = Shuffleboard.getTab("Motor");
+      // Module selector
+      {
+        var moduleSelector = motorTab.getLayout("Module Selector", BuiltInLayouts.kGrid);
+        moduleSelector.withProperties(Map.of("Number of columns", 2, "Number of rows", 2, "Label position", "HIDDEN"));
+        moduleSelector.withSize(2, 2);
+        moduleSelector.withPosition(0, row);
+
+        sb_modLF = moduleSelector.add("LF", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_modRF = moduleSelector.add("RF", false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_modLR = moduleSelector.add("LR", false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_modRR = moduleSelector.add("RR", false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      }
+      // Motor selector
+      {
+        var motorSelector = motorTab.getLayout("Motor Selector", BuiltInLayouts.kGrid);
+        motorSelector.withProperties(Map.of("Number of columns", 2, "Number of rows", 1, "Label position", "HIDDEN"));
+        motorSelector.withSize(2, 2);
+        motorSelector.withPosition(2, row);
+
+        sb_motorA = motorSelector.add("A", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_motorB = motorSelector.add("B", false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      }
+      {
+        var selected = motorTab.getLayout("Selected", BuiltInLayouts.kGrid);
+        selected.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
+        selected.withSize(2, 2);
+        selected.withPosition(4, row);
+
+        sb_sel_module = selected.add("Mod", "").withSize(1, 1).withPosition(0, 0).getEntry();
+        sb_sel_motor  = selected.add("Motor", "").withSize(1, 1).withPosition(1, 0).getEntry();
+      }
+      // setpoints
+      {
+        //0, 100, 500, 1000, 1500, 2000, text, apply
+        var setpoints = motorTab.getLayout("Setpoints", BuiltInLayouts.kGrid);
+        setpoints.withProperties(Map.of("Number of columns", 4, "Number of rows", 2, "Label position", "HIDDEN"));
+        setpoints.withSize(6, 2);
+        setpoints.withPosition(6, row);
+
+        setpoints.add("0",    false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("100",  false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("500",  false).withSize(1, 1).withPosition(2, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("1000", false).withSize(1, 1).withPosition(3, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+
+        setpoints.add("1500",  false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("2000",  false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+        setpoints.add("Apply", false).withSize(1, 1).withPosition(3, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      }
+      row=2;
+      // Graphs
+      {
+        motorTab.add("Motor RPM",    0).withSize(6, 5).withPosition(0, row).withWidget(BuiltInWidgets.kGraph).getEntry();
+        motorTab.add("Motor Error",  0).withSize(6, 5).withPosition(6, row).withWidget(BuiltInWidgets.kGraph).getEntry();
+      }
+
+      // motor PID
+      {
+        //kP, kI, kIz, kD, kF, max, min, apply
+        var motorPidOuter = motorTab.getLayout("Motor PID", BuiltInLayouts.kGrid);
+        motorPidOuter.withProperties(Map.of("Number of columns", 1, "Number of rows", 2, "Label position", "HIDDEN"));
+        motorPidOuter.withSize(3, 5);
+        motorPidOuter.withPosition(12, row);
+
+        motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+
+        var motorPid = motorPidOuter.getLayout("Inner", BuiltInLayouts.kGrid);
+        motorPid.withProperties(Map.of("Number of columns", 2, "Number of rows", 4));
+        motorPid.withPosition(0, 1);
+        
+
+        motorPid.add("kP",       0).withSize(1, 1).withPosition(0, 0).getEntry();
+        motorPid.add("kI",       0).withSize(1, 1).withPosition(0, 1).getEntry();
+        motorPid.add("kIz",      0).withSize(1, 1).withPosition(0, 2).getEntry();
+        motorPid.add("kD",       0).withSize(1, 1).withPosition(0, 3).getEntry();
+
+        motorPid.add("kF",        0).withSize(1, 1).withPosition(1, 0).getEntry();
+        motorPid.add("max",       0).withSize(1, 1).withPosition(1, 1).getEntry();
+        motorPid.add("min",       0).withSize(1, 1).withPosition(1, 2).getEntry();
+      }
+    }
+
+    // Module Tab --------------------------------
+    {
+      int row = 0;
+      var moduleTab = Shuffleboard.getTab("Module");
+      // Module selector
+      {
+        var moduleSelector = moduleTab.getLayout("Module Selector", BuiltInLayouts.kGrid);
+        moduleSelector.withProperties(Map.of("Number of columns", 2, "Number of rows", 2, "Label position", "HIDDEN"));
+        moduleSelector.withSize(2, 2);
+        moduleSelector.withPosition(0, row);
+
+        sb_modLF = moduleSelector.add("LF", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_modRF = moduleSelector.add("RF", false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_modLR = moduleSelector.add("LR", false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_modRR = moduleSelector.add("RR", false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      }
+
+      {
+        moduleTab.add("Selected Module", "").withSize(2, 2).withPosition(2, row).getEntry();
+      }
+
+      // Yaw Setpoints
+      {
+        //0, 45, 90, 135, 180, -90, text, apply
+        var setpoints = moduleTab.getLayout("Yaw Setpoints", BuiltInLayouts.kGrid);
+        setpoints.withProperties(Map.of("Number of columns", 4, "Number of rows", 2, "Label position", "HIDDEN"));
+        setpoints.withSize(6, 2);
+        setpoints.withPosition(4, row);
+
+        setpoints.add("0",   false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("45",  false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("90",  false).withSize(1, 1).withPosition(2, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("135", false).withSize(1, 1).withPosition(3, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+
+        setpoints.add("180",   false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("-90",   false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+        setpoints.add("Apply", false).withSize(1, 1).withPosition(3, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      }
+
+      // // Translation Setpoints
+      // {
+      //   //0, 100, 500, 1000, 1500, 2000, text, apply
+      //   var setpoints = moduleTab.getLayout("Translation Setpoints", BuiltInLayouts.kGrid);
+      //   setpoints.withProperties(Map.of("Number of columns", 4, "Number of rows", 2, "Label position", "HIDDEN"));
+      //   setpoints.withSize(6, 2);
+      //   setpoints.withPosition(10, row);
+
+      //   setpoints.add("0",    false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      //   setpoints.add("100",  false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      //   setpoints.add("500",  false).withSize(1, 1).withPosition(2, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      //   setpoints.add("1000", false).withSize(1, 1).withPosition(3, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+
+      //   setpoints.add("1500",  false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      //   setpoints.add("2000",  false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      //   setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+      //   setpoints.add("Apply", false).withSize(1, 1).withPosition(3, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      // }
+
+      row = 2;
+      //graphs
+      {
+        moduleTab.add("Yaw Heading",     0).withSize(6, 5).withPosition(0,  row).withWidget(BuiltInWidgets.kGraph).getEntry();
+        moduleTab.add("Yaw Error",       0).withSize(6, 5).withPosition(6,  row).withWidget(BuiltInWidgets.kGraph).getEntry();
+        // moduleTab.add("Translation RPM", 0).withSize(5, 5).withPosition(12, row).withWidget(BuiltInWidgets.kGraph).getEntry();
+      }
+      
+      // Yaw PID
+      {
+        //kP, kI, kIz, kD, kF, max, min, apply
+        var motorPidOuter = moduleTab.getLayout("Yaw PID", BuiltInLayouts.kGrid);
+        motorPidOuter.withProperties(Map.of("Number of columns", 1, "Number of rows", 2, "Label position", "HIDDEN"));
+        motorPidOuter.withSize(3, 5);
+        motorPidOuter.withPosition(12, row);
+
+        motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+
+        var motorPid = motorPidOuter.getLayout("Inner", BuiltInLayouts.kGrid);
+        motorPid.withProperties(Map.of("Number of columns", 2, "Number of rows", 4));
+        motorPid.withPosition(0, 1);
+        
+
+        motorPid.add("kP",       0).withSize(1, 1).withPosition(0, 0).getEntry();
+        motorPid.add("kI",       0).withSize(1, 1).withPosition(0, 1).getEntry();
+        motorPid.add("kIz",      0).withSize(1, 1).withPosition(0, 2).getEntry();
+        motorPid.add("kD",       0).withSize(1, 1).withPosition(0, 3).getEntry();
+
+        motorPid.add("kF",        0).withSize(1, 1).withPosition(1, 0).getEntry();
+        motorPid.add("max",       0).withSize(1, 1).withPosition(1, 1).getEntry();
+        motorPid.add("min",       0).withSize(1, 1).withPosition(1, 2).getEntry();
+      }
+
+
     // Yaw PID
     // Yaw RPM
     // Yaw Heading
     // Translation RPM
 
-    var motorTab = Shuffleboard.getTab("Motor");
-    row = 0;
-    // Module selector
-    {
-      var moduleSelector = motorTab.getLayout("Module Selector", BuiltInLayouts.kGrid);
-      moduleSelector.withProperties(Map.of("Number of columns", 2, "Number of rows", 2, "Label position", "HIDDEN"));
-      moduleSelector.withSize(2, 2);
-      moduleSelector.withPosition(0, row);
+ 
+      // // Yaw
+      // {
+      //   var yaw = moduleTab.getLayout("Yaw", BuiltInLayouts.kGrid);
+      //   yaw.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
+      //   yaw.withSize(2, 2);
+      //   yaw.withPosition(5, row);
 
-      sb_modLF = moduleSelector.add("LF", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      sb_modRF = moduleSelector.add("RF", false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      sb_modLR = moduleSelector.add("LR", false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      sb_modRR = moduleSelector.add("RR", false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-    }
-    // Motor selector
-    {
-      var motorSelector = motorTab.getLayout("Motor Selector", BuiltInLayouts.kGrid);
-      motorSelector.withProperties(Map.of("Number of columns", 2, "Number of rows", 1, "Label position", "HIDDEN"));
-      motorSelector.withSize(2, 2);
-      motorSelector.withPosition(2, row);
+      //   yaw.add("RPM",      0).withSize(1, 1).withPosition(0, 0).getEntry();
+      //   yaw.add("Heading",  0).withSize(1, 1).withPosition(1, 0).getEntry();
+      // }
+      
+      // Translation
+      {
 
-      sb_motorA = motorSelector.add("A", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      sb_motorB = motorSelector.add("B", false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-    }
-    {
-      var selected = motorTab.getLayout("Selected", BuiltInLayouts.kGrid);
-      selected.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
-      selected.withSize(2, 2);
-      selected.withPosition(4, row);
-
-      sb_sel_module  = selected.add("Mod", "").withSize(1, 1).withPosition(0, 0).getEntry();
-      sb_sel_motor = selected.add("Motor", "").withSize(1, 1).withPosition(1, 0).getEntry();
+      }
     }
   }
 
