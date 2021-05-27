@@ -48,9 +48,17 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private NetworkTableEntry        sb_Current_Pose_Y;
   private NetworkTableEntry        sb_Current_Pose_Rotation;
 
+  // Motor Tab
   private NetworkTableEntry sb_modLF, sb_modRF, sb_modLR, sb_modRR;
   private NetworkTableEntry sb_motorA, sb_motorB;
   private NetworkTableEntry sb_sel_motor, sb_sel_module;
+  private NetworkTableEntry sb_mSP_0, sb_mSP_100, sb_mSP_500, sb_mSP_1000, sb_mSP_1500, sb_mSP_2000, sb_mSP_input, sb_mSP_apply;
+  private NetworkTableEntry sb_g_mRPM, sb_g_mErr;
+  private NetworkTableEntry sb_mpid_kP, sb_mpid_kI, sb_mpid_kIz, sb_mpid_kD, sb_mpid_kF, sb_mpid_max, sb_mpid_min, sb_mpid_apply;
+
+  // Module Tab
+  private NetworkTableEntry sb_yaw_apply, sb_yaw_kP, sb_yaw_kI, sb_yaw_kIz, sb_yaw_kD, sb_yaw_kF, sb_yaw_max, sb_yaw_min;
+
 
 
 
@@ -257,21 +265,21 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
         setpoints.withSize(6, 2);
         setpoints.withPosition(6, row);
 
-        setpoints.add("0",    false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-        setpoints.add("100",  false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-        setpoints.add("500",  false).withSize(1, 1).withPosition(2, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-        setpoints.add("1000", false).withSize(1, 1).withPosition(3, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mSP_0    = setpoints.add("0",    false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mSP_100  = setpoints.add("100",  false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mSP_500  = setpoints.add("500",  false).withSize(1, 1).withPosition(2, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mSP_1000 = setpoints.add("1000", false).withSize(1, 1).withPosition(3, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
-        setpoints.add("1500",  false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-        setpoints.add("2000",  false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-        setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
-        setpoints.add("Apply", false).withSize(1, 1).withPosition(3, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mSP_1500  = setpoints.add("1500",  false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mSP_2000  = setpoints.add("2000",  false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mSP_input = setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+        sb_mSP_apply = setpoints.add("Apply", false).withSize(1, 1).withPosition(3, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
       }
       row=2;
       // Graphs
       {
-        motorTab.add("Motor RPM",    0).withSize(6, 5).withPosition(0, row).withWidget(BuiltInWidgets.kGraph).getEntry();
-        motorTab.add("Motor Error",  0).withSize(6, 5).withPosition(6, row).withWidget(BuiltInWidgets.kGraph).getEntry();
+        sb_g_mRPM = motorTab.add("Motor RPM",    0).withSize(6, 5).withPosition(0, row).withWidget(BuiltInWidgets.kGraph).getEntry();
+        sb_g_mErr = motorTab.add("Motor Error",  0).withSize(6, 5).withPosition(6, row).withWidget(BuiltInWidgets.kGraph).getEntry();
       }
 
       // motor PID
@@ -282,21 +290,21 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
         motorPidOuter.withSize(3, 5);
         motorPidOuter.withPosition(12, row);
 
-        motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_mpid_apply = motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
         var motorPid = motorPidOuter.getLayout("Inner", BuiltInLayouts.kGrid);
         motorPid.withProperties(Map.of("Number of columns", 2, "Number of rows", 4));
         motorPid.withPosition(0, 1);
         
 
-        motorPid.add("kP",       0).withSize(1, 1).withPosition(0, 0).getEntry();
-        motorPid.add("kI",       0).withSize(1, 1).withPosition(0, 1).getEntry();
-        motorPid.add("kIz",      0).withSize(1, 1).withPosition(0, 2).getEntry();
-        motorPid.add("kD",       0).withSize(1, 1).withPosition(0, 3).getEntry();
+        sb_mpid_kP  = motorPid.add("kP",       0).withSize(1, 1).withPosition(0, 0).getEntry();
+        sb_mpid_kI  = motorPid.add("kI",       0).withSize(1, 1).withPosition(0, 1).getEntry();
+        sb_mpid_kIz = motorPid.add("kIz",      0).withSize(1, 1).withPosition(0, 2).getEntry();
+        sb_mpid_kD  = motorPid.add("kD",       0).withSize(1, 1).withPosition(0, 3).getEntry();
 
-        motorPid.add("kF",        0).withSize(1, 1).withPosition(1, 0).getEntry();
-        motorPid.add("max",       0).withSize(1, 1).withPosition(1, 1).getEntry();
-        motorPid.add("min",       0).withSize(1, 1).withPosition(1, 2).getEntry();
+        sb_mpid_kF  = motorPid.add("kF",        0).withSize(1, 1).withPosition(1, 0).getEntry();
+        sb_mpid_max = motorPid.add("max",       0).withSize(1, 1).withPosition(1, 1).getEntry();
+        sb_mpid_min = motorPid.add("min",       0).withSize(1, 1).withPosition(1, 2).getEntry();
       }
     }
 
@@ -340,25 +348,6 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
         setpoints.add("Apply", false).withSize(1, 1).withPosition(3, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
       }
 
-      // // Translation Setpoints
-      // {
-      //   //0, 100, 500, 1000, 1500, 2000, text, apply
-      //   var setpoints = moduleTab.getLayout("Translation Setpoints", BuiltInLayouts.kGrid);
-      //   setpoints.withProperties(Map.of("Number of columns", 4, "Number of rows", 2, "Label position", "HIDDEN"));
-      //   setpoints.withSize(6, 2);
-      //   setpoints.withPosition(10, row);
-
-      //   setpoints.add("0",    false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      //   setpoints.add("100",  false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      //   setpoints.add("500",  false).withSize(1, 1).withPosition(2, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      //   setpoints.add("1000", false).withSize(1, 1).withPosition(3, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-
-      //   setpoints.add("1500",  false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      //   setpoints.add("2000",  false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      //   setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
-      //   setpoints.add("Apply", false).withSize(1, 1).withPosition(3, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
-      // }
-
       row = 2;
       //graphs
       {
@@ -375,44 +364,21 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
         motorPidOuter.withSize(3, 5);
         motorPidOuter.withPosition(12, row);
 
-        motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+        sb_yaw_apply = motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
         var motorPid = motorPidOuter.getLayout("Inner", BuiltInLayouts.kGrid);
         motorPid.withProperties(Map.of("Number of columns", 2, "Number of rows", 4));
         motorPid.withPosition(0, 1);
         
 
-        motorPid.add("kP",       0).withSize(1, 1).withPosition(0, 0).getEntry();
-        motorPid.add("kI",       0).withSize(1, 1).withPosition(0, 1).getEntry();
-        motorPid.add("kIz",      0).withSize(1, 1).withPosition(0, 2).getEntry();
-        motorPid.add("kD",       0).withSize(1, 1).withPosition(0, 3).getEntry();
+        sb_yaw_kP  = motorPid.add("kP",       0).withSize(1, 1).withPosition(0, 0).getEntry();
+        sb_yaw_kI  = motorPid.add("kI",       0).withSize(1, 1).withPosition(0, 1).getEntry();
+        sb_yaw_kIz = motorPid.add("kIz",      0).withSize(1, 1).withPosition(0, 2).getEntry();
+        sb_yaw_kD  = motorPid.add("kD",       0).withSize(1, 1).withPosition(0, 3).getEntry();
 
-        motorPid.add("kF",        0).withSize(1, 1).withPosition(1, 0).getEntry();
-        motorPid.add("max",       0).withSize(1, 1).withPosition(1, 1).getEntry();
-        motorPid.add("min",       0).withSize(1, 1).withPosition(1, 2).getEntry();
-      }
-
-
-    // Yaw PID
-    // Yaw RPM
-    // Yaw Heading
-    // Translation RPM
-
- 
-      // // Yaw
-      // {
-      //   var yaw = moduleTab.getLayout("Yaw", BuiltInLayouts.kGrid);
-      //   yaw.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
-      //   yaw.withSize(2, 2);
-      //   yaw.withPosition(5, row);
-
-      //   yaw.add("RPM",      0).withSize(1, 1).withPosition(0, 0).getEntry();
-      //   yaw.add("Heading",  0).withSize(1, 1).withPosition(1, 0).getEntry();
-      // }
-      
-      // Translation
-      {
-
+        sb_yaw_kF  = motorPid.add("kF",        0).withSize(1, 1).withPosition(1, 0).getEntry();
+        sb_yaw_max = motorPid.add("max",       0).withSize(1, 1).withPosition(1, 1).getEntry();
+        sb_yaw_min = motorPid.add("min",       0).withSize(1, 1).withPosition(1, 2).getEntry();
       }
     }
   }
@@ -427,33 +393,98 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     sb_Current_Pose_Y.setDouble(odometry.getPoseMeters().getY());
     sb_Current_Pose_Rotation.setDouble(odometry.getPoseMeters().getRotation().getDegrees());
 
-    // treat the selectors like radio buttons
-    if (sb_motorA.getBoolean(false)) {
-      sb_motorA.setBoolean(false);
-      sb_sel_motor.setString("A");
-    }
-    if (sb_motorB.getBoolean(false)) {
-      sb_motorB.setBoolean(false);
-      sb_sel_motor.setString("B");
-    }
+    // Motor Tab --------------------------------------------------------
+    syncMotorTab();
 
+    // Module Tab --------------------------------------------------------
+
+  }
+
+  void syncMotorTab() {
+    
+    // treat the selectors like radio buttons
+    
+    AbstractSwerveModule selectedModule = null;
     if (sb_modLF.getBoolean(false)) {
       sb_modLF.setBoolean(false);
       sb_sel_module.setString("LF");
+      selectedModule = this.swerveLF;
     }
     if (sb_modRF.getBoolean(false)) {
       sb_modRF.setBoolean(false);
       sb_sel_module.setString("RF");
+      selectedModule = this.swerveRF;
     }
     if (sb_modLR.getBoolean(false)) {
       sb_modLR.setBoolean(false);
       sb_sel_module.setString("LR");
+      selectedModule = this.swerveLR;
     }
     if (sb_modRR.getBoolean(false)) {
       sb_modRR.setBoolean(false);
       sb_sel_module.setString("RR");
+      selectedModule = this.swerveRR;
+    }
+    if (selectedModule == null) {
+      // waiting for user to make selection
+      return;
     }
 
+    IMotor selectedMotor = null;
+    if (sb_motorA.getBoolean(false)) {
+      sb_motorA.setBoolean(false);
+      sb_sel_motor.setString("A");
+      selectedMotor = selectedModule.motorA;
+    }
+    if (sb_motorB.getBoolean(false)) {
+      sb_motorB.setBoolean(false);
+      sb_sel_motor.setString("B");
+      selectedMotor = selectedModule.motorB;
+    }
+    if (selectedMotor == null) {
+      // waiting for user to make selection
+      return;
+    }
+    // both module and motor selected... now to process the inputs
+    
+    sb_g_mRPM.setDouble(selectedMotor.getVelocityRPM());
+    sb_g_mErr.setDouble(selectedMotor.getClosedLoopError());
+
+    //setpoints
+    if (sb_mSP_0.getBoolean(false)) {
+      sb_mSP_0.setBoolean(false); // make momentary
+      selectedMotor.setGoalRPM(goalRPM)ean
+    }
+    if (sb_mSP_100.getBoolean(false)) {
+      sb_mSP_100.setBoolean(false); // make momentary
+      selectedMotor.setGoalRPM(100);
+    }
+    if (sb_mSP_500.getBoolean(false)) {
+      sb_mSP_500.setBoolean(false); // make momentary
+      selectedMotor.setGoalRPM(500);
+    }
+    if (sb_mSP_1000.getBoolean(false)) {
+      sb_mSP_1000.setBoolean(false); // make momentary
+      selectedMotor.setGoalRPM(1000);
+    }
+    if (sb_mSP_1500.getBoolean(false)) {
+      sb_mSP_1500.setBoolean(false); // make momentary
+      selectedMotor.setGoalRPM(1500);
+    }
+    if (sb_mSP_2000.getBoolean(false)) {
+      sb_mSP_2000.setBoolean(false); // make momentary
+      selectedMotor.setGoalRPM(2000);
+    }
+    if (sb_mSP_apply.getBoolean(false)) {
+      selectedMotor.setGoalRPM(sb_mSP_input.getDouble(0));
+    }
+
+    //pid
+    if (sb_mpid_apply.getBoolean(true)) {
+      selectedMotor.setPIIzDF(sb_mpid_kP.getDouble(0), sb_mpid_kI.getDouble(0), sb_mpid_kIz.getDouble(0), sb_mpid_kD.getDouble(0), sb_mpid_kF.getDouble(0));
+      selectedMotor.setOutputRange(sb_mpid_max.getDouble(0), sb_mpid_min.getDouble(0));
+    }
+    
   }
 
 }

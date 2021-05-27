@@ -52,4 +52,14 @@ public interface IMotor
    * Get the current encoder-ascertained velocity of the motor, in RPM
    */
   public double getVelocityRPM();
+
+  /**
+   * Get the error as calculated by the PID controller
+   * @return pid error
+   */
+  public double getClosedLoopError();
+
+  public void setPIIzDF(double kp, double kI, double kIz, double kD, double kF);
+
+  public void setOutputRange(double max, double min);
 }
