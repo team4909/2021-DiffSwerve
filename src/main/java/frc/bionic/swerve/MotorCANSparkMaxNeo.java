@@ -117,7 +117,7 @@ public class MotorCANSparkMaxNeo implements IMotor
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
-    System.out.printf("Setting Goal for (NEO) %s to %f\n", name, goalRPM);
+    // System.out.printf("Setting Goal for (NEO) %s to %f\n", name, goalRPM);
     this.goalRPM = goalRPM;
     // SmartDashboard.putNumber(name + " goal", goalRPM);
     pid.setReference(goalRPM, ControlType.kVelocity);

@@ -113,7 +113,7 @@ public class MotorFalcon500 implements IMotor{
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
-    System.out.printf("Setting Goal for (Falcon) %s to %f\n", name, goalRPM);
+    // System.out.printf("Setting Goal for (Falcon) %s to %f\n", name, goalRPM);
     // Convert RPM to ticks. Velocity is set in ticks per 100ms
     double ticksPer100ms = (goalRPM / (60 * 10)) * 2048;
     // SmartDashboard.putNumber(name + " goal", ticksPer100ms);

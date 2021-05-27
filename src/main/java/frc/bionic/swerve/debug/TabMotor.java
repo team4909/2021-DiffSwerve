@@ -167,7 +167,7 @@ public class TabMotor {
         }
         if (selectedModule == null) {
             // waiting for user to make selection
-            System.out.println("Selected Module is NULL");
+            // System.out.println("Selected Module is NULL");
             return;
         }
 
@@ -192,11 +192,12 @@ public class TabMotor {
         }
         if (selectedMotor == null) {
             // waiting for user to make selection
-            System.out.println("Selected MOTOR is NULL");
+            // System.out.println("Selected MOTOR is NULL");
             return;
         }
         // both module and motor selected... now to process the inputs
 
+        // update the graphs
         sb_g_mRPM.setDouble(selectedMotor.getVelocityRPM());
         sb_g_mErr.setDouble(selectedMotor.getClosedLoopError());
 
@@ -226,6 +227,7 @@ public class TabMotor {
             selectedMotor.setGoalRPM(2000);
         }
         if (sb_mSP_apply.getBoolean(false)) {
+            sb_mSP_apply.setBoolean(false); // make momentary
             selectedMotor.setGoalRPM(sb_mSP_input.getDouble(0));
         }
 
@@ -239,8 +241,7 @@ public class TabMotor {
     }
 
     // This should stop all swerve module code from sending commands directly to
-    // motors
-    // to allow this class direct control.
+    // motors to allow this class direct control.
     public boolean useMotorControl() {
         return sb_motorControl.getBoolean(false);
     }

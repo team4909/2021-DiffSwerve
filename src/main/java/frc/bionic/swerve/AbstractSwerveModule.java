@@ -48,7 +48,7 @@ public abstract class AbstractSwerveModule
   IYawEncoder               yawEncoder;
   
   // Shuffleboard-related
-  // private String            name;
+  private String            name;
   // private String            shuffleboardTabName;
   // private NetworkTableEntry sb_wheel_calc;
   // private NetworkTableEntry sb_yaw_calc;
@@ -67,7 +67,7 @@ public abstract class AbstractSwerveModule
   public AbstractSwerveModule(String name, String shuffleboardTabName)
   {
     // Save arguments
-    // this.name = name;
+    this.name = name;
     // this.shuffleboardTabName = shuffleboardTabName;
 
     // Initialize all of the shuffleboard inputs and outputs
@@ -167,6 +167,13 @@ public abstract class AbstractSwerveModule
     return new SwerveModuleState(speedMPS, yawRotation);
   }
 
+  public double getYawHeading() {
+    return yawEncoder.getDistanceDegrees();
+  }
+
+  public double getYawClosedLoopError() {
+    return -1; // @todo need to move the PID heading controller into this class.
+  }
   /**
    * Function that should be called periodically, typically from
    * `robotPeriodic` or from a Command's `execute` method.
@@ -188,9 +195,11 @@ public abstract class AbstractSwerveModule
     // if (! sb_control.getBoolean(true))
     if (! Robot.debugDash.motorTab.useMotorControl())
     {
-      // Given the desired wheel and yaw RPM, calculate and specify the
-      // motor speeds necessary to achieve them
-      setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+      if (! Robot.debugDash.modTab.useModuleControl(name)) {
+        // Given the desired wheel and yaw RPM, calculate and specify the
+        // motor speeds necessary to achieve them
+        setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+      }
     }
 
     // report to dashboard
