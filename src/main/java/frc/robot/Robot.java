@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.bionic.TrajectoryFollow;
+// import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
@@ -38,15 +38,19 @@ public class Robot extends TimedRobot {
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
     drivetrain = new frc.team4909.Drivetrain();
-    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
+    // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
 
-    UserInterface.createDefaultUI();
+    // UserInterface.createDefaultUI();
     debugDash = new DebugDash(drivetrain);
 
   }
 
   @Override
   public void robotInit() {
+  }
+
+  @Override
+  public void disabledInit() {
   }
 
   @Override
@@ -62,11 +66,11 @@ public class Robot extends TimedRobot {
 
   }
 
-  @Override
-  public void autonomousInit() {
-    // Starts the process of following a trajectory
-    new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/flower.json").schedule();
-    new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/line.json").schedule();
+  // @Override
+  // public void autonomousInit() {
+  //   // Starts the process of following a trajectory
+  //   new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/flower.json").schedule();
+  //   new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/line.json").schedule();
 
-  }
+  // }
 }

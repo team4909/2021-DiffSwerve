@@ -109,7 +109,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
       Rotation2d.fromDegrees(getGyroAngle()),
       new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)));
 
-    initShuffleboard();
+    // initShuffleboard();
   }
 
   public double getMaxSpeed() {
@@ -126,13 +126,13 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     swerveLR.periodic();
     swerveRR.periodic();
 
-    currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
-                                  swerveRF.getModuleState(), 
-                                  swerveLF.getModuleState(), 
-                                  swerveLR.getModuleState(), 
-                                  swerveRR.getModuleState());
+    // currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
+    //                               swerveRF.getModuleState(), 
+    //                               swerveLF.getModuleState(), 
+    //                               swerveLR.getModuleState(), 
+    //                               swerveRR.getModuleState());
 
-    syncShuffleboard();
+    // syncShuffleboard();
   }
 
   /**
@@ -144,52 +144,55 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
    */
   public void drive(double xSpeed, double ySpeed, double rotate) {
     // Scale requested speed percentage [-1, 1]. to meters per second
-    xSpeed *= kMaxSpeed;
-    ySpeed *= kMaxSpeed;
-    rotate *= kMaxSpeed;
+    throw new Error("Dont Call Me");
+    // xSpeed *= kMaxSpeed;
+    // ySpeed *= kMaxSpeed;
+    // rotate *= kMaxSpeed;
 
-    var chassisSpeeds = 
-      ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate, 
-                                            Rotation2d.fromDegrees(this.getGyroAngle()));
+    // System.out.println("Drivetrain Drive Called");
 
-    var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
-    SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
+    // var chassisSpeeds = 
+    //   ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate, 
+    //                                         Rotation2d.fromDegrees(this.getGyroAngle()));
 
-    if (! Robot.debugDash.motorTab.useMotorControl()) {
-      actuateModules(swerveModuleStates);
-    }    
+    // var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
+    // SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
+
+    // if (! Robot.debugDash.motorTab.useMotorControl()) {
+    //   actuateModules(swerveModuleStates);
+    // }    
   }
 
-  public void actuateModules(SwerveModuleState[] states){
-    swerveRF.setModuleState(states[0]);
-    swerveLF.setModuleState(states[1]);
-    swerveLR.setModuleState(states[2]);
-    swerveRR.setModuleState(states[3]);
-  }
+  // public void actuateModules(SwerveModuleState[] states){
+  //   swerveRF.setModuleState(states[0]);
+  //   swerveLF.setModuleState(states[1]);
+  //   swerveLR.setModuleState(states[2]);
+  //   swerveRR.setModuleState(states[3]);
+  // }
 
   /**
    * Orient the wheels such that the robot attempts to prevent being pushed
    * around by other robots.
    */
-  public void lockInPlace() {
-    swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-    swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
-    swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-    swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
-  }
+  // public void lockInPlace() {
+  //   swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+  //   swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+  //   swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+  //   swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+  // }
 
-  public void resetOdometry(Pose2d resetPose){
-    odometry.resetPosition(resetPose, resetPose.getRotation());
-  }
+  // public void resetOdometry(Pose2d resetPose){
+  //   odometry.resetPosition(resetPose, resetPose.getRotation());
+  // }
 
   //Acessor Methods
-  public SwerveDriveKinematics getKinematics(){
-    return kinematics;
-  }
+  // public SwerveDriveKinematics getKinematics(){
+  //   return kinematics;
+  // }
 
-  public Pose2d getCurrentPose(){
-    return currentPose;
-  }
+  // public Pose2d getCurrentPose(){
+  //   return currentPose;
+  // }
 
   /**
    * 
@@ -207,29 +210,29 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   /**
    * Initialize the shuffleboard interface for this motor
   */
-  protected void initShuffleboard(){
-    ShuffleboardTab           tab;
-    ShuffleboardLayout        layout;
+  // protected void initShuffleboard(){
+  //   ShuffleboardTab           tab;
+  //   ShuffleboardLayout        layout;
 
-    tab              = Shuffleboard.getTab(name);
-    layout           = tab.getLayout("Current Pose: " + name, BuiltInLayouts.kList);
+  //   tab              = Shuffleboard.getTab(name);
+  //   layout           = tab.getLayout("Current Pose: " + name, BuiltInLayouts.kList);
 
-    sb_Current_Pose_X = layout.add("X", 0).getEntry();
-    sb_Current_Pose_Y = layout.add("Y", 0).getEntry();
-    sb_Current_Pose_Rotation = layout.add("Rotation", 0).getEntry();
+  //   sb_Current_Pose_X = layout.add("X", 0).getEntry();
+  //   sb_Current_Pose_Y = layout.add("Y", 0).getEntry();
+  //   sb_Current_Pose_Rotation = layout.add("Rotation", 0).getEntry();
     
-  }
+  // }
 
   /**
    * Update dynamic values on shuffleboard, and read values and reset based on
    * read values, any settable parameters.
   */
-  void syncShuffleboard(){
-    // Sets the current pose X , Y, and Rotation to the shuffleboard variables to get updated
-    sb_Current_Pose_X.setDouble(odometry.getPoseMeters().getX());
-    sb_Current_Pose_Y.setDouble(odometry.getPoseMeters().getY());
-    sb_Current_Pose_Rotation.setDouble(odometry.getPoseMeters().getRotation().getDegrees());
-  }
+  // void syncShuffleboard(){
+  //   // Sets the current pose X , Y, and Rotation to the shuffleboard variables to get updated
+  //   sb_Current_Pose_X.setDouble(odometry.getPoseMeters().getX());
+  //   sb_Current_Pose_Y.setDouble(odometry.getPoseMeters().getY());
+  //   sb_Current_Pose_Rotation.setDouble(odometry.getPoseMeters().getRotation().getDegrees());
+  // }
 
 
 }

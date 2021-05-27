@@ -146,6 +146,7 @@ public abstract class AbstractSwerveModule
    */
   public void setModuleState(SwerveModuleState state)
   {
+    System.out.println("Set Module State");
     // Optimize to avoid large module rotations
     state = SwerveModuleState.optimize(state, this.getModuleState().angle);
 
@@ -194,16 +195,16 @@ public abstract class AbstractSwerveModule
     // yaw goal and actual angle, to be used in the RPM calculation.
     // calculatedYawRPM = yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM; //OLD
 
-    calculatedYawRPM = yawPid.calculate(yawEncoder.getDistanceDegrees(), desiredYawDegrees);
+    calculatedYawRPM = 0; //yawPid.calculate(yawEncoder.getDistanceDegrees(), desiredYawDegrees);
 
     // if (! sb_control.getBoolean(true))
     if (! Robot.debugDash.motorTab.useMotorControl())
     {
-      if (! Robot.debugDash.modTab.useModuleControl(name)) {
+    //   if (! Robot.debugDash.modTab.useModuleControl(name)) {
         // Given the desired wheel and yaw RPM, calculate and specify the
         // motor speeds necessary to achieve them
         setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
-      }
+      // }
     }
 
     // report to dashboard
@@ -293,7 +294,7 @@ public abstract class AbstractSwerveModule
   /**
    * Convert desired translation and yaw RPMs to motor RPMs
    */
-  protected void setMotorSpeedsRPM(double wheelRPM, double yawRPM)
+  public void setMotorSpeedsRPM(double wheelRPM, double yawRPM)
   {
     double aRPM =  getARPM(wheelRPM, yawRPM);
     double bRPM =  getBRPM(wheelRPM, yawRPM);
