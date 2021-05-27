@@ -20,8 +20,10 @@ public class CSVOutput {
     private File file;
 
     // New Network Table Entry for recording values
-    private NetworkTableEntry sb_startSwitch;
-    private NetworkTableEntry sb_endSwitch;
+    private NetworkTableEntry sb_switch;
+    private double counter = 0;
+
+
     
     public CSVOutput(){
         // Initializes the String Builder
@@ -34,8 +36,8 @@ public class CSVOutput {
      * @param values: A list of Strings, IN THE CORRECT ORDER ALWAYS
      */
     public void storeValues(int numberOfColumns, String... values){
-        // Checks if the endswitch to stop recording values is on
-        if(sb_endSwitch.getBoolean(false)){
+        // Checks if the switch to see if it is on
+        if(sb_switch.getBoolean(false)){
             //While i is less that the array, go on, and after every iteration add by the number of columns
             for(int i = 0; i < values.length; i += numberOfColumns){
                 // While j is less that the number of columns, go on, and after every iteration add by 1
@@ -56,7 +58,7 @@ public class CSVOutput {
         // Creates a new Date object
         Date date = new Date();
         // Sets a format, which the end string will use
-        String strDateFormat = "hh:mm:ss a";
+        String strDateFormat = "hh-mm-ss";
         // Converts the above format to an actual DateFormat object
         DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
         // Creates a string based off of the above date
@@ -102,27 +104,23 @@ public class CSVOutput {
     
         tab              = Shuffleboard.getTab("CSV Switch");
         layout           = tab.getLayout("Switches", BuiltInLayouts.kList);
-        sb_startSwitch   = layout.add("Record Values", false).getEntry();
-        sb_endSwitch     = layout.add("Stop Recording Values", false).getEntry();
-
-        
-        
+        sb_switch        = layout.add("Start/End", false).getEntry();
     }
 
     void syncShuffleboard(){
-        // Checks if the switch is turned on
-        if(sb_startSwitch.getBoolean(false)){
+        // Checks if the switch is turned on, and checks if counter is less than 0 to avoid making millions of files
+        if(sb_switch.getBoolean(false) && counter < 0){
+            // Adds one to counter, so we know if they are starting recoring or ending
+            counter++;
             // Creates a new file based off of the time if it is
             createNewFile();
         }
 
-        if(sb_endSwitch.getBoolean(false)){
-            // Creates a new file based off of the time if it is
+        if(sb_switch.getBoolean(false) == false && counter > 0){
+            // Sets counter back to 0
+            counter = 0;
+            // Writes to the csv output file
             writeToFile();
-            //Turns off the end switch
-            sb_startSwitch.setBoolean(false);
-            sb_endSwitch.setBoolean(false);
         }
-
     }
 }
