@@ -158,22 +158,22 @@ public class YawEncoderRevHex implements IYawEncoder
     else if (name.equals("RF"))
     {
       row = 1;
-      column = 2;
+      column = 3;
     }
     else if (name.equals("LR"))
     {
-      row = 2;
+      row = 3;
       column = 1;
     }
     else if (name.equals("RR"))
     {
-      row = 2;
-      column = 2;
+      row = 3;
+      column = 3;
     }
     tab = Shuffleboard.getTab("Robot Setup");
     layout =
       tab.getLayout(fullName, BuiltInLayouts.kGrid)
-        .withSize(1, 1)
+        .withSize(2, 2)
         .withPosition(column, row)
         .withProperties(Map.of("Label position", "HIDDEN"));
     sb_encoder_offset = 
