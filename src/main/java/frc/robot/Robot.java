@@ -35,13 +35,9 @@ public class Robot extends TimedRobot {
     ShuffleboardTab tab;
 
     tab = Shuffleboard.getTab("Robot Setup");
-    sb_robot_type = tab.addPersistent("Drivetrain Type", "Enter 'peyton' or 'team4909'").getEntry();
+    sb_robot_type = tab.addPersistent("Drivetrain Type", "Enter 'peyton' or 'team4909'").withSize(2, 1).getEntry();
 
     vision = new Vision(0, 0, 0, 0, 0);
-
-    SmartDashboard.putBoolean("Override", false);
-    SmartDashboard.putBoolean("ZERO", false);
-    SmartDashboard.putBoolean("Enable Slew", true);
   }
 
   @Override

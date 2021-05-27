@@ -12,6 +12,7 @@
 
 package frc.bionic.swerve;
 
+import java.util.Map;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -46,6 +48,10 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private NetworkTableEntry        sb_Current_Pose_Y;
   private NetworkTableEntry        sb_Current_Pose_Rotation;
 
+  private NetworkTableEntry sb_modLF, sb_modRF, sb_modLR, sb_modRR;
+  private NetworkTableEntry sb_motorA, sb_motorB;
+  private NetworkTableEntry sb_sel_motor, sb_sel_module;
+
 
 
 
@@ -58,6 +64,12 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
    * like NavX return degrees measured cockwise from zero.
    */
   abstract public double getGyroAngle();
+
+  /**
+   * Extending class must implement resetGyroAngle.
+   * Mostly used for debugging
+   */
+  abstract public void resetGyroAngle();
 
 
   public void initialize (AbstractSwerveModule swerveRF,
@@ -82,13 +94,13 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
     this.name = name;
     
-    kHalfWheelBaseWidthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
+    kHalfWheelBaseWidthMeters  = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
     kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
-    frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
-    frontLeftLocation = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
-    backLeftLocation = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
-    backRightLocation = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
+    frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters,  -kHalfWheelBaseLengthMeters);
+    frontLeftLocation  = new Translation2d(kHalfWheelBaseWidthMeters,  kHalfWheelBaseLengthMeters);
+    backLeftLocation   = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
+    backRightLocation  = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
 
     kinematics = new SwerveDriveKinematics(frontRightLocation, frontLeftLocation, backLeftLocation, backRightLocation);
 
@@ -178,6 +190,10 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     return currentPose;
   }
 
+  /**
+   * 
+   * @return RF, LF, LR, RR
+   */
   public SwerveModuleState[] getSwerveModuleStates(){
     return swerveModuleStates;
   }
@@ -195,6 +211,48 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     sb_Current_Pose_X = layout.add("X", 0).getEntry();
     sb_Current_Pose_Y = layout.add("Y", 0).getEntry();
     sb_Current_Pose_Rotation = layout.add("Rotation", 0).getEntry();
+
+    // var moduleTab = Shuffleboard.getTab("Module");
+    int row = 0;
+    // module selector
+    // Yaw PID
+    // Yaw RPM
+    // Yaw Heading
+    // Translation RPM
+
+    var motorTab = Shuffleboard.getTab("Motor");
+    row = 0;
+    // Module selector
+    {
+      var moduleSelector = motorTab.getLayout("Module Selector", BuiltInLayouts.kGrid);
+      moduleSelector.withProperties(Map.of("Number of columns", 2, "Number of rows", 2, "Label position", "HIDDEN"));
+      moduleSelector.withSize(2, 2);
+      moduleSelector.withPosition(0, row);
+
+      sb_modLF = moduleSelector.add("LF", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      sb_modRF = moduleSelector.add("RF", false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      sb_modLR = moduleSelector.add("LR", false).withSize(1, 1).withPosition(0, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      sb_modRR = moduleSelector.add("RR", false).withSize(1, 1).withPosition(1, 1).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+    }
+    // Motor selector
+    {
+      var motorSelector = motorTab.getLayout("Motor Selector", BuiltInLayouts.kGrid);
+      motorSelector.withProperties(Map.of("Number of columns", 2, "Number of rows", 1, "Label position", "HIDDEN"));
+      motorSelector.withSize(2, 2);
+      motorSelector.withPosition(2, row);
+
+      sb_motorA = motorSelector.add("A", false).withSize(1, 1).withPosition(0, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+      sb_motorB = motorSelector.add("B", false).withSize(1, 1).withPosition(1, 0).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+    }
+    {
+      var selected = motorTab.getLayout("Selected", BuiltInLayouts.kGrid);
+      selected.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
+      selected.withSize(2, 2);
+      selected.withPosition(4, row);
+
+      sb_sel_module  = selected.add("Mod", "").withSize(1, 1).withPosition(0, 0).getEntry();
+      sb_sel_motor = selected.add("Motor", "").withSize(1, 1).withPosition(1, 0).getEntry();
+    }
   }
 
   /**
@@ -206,6 +264,33 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     sb_Current_Pose_X.setDouble(odometry.getPoseMeters().getX());
     sb_Current_Pose_Y.setDouble(odometry.getPoseMeters().getY());
     sb_Current_Pose_Rotation.setDouble(odometry.getPoseMeters().getRotation().getDegrees());
+
+    // treat the selectors like radio buttons
+    if (sb_motorA.getBoolean(false)) {
+      sb_motorA.setBoolean(false);
+      sb_sel_motor.setString("A");
+    }
+    if (sb_motorB.getBoolean(false)) {
+      sb_motorB.setBoolean(false);
+      sb_sel_motor.setString("B");
+    }
+
+    if (sb_modLF.getBoolean(false)) {
+      sb_modLF.setBoolean(false);
+      sb_sel_module.setString("LF");
+    }
+    if (sb_modRF.getBoolean(false)) {
+      sb_modRF.setBoolean(false);
+      sb_sel_module.setString("RF");
+    }
+    if (sb_modLR.getBoolean(false)) {
+      sb_modLR.setBoolean(false);
+      sb_sel_module.setString("LR");
+    }
+    if (sb_modRR.getBoolean(false)) {
+      sb_modRR.setBoolean(false);
+      sb_sel_module.setString("RR");
+    }
 
   }
 

@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
+import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.command.DriveWithJoystick;
-import frc.team4909.Drivetrain;
 
 @SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
@@ -59,8 +59,8 @@ public class UserInterface
   private static void createUIJoystick0()
   {
     Joystick                           joystick0 = new Joystick(0);
-    UserInterfaceElement<Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
-    Drivetrain                         drivetrain = drivetrainElem.get();
+    UserInterfaceElement<AbstractDrivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
+    AbstractDrivetrain                         drivetrain = drivetrainElem.get();
 
     // Set the default command
     drivetrain.setDefaultCommand(new DriveWithJoystick(drivetrain, joystick0));
@@ -72,8 +72,8 @@ public class UserInterface
   }
   
   public static SequentialCommandGroup followTrajectory(){
-    UserInterfaceElement<frc.team4909.Drivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
-    frc.team4909.Drivetrain            drivetrain = drivetrainElem.get();
+    UserInterfaceElement<AbstractDrivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
+    AbstractDrivetrain            drivetrain = drivetrainElem.get();
     return new TrajectoryFollow().getTrajectoryCommand(drivetrain, "paths/flower.json");
     
   }

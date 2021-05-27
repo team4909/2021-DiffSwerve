@@ -69,6 +69,11 @@ public class Drivetrain extends AbstractDrivetrain {
     return -navX.getAngle();
   }
 
+  // abstract superclass implementation
+  public void resetGyroAngle() {
+    navX.reset();
+  }
+
   public void lockInPlace() {
     swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));

@@ -65,7 +65,8 @@ public class Drivetrain extends AbstractDrivetrain {
     return -navX.getAngle();
   }
 
-  public void resetNavx(){
+  // abstract superclass implementation
+  public void resetGyroAngle() {
     navX.reset();
   }
 }
