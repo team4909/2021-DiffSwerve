@@ -67,7 +67,7 @@ public class UserInterface
 
     // Add a mapping to the primary joystick, to lock the swerve
     // module rotation in place
-    new JoystickButton(joystick0, 11)
+    new JoystickButton(joystick0, 4) //@todo put this back to 11
       .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
   }
   

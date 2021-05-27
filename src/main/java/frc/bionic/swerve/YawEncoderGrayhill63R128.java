@@ -97,7 +97,7 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
   // interface implementation
   public void setGoalDegrees(double goalDegrees)
   {
-    SmartDashboard.putNumber("req goal deg", goalDegrees);
+    // SmartDashboard.putNumber("req goal deg", goalDegrees);
     pid.setSetpoint(goalDegrees);
   }
 
@@ -117,9 +117,9 @@ public class YawEncoderGrayhill63R128 implements IYawEncoder
     // always yield a result in that range. Scale it for the documented, 
     // standardized output of range [-1.0, 1.0].
     double pidCalc = pid.calculate(getDistanceDegrees(), getGoalDegrees());
-    SmartDashboard.putNumber("yaw dist deg", getDistanceDegrees());
-    SmartDashboard.putNumber("yaw goal deg", getGoalDegrees());
-    SmartDashboard.putNumber("yaw pidCalc", pidCalc);
+    // SmartDashboard.putNumber("yaw dist deg", getDistanceDegrees());
+    // SmartDashboard.putNumber("yaw goal deg", getGoalDegrees());
+    // SmartDashboard.putNumber("yaw pidCalc", pidCalc);
     return pidCalc / 180.0;
   }
 

@@ -102,7 +102,7 @@ public class YawEncoderRevHex implements IYawEncoder
   // interface implementation
   public void setGoalDegrees(double goalDegrees)
   {
-    SmartDashboard.putNumber(name + "req goal deg", goalDegrees);
+    // SmartDashboard.putNumber(name + "req goal deg", goalDegrees);
     pid.setSetpoint(goalDegrees);
   }
 
@@ -124,11 +124,11 @@ public class YawEncoderRevHex implements IYawEncoder
     double err = getGoalDegrees() - getDistanceDegrees(); 
     //TODO there is a negative because the cnoder and yaw go in different directions, change.
     double pidCalc = -pid.calculate(getDistanceDegrees(), getGoalDegrees());
-    SmartDashboard.putNumber(name + "err", err);
-    SmartDashboard.putNumber(name + " yaw dist deg", getDistanceDegrees());
-    SmartDashboard.putNumber(name + " yaw goal deg", getGoalDegrees());
-    SmartDashboard.putNumber(name + " yaw pidCalc", pidCalc);
-    SmartDashboard.putNumber(name + " yaw signed percent", pidCalc / 180.0);
+    // SmartDashboard.putNumber(name + "err", err);
+    // SmartDashboard.putNumber(name + " yaw dist deg", getDistanceDegrees());
+    // SmartDashboard.putNumber(name + " yaw goal deg", getGoalDegrees());
+    // SmartDashboard.putNumber(name + " yaw pidCalc", pidCalc);
+    // SmartDashboard.putNumber(name + " yaw signed percent", pidCalc / 180.0);
     return pidCalc / 180.0;
   }
 

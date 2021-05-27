@@ -22,57 +22,45 @@ import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
+import frc.bionic.swerve.debug.DebugDash;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
-  private Vision vision;
+
+  public static DebugDash debugDash = null;
 
   // Shuffleboard-related
   NetworkTableEntry sb_robot_type;
 
+  public Robot() {
+    super();
+
+    // uncomment one or the other
+    // drivetrain = new frc.peyton.Drivetrain();
+    drivetrain = new frc.team4909.Drivetrain();
+    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
+
+    UserInterface.createDefaultUI();
+    debugDash = new DebugDash(drivetrain);
+
+  }
+
   @Override
   public void robotInit() {
-    ShuffleboardTab tab;
-
-    tab = Shuffleboard.getTab("Robot Setup");
-    sb_robot_type = tab.addPersistent("Drivetrain Type", "Enter 'peyton' or 'team4909'").withSize(2, 1).getEntry();
-
-    vision = new Vision(0, 0, 0, 0, 0);
   }
 
   @Override
   public void robotPeriodic() {
-    String type;
-    frc.peyton.Drivetrain drivetrainPeyton;
-    frc.team4909.Drivetrain drivetrain4909;
-
-    // If we're not yet configured with a drivetrain type...
-    if (drivetrain == null) {
-      // See if the user has entered a known drivetrain type
-      type = sb_robot_type.getString("UNCONFIGURED");
-      if (type.equals("peyton")) {
-        drivetrain = drivetrainPeyton = new frc.peyton.Drivetrain();
-        UserInterface.registerObject("Drivetrain", new UserInterfaceElement<frc.peyton.Drivetrain>(drivetrainPeyton));
-      } else if (type.equals("team4909")) {
-        drivetrain = drivetrain4909 = new frc.team4909.Drivetrain();
-        UserInterface.registerObject("Drivetrain", new UserInterfaceElement<frc.team4909.Drivetrain>(drivetrain4909));
-      } else {
-        System.out.println("Shuffleboard's 'Robot Selection/Drivetrain Type' is invalid: " + type);
-        return;
-      }
-
-      UserInterface.createDefaultUI();
-    }
-
-    drivetrain.periodic();
+    // System.out.println("RobotPerodic");
     CommandScheduler.getInstance().run();
+
+    debugDash.perodic();
   }
 
   @Override
   public void teleopInit() {
 
   }
-
 
   @Override
   public void autonomousInit() {

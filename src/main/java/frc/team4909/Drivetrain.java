@@ -41,7 +41,7 @@ public class Drivetrain extends AbstractDrivetrain {
 
     navX = new AHRS(SerialPort.Port.kMXP);
     navX.reset();
-    SmartDashboard.putBoolean("NavX Reset", false);
+    // SmartDashboard.putBoolean("NavX Reset", false);
 
     this.initialize(swerveRF, swerveLF, swerveLR, swerveRR,
                     kHalfWheelBaseWidthInches, kHalfWheelBaseLengthInches,
@@ -52,13 +52,13 @@ public class Drivetrain extends AbstractDrivetrain {
   public void periodic() {
     super.periodic();
 
-    SmartDashboard.putData("NavX", navX);
-    SmartDashboard.putNumber("Gyro Angle", navX.getAngle());
+    // SmartDashboard.putData("NavX", navX);
+    // SmartDashboard.putNumber("Gyro Angle", navX.getAngle());
 
-    if (SmartDashboard.getBoolean("NavX Reset", false)) {
-      SmartDashboard.putBoolean("NavX Reset", false);
-      navX.reset();
-    }
+    // if (SmartDashboard.getBoolean("NavX Reset", false)) {
+    //   SmartDashboard.putBoolean("NavX Reset", false);
+    //   navX.reset();
+    // }
   }
 
   // abstract superclass implementation

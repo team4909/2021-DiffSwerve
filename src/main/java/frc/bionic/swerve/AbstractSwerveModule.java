@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.Robot;
 
 
 public abstract class AbstractSwerveModule
@@ -42,20 +43,20 @@ public abstract class AbstractSwerveModule
   public double             desiredYawDegrees = 0.0;
   
   // Devices, Sensors, Actuators
-  IMotor                    motorA;
-  IMotor                    motorB;
+  public IMotor                    motorA;
+  public IMotor                    motorB;
   IYawEncoder               yawEncoder;
   
   // Shuffleboard-related
-  private String            name;
-  private String            shuffleboardTabName;
-  private NetworkTableEntry sb_wheel_calc;
-  private NetworkTableEntry sb_yaw_calc;
-  private NetworkTableEntry sb_trans;
-  private NetworkTableEntry sb_yaw_set;
-  private NetworkTableEntry sb_wheel_rpm_set;
-  private NetworkTableEntry sb_apply;
-  private NetworkTableEntry sb_control;
+  // private String            name;
+  // private String            shuffleboardTabName;
+  // private NetworkTableEntry sb_wheel_calc;
+  // private NetworkTableEntry sb_yaw_calc;
+  // private NetworkTableEntry sb_trans;
+  // private NetworkTableEntry sb_yaw_set;
+  // private NetworkTableEntry sb_wheel_rpm_set;
+  // private NetworkTableEntry sb_apply;
+  // private NetworkTableEntry sb_control;
 
   // Block periodic until we're initialized
   private boolean           bInitialized = false;
@@ -66,11 +67,11 @@ public abstract class AbstractSwerveModule
   public AbstractSwerveModule(String name, String shuffleboardTabName)
   {
     // Save arguments
-    this.name = name;
-    this.shuffleboardTabName = shuffleboardTabName;
+    // this.name = name;
+    // this.shuffleboardTabName = shuffleboardTabName;
 
     // Initialize all of the shuffleboard inputs and outputs
-    initShuffleboard();
+    // initShuffleboard();
   }
 
   /**
@@ -151,8 +152,8 @@ public abstract class AbstractSwerveModule
     desiredYawDegrees = state.angle.getDegrees();
 
     // Keep shuffleboard up to date with provided state
-    sb_yaw_set.setDouble(desiredYawDegrees);
-    sb_wheel_rpm_set.setDouble(desiredWheelSpeedRPM);
+    // sb_yaw_set.setDouble(desiredYawDegrees);
+    // sb_wheel_rpm_set.setDouble(desiredWheelSpeedRPM);
   }
 
   /**
@@ -184,7 +185,8 @@ public abstract class AbstractSwerveModule
     // yaw goal and actual angle, to be used in the RPM calculation.
     calculatedYawRPM = yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
 
-    if (! sb_control.getBoolean(true))
+    // if (! sb_control.getBoolean(true))
+    if (! Robot.debugDash.motorTab.useMotorControl())
     {
       // Given the desired wheel and yaw RPM, calculate and specify the
       // motor speeds necessary to achieve them
@@ -192,15 +194,15 @@ public abstract class AbstractSwerveModule
     }
 
     // report to dashboard
-    sb_wheel_calc.setDouble(desiredWheelSpeedRPM);
-    sb_yaw_calc.setDouble(calculatedYawRPM);
+    // sb_wheel_calc.setDouble(desiredWheelSpeedRPM);
+    // sb_yaw_calc.setDouble(calculatedYawRPM);
 
     // Ensure that our motor and encoder periodic functions are called, too
     motorA.periodic();
     motorB.periodic();
     yawEncoder.periodic();
 
-    syncShuffleboard();
+    // syncShuffleboard();
   }
 
   /**
@@ -290,58 +292,58 @@ public abstract class AbstractSwerveModule
   /**
    * Initialize the shuffleboard interface for this motor
    */
-  protected void initShuffleboard()
-  {
-    ShuffleboardTab           tab;
-    ShuffleboardLayout        layout;
+  // protected void initShuffleboard()
+  // {
+  //   ShuffleboardTab           tab;
+  //   ShuffleboardLayout        layout;
 
-    tab              = Shuffleboard.getTab(shuffleboardTabName);
-    layout           = tab.getLayout("Module " + name, BuiltInLayouts.kList);
+  //   tab              = Shuffleboard.getTab(shuffleboardTabName);
+  //   layout           = tab.getLayout("Module " + name, BuiltInLayouts.kList);
 
-    sb_trans         = layout.add("translation",  0).getEntry();
+  //   sb_trans         = layout.add("translation",  0).getEntry();
 
-    sb_wheel_calc    = layout.add("calc wheel rpm", 0).getEntry();
-    sb_yaw_calc      = layout.add("calc yaw rpm", 0).getEntry();
+  //   sb_wheel_calc    = layout.add("calc wheel rpm", 0).getEntry();
+  //   sb_yaw_calc      = layout.add("calc yaw rpm", 0).getEntry();
 
-    sb_wheel_rpm_set = layout.add("wheel set rpm",  0).getEntry();
-    sb_yaw_set       = layout.add("yaw set deg",  0).getEntry();
-    sb_apply         = layout.add("Apply", false).getEntry();
+  //   sb_wheel_rpm_set = layout.add("wheel set rpm",  0).getEntry();
+  //   sb_yaw_set       = layout.add("yaw set deg",  0).getEntry();
+  //   sb_apply         = layout.add("Apply", false).getEntry();
 
-    // TODO set back to false by default
-    sb_control       = layout.add("Control", true).getEntry();
-  }
+  //   // TODO set back to false by default
+  //   sb_control       = layout.add("Control", true).getEntry();
+  // }
 
   /**
    * Update dynamic values on shuffleboard, and read values and reset based on
    * read values, any settable parameters.
    */
-  void syncShuffleboard()
-  {
-    double                    aMotorRPM;
-    double                    bMotorRPM;
-    double                    currentWheelRPM;
+  // void syncShuffleboard()
+  // {
+  //   double                    aMotorRPM;
+  //   double                    bMotorRPM;
+  //   double                    currentWheelRPM;
 
-    // allow overriding settings during running test
-    if (sb_apply.getBoolean(false))
-    {
-      // reset pushbutton so it's ready for additional user changes
-      sb_apply.setBoolean(false);
+  //   // allow overriding settings during running test
+  //   if (sb_apply.getBoolean(false))
+  //   {
+  //     // reset pushbutton so it's ready for additional user changes
+  //     sb_apply.setBoolean(false);
 
-      // Save desired settings
-      desiredWheelSpeedRPM = sb_wheel_rpm_set.getDouble(0);
-      desiredYawDegrees = sb_yaw_set.getDouble(0);
+  //     // Save desired settings
+  //     desiredWheelSpeedRPM = sb_wheel_rpm_set.getDouble(0);
+  //     desiredYawDegrees = sb_yaw_set.getDouble(0);
 
-      // periodic() will use the above values on its next invocation
-    }
+  //     // periodic() will use the above values on its next invocation
+  //   }
 
-    // get the motor speeds
-    aMotorRPM = motorA.getVelocityRPM();
-    bMotorRPM = motorB.getVelocityRPM();
+  //   // get the motor speeds
+  //   aMotorRPM = motorA.getVelocityRPM();
+  //   bMotorRPM = motorB.getVelocityRPM();
 
-    // calculate the wheel speed from those motor speeds
-    currentWheelRPM = motorRPMsToWheelRPM(aMotorRPM, bMotorRPM);
+  //   // calculate the wheel speed from those motor speeds
+  //   currentWheelRPM = motorRPMsToWheelRPM(aMotorRPM, bMotorRPM);
 
-    // report to shuffleboard
-    sb_trans.setDouble(currentWheelRPM);
-  }
+  //   // report to shuffleboard
+  //   sb_trans.setDouble(currentWheelRPM);
+  // }
 }
