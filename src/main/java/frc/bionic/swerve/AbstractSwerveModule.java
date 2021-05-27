@@ -12,11 +12,6 @@
 
 package frc.bionic.swerve;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -25,6 +20,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.bionic.CSVOutput;
 
 
 public abstract class AbstractSwerveModule
@@ -67,9 +63,8 @@ public abstract class AbstractSwerveModule
   private boolean           bInitialized = false;
 
   // CSV-related
-  private StringBuilder builder;
-  File file;
-  double START_TIME = Timer.getFPGATimestamp();
+  CSVOutput csvOutput;
+  private double START_TIME = Timer.getFPGATimestamp();
 
   
 
@@ -79,8 +74,7 @@ public abstract class AbstractSwerveModule
     // Save arguments
     this.name = name;
     this.shuffleboardTabName = shuffleboardTabName;
-    file = new File("output.csv");
-    builder = new StringBuilder();
+    csvOutput = new CSVOutput();
 
     // Initialize all of the shuffleboard inputs and outputs
     initShuffleboard();
@@ -128,12 +122,6 @@ public abstract class AbstractSwerveModule
     MAX_YAW_SPEED_RPM         = maxYawSpeedRpm;
     WHEEL_DIAMETER_METERS     = wheelDiameterMeters;
 
-    try {
-      file.delete();
-      file.createNewFile();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
 
     // If we're using a relative encoder, assume the robot starts up
     // facing to the zero position. If we're using an absolute
@@ -215,30 +203,21 @@ public abstract class AbstractSwerveModule
     sb_wheel_calc.setDouble(desiredWheelSpeedRPM);
     sb_yaw_calc.setDouble(calculatedYawRPM);
 
-    // Adds the time, input, and output to a string formatted
-    builder.append(Timer.getFPGATimestamp() - START_TIME + ",");
-    builder.append(calculatedYawRPM + ",");
-    builder.append(motorRPMsToWheelRPM(motorA.getVelocityRPM(), motorB.getVelocityRPM()));
-    builder.append("\n");
-    outputToCSV();
+    csvOutput.storeValues(3, 
+                          String.valueOf(Timer.getFPGATimestamp() - START_TIME), 
+                          String.valueOf(calculatedYawRPM), 
+                          String.valueOf(
+                              motorRPMsToWheelRPM(
+                                motorA.getVelocityRPM(), 
+                                motorB.getVelocityRPM())));
 
     // Ensure that our motor and encoder periodic functions are called, too
     motorA.periodic();
     motorB.periodic();
     yawEncoder.periodic();
+    csvOutput.periodic();
 
     syncShuffleboard();
-  }
-
-  private void outputToCSV(){
-    PrintWriter pw;
-    try {
-      pw = new PrintWriter(file);
-      pw.append(builder);
-    } catch (FileNotFoundException e) {
-      System.out.println("FILE NOT FOUND");
-      e.printStackTrace();
-    }
   }
 
   /**
