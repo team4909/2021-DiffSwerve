@@ -133,26 +133,25 @@ public class DriveWithJoystick extends CommandBase {
 
     ShuffleboardTab dtTab = Shuffleboard.getTab("Drivetrain");
     int row = 0;
-    dtTab.getLayout("Front", BuiltInLayouts.kGrid).withSize(10, 1).withPosition(0, row);
+    dtTab.getLayout("Front", BuiltInLayouts.kGrid).withSize(2, 1).withPosition(4, row);
     
-    row = 1;
     sb_lf_heading = dtTab.add("LF Heading", 0).withSize(2, 2).withPosition(0, row).getEntry();
     sb_lf_speed   = dtTab.add("LF Speed",   0).withSize(2, 2).withPosition(2, row).getEntry();
 
     sb_rf_heading = dtTab.add("RF Heading", 0).withSize(2, 2).withPosition(6, row).getEntry();
     sb_rf_speed   = dtTab.add("RF Speed",   0).withSize(2, 2).withPosition(8, row).getEntry();
     
-    row = 3;
+    row = 2;
     sb_navx_reset = dtTab.add("NavX Reset", false).withSize(2, 2).withPosition(0, row).withWidget(BuiltInWidgets.kToggleButton).getEntry();
     sb_override   = dtTab.add("Use Overrides",   false).withSize(2, 2).withPosition(4, row).withWidget(BuiltInWidgets.kToggleButton).getEntry();
     sb_use_slew   = dtTab.add("Enable Slew", true).withSize(2, 2).withPosition(8, row).withWidget(BuiltInWidgets.kToggleButton).getEntry();
     
-    row = 5;
+    row = 4;
     sb_xSpeed     = dtTab.add("xSpeed Override", 0).withSize(3, 2).withPosition(0, row).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     sb_ySpeed     = dtTab.add("ySpeed Override", 0).withSize(4, 2).withPosition(3, row).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     sb_zSpeed     = dtTab.add("zSpeed Override", 0).withSize(3, 2).withPosition(7, row).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     
-    row = 7;
+    row = 6;
     sb_lr_heading = dtTab.add("LR Heading", 0).withSize(2, 2).withPosition(0, row).getEntry();
     sb_lr_speed   = dtTab.add("LR Speed",   0).withSize(2, 2).withPosition(2, row).getEntry();
     
