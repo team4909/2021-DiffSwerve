@@ -34,7 +34,7 @@ public class Drivetrain extends AbstractDrivetrain {
     double                kHalfWheelBaseWidthInches = 16.825108;
     double                kHalfWheelBaseLengthInches = 16.825108;
 
-    swerveRF = new SwerveModule(1, 2, 0, "RF", name);
+    swerveRF = new SwerveModule(1, 2, 0,  "RF", name);
     swerveLF = new SwerveModule(3, 4, 2,  "LF", name);
     swerveLR = new SwerveModule(5, 6, 4,  "LR", name);
     swerveRR = new SwerveModule(7, 8, 6,  "RR", name);

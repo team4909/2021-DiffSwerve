@@ -1,5 +1,6 @@
 package frc.team4909;
 
+import frc.bionic.Conversion;
 import frc.bionic.swerve.*;
 
 public class SwerveModule extends AbstractSwerveModule{
@@ -19,7 +20,7 @@ public class SwerveModule extends AbstractSwerveModule{
   private static final double       MAX_YAW_SPEED_RPM       = 200;
 
   // The wheel diameter, in meters
-  private static final double      WHEEL_DIAMETER_METERS    = 0.07208;
+  public static final double      WHEEL_DIAMETER_METERS    = Conversion.inchesToMeters(3);
 
   public SwerveModule(int canDeviceChannelA, int canDeviceChannelB,
                               int dioEncoderChannel,

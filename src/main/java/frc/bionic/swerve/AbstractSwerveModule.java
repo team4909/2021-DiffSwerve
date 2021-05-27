@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 
@@ -146,7 +147,6 @@ public abstract class AbstractSwerveModule
    */
   public void setModuleState(SwerveModuleState state)
   {
-    System.out.println("Set Module State");
     // Optimize to avoid large module rotations
     state = SwerveModuleState.optimize(state, this.getModuleState().angle);
 
@@ -198,25 +198,27 @@ public abstract class AbstractSwerveModule
     calculatedYawRPM = 0; //yawPid.calculate(yawEncoder.getDistanceDegrees(), desiredYawDegrees);
 
     // if (! sb_control.getBoolean(true))
-    if (! Robot.debugDash.motorTab.useMotorControl())
-    {
-    //   if (! Robot.debugDash.modTab.useModuleControl(name)) {
-        // Given the desired wheel and yaw RPM, calculate and specify the
-        // motor speeds necessary to achieve them
-        setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
-      // }
-    }
 
-    // report to dashboard
-    // sb_wheel_calc.setDouble(desiredWheelSpeedRPM);
-    // sb_yaw_calc.setDouble(calculatedYawRPM);
-
-    // Ensure that our motor and encoder periodic functions are called, too
     motorA.periodic();
     motorB.periodic();
     yawEncoder.periodic();
 
-    // syncShuffleboard();
+    // motor button enabled, don't do module control
+    if (Robot.debugDash.motorTab.useMotorControl())
+    {
+      // do not do module control
+      return;
+    }
+    if (Robot.debugDash.modTab.useModuleControlOnAndNameMatches(name)) {
+        // Given the desired wheel and yaw RPM, calculate and specify the
+        // motor speeds necessary to achieve them
+        System.out.println("Here "+name);
+        SmartDashboard.putNumber("BB DesiredWheelSpeedRPM "+name, desiredWheelSpeedRPM);
+        setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+        return;
+    }
+    //@todo think more about this
+    // setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
   }
 
   /**

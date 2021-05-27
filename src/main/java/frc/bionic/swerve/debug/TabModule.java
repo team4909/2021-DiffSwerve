@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.*;
+import frc.bionic.Conversion;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.AbstractSwerveModule;
 
@@ -178,69 +179,90 @@ public class TabModule {
 		sb_g_yawErr.setDouble(selectedModule.getYawClosedLoopError());
 
 		// setpoints
+		boolean makeChange = false;
 		double goalHeading = 0;
 
 		if (sb_sp_0.getBoolean(false)) {
 			sb_sp_0.setBoolean(false); // make momentary
 			goalHeading = 0;
+			makeChange = true;
 		}
 		if (sb_sp_45.getBoolean(false)) {
 			sb_sp_45.setBoolean(false); // make momentary
 			goalHeading = 45;
+			makeChange = true;
 		}
 		if (sb_sp_90.getBoolean(false)) {
 			sb_sp_90.setBoolean(false); // make momentary
 			goalHeading = 90;
+			makeChange = true;
 		}
 		if (sb_sp_135.getBoolean(false)) {
 			sb_sp_135.setBoolean(false); // make momentary
 			goalHeading = 135;
+			makeChange = true;
 		}
 		if (sb_sp_180.getBoolean(false)) {
 			sb_sp_180.setBoolean(false); // make momentary
 			goalHeading = 180;
+			makeChange = true;
 		}
 		if (sb_sp_n90.getBoolean(false)) {
 			sb_sp_n90.setBoolean(false); // make momentary
 			goalHeading = -90;
+			makeChange = true;
 		}
 		if (sb_sp_Apply.getBoolean(false)) {
 			sb_sp_Apply.setBoolean(false); // make momentary
 			goalHeading = sb_sp_input.getDouble(0);
+			makeChange = true;
 		}
 
+		
 		double goalTransRPM = 0;
 		if (sb_tSP_0.getBoolean(false)) {
 			sb_tSP_0.setBoolean(false); // make momentary
 			goalTransRPM = 0;
+			makeChange = true;
 		}
 		if (sb_tSP_100.getBoolean(false)) {
 			sb_tSP_100.setBoolean(false); // make momentary
 			goalTransRPM = 100;
+			makeChange = true;
 		}
 		if (sb_tSP_500.getBoolean(false)) {
 			sb_tSP_500.setBoolean(false); // make momentary
 			goalTransRPM = 500;
+			makeChange = true;
 		}
 		if (sb_tSP_1000.getBoolean(false)) {
 			sb_tSP_1000.setBoolean(false); // make momentary
 			goalTransRPM = 1000;
+			makeChange = true;
 		}
 		if (sb_tSP_1500.getBoolean(false)) {
 			sb_tSP_1500.setBoolean(false); // make momentary
 			goalTransRPM = 1500;
+			makeChange = true;
 		}
 		if (sb_tSP_2000.getBoolean(false)) {
 			sb_tSP_2000.setBoolean(false); // make momentary
 			goalTransRPM = 2000;
+			makeChange = true;
 		}
 		if (sb_tSP_Apply.getBoolean(false)) {
 			sb_tSP_Apply.setBoolean(false); // make momentary
 			goalTransRPM = sb_tSP_input.getDouble(0);
+			makeChange = true;
 		}
 		
-		var state = new SwerveModuleState(goalTransRPM, Rotation2d.fromDegrees(goalHeading));
-		selectedModule.setModuleState(state);
+		if (makeChange) {
+			//@todo matty swerve specific number
+			var wheelDiameterMeters = Conversion.inchesToMeters(3);
+			var state = new SwerveModuleState(Conversion.rpmToMps(goalTransRPM, wheelDiameterMeters), Rotation2d.fromDegrees(goalHeading));
+			selectedModule.setModuleState(state);
+			makeChange = false;
+		}	
 
 		// pid
         if (sb_yaw_pid_apply.getBoolean(true)) {
@@ -256,12 +278,10 @@ public class TabModule {
 
 	// This should stop all drivetrain code from sending commands directly to
     // motors to allow this class direct control.
-    public boolean useModuleControl(String name) {
-		if (name == sb_sel_module.getString("")) {
-			System.out.println("Name is: "+name);
-        	return sb_moduleControl.getBoolean(false);
-		}
-		return false;
+    public boolean useModuleControlOnAndNameMatches(String name) {
+		boolean buttonPushed = sb_moduleControl.getBoolean(false);
+		boolean nameMatches = name.equals(sb_sel_module.getString(""));
+		return nameMatches && buttonPushed;
     }
     
 }
