@@ -13,6 +13,7 @@
 package frc.bionic.swerve;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -61,8 +62,8 @@ public abstract class AbstractSwerveModule
   // Block periodic until we're initialized
   private boolean           bInitialized = false;
 
+  private PIDController     yawPid = new PIDController(0.4, 0.0001, 0.015);
   
-
 
   public AbstractSwerveModule(String name, String shuffleboardTabName)
   {
@@ -72,6 +73,7 @@ public abstract class AbstractSwerveModule
 
     // Initialize all of the shuffleboard inputs and outputs
     // initShuffleboard();
+    yawPid.enableContinuousInput(-180.0, 180.0 );
   }
 
   /**
@@ -172,7 +174,7 @@ public abstract class AbstractSwerveModule
   }
 
   public double getYawClosedLoopError() {
-    return -1; // @todo need to move the PID heading controller into this class.
+    return yawPid.getPositionError();
   }
   /**
    * Function that should be called periodically, typically from
@@ -190,7 +192,9 @@ public abstract class AbstractSwerveModule
 
     // Determine the percentage of output, based on difference between
     // yaw goal and actual angle, to be used in the RPM calculation.
-    calculatedYawRPM = yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM;
+    // calculatedYawRPM = yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM; //OLD
+
+    calculatedYawRPM = yawPid.calculate(yawEncoder.getDistanceDegrees(), desiredYawDegrees);
 
     // if (! sb_control.getBoolean(true))
     if (! Robot.debugDash.motorTab.useMotorControl())
@@ -296,6 +300,23 @@ public abstract class AbstractSwerveModule
 
     motorA.setGoalRPM(aRPM);
     motorB.setGoalRPM(bRPM);
+  }
+
+
+  /**
+   * 
+   * @param kP
+   * @param kI
+   * @param kIz Not Supported
+   * @param kD
+   * @param kF Not Supported
+   */
+  public void setYawPIIzDF(double kP, double kI, double kIz, double kD, double kF) {
+    yawPid.setPID(kP, kI, kD);
+    // yawPid.setIntegratorRange(minimumIntegral, maximumIntegral); // this seems to work differently than iZ
+  }
+  public void setYawPIDOutputRange(double max, double min) {
+    // not supported yet
   }
 
   /**

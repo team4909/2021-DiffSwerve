@@ -233,8 +233,12 @@ public class TabMotor {
 
         // pid
         if (sb_mpid_apply.getBoolean(true)) {
-            selectedMotor.setPIIzDF(sb_mpid_kP.getDouble(0), sb_mpid_kI.getDouble(0), sb_mpid_kIz.getDouble(0),
-                    sb_mpid_kD.getDouble(0), sb_mpid_kF.getDouble(0));
+            selectedMotor.setPIIzDF(
+                sb_mpid_kP.getDouble(0), 
+                sb_mpid_kI.getDouble(0), 
+                sb_mpid_kIz.getDouble(0),
+                sb_mpid_kD.getDouble(0), 
+                sb_mpid_kF.getDouble(0));
             selectedMotor.setOutputRange(sb_mpid_max.getDouble(0), sb_mpid_min.getDouble(0));
         }
 

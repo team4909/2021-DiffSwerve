@@ -78,6 +78,7 @@ public class YawEncoderRevHex implements IYawEncoder
 
     // Create a PID. 
     //pid = new PIDController(0.07, 0, 0.05);
+    
     pid = new PIDController(0.4, 0.0001, 0.015);
     pid.enableContinuousInput(-180.0, 180.0 );
 
@@ -122,7 +123,7 @@ public class YawEncoderRevHex implements IYawEncoder
     // always yield a result in that range. Scale it for the documented, 
     // standardized output of range [-1.0, 1.0].
     double err = getGoalDegrees() - getDistanceDegrees(); 
-    //TODO there is a negative because the cnoder and yaw go in different directions, change.
+    //TODO there is a negative because the encoder and yaw go in different directions, change.
     double pidCalc = -pid.calculate(getDistanceDegrees(), getGoalDegrees());
     // SmartDashboard.putNumber(name + "err", err);
     // SmartDashboard.putNumber(name + " yaw dist deg", getDistanceDegrees());

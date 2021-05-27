@@ -19,7 +19,7 @@ public class TabModule {
 	private NetworkTableEntry sb_sp_0, sb_sp_45, sb_sp_90, sb_sp_135, sb_sp_180, sb_sp_n90, sb_sp_input, sb_sp_Apply;
 	private NetworkTableEntry sb_tSP_0, sb_tSP_100, sb_tSP_500, sb_tSP_1000, sb_tSP_1500, sb_tSP_2000, sb_tSP_input, sb_tSP_Apply;
 	private NetworkTableEntry sb_g_yawHeading, sb_g_yawErr;
-	private NetworkTableEntry sb_yaw_apply, sb_yaw_kP, sb_yaw_kI, sb_yaw_kIz;
+	private NetworkTableEntry sb_yaw_pid_apply, sb_yaw_kP, sb_yaw_kI, sb_yaw_kIz;
 	private NetworkTableEntry sb_yaw_kD, sb_yaw_kF, sb_yaw_max, sb_yaw_min;
 
 	TabModule(AbstractDrivetrain drivetrain) {
@@ -118,7 +118,7 @@ public class TabModule {
 			motorPidOuter.withSize(3, 5);
 			motorPidOuter.withPosition(12, row);
 
-			sb_yaw_apply = motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0)
+			sb_yaw_pid_apply = motorPidOuter.add("Apply", false).withSize(1, 1).withPosition(0, 0)
 					.withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
 			var motorPid = motorPidOuter.getLayout("Inner", BuiltInLayouts.kGrid);
@@ -170,7 +170,7 @@ public class TabModule {
         }
         if (selectedModule == null) {
             // waiting for user to make selection
-            System.out.println("Selected Module is NULL");
+            // System.out.println("Selected Module is NULL");
             return;
         }
 		// update the graphs
@@ -241,6 +241,17 @@ public class TabModule {
 		
 		var state = new SwerveModuleState(goalTransRPM, Rotation2d.fromDegrees(goalHeading));
 		selectedModule.setModuleState(state);
+
+		// pid
+        if (sb_yaw_pid_apply.getBoolean(true)) {
+            selectedModule.setYawPIIzDF(
+                sb_yaw_kP.getDouble(0), 
+                sb_yaw_kI.getDouble(0), 
+                sb_yaw_kIz.getDouble(0),
+                sb_yaw_kD.getDouble(0), 
+                sb_yaw_kF.getDouble(0));
+			selectedModule.setYawPIDOutputRange(sb_yaw_max.getDouble(0), sb_yaw_min.getDouble(0));
+        }
 	}
 
 	// This should stop all drivetrain code from sending commands directly to
