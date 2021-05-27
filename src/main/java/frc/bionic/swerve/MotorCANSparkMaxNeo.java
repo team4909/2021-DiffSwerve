@@ -49,6 +49,8 @@ public class MotorCANSparkMaxNeo implements IMotor
   private CANPIDController  pid;              // internal PID controller
   private MedianFilter      velAverage;       // for displaying average RPM
 
+  private double goalRPM = 0;
+
   // Shuffleboard-related
   private String            name;
   private String            shuffleboardTabName;
@@ -115,6 +117,7 @@ public class MotorCANSparkMaxNeo implements IMotor
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
+    this.goalRPM = goalRPM;
     SmartDashboard.putNumber(name + " goal", goalRPM);
     pid.setReference(goalRPM, ControlType.kVelocity);
   }
@@ -207,5 +210,24 @@ public class MotorCANSparkMaxNeo implements IMotor
       pid.setFF(sb_pid_kff.getDouble(0));
       pid.setOutputRange(sb_pid_max.getDouble(0), sb_pid_min.getDouble(0));
     }
+  }
+
+  @Override
+  public double getClosedLoopError() {
+    return goalRPM - getVelocityRPM();
+  }
+
+  @Override
+  public void setPIIzDF(double kP, double kI, double kIz, double kD, double kF) {
+    pid.setP(kP);
+    pid.setI(kI);
+    pid.setIZone(kIz);
+    pid.setD(kD);
+    pid.setFF(kF);
+  }
+
+  @Override
+  public void setOutputRange(double max, double min) {
+    pid.setOutputRange(max, min);
   }
 }

@@ -453,7 +453,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     //setpoints
     if (sb_mSP_0.getBoolean(false)) {
       sb_mSP_0.setBoolean(false); // make momentary
-      selectedMotor.setGoalRPM(goalRPM)ean
+      selectedMotor.setGoalRPM(0);
     }
     if (sb_mSP_100.getBoolean(false)) {
       sb_mSP_100.setBoolean(false); // make momentary
@@ -484,7 +484,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
       selectedMotor.setPIIzDF(sb_mpid_kP.getDouble(0), sb_mpid_kI.getDouble(0), sb_mpid_kIz.getDouble(0), sb_mpid_kD.getDouble(0), sb_mpid_kF.getDouble(0));
       selectedMotor.setOutputRange(sb_mpid_max.getDouble(0), sb_mpid_min.getDouble(0));
     }
-    
+
   }
 
 }

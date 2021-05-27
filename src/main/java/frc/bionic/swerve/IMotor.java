@@ -59,7 +59,7 @@ public interface IMotor
    */
   public double getClosedLoopError();
 
-  public void setPIIzDF(double kp, double kI, double kIz, double kD, double kF);
+  public void setPIIzDF(double kP, double kI, double kIz, double kD, double kF);
 
   public void setOutputRange(double max, double min);
 }

@@ -214,4 +214,24 @@ public class MotorFalcon500 implements IMotor{
       motor.config_kF(kMotorSlot, sb_pid_kff.getDouble(0));
     }
   }
+
+  @Override
+  public double getClosedLoopError() {
+    return motor.getClosedLoopError();
+  }
+
+  @Override
+  public void setPIIzDF(double kP, double kI, double kIz, double kD, double kF) {
+    motor.config_kP(kMotorSlot, kP);
+    motor.config_kI(kMotorSlot, kI);
+    motor.config_kD(kMotorSlot, kD);
+    motor.config_IntegralZone(kMotorSlot, kIz);
+    motor.config_kF(kMotorSlot, kF);
+  }
+
+  @Override
+  public void setOutputRange(double max, double min) {
+    motor.configClosedLoopPeakOutput(kMotorSlot, max);
+    // min is ignored as the motor does not support it
+  }
 }
