@@ -155,8 +155,11 @@ gradle-app.setting
 .project
 .settings/
 bin/
-imgui.ini
-
-networktables.ini.bak
 
 # End of https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
+
+# simulation GUI
+imgui.ini
+
+networktables.ini
+networktables.ini.bak
