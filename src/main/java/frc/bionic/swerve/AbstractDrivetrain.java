@@ -12,7 +12,6 @@
 
 package frc.bionic.swerve;
 
-import java.util.Map;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -21,218 +20,200 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.bionic.Conversion;
 import frc.robot.Robot;
 
 public abstract class AbstractDrivetrain extends SubsystemBase {
-  public AbstractSwerveModule    swerveRF; // right front
-  public AbstractSwerveModule    swerveLF; // left front
-  public AbstractSwerveModule    swerveLR; // left rear
-  public AbstractSwerveModule    swerveRR; // right rear
-  public SwerveModuleState[]     swerveModuleStates = new SwerveModuleState[4];
+    public AbstractSwerveModule swerveRF; // right front
+    public AbstractSwerveModule swerveLF; // left front
+    public AbstractSwerveModule swerveLR; // left rear
+    public AbstractSwerveModule swerveRR; // right rear
+    public SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
 
+    private SwerveDriveKinematics kinematics;
+    private SwerveDriveOdometry odometry;
+    private Pose2d currentPose;
 
-  private SwerveDriveKinematics   kinematics;
-  private SwerveDriveOdometry     odometry;
-  private Pose2d                  currentPose;
+    private double kMaxSpeedMPS = Conversion.fpsToMps(25); // meters per second
 
-  private double                  kMaxSpeed = 2.0;  // meters per second
+    // Shuffleboard Related
+    private String name;
+    private NetworkTableEntry sb_Current_Pose_X;
+    private NetworkTableEntry sb_Current_Pose_Y;
+    private NetworkTableEntry sb_Current_Pose_Rotation;
 
-  //Shuffleboard Related
-  private String                   name;
-  private NetworkTableEntry        sb_Current_Pose_X;
-  private NetworkTableEntry        sb_Current_Pose_Y;
-  private NetworkTableEntry        sb_Current_Pose_Rotation;
+    /**
+     * Extending class must implement `getGyroAngle` method which returns the
+     * robot's rotation in degrees. Degrees can be continuous, so result may be
+     * outside range of [0.0, 360.0]. Degrees are measured *counterclockwise* from
+     * zero, where zero is down-field towards opponent. Because degrees are measured
+     * counterclockwise, the result may need to be negated, as devices like NavX
+     * return degrees measured cockwise from zero.
+     */
+    abstract public double getGyroAngle();
 
-  
+    /**
+     * Extending class must implement resetGyroAngle. Mostly used for debugging
+     */
+    abstract public void resetGyroAngle();
 
+    public void initialize(AbstractSwerveModule swerveRF, AbstractSwerveModule swerveLF, AbstractSwerveModule swerveLR,
+            AbstractSwerveModule swerveRR, double kHalfWheelBaseWidthInches, double kHalfWheelBaseLengthInches,
+            String name) {
 
+        double kHalfWheelBaseWidthMeters;
+        double kHalfWheelBaseLengthMeters;
+        Translation2d frontLeftLocation;
+        Translation2d frontRightLocation;
+        Translation2d backLeftLocation;
+        Translation2d backRightLocation;
 
+        this.swerveRF = swerveRF;
+        this.swerveLF = swerveLF;
+        this.swerveLR = swerveLR;
+        this.swerveRR = swerveRR;
 
-  /**
-   * Extending class must implement `getGyroAngle` method which returns the
-   * robot's rotation in degrees. Degrees can be continuous, so result may be
-   * outside range of [0.0, 360.0]. Degrees are measured *counterclockwise*
-   * from zero, where zero is down-field towards opponent. Because degrees are
-   * measured counterclockwise, the result may need to be negated, as devices
-   * like NavX return degrees measured cockwise from zero.
-   */
-  abstract public double getGyroAngle();
+        this.name = name;
 
-  /**
-   * Extending class must implement resetGyroAngle.
-   * Mostly used for debugging
-   */
-  abstract public void resetGyroAngle();
+        kHalfWheelBaseWidthMeters = Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
+        kHalfWheelBaseLengthMeters = Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
 
+        frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
+        frontLeftLocation = new Translation2d(kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
+        backLeftLocation = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
+        backRightLocation = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
 
-  public void initialize (AbstractSwerveModule swerveRF,
-                          AbstractSwerveModule swerveLF,
-                          AbstractSwerveModule swerveLR,
-                          AbstractSwerveModule swerveRR,
-                          double kHalfWheelBaseWidthInches,
-                          double kHalfWheelBaseLengthInches,
-                          String name) {
+        kinematics = new SwerveDriveKinematics(frontRightLocation, frontLeftLocation, backLeftLocation,
+                backRightLocation);
 
-    double                  kHalfWheelBaseWidthMeters;
-    double                  kHalfWheelBaseLengthMeters;
-    Translation2d           frontLeftLocation;
-    Translation2d           frontRightLocation;
-    Translation2d           backLeftLocation;
-    Translation2d           backRightLocation;
+        // Initilizes odometry with all 0 values (0,0,0)
+        odometry = new SwerveDriveOdometry(kinematics, Rotation2d.fromDegrees(getGyroAngle()),
+                new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)));
 
-    this.swerveRF = swerveRF;
-    this.swerveLF = swerveLF;
-    this.swerveLR = swerveLR;
-    this.swerveRR = swerveRR;
+        // initShuffleboard();
+    }
 
-    this.name = name;
-    
-    kHalfWheelBaseWidthMeters  = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseWidthInches);
-    kHalfWheelBaseLengthMeters = frc.bionic.Conversion.inchesToMeters(kHalfWheelBaseLengthInches);
+    public double getMaxSpeed() {
+        return kMaxSpeedMPS;
+    }
 
-    frontRightLocation = new Translation2d(kHalfWheelBaseWidthMeters,  -kHalfWheelBaseLengthMeters);
-    frontLeftLocation  = new Translation2d(kHalfWheelBaseWidthMeters,  kHalfWheelBaseLengthMeters);
-    backLeftLocation   = new Translation2d(-kHalfWheelBaseWidthMeters, kHalfWheelBaseLengthMeters);
-    backRightLocation  = new Translation2d(-kHalfWheelBaseWidthMeters, -kHalfWheelBaseLengthMeters);
+    public void setMaxSpeed(double maxSpeed) {
+        kMaxSpeedMPS = maxSpeed;
+    }
 
-    kinematics = new SwerveDriveKinematics(frontRightLocation, frontLeftLocation, backLeftLocation, backRightLocation);
+    public void periodic() {
+        swerveRF.periodic();
+        swerveLF.periodic();
+        swerveLR.periodic();
+        swerveRR.periodic();
 
-    //Initilizes odometry with all 0 values (0,0,0)
-    odometry = new SwerveDriveOdometry(
-      kinematics,
-      Rotation2d.fromDegrees(getGyroAngle()),
-      new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0)));
+        // currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
+        // swerveRF.getModuleState(),
+        // swerveLF.getModuleState(),
+        // swerveLR.getModuleState(),
+        // swerveRR.getModuleState());
+    }
 
-    // initShuffleboard();
-  }
+    /**
+     * Method to drive the robot using joystick info.
+     *
+     * @param xSpeed Speed of the robot in the x direction (forward).
+     * @param ySpeed Speed of the robot in the y direction (sideways).
+     * @param rotate Angular rate of the robot.
+     */
+    public void drive(double xSpeed, double ySpeed, double rotate) {
+        // Scale requested speed percentage [-1, 1]. to meters per second
+        xSpeed *= kMaxSpeedMPS;
+        ySpeed *= kMaxSpeedMPS;
+        rotate *= kMaxSpeedMPS;
 
-  public double getMaxSpeed() {
-    return kMaxSpeed;
-  }
+        var chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate,
+                Rotation2d.fromDegrees(this.getGyroAngle()));
 
-  public void setMaxSpeed(double maxSpeed) {
-    kMaxSpeed = maxSpeed;
-  }
+        var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
+        SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeedMPS);
 
-  public void periodic() {
-    swerveRF.periodic();
-    swerveLF.periodic();
-    swerveLR.periodic();
-    swerveRR.periodic();
+        if (!Robot.debugDash.motorTab.overrideFromMotorControlDashboard()) {
+            actuateModules(swerveModuleStates);
+        }
+    }
 
-    // currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
-    //                               swerveRF.getModuleState(), 
-    //                               swerveLF.getModuleState(), 
-    //                               swerveLR.getModuleState(), 
-    //                               swerveRR.getModuleState());
+    /**
+     * Set the module states. Used by wpilib Trajectory following
+     * 
+     * @param states
+     */
+    public void actuateModules(SwerveModuleState[] states) {
+        swerveRF.setModuleState(states[0]);
+        swerveLF.setModuleState(states[1]);
+        swerveLR.setModuleState(states[2]);
+        swerveRR.setModuleState(states[3]);
+    }
 
-    // syncShuffleboard();
-  }
+    /**
+     * Orient the wheels such that the robot attempts to prevent being pushed around
+     * by other robots.
+     */
+    public void lockInPlace() {
+        swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+        swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+        swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+        swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    }
 
-  /**
-   * Method to drive the robot using joystick info.
-   *
-   * @param xSpeed Speed of the robot in the x direction (forward).
-   * @param ySpeed Speed of the robot in the y direction (sideways).
-   * @param rotate Angular rate of the robot.
-   */
-  public void drive(double xSpeed, double ySpeed, double rotate) {
-    // Scale requested speed percentage [-1, 1]. to meters per second
-    // throw new Error("Dont Call Me");
-    xSpeed *= kMaxSpeed;
-    ySpeed *= kMaxSpeed;
-    rotate *= kMaxSpeed;
+    // public void resetOdometry(Pose2d resetPose){
+    // odometry.resetPosition(resetPose, resetPose.getRotation());
+    // }
 
-    // System.out.println("Drivetrain Drive Called");
+    // Acessor Methods
+    // public SwerveDriveKinematics getKinematics(){
+    // return kinematics;
+    // }
 
-    var chassisSpeeds = 
-      ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate, 
-                                            Rotation2d.fromDegrees(this.getGyroAngle()));
+    // public Pose2d getCurrentPose(){
+    // return currentPose;
+    // }
 
-    var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
-    SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
+    /**
+     * 
+     * @return RF, LF, LR, RR
+     */
+    public SwerveModuleState[] getSwerveModuleStates() {
+        swerveModuleStates[0] = swerveRF.getModuleState();
+        swerveModuleStates[1] = swerveLF.getModuleState();
+        swerveModuleStates[2] = swerveLR.getModuleState();
+        swerveModuleStates[3] = swerveRR.getModuleState();
 
-    if (! Robot.debugDash.motorTab.useMotorControl()) {
-      actuateModules(swerveModuleStates);
-    }    
-  }
+        return swerveModuleStates;
+    }
 
-  public void actuateModules(SwerveModuleState[] states){
-    swerveRF.setModuleState(states[0]);
-    swerveLF.setModuleState(states[1]);
-    swerveLR.setModuleState(states[2]);
-    swerveRR.setModuleState(states[3]);
-  }
+    /**
+     * Initialize the shuffleboard interface for this motor
+     */
+    // protected void initShuffleboard(){
+    // ShuffleboardTab tab;
+    // ShuffleboardLayout layout;
 
-  /**
-   * Orient the wheels such that the robot attempts to prevent being pushed
-   * around by other robots.
-   */
-  // public void lockInPlace() {
-  //   swerveRF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-  //   swerveLF.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
-  //   swerveLR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-  //   swerveRR.setModuleState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
-  // }
+    // tab = Shuffleboard.getTab(name);
+    // layout = tab.getLayout("Current Pose: " + name, BuiltInLayouts.kList);
 
-  // public void resetOdometry(Pose2d resetPose){
-  //   odometry.resetPosition(resetPose, resetPose.getRotation());
-  // }
+    // sb_Current_Pose_X = layout.add("X", 0).getEntry();
+    // sb_Current_Pose_Y = layout.add("Y", 0).getEntry();
+    // sb_Current_Pose_Rotation = layout.add("Rotation", 0).getEntry();
 
-  //Acessor Methods
-  // public SwerveDriveKinematics getKinematics(){
-  //   return kinematics;
-  // }
+    // }
 
-  // public Pose2d getCurrentPose(){
-  //   return currentPose;
-  // }
-
-  /**
-   * 
-   * @return RF, LF, LR, RR
-   */
-  public SwerveModuleState[] getSwerveModuleStates(){
-    swerveModuleStates[0] = swerveRF.getModuleState();
-    swerveModuleStates[1] = swerveLF.getModuleState();
-    swerveModuleStates[2] = swerveLR.getModuleState();
-    swerveModuleStates[3] = swerveRR.getModuleState();
-
-    return swerveModuleStates;
-  }
-
-  /**
-   * Initialize the shuffleboard interface for this motor
-  */
-  // protected void initShuffleboard(){
-  //   ShuffleboardTab           tab;
-  //   ShuffleboardLayout        layout;
-
-  //   tab              = Shuffleboard.getTab(name);
-  //   layout           = tab.getLayout("Current Pose: " + name, BuiltInLayouts.kList);
-
-  //   sb_Current_Pose_X = layout.add("X", 0).getEntry();
-  //   sb_Current_Pose_Y = layout.add("Y", 0).getEntry();
-  //   sb_Current_Pose_Rotation = layout.add("Rotation", 0).getEntry();
-    
-  // }
-
-  /**
-   * Update dynamic values on shuffleboard, and read values and reset based on
-   * read values, any settable parameters.
-  */
-  // void syncShuffleboard(){
-  //   // Sets the current pose X , Y, and Rotation to the shuffleboard variables to get updated
-  //   sb_Current_Pose_X.setDouble(odometry.getPoseMeters().getX());
-  //   sb_Current_Pose_Y.setDouble(odometry.getPoseMeters().getY());
-  //   sb_Current_Pose_Rotation.setDouble(odometry.getPoseMeters().getRotation().getDegrees());
-  // }
-
+    /**
+     * Update dynamic values on shuffleboard, and read values and reset based on
+     * read values, any settable parameters.
+     */
+    // void syncShuffleboard(){
+    // // Sets the current pose X , Y, and Rotation to the shuffleboard variables to
+    // get updated
+    // sb_Current_Pose_X.setDouble(odometry.getPoseMeters().getX());
+    // sb_Current_Pose_Y.setDouble(odometry.getPoseMeters().getY());
+    // sb_Current_Pose_Rotation.setDouble(odometry.getPoseMeters().getRotation().getDegrees());
+    // }
 
 }

@@ -297,12 +297,19 @@ public class TabModule {
 	// 	return nameMatches && buttonPushed;
 	// }
 
-	public boolean useModuleControlOn() {
+	/**
+	 * @return true when "Enable Control" button is selected on the "Module" dashboard
+	 */
+	public boolean overrideFromModuleControlDashboard() {
 		boolean buttonPushed = sb_moduleControl.getBoolean(false);
 		return buttonPushed;
 	}
-	
-	public boolean nameMatches(String name) {
+
+	/**
+	 * @param name name of the current module one of: "LF", "RF", "LR", "RR"
+	 * @return true when "Selected Module" exactly matches the name argument
+	 */
+	public boolean nameMatchesSelectedModule(String name) {
 		boolean nameMatches = name.equals(sb_sel_module.getString(""));
 		return nameMatches;
     }

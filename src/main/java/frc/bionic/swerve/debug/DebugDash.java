@@ -12,13 +12,11 @@ public class DebugDash {
 		motorTab = new TabMotor(drivetrain);
 		modTab = new TabModule(drivetrain);
 		dtTab = new TabDrivetrain(drivetrain);
-		// esTab = new TabEncoderSetup(drivetrain);
 	}
 
 	public void periodic() {
 		motorTab.periodic();
 		modTab.periodic();
 		dtTab.periodic();
-		// esTab.periodic();
 	}
 }

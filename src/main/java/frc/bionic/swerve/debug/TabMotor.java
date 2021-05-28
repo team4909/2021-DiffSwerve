@@ -249,7 +249,7 @@ public class TabMotor {
 
     // This should stop all swerve module code from sending commands directly to
     // motors to allow this class direct control.
-    public boolean useMotorControl() {
+    public boolean overrideFromMotorControlDashboard() {
         return sb_motorControl.getBoolean(false);
     }
 }

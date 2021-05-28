@@ -12,17 +12,14 @@
 
 package frc.bionic;
 
-public class UserInterfaceElement<T>
-{
-  private T element;
+public class UserInterfaceElement<T> {
+    private T element;
 
-  public UserInterfaceElement(T element)
-  {
-    this.element = element;
-  }
+    public UserInterfaceElement(T element) {
+        this.element = element;
+    }
 
-  public T get()
-  {
-    return element;
-  }
+    public T get() {
+        return element;
+    }
 }
