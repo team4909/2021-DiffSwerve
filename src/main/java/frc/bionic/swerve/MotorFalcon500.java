@@ -32,17 +32,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * MotorFalcon500
  */
-public class MotorFalcon500 implements IMotor{
+public class MotorFalcon500 implements IMotor {
   // Initial, default PID constants, overridden by persistent shuffleboard fields
-  private static final double kMotorP  = 0.7;
-  private static final double kMotorI  = 0.005;
-  private static final double kMotorD  = 7.0;
-  private static final double kMotorIz = 300.0;
-  private static final double kMotorFf = 0.0;
+  public static final double kMotorP  = 0.1;
+  public static final double kMotorI  = 0.0;
+  public static final double kMotorD  = 3.0;
+  public static final double kMotorIz = 300.0;
+  public static final double kMotorFf = 0.0;
   private static final int kMotorSlot = 0;
 
   // Devices, Sensors, Actuators
-  private MedianFilter velAverage; //For displaying average RPM
+  // private MedianFilter velAverage; //For displaying average RPM
   private TalonFX motor;
 
   // Shuffleboard-related
@@ -99,7 +99,7 @@ public class MotorFalcon500 implements IMotor{
     motor.set(ControlMode.PercentOutput, 0);
 
     // Prepare to display (on shuffleboard) recent average RPM
-    velAverage = new MedianFilter(50);
+    // velAverage = new MedianFilter(50);
 
     motor.config_kP(kMotorSlot, kMotorP);
     motor.config_kI(kMotorSlot, kMotorI);

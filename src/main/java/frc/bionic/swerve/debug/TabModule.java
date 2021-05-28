@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.bionic.Conversion;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.AbstractSwerveModule;
@@ -126,12 +127,12 @@ public class TabModule {
 			motorPid.withProperties(Map.of("Number of columns", 2, "Number of rows", 4));
 			motorPid.withPosition(0, 1);
 
-			sb_yaw_kP = motorPid.add("kP", 0).withSize(1, 1).withPosition(0, 0).getEntry();
-			sb_yaw_kI = motorPid.add("kI", 0).withSize(1, 1).withPosition(0, 1).getEntry();
+			sb_yaw_kP  = motorPid.add("kP", 0).withSize(1, 1).withPosition(0, 0).getEntry();
+			sb_yaw_kI  = motorPid.add("kI", 0).withSize(1, 1).withPosition(0, 1).getEntry();
 			sb_yaw_kIz = motorPid.add("kIz", 0).withSize(1, 1).withPosition(0, 2).getEntry();
-			sb_yaw_kD = motorPid.add("kD", 0).withSize(1, 1).withPosition(0, 3).getEntry();
+			sb_yaw_kD  = motorPid.add("kD", 0).withSize(1, 1).withPosition(0, 3).getEntry();
 
-			sb_yaw_kF = motorPid.add("kF", 0).withSize(1, 1).withPosition(1, 0).getEntry();
+			sb_yaw_kF  = motorPid.add("kF", 0).withSize(1, 1).withPosition(1, 0).getEntry();
 			sb_yaw_max = motorPid.add("max", 0).withSize(1, 1).withPosition(1, 1).getEntry();
 			sb_yaw_min = motorPid.add("min", 0).withSize(1, 1).withPosition(1, 2).getEntry();
 		}
@@ -257,6 +258,8 @@ public class TabModule {
 		}
 		
 		if (makeChange) {
+			SmartDashboard.putNumber("Goal RPM", goalTransRPM);
+			SmartDashboard.putNumber("Goal Heading", goalHeading);
 			//@todo matty swerve specific number
 			var wheelDiameterMeters = Conversion.inchesToMeters(3);
 			var state = new SwerveModuleState(Conversion.rpmToMps(goalTransRPM, wheelDiameterMeters), Rotation2d.fromDegrees(goalHeading));
@@ -278,10 +281,20 @@ public class TabModule {
 
 	// This should stop all drivetrain code from sending commands directly to
     // motors to allow this class direct control.
-    public boolean useModuleControlOnAndNameMatches(String name) {
+    // public boolean useModuleControlOnAndNameMatches(String name) {
+	// 	boolean buttonPushed = sb_moduleControl.getBoolean(false);
+	// 	boolean nameMatches = name.equals(sb_sel_module.getString(""));
+	// 	return nameMatches && buttonPushed;
+	// }
+
+	public boolean useModuleControlOn() {
 		boolean buttonPushed = sb_moduleControl.getBoolean(false);
+		return buttonPushed;
+	}
+	
+	public boolean nameMatches(String name) {
 		boolean nameMatches = name.equals(sb_sel_module.getString(""));
-		return nameMatches && buttonPushed;
+		return nameMatches;
     }
     
 }

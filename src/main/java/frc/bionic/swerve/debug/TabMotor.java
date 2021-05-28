@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.shuffleboard.*;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.AbstractSwerveModule;
 import frc.bionic.swerve.IMotor;
+import frc.bionic.swerve.MotorFalcon500;
 
 public class TabMotor {
 
@@ -62,6 +63,7 @@ public class TabMotor {
             sb_motorB = motorSelector.add("B", false).withSize(1, 1).withPosition(1, 0)
                     .withWidget(BuiltInWidgets.kToggleButton).getEntry();
         }
+        // Selected Indicator
         {
             var selected = motorTab.getLayout("Selected", BuiltInLayouts.kGrid);
             selected.withProperties(Map.of("Number of columns", 2, "Number of rows", 1));
@@ -121,12 +123,12 @@ public class TabMotor {
             motorPid.withProperties(Map.of("Number of columns", 2, "Number of rows", 4));
             motorPid.withPosition(0, 1);
 
-            sb_mpid_kP = motorPid.add("kP", 0).withSize(1, 1).withPosition(0, 0).getEntry();
-            sb_mpid_kI = motorPid.add("kI", 0).withSize(1, 1).withPosition(0, 1).getEntry();
-            sb_mpid_kIz = motorPid.add("kIz", 0).withSize(1, 1).withPosition(0, 2).getEntry();
-            sb_mpid_kD = motorPid.add("kD", 0).withSize(1, 1).withPosition(0, 3).getEntry();
+            sb_mpid_kP  = motorPid.addPersistent("kP",  MotorFalcon500.kMotorP ).withSize(1, 1).withPosition(0, 0).getEntry();
+            sb_mpid_kI  = motorPid.addPersistent("kI",  MotorFalcon500.kMotorI ).withSize(1, 1).withPosition(0, 1).getEntry();
+            sb_mpid_kIz = motorPid.addPersistent("kIz", MotorFalcon500.kMotorIz).withSize(1, 1).withPosition(0, 2).getEntry();
+            sb_mpid_kD  = motorPid.addPersistent("kD",  MotorFalcon500.kMotorD ).withSize(1, 1).withPosition(0, 3).getEntry();
 
-            sb_mpid_kF = motorPid.add("kF", 0).withSize(1, 1).withPosition(1, 0).getEntry();
+            sb_mpid_kF = motorPid.add("kF",   MotorFalcon500.kMotorFf).withSize(1, 1).withPosition(1, 0).getEntry();
             sb_mpid_max = motorPid.add("max", 0).withSize(1, 1).withPosition(1, 1).getEntry();
             sb_mpid_min = motorPid.add("min", 0).withSize(1, 1).withPosition(1, 2).getEntry();
         }
@@ -232,14 +234,15 @@ public class TabMotor {
         }
 
         // pid
-        if (sb_mpid_apply.getBoolean(true)) {
+        if (sb_mpid_apply.getBoolean(false)) {
+            sb_mpid_apply.setBoolean(false);
             selectedMotor.setPIIzDF(
                 sb_mpid_kP.getDouble(0), 
                 sb_mpid_kI.getDouble(0), 
                 sb_mpid_kIz.getDouble(0),
                 sb_mpid_kD.getDouble(0), 
                 sb_mpid_kF.getDouble(0));
-            selectedMotor.setOutputRange(sb_mpid_max.getDouble(0), sb_mpid_min.getDouble(0));
+            // selectedMotor.setOutputRange(sb_mpid_max.getDouble(0), sb_mpid_min.getDouble(0));
         }
 
     }

@@ -41,15 +41,15 @@ public class SwerveModule extends AbstractSwerveModule{
                motorA, motorB, encoder, WHEEL_DIAMETER_METERS);
   }
 
-  // abstract method implementation
-  protected double getARPM(double wheelRPM, double yawRPM)
-  {
-    return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
-  }
+  // // abstract method implementation
+  // protected double getARPM(double wheelRPM, double yawRPM)
+  // {
+  //   return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
+  // }
 
-  // abstract method implementation
-  protected double getBRPM(double wheelRPM, double yawRPM)
-  {
-    return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
-  }
+  // // abstract method implementation
+  // protected double getBRPM(double wheelRPM, double yawRPM)
+  // {
+  //   return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
+  // }
 }

@@ -63,7 +63,7 @@ public abstract class AbstractSwerveModule
   // Block periodic until we're initialized
   private boolean           bInitialized = false;
 
-  private PIDController     yawPid = new PIDController(0.4, 0.0001, 0.015);
+  private PIDController     yawPid = new PIDController(5, 0, 0); //0.4, 0.0001, 0.015
   
 
   public AbstractSwerveModule(String name, String shuffleboardTabName)
@@ -190,14 +190,24 @@ public abstract class AbstractSwerveModule
     {
       return;
     }
+    // SmartDashboard.putData("YawPID", yawPid);
 
     // Determine the percentage of output, based on difference between
     // yaw goal and actual angle, to be used in the RPM calculation.
     // calculatedYawRPM = yawEncoder.getOutputSignedPercent(desiredYawDegrees) * MAX_YAW_SPEED_RPM; //OLD
 
-    calculatedYawRPM = 0; //yawPid.calculate(yawEncoder.getDistanceDegrees(), desiredYawDegrees);
+    // we may have a sign error here
+    // double headingError = yawEncoder.getDistanceDegrees() - desiredYawDegrees;
+    SmartDashboard.putNumber("Heading Error "+name, yawPid.getPositionError());
 
-    // if (! sb_control.getBoolean(true))
+    // double kP = 4;
+    // calculatedYawRPM = headingError * kP; 
+    calculatedYawRPM = yawPid.calculate(yawEncoder.getDistanceDegrees(), desiredYawDegrees);
+
+    // SmartDashboard.putNumber("Lame PID "+name, calculatedYawRPM);
+    // SmartDashboard.putNumber("WPI PID "+name, res);
+
+    // 
 
     motorA.periodic();
     motorB.periodic();
@@ -209,16 +219,18 @@ public abstract class AbstractSwerveModule
       // do not do module control
       return;
     }
-    if (Robot.debugDash.modTab.useModuleControlOnAndNameMatches(name)) {
+    if (Robot.debugDash.modTab.useModuleControlOn()) {
         // Given the desired wheel and yaw RPM, calculate and specify the
         // motor speeds necessary to achieve them
-        System.out.println("Here "+name);
-        SmartDashboard.putNumber("BB DesiredWheelSpeedRPM "+name, desiredWheelSpeedRPM);
-        setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+        // System.out.println("Here "+name);
+        // SmartDashboard.putNumber("BB DesiredWheelSpeedRPM "+name, desiredWheelSpeedRPM);
+        if (Robot.debugDash.modTab.nameMatches(name)) {
+          setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+        }
         return;
     }
-    //@todo think more about this
-    // setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+    setMotorSpeedsRPM(desiredWheelSpeedRPM, calculatedYawRPM);
+    
   }
 
   /**
@@ -243,7 +255,9 @@ public abstract class AbstractSwerveModule
     // all three pairs of gears. The differential pinion generates
     // translation as a function of the speed of the top and bottom
     // differential gears.
-    return ((aMotorRPM - bMotorRPM) / 2) * GEAR_RATIO_WHEEL_SPEED ;
+    return ((aMotorRPM + bMotorRPM) / 2) * GEAR_RATIO_WHEEL_SPEED;
+
+    // Peyton => return ((aMotorRPM - bMotorRPM) / 2) * GEAR_RATIO_WHEEL_SPEED ;
   }
 
   /**
@@ -264,7 +278,9 @@ public abstract class AbstractSwerveModule
     // orientation? Always add?
 
     // Yaw is calculated as the average of a and b, adjusted by gear ratio
-    return ((aMotorRPM + bMotorRPM) / 2) * GEAR_RATIO_YAW;
+    return ((aMotorRPM - bMotorRPM) / 2) * GEAR_RATIO_YAW;
+
+    //peyton => return ((aMotorRPM + bMotorRPM) / 2) * GEAR_RATIO_YAW;
   }
 
   /**
@@ -278,7 +294,12 @@ public abstract class AbstractSwerveModule
    * or this:
    *     return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
    */
-  abstract protected double getARPM(double wheelRPM, double yawRPM);
+  protected double getARPM(double wheelRPM, double yawRPM)
+  {
+    return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
+
+    //peyton => return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
+  } 
 
   /**
    * Calculate the motor B RPM. Calculating motor A and B RPMs require
@@ -291,7 +312,12 @@ public abstract class AbstractSwerveModule
    * or this:
    *     return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
    */
-  abstract protected double getBRPM(double wheelRPM, double yawRPM);
+  protected double getBRPM(double wheelRPM, double yawRPM)
+  {
+    return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) + (yawRPM / GEAR_RATIO_YAW);
+
+    //peyton => return (wheelRPM / GEAR_RATIO_WHEEL_SPEED) - (yawRPM / GEAR_RATIO_YAW);
+  }
 
   /**
    * Convert desired translation and yaw RPMs to motor RPMs
