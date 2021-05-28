@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
 
     // UserInterface.createDefaultUI();
+    UserInterface.createUIJoystick0(drivetrain);
     debugDash = new DebugDash(drivetrain);
 
   }
@@ -58,7 +59,7 @@ public class Robot extends TimedRobot {
     // System.out.println("RobotPerodic");
     CommandScheduler.getInstance().run();
 
-    debugDash.perodic();
+    debugDash.periodic();
   }
 
   @Override

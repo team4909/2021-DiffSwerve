@@ -136,9 +136,19 @@ public class TabModule {
 			sb_yaw_max = motorPid.add("max", 0).withSize(1, 1).withPosition(1, 1).getEntry();
 			sb_yaw_min = motorPid.add("min", 0).withSize(1, 1).withPosition(1, 2).getEntry();
 		}
+
+		// Heading Errors
+		{
+			//@todo yawpid.getPositionError()
+			// sb_tSP_input = setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+			// sb_tSP_input = setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+			// sb_tSP_input = setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+			// sb_tSP_input = setpoints.add("input",  3000).withSize(1, 1).withPosition(2, 1).getEntry();
+
+		}
 	}
 
-	void perodic() {
+	void periodic() {
 		AbstractSwerveModule selectedModule = null;
         if (sb_modLF.getBoolean(false)) {
             sb_modLF.setBoolean(false);

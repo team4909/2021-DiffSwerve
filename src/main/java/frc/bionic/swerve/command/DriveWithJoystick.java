@@ -90,9 +90,9 @@ public class DriveWithJoystick extends CommandBase {
     }
 
     // Calls the drive method in Drivetrain. The rotation is only allowed when Button 2 is pressed
-    if (sb_enable_joystick.getBoolean(false))
+    if (Robot.debugDash.dtTab.isJoystickEnabled())
     {
-      // drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
+      drivetrain.drive(xSpeed, ySpeed, joystick.getRawButton(2) ? rot : 0);
     }
 
     
@@ -100,11 +100,11 @@ public class DriveWithJoystick extends CommandBase {
 
   protected void initShuffleboard(){
    
-    ShuffleboardTab tab = Shuffleboard.getTab("Maintenance");
+    // ShuffleboardTab tab = Shuffleboard.getTab("Maintenance");
 
-    sb_enable_joystick = tab.addPersistent("Joystick Enabled", true)
-                            .withSize(2, 2)
-                            .withWidget(BuiltInWidgets.kToggleButton).getEntry();
+    // sb_enable_joystick = tab.addPersistent("Joystick Enabled", true)
+    //                         .withSize(2, 2)
+    //                         .withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
     
   }

@@ -11,7 +11,7 @@ public class TabDrivetrain {
     
     private NetworkTableEntry sb_lf_heading, sb_lf_speed;
 	private NetworkTableEntry sb_rf_heading, sb_rf_speed;
-	private NetworkTableEntry sb_gyro_reset, sb_gyroHeading, sb_override, sb_use_slew;
+	private NetworkTableEntry sb_gyro_reset, sb_gyroHeading, sb_use_joystick, sb_override, sb_use_slew;
 	private NetworkTableEntry sb_xSpeed, sb_ySpeed, sb_zSpeed;
 	private NetworkTableEntry sb_lr_heading, sb_lr_speed;
 	private NetworkTableEntry sb_rr_heading, sb_rr_speed;
@@ -32,10 +32,13 @@ public class TabDrivetrain {
 		row = 2;
 		sb_gyro_reset = dtTab.add("Gyro Reset", false).withSize(2, 2).withPosition(0, row)
 				.withWidget(BuiltInWidgets.kToggleButton).getEntry();
-		sb_override = dtTab.add("Use Overrides", false).withSize(2, 2).withPosition(4, row)
+		sb_override = dtTab.add("Use Overrides", false).withSize(2, 2).withPosition(5, row)
+				.withWidget(BuiltInWidgets.kToggleButton).getEntry();
+		sb_use_joystick = dtTab.add("Enable Joystick", true).withSize(2, 2).withPosition(3, row)
 				.withWidget(BuiltInWidgets.kToggleButton).getEntry();
 		sb_use_slew = dtTab.add("Enable Slew", true).withSize(2, 2).withPosition(8, row)
 				.withWidget(BuiltInWidgets.kToggleButton).getEntry();
+				
 
 		row = 4;
 		sb_xSpeed = dtTab.add("xSpeed Override", 0).withSize(3, 2).withPosition(0, row)
@@ -53,7 +56,7 @@ public class TabDrivetrain {
 		sb_rr_speed = dtTab.add("RR Speed", 0).withSize(2, 2).withPosition(8, row).getEntry();
 	}
 
-	void perodic() {
+	void periodic() {
 
 		if (shouldGyroReset()) {
 			drivetrain.resetGyroAngle();
@@ -104,6 +107,11 @@ public class TabDrivetrain {
 			sb_gyro_reset.setBoolean(false); // make this a momentary button
 		}
 		return rst;
+	}
+
+	public boolean isJoystickEnabled() {
+		boolean joystickDisabled = sb_use_joystick.getBoolean(false);
+		return joystickDisabled;
 	}
     
 }

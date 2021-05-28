@@ -1,30 +1,30 @@
-// /*
-//  * Team 4909, Bionics
-//  * Billerica Memorial High School
-//  *
-//  * Copyright:
-//  *   2021 Bionics
-//  *
-//  * License:
-//  *   MIT: https://opensource.org/licenses/MIT
-//  *   See the LICENSE file in the project's top-level directory for details.
-//  */
+/*
+ * Team 4909, Bionics
+ * Billerica Memorial High School
+ *
+ * Copyright:
+ *   2021 Bionics
+ *
+ * License:
+ *   MIT: https://opensource.org/licenses/MIT
+ *   See the LICENSE file in the project's top-level directory for details.
+ */
 
-// package frc.robot;
+package frc.robot;
 
 // import java.util.HashMap;
 
-// import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-// import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-// // import frc.bionic.TrajectoryFollow;
-// import frc.bionic.UserInterfaceElement;
-// import frc.bionic.swerve.AbstractDrivetrain;
-// import frc.bionic.swerve.command.DriveWithJoystick;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+// import frc.bionic.TrajectoryFollow;
+import frc.bionic.UserInterfaceElement;
+import frc.bionic.swerve.AbstractDrivetrain;
+import frc.bionic.swerve.command.DriveWithJoystick;
 
 // @SuppressWarnings( { "rawtypes", "unchecked" })
-// public class UserInterface
-// {
+public class UserInterface
+{
 //   // Registry of objects that our user interface can operate on
 //   private static HashMap<String, UserInterfaceElement> objectRegistry = new HashMap<String, UserInterfaceElement>();
 
@@ -49,27 +49,25 @@
 //   public static void createDefaultUI()
 //   {
 //     createUIJoystick0();
-//     createUIJoystick1();
-//     createUIDashboard();
+//     // createUIJoystick1();
+//     // createUIDashboard();
 //   }
 
-//   /**
-//    * Create the user interface operated via Joystick 0
-//    */
-//   private static void createUIJoystick0()
-//   {
-//     Joystick                           joystick0 = new Joystick(0);
-//     UserInterfaceElement<AbstractDrivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
-//     AbstractDrivetrain                         drivetrain = drivetrainElem.get();
+  /**
+   * Create the user interface operated via Joystick 0
+   */
+  public static void createUIJoystick0(AbstractDrivetrain drivetrain)
+  {
+    Joystick                           joystick0 = new Joystick(0);
 
-//     // Set the default command
-//     drivetrain.setDefaultCommand(new DriveWithJoystick(drivetrain, joystick0));
+    // Set the default command
+    drivetrain.setDefaultCommand(new DriveWithJoystick(drivetrain, joystick0));
 
-//     // Add a mapping to the primary joystick, to lock the swerve
-//     // module rotation in place
-//     // new JoystickButton(joystick0, 4) //@todo put this back to 11
-//     //   .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
-//   }
+    // Add a mapping to the primary joystick, to lock the swerve
+    // module rotation in place
+    // new JoystickButton(joystick0, 4) //@todo put this back to 11
+    //   .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
+  }
   
 //   // public static SequentialCommandGroup followTrajectory(){
 //   //   UserInterfaceElement<AbstractDrivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
@@ -93,4 +91,4 @@
 //   {
 //     // nothing yet
 //   }
-// }
+}

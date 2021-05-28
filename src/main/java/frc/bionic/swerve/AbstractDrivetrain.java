@@ -144,31 +144,31 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
    */
   public void drive(double xSpeed, double ySpeed, double rotate) {
     // Scale requested speed percentage [-1, 1]. to meters per second
-    throw new Error("Dont Call Me");
-    // xSpeed *= kMaxSpeed;
-    // ySpeed *= kMaxSpeed;
-    // rotate *= kMaxSpeed;
+    // throw new Error("Dont Call Me");
+    xSpeed *= kMaxSpeed;
+    ySpeed *= kMaxSpeed;
+    rotate *= kMaxSpeed;
 
     // System.out.println("Drivetrain Drive Called");
 
-    // var chassisSpeeds = 
-    //   ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate, 
-    //                                         Rotation2d.fromDegrees(this.getGyroAngle()));
+    var chassisSpeeds = 
+      ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotate, 
+                                            Rotation2d.fromDegrees(this.getGyroAngle()));
 
-    // var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
-    // SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
+    var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
+    SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
 
-    // if (! Robot.debugDash.motorTab.useMotorControl()) {
-    //   actuateModules(swerveModuleStates);
-    // }    
+    if (! Robot.debugDash.motorTab.useMotorControl()) {
+      actuateModules(swerveModuleStates);
+    }    
   }
 
-  // public void actuateModules(SwerveModuleState[] states){
-  //   swerveRF.setModuleState(states[0]);
-  //   swerveLF.setModuleState(states[1]);
-  //   swerveLR.setModuleState(states[2]);
-  //   swerveRR.setModuleState(states[3]);
-  // }
+  public void actuateModules(SwerveModuleState[] states){
+    swerveRF.setModuleState(states[0]);
+    swerveLF.setModuleState(states[1]);
+    swerveLR.setModuleState(states[2]);
+    swerveRR.setModuleState(states[3]);
+  }
 
   /**
    * Orient the wheels such that the robot attempts to prevent being pushed

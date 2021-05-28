@@ -26,9 +26,9 @@ public class DebugDash {
 		dtTab = new TabDrivetrain(drivetrain);
 	}
 
-	public void perodic() {
-		motorTab.perodic();
-		modTab.perodic();
-		dtTab.perodic();
+	public void periodic() {
+		motorTab.periodic();
+		modTab.periodic();
+		dtTab.periodic();
 	}
 }

@@ -134,7 +134,7 @@ public class TabMotor {
         }
     }
 
-    void perodic() {
+    void periodic() {
 
         AbstractSwerveModule selectedModule = null;
         if (sb_modLF.getBoolean(false)) {

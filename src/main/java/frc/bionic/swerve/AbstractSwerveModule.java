@@ -198,7 +198,7 @@ public abstract class AbstractSwerveModule
 
     // we may have a sign error here
     // double headingError = yawEncoder.getDistanceDegrees() - desiredYawDegrees;
-    SmartDashboard.putNumber("Heading Error "+name, yawPid.getPositionError());
+    // SmartDashboard.putNumber("Heading Error "+name, yawPid.getPositionError());
 
     // double kP = 4;
     // calculatedYawRPM = headingError * kP; 
