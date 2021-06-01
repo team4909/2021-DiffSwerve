@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.bionic.Conversion;
 import frc.robot.Robot;
 
 public abstract class AbstractDrivetrain extends SubsystemBase {
@@ -41,7 +42,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private SwerveDriveOdometry     odometry;
   private Pose2d                  currentPose;
 
-  private double                  kMaxSpeed = 2.0;  // meters per second
+  private double                  kMaxSpeed = Conversion.fpsToMps(23);  // meters per second
 
   //Shuffleboard Related
   private String                   name;

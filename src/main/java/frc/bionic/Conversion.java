@@ -205,4 +205,24 @@ public class Conversion
 
     return (offsetValue - (Math.floor(offsetValue / width) * width)) + rangeStart;
   }
+
+  /**
+     * Convert feet per second to meters per second
+     * 
+     * @param fps feet per second
+     * @return meters per second
+     */
+    static public double fpsToMps(double fps) {
+      return fps * 0.3048;
+  }
+
+  /**
+   * Convert meters per second to feet per second
+   * 
+   * @param mps meters per second
+   * @return feet per second
+   */
+  static public double mpsToFps(double mps) {
+      return mps * 3.28084;
+  }
 }
