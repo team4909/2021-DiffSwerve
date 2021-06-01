@@ -23,9 +23,13 @@ import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
 import frc.bionic.swerve.debug.DebugDash;
+import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
+
+  private ShooterSubsystem shooter;
+  private Vision vision;
 
   public static DebugDash debugDash = null;
 
@@ -48,6 +52,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    shooter = new ShooterSubsystem();
+    // TODO: change values based on Limelight mounting
+    vision = new Vision(0, 0, 0, 0, 0);
   }
 
   @Override
