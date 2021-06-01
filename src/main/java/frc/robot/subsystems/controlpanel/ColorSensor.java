@@ -14,12 +14,12 @@ public class ColorSensor extends SubsystemBase {
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private ColorMatch colorMatch = new ColorMatch();
 
-    // Estimations of the 4 colors
+    // Estimations of the 4 colors (May not be accurate...)
     private final Color blue = ColorMatch.makeColor(0.143, 0.427, 0.429);
     private final Color green = ColorMatch.makeColor(0.197, 0.561, 0.240);
     private final Color red = ColorMatch.makeColor(0.561, 0.232, 0.114);
     private final Color yellow = ColorMatch.makeColor(0.361, 0.524, 0.113);
-    private String colorString;
+    private String colorString = null;
 
     public ColorSensor() {
         colorMatch.addColorMatch(blue);
@@ -37,7 +37,6 @@ public class ColorSensor extends SubsystemBase {
         SmartDashboard.putNumber("Red", detectedColor.red);
         SmartDashboard.putNumber("Green", detectedColor.green);
         SmartDashboard.putNumber("Blue", detectedColor.blue);
-
 
         ColorMatchResult match = colorMatch.matchClosestColor(detectedColor);
 
