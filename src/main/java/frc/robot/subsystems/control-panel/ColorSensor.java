@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.ColorSensorV3;
+import com.revrobotics.frc.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
