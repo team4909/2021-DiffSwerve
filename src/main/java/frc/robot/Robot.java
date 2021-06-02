@@ -23,9 +23,11 @@ import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
 import frc.bionic.swerve.debug.DebugDash;
+import frc.robot.subsystems.indexer.IndexerSubsystem;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
+  private IndexerSubsystem indexer;
 
   public static DebugDash debugDash = null;
 
@@ -38,10 +40,12 @@ public class Robot extends TimedRobot {
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
     drivetrain = new frc.team4909.Drivetrain();
+    indexer = new IndexerSubsystem();
     // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
 
     // UserInterface.createDefaultUI();
     UserInterface.createUIJoystick0(drivetrain);
+    UserInterface.createUIGamepad1(indexer);
     debugDash = new DebugDash(drivetrain);
 
   }

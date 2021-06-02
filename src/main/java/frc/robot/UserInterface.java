@@ -12,15 +12,24 @@
 
 package frc.robot;
 
+
 // import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
+import edu.wpi.first.wpilibj.XboxController.Axis;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.controller.ControllerUtil;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.command.DriveWithJoystick;
+import frc.robot.subsystems.indexer.IndexerSubsystem;
 
 // @SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
@@ -67,7 +76,23 @@ public class UserInterface
     // module rotation in place
     // new JoystickButton(joystick0, 4) //@todo put this back to 11
     //   .whileHeld(() -> drivetrain.lockInPlace(), drivetrain);
+    
   }
+
+  /**
+   * Create the user interface operated via Joystick 1
+   * Use for operating non-driving subsystems
+   */
+  public static void createUIGamepad1(IndexerSubsystem indexer){
+    XboxController gamepad = new XboxController(1);
+
+    // TODO: Check if the gamepad values update
+    if(Math.abs(gamepad.getTriggerAxis(Hand.kLeft)) > 0){
+      new InstantCommand(indexer::runIndexer, indexer);
+    }
+  }
+
+
   
 //   // public static SequentialCommandGroup followTrajectory(){
 //   //   UserInterfaceElement<AbstractDrivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
