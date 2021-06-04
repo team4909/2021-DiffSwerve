@@ -14,7 +14,7 @@ public class IndexerSubsystem extends SubsystemBase{
     CANSparkMax indexerMotor;
 
     public IndexerSubsystem(){
-        indexerMotor = new CANSparkMax(11, MotorType.kBrushed);
+        indexerMotor = new CANSparkMax(11, MotorType.kBrushless);
     }
 
     @Override
@@ -24,6 +24,15 @@ public class IndexerSubsystem extends SubsystemBase{
 
     
     public void runIndexer(){
-        indexerMotor.set(550);
+        indexerMotor.set(1);
     }
+
+    public void stopIndexer(){
+        indexerMotor.set(0);
+    }
+
+    public void reverseIndexer(){
+        indexerMotor.set(-1);
+    }
+
 }

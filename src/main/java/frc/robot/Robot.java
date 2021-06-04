@@ -14,10 +14,13 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
@@ -28,6 +31,7 @@ import frc.robot.subsystems.indexer.IndexerSubsystem;
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
   private IndexerSubsystem indexer;
+  XboxController gamepad = new XboxController(1);
 
   public static DebugDash debugDash = null;
 
@@ -39,14 +43,14 @@ public class Robot extends TimedRobot {
 
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
-    drivetrain = new frc.team4909.Drivetrain();
+    // drivetrain = new frc.team4909.Drivetrain();
     indexer = new IndexerSubsystem();
     // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
 
     // UserInterface.createDefaultUI();
-    UserInterface.createUIJoystick0(drivetrain);
+    // UserInterface.createUIJoystick0(drivetrain);
     UserInterface.createUIGamepad1(indexer);
-    debugDash = new DebugDash(drivetrain);
+    // debugDash = new DebugDash(drivetrain);
 
   }
 
@@ -62,8 +66,11 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // System.out.println("RobotPerodic");
     CommandScheduler.getInstance().run();
+    // indexer.runIndexer();
 
-    debugDash.periodic();
+    
+
+    // debugDash.periodic();
   }
 
   @Override

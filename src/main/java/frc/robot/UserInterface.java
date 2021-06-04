@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.XboxController.Axis;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.controller.ControllerUtil;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -87,8 +86,14 @@ public class UserInterface
     XboxController gamepad = new XboxController(1);
 
     // TODO: Check if the gamepad values update
-    if(Math.abs(gamepad.getTriggerAxis(Hand.kLeft)) > 0){
-      new InstantCommand(indexer::runIndexer, indexer);
+    if(Math.abs(gamepad.getTriggerAxis(Hand.kRight)) > 0.01){
+      System.out.println("Runn");
+      new InstantCommand(indexer::runIndexer, indexer).schedule();
+    } else if(Math.abs(gamepad.getTriggerAxis(Hand.kLeft)) > 0.01){
+      System.out.println("Runn");
+      new InstantCommand(indexer::reverseIndexer, indexer).schedule();
+    } else {
+      new InstantCommand(indexer::stopIndexer, indexer).schedule();
     }
   }
 
