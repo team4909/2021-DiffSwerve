@@ -27,14 +27,17 @@ import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
 import frc.bionic.swerve.debug.DebugDash;
 import frc.robot.subsystems.indexer.IndexerSubsystem;
+import frc.robot.subsystems.shooter.HoodSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
   private IndexerSubsystem indexer;
+  private ShooterSubsystem shooter;
+  private HoodSubsystem hood;
+
   XboxController gamepad = new XboxController(1);
 
-  private ShooterSubsystem shooter;
   private Vision vision;
 
   public static DebugDash debugDash = null;
@@ -48,9 +51,14 @@ public class Robot extends TimedRobot {
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
     // drivetrain = new frc.team4909.Drivetrain();
+    hood = new HoodSubsystem();
+    shooter = new ShooterSubsystem();
     indexer = new IndexerSubsystem();
+
     UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
     UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
+    UserInterface.registerObject("Shooter", new UserInterfaceElement<ShooterSubsystem>(shooter));
+    UserInterface.registerObject("Hood", new UserInterfaceElement<HoodSubsystem>(hood));
 
 
     // UserInterface.createDefaultUI();
@@ -86,6 +94,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
 
   }
+
 
   @Override
   public void teleopPeriodic() {

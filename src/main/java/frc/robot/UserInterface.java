@@ -28,6 +28,8 @@ import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.command.DriveWithJoystick;
 import frc.robot.subsystems.indexer.IndexerSubsystem;
+import frc.robot.subsystems.shooter.HoodSubsystem;
+import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 @SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
@@ -39,6 +41,8 @@ public class UserInterface
 
   private static IndexerSubsystem indexerSubsystem;
   private static AbstractDrivetrain drivetrain;
+  private static ShooterSubsystem shooterSubsystem;
+  private static HoodSubsystem hoodSubsystem;
 
 
   /**
@@ -92,10 +96,17 @@ public class UserInterface
   public static void createUIGamepad1(){
     gamepad1 = new XboxController(1);
     UserInterfaceElement<IndexerSubsystem> indexerElement = objectRegistry.get("Indexer");
-    indexerSubsystem = indexerElement.get();
+    indexerSubsystem = indexerElement.get();    
+
+    UserInterfaceElement<ShooterSubsystem> shooterElement = objectRegistry.get("Shooter");
+    shooterSubsystem = shooterElement.get();
+
+    UserInterfaceElement<HoodSubsystem> hoodElement = objectRegistry.get("Hood");
+    hoodSubsystem = hoodElement.get();
   }
 
   public static void periodic(){
+
     // Checks to see if Right Trigger is pressed
     if(Math.abs(gamepad1.getTriggerAxis(Hand.kRight)) > 0.01){
       // Runs the indexer at full speed forward
@@ -106,6 +117,17 @@ public class UserInterface
     } else {
       // If nothing is being pressed do not run indexer
       new InstantCommand(indexerSubsystem::stopIndexer, indexerSubsystem).schedule();
+    }
+
+    // Check to see if the up POV is pressed
+    if(gamepad1.getPOV() == 0){
+      // Moves the hood up by 10 ticks
+      new InstantCommand(hoodSubsystem::moveHoodUp, hoodSubsystem).schedule();
+      System.out.println("UP");
+    } else if(gamepad1.getPOV() == 180){
+      // Moves the hood down by 10 ticks
+      new InstantCommand(hoodSubsystem::moveHoodDown, hoodSubsystem).schedule();
+      System.out.println("DOWN");
     }
   }
 
