@@ -51,7 +51,7 @@ public class DriveWithJoystick extends CommandBase {
   }
 
   public void execute() {
-    System.out.println("DriveWithJS");
+    // System.out.println("DriveWithJS");
     // Get the x speed. We are inverting this because Xbox controllers return
     // negative values when we push forward.
     double xSpeed = joystick.getY();
