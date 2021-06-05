@@ -26,11 +26,16 @@ import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
 import frc.bionic.swerve.debug.DebugDash;
+import frc.robot.subsystems.controlpanel.ColorSensor;
+import frc.robot.subsystems.controlpanel.Manipulator;
 import frc.robot.subsystems.indexer.IndexerSubsystem;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
   private IndexerSubsystem indexer;
+
+  ColorSensor colorSensor;
+  Manipulator manipulator;
   XboxController gamepad = new XboxController(1);
 
   public static DebugDash debugDash = null;
