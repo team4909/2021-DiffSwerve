@@ -1,20 +1,33 @@
 package frc.robot.subsystems.controlpanel;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Manipulator {
+public class Manipulator extends SubsystemBase {
     
+    private final int FLIP_PCM_CHANNEL = 0;
+
     CANSparkMax spinMotor;
     ColorSensor colorSensor;
-
+    Solenoid flip;
+    
     //Pneumatics
     Compressor c = new Compressor(0);
     
 
-    public Manipulator() {
-        //this.colorSensor = cs;
+    public Manipulator(ColorSensor cs) {
+        spinMotor = new CANSparkMax(13, MotorType.kBrushless);
+        flip = new Solenoid(FLIP_PCM_CHANNEL);
+        this.colorSensor = cs;
+    }
+
+    @Override
+    public void periodic() {
+        System.out.println(colorSensor.getColor());
     }
 
     public void spinWheel() {
@@ -25,5 +38,13 @@ public class Manipulator {
         while (colorSensor.getColor() != selectedColor) {
             spinWheel();
         }
+    }
+
+    public void flipUp() {
+        flip.set(true);
+    }
+
+    public void flipDown() {
+        flip.set(false);
     }
 }

@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
     // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
 
     colorSensor = new ColorSensor();
-    manipulator = new Manipulator();
+    manipulator = new Manipulator(colorSensor);
     // UserInterface.createDefaultUI();
     //UserInterface.createUIJoystick0(drivetrain);
     //debugDash = new DebugDash(drivetrain);
@@ -54,6 +54,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    
   }
 
   @Override
@@ -70,7 +71,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
+    manipulator.flipUp();
   }
 
   // @Override
