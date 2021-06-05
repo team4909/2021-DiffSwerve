@@ -14,22 +14,24 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import frc.bionic.TrajectoryFollow;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
 import frc.bionic.swerve.debug.DebugDash;
-import frc.robot.subsystems.controlpanel.ColorSensor;
-import frc.robot.subsystems.controlpanel.Manipulator;
+import frc.robot.subsystems.indexer.IndexerSubsystem;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
-  private ColorSensor colorSensor;
-  private Manipulator manipulator;
+  private IndexerSubsystem indexer;
+  XboxController gamepad = new XboxController(1);
 
   public static DebugDash debugDash = null;
 
@@ -41,14 +43,18 @@ public class Robot extends TimedRobot {
 
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
-    //drivetrain = new frc.team4909.Drivetrain();
-    // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
+    // drivetrain = new frc.team4909.Drivetrain();
+    indexer = new IndexerSubsystem();
+    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
+    UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
+
 
     colorSensor = new ColorSensor();
     manipulator = new Manipulator(colorSensor);
     // UserInterface.createDefaultUI();
-    //UserInterface.createUIJoystick0(drivetrain);
-    //debugDash = new DebugDash(drivetrain);
+    // UserInterface.createUIJoystick0(drivetrain);
+    UserInterface.createUIGamepad1();
+    // debugDash = new DebugDash(drivetrain);
 
   }
 
@@ -65,13 +71,21 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // System.out.println("RobotPerodic");
     CommandScheduler.getInstance().run();
+    // indexer.runIndexer();
 
-    //debugDash.periodic();
+    
+
+    // debugDash.periodic();
   }
 
   @Override
   public void teleopInit() {
     manipulator.flipUp();
+  }
+
+  @Override
+  public void teleopPeriodic() {
+    UserInterface.periodic();
   }
 
   // @Override
