@@ -12,8 +12,7 @@
 
 package frc.robot;
 
-
-// import java.util.HashMap;
+import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -30,25 +29,31 @@ import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.command.DriveWithJoystick;
 import frc.robot.subsystems.indexer.IndexerSubsystem;
 
-// @SuppressWarnings( { "rawtypes", "unchecked" })
+@SuppressWarnings( { "rawtypes", "unchecked" })
 public class UserInterface
 {
-//   // Registry of objects that our user interface can operate on
-//   private static HashMap<String, UserInterfaceElement> objectRegistry = new HashMap<String, UserInterfaceElement>();
+  // Registry of objects that our user interface can operate on
+  private static HashMap<String, UserInterfaceElement> objectRegistry = new HashMap<String, UserInterfaceElement>();
+  private static Joystick joystick0;
+  private static XboxController gamepad1;
 
-//   /**
-//    * Add an object to the registry
-//    *
-//    * @param id
-//    *   The ID to use for access to the provided object
-//    *
-//    * @param obj
-//    *   The object accessed via reference by the provided ID
-//    */
-//   public static void registerObject(String id, UserInterfaceElement obj)
-//   {
-//     objectRegistry.put(id, obj);
-//   }
+  private static IndexerSubsystem indexerSubsystem;
+  private static AbstractDrivetrain drivetrain;
+
+
+  /**
+   * Add an object to the registry
+   *
+   * @param id
+   *   The ID to use for access to the provided object
+   *
+   * @param obj
+   *   The object accessed via reference by the provided ID
+   */
+  public static void registerObject(String id, UserInterfaceElement obj)
+  {
+    objectRegistry.put(id, obj);
+  }
 
 //   /**
 //    * Create the default user interface. All required objects are expected to
@@ -64,9 +69,11 @@ public class UserInterface
   /**
    * Create the user interface operated via Joystick 0
    */
-  public static void createUIJoystick0(AbstractDrivetrain drivetrain)
+  public static void createUIJoystick0()
   {
-    Joystick                           joystick0 = new Joystick(0);
+    joystick0 = new Joystick(0);
+    UserInterfaceElement<AbstractDrivetrain> drivetrainElement = objectRegistry.get("Drivetrain");
+    drivetrain = drivetrainElement.get();
 
     // Set the default command
     drivetrain.setDefaultCommand(new DriveWithJoystick(drivetrain, joystick0));
@@ -82,18 +89,23 @@ public class UserInterface
    * Create the user interface operated via Joystick 1
    * Use for operating non-driving subsystems
    */
-  public static void createUIGamepad1(IndexerSubsystem indexer){
-    XboxController gamepad = new XboxController(1);
+  public static void createUIGamepad1(){
+    gamepad1 = new XboxController(1);
+    UserInterfaceElement<IndexerSubsystem> indexerElement = objectRegistry.get("Indexer");
+    indexerSubsystem = indexerElement.get();
+  }
 
-    // TODO: Check if the gamepad values update
-    if(Math.abs(gamepad.getTriggerAxis(Hand.kRight)) > 0.01){
-      System.out.println("Runn");
-      new InstantCommand(indexer::runIndexer, indexer).schedule();
-    } else if(Math.abs(gamepad.getTriggerAxis(Hand.kLeft)) > 0.01){
-      System.out.println("Runn");
-      new InstantCommand(indexer::reverseIndexer, indexer).schedule();
+  public static void periodic(){
+    // Checks to see if Right Trigger is pressed
+    if(Math.abs(gamepad1.getTriggerAxis(Hand.kRight)) > 0.01){
+      // Runs the indexer at full speed forward
+      new InstantCommand(indexerSubsystem::runIndexer, indexerSubsystem).schedule();
+    } else if(Math.abs(gamepad1.getTriggerAxis(Hand.kLeft)) > 0.01){
+      // Runs the indexer at full speed backward
+      new InstantCommand(indexerSubsystem::reverseIndexer, indexerSubsystem).schedule();
     } else {
-      new InstantCommand(indexer::stopIndexer, indexer).schedule();
+      // If nothing is being pressed do not run indexer
+      new InstantCommand(indexerSubsystem::stopIndexer, indexerSubsystem).schedule();
     }
   }
 
