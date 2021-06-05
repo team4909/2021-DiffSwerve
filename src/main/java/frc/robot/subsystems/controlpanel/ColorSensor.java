@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ColorSensor extends SubsystemBase {
-    private final I2C.Port i2cPort = I2C.Port.kMXP;
+    private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private ColorMatch colorMatch = new ColorMatch();
 
@@ -30,6 +30,7 @@ public class ColorSensor extends SubsystemBase {
 
     @Override
     public void periodic() {
+
         //Sets the detected color to the current detected color
         Color detectedColor = colorSensor.getColor();
 

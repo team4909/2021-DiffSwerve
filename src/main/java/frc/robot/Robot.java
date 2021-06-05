@@ -23,9 +23,13 @@ import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
 import frc.bionic.swerve.debug.DebugDash;
+import frc.robot.subsystems.controlpanel.ColorSensor;
+import frc.robot.subsystems.controlpanel.Manipulator;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
+  private ColorSensor colorSensor;
+  private Manipulator manipulator;
 
   public static DebugDash debugDash = null;
 
@@ -37,12 +41,14 @@ public class Robot extends TimedRobot {
 
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
-    drivetrain = new frc.team4909.Drivetrain();
+    //drivetrain = new frc.team4909.Drivetrain();
     // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
 
+    colorSensor = new ColorSensor();
+    manipulator = new Manipulator();
     // UserInterface.createDefaultUI();
-    UserInterface.createUIJoystick0(drivetrain);
-    debugDash = new DebugDash(drivetrain);
+    //UserInterface.createUIJoystick0(drivetrain);
+    //debugDash = new DebugDash(drivetrain);
 
   }
 
@@ -59,7 +65,7 @@ public class Robot extends TimedRobot {
     // System.out.println("RobotPerodic");
     CommandScheduler.getInstance().run();
 
-    debugDash.periodic();
+    //debugDash.periodic();
   }
 
   @Override

@@ -14,7 +14,7 @@ public class Manipulator {
     
 
     public Manipulator() {
-        colorSensor = new ColorSensor();
+        //this.colorSensor = cs;
     }
 
     public void spinWheel() {
