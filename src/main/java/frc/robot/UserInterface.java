@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.command.DriveWithJoystick;
+import frc.robot.subsystems.controlpanel.Manipulator;
 import frc.robot.subsystems.indexer.IndexerSubsystem;
 
 @SuppressWarnings( { "rawtypes", "unchecked" })
@@ -39,6 +40,7 @@ public class UserInterface
 
   private static IndexerSubsystem indexerSubsystem;
   private static AbstractDrivetrain drivetrain;
+  private static Manipulator manipulator;
 
 
   /**
@@ -92,21 +94,42 @@ public class UserInterface
   public static void createUIGamepad1(){
     gamepad1 = new XboxController(1);
     UserInterfaceElement<IndexerSubsystem> indexerElement = objectRegistry.get("Indexer");
+    UserInterfaceElement<Manipulator> manipulatorElement = objectRegistry.get("Manipulator");
     indexerSubsystem = indexerElement.get();
+    manipulator = manipulatorElement.get();
   }
 
   public static void periodic(){
     // Checks to see if Right Trigger is pressed
+    // if(Math.abs(gamepad1.getTriggerAxis(Hand.kRight)) > 0.01){
+    //   // Runs the indexer at full speed forward
+    //   new InstantCommand(indexerSubsystem::runIndexer, indexerSubsystem).schedule();
+    // } else if(Math.abs(gamepad1.getTriggerAxis(Hand.kLeft)) > 0.01){
+    //   // Runs the indexer at full speed backward
+    //   new InstantCommand(indexerSubsystem::reverseIndexer, indexerSubsystem).schedule();
+    // } else {
+    //   // If nothing is being pressed do not run indexer
+    //   new InstantCommand(indexerSubsystem::stopIndexer, indexerSubsystem).schedule();
+    // }
+
     if(Math.abs(gamepad1.getTriggerAxis(Hand.kRight)) > 0.01){
       // Runs the indexer at full speed forward
-      new InstantCommand(indexerSubsystem::runIndexer, indexerSubsystem).schedule();
-    } else if(Math.abs(gamepad1.getTriggerAxis(Hand.kLeft)) > 0.01){
-      // Runs the indexer at full speed backward
-      new InstantCommand(indexerSubsystem::reverseIndexer, indexerSubsystem).schedule();
-    } else {
-      // If nothing is being pressed do not run indexer
-      new InstantCommand(indexerSubsystem::stopIndexer, indexerSubsystem).schedule();
+      new InstantCommand(manipulator::flipUp, manipulator).schedule();
     }
+    if (Math.abs(gamepad1.getTriggerAxis(Hand.kLeft)) > 0.01){
+      // If nothing is being pressed do not run indexer
+      new InstantCommand(manipulator::flipDown, manipulator).schedule();
+    }
+
+    if (gamepad1.getAButton() == true) {
+      new InstantCommand(manipulator::spinWheelForward, manipulator).schedule();
+    } else if (gamepad1.getBButton() == true) {
+      new InstantCommand(manipulator::spinWheelReverse, manipulator).schedule();
+    } else {
+      new InstantCommand(manipulator::stopWheel, manipulator).schedule();
+    }
+
+
   }
 
 

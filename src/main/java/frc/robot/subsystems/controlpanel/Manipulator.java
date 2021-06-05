@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Manipulator extends SubsystemBase {
     
     private final int FLIP_PCM_CHANNEL = 0;
+    private final int RPM = 300;
 
     CANSparkMax spinMotor;
     ColorSensor colorSensor;
@@ -30,15 +31,24 @@ public class Manipulator extends SubsystemBase {
         System.out.println(colorSensor.getColor());
     }
 
-    public void spinWheel() {
-        spinMotor.set(300);
+    public void spinWheelForward() {
+        spinMotor.set(RPM);
     }
 
-    public void spinToColor(String selectedColor) {
-        while (colorSensor.getColor() != selectedColor) {
-            spinWheel();
-        }
+    public void spinWheelReverse() {
+        spinMotor.set(-RPM);
     }
+
+    public void stopWheel() {
+        spinMotor.set(0);
+    }
+    
+
+    // public void spinToColor(String selectedColor) {
+    //     while (colorSensor.getColor() != selectedColor) {
+    //         spinWheel();
+    //     }
+    // }
 
     public void flipUp() {
         flip.set(true);

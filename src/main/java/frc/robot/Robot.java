@@ -49,13 +49,16 @@ public class Robot extends TimedRobot {
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
     // drivetrain = new frc.team4909.Drivetrain();
+    colorSensor = new ColorSensor();
+    manipulator = new Manipulator(colorSensor);
+
     indexer = new IndexerSubsystem();
     UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
     UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
+    UserInterface.registerObject("Manipulator", new UserInterfaceElement<Manipulator>(manipulator));
 
 
-    colorSensor = new ColorSensor();
-    manipulator = new Manipulator(colorSensor);
+
     // UserInterface.createDefaultUI();
     // UserInterface.createUIJoystick0(drivetrain);
     UserInterface.createUIGamepad1();
@@ -85,7 +88,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    manipulator.flipUp();
   }
 
   @Override
