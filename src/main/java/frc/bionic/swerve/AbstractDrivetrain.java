@@ -122,10 +122,11 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   }
 
   public void periodic() {
-    swerveRF.periodic();
-    swerveLF.periodic();
-    swerveLR.periodic();
-    swerveRR.periodic();
+    //TODO: Uncomment the periodic calls
+    // swerveRF.periodic();
+    // swerveLF.periodic();
+    // swerveLR.periodic();
+    // swerveRR.periodic();
 
     // currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
     //                               swerveRF.getModuleState(), 
