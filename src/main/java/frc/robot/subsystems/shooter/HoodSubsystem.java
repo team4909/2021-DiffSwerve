@@ -23,8 +23,14 @@ public class HoodSubsystem extends SubsystemBase{
     CANEncoder hoodEncoder;
     double hoodPos;
 
-    double NUMBER_OF_TEETH = 69;
-    double GEAR_RATIO = (1);
+    // How many ticks are in one reovlution of a motor
+    double TICKS_PER_REVOLUTION_MOTOR = 42;
+    // How many rotations of a motor turns the gear
+    double REVOLUTIONS_MOTOR_PER_REVOLUTION_OUTPUT_SHAFT = 16;
+    // How much the hood moves per rotation of the gear
+    double REVOLUTION_HOOD_PER_REVOLUTION_GEAR = 400/69;
+    // How much the hood moves per degree
+    double REVOLUTION_HOOD_PER_DEGREES = 1/360;
 
     public HoodSubsystem(){
         hoodMotor = new CANSparkMax(12, MotorType.kBrushless);
@@ -33,7 +39,13 @@ public class HoodSubsystem extends SubsystemBase{
         hoodPID = new PIDController(0.1, 0, 0);
 
         // TODO: Encoder takes in Channel A, Channel B, and reverse Direction
-        hoodEncoder = hoodMotor.getEncoder(EncoderType.kHallSensor, (int)(NUMBER_OF_TEETH * GEAR_RATIO) / 360);
+        hoodEncoder = hoodMotor.getEncoder(EncoderType.kHallSensor, 42);
+        // Turns the position of the hood, so one "tick" of the motor is equal to one degree of the hood
+        hoodEncoder.setPositionConversionFactor(REVOLUTIONS_MOTOR_PER_REVOLUTION_OUTPUT_SHAFT * 
+                                                REVOLUTIONS_MOTOR_PER_REVOLUTION_OUTPUT_SHAFT *
+                                                REVOLUTION_HOOD_PER_REVOLUTION_GEAR *
+                                                REVOLUTION_HOOD_PER_DEGREES);
+
         hoodEncoder.setPosition(0);
 
     }
@@ -53,8 +65,8 @@ public class HoodSubsystem extends SubsystemBase{
     }
 
     public void moveHoodUp(){
-        if (hoodPos < 360){
-            hoodPos += 1;
+        if (hoodPos < 20){
+            hoodPos += 0.5;
         }
     }
 

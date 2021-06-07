@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
 
 
     // UserInterface.createDefaultUI();
-    // UserInterface.createUIJoystick0(drivetrain);
+    UserInterface.createUIJoystick0();
     UserInterface.createUIGamepad1();
     // debugDash = new DebugDash(drivetrain);
 

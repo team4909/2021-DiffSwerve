@@ -124,7 +124,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   public void periodic() {
     //TODO: Uncomment the periodic calls
     // swerveRF.periodic();
-    // swerveLF.periodic();
+    swerveLF.periodic();
     // swerveLR.periodic();
     // swerveRR.periodic();
 
