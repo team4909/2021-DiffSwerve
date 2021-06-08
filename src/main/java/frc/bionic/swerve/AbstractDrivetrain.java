@@ -50,11 +50,6 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private NetworkTableEntry        sb_Current_Pose_Y;
   private NetworkTableEntry        sb_Current_Pose_Rotation;
 
-  
-
-
-
-
   /**
    * Extending class must implement `getGyroAngle` method which returns the
    * robot's rotation in degrees. Degrees can be continuous, so result may be
