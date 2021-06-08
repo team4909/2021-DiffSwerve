@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ColorSensor extends SubsystemBase {
-    private final I2C.Port i2cPort = I2C.Port.kOnboard;
+    private final I2C.Port i2cPort = I2C.Port.kMXP;
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private ColorMatch colorMatch = new ColorMatch();
 
@@ -35,9 +35,9 @@ public class ColorSensor extends SubsystemBase {
         Color detectedColor = colorSensor.getColor();
 
         //Puts the RGB values on Smart Dashboard
-        SmartDashboard.putNumber("Red", detectedColor.red);
-        SmartDashboard.putNumber("Green", detectedColor.green);
-        SmartDashboard.putNumber("Blue", detectedColor.blue);
+        SmartDashboard.putNumber("Red", colorSensor.getRed());
+        SmartDashboard.putNumber("Green", colorSensor.getGreen());
+        SmartDashboard.putNumber("Blue", colorSensor.getBlue());
 
         ColorMatchResult match = colorMatch.matchClosestColor(detectedColor);
 
