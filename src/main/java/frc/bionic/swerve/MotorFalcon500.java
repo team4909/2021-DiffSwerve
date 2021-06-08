@@ -42,7 +42,7 @@ public class MotorFalcon500 implements IMotor {
   public static final double kMotorFf = 0.0;
   private static final int kMotorSlot = 0;
 
-  private static final SupplyCurrentLimitConfiguration currentLimit = new SupplyCurrentLimitConfiguration(true, 30, 50, 0.005);
+  private static final SupplyCurrentLimitConfiguration currentLimit = new SupplyCurrentLimitConfiguration(true, 30, 0, 0);
   // Devices, Sensors, Actuators
   // private MedianFilter velAverage; //For displaying average RPM
   private TalonFX motor;
