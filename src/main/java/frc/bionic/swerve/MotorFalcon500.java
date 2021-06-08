@@ -16,6 +16,7 @@ import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -41,10 +42,12 @@ public class MotorFalcon500 implements IMotor {
   public static final double kMotorFf = 0.0;
   private static final int kMotorSlot = 0;
 
+  private static final SupplyCurrentLimitConfiguration currentLimit = new SupplyCurrentLimitConfiguration(true, 30, 50, 0.005);
   // Devices, Sensors, Actuators
   // private MedianFilter velAverage; //For displaying average RPM
   private TalonFX motor;
 
+  
   // Shuffleboard-related
   private String            name;
   // private String            shuffleboardTabName;
@@ -85,6 +88,7 @@ public class MotorFalcon500 implements IMotor {
     // Makes a new Talon motor
     motor = new TalonFX(deviceId);
 
+    motor.configSupplyCurrentLimit(currentLimit);
     // Resets the motor to default
     motor.configFactoryDefault();
 
@@ -115,7 +119,6 @@ public class MotorFalcon500 implements IMotor {
   // interface implementation
   public void setGoalRPM(double goalRPM)
   {
-    System.out.printf("Setting Goal for (Falcon) %s to %f\n", name, goalRPM);
     // Convert RPM to ticks. Velocity is set in ticks per 100ms
     double ticksPer100ms = (goalRPM / (60 * 10)) * 2048;
     // SmartDashboard.putNumber(name + " goal", ticksPer100ms);

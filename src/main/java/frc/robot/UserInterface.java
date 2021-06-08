@@ -107,17 +107,17 @@ public class UserInterface
 
   public static void periodic(){
 
-    // Checks to see if Right Trigger is pressed
-    if(Math.abs(gamepad1.getTriggerAxis(Hand.kRight)) > 0.01){
-      // Runs the indexer at full speed forward
-      new InstantCommand(indexerSubsystem::runIndexer, indexerSubsystem).schedule();
-    } else if(Math.abs(gamepad1.getTriggerAxis(Hand.kLeft)) > 0.01){
-      // Runs the indexer at full speed backward
-      new InstantCommand(indexerSubsystem::reverseIndexer, indexerSubsystem).schedule();
-    } else {
-      // If nothing is being pressed do not run indexer
-      new InstantCommand(indexerSubsystem::stopIndexer, indexerSubsystem).schedule();
-    }
+    // // Checks to see if Right Trigger is pressed
+    // if(Math.abs(gamepad1.getTriggerAxis(Hand.kRight)) > 0.01){
+    //   // Runs the indexer at full speed forward
+    //   new InstantCommand(indexerSubsystem::runIndexer, indexerSubsystem).schedule();
+    // } else if(Math.abs(gamepad1.getTriggerAxis(Hand.kLeft)) > 0.01){
+    //   // Runs the indexer at full speed backward
+    //   new InstantCommand(indexerSubsystem::reverseIndexer, indexerSubsystem).schedule();
+    // } else {
+    //   // If nothing is being pressed do not run indexer
+    //   new InstantCommand(indexerSubsystem::stopIndexer, indexerSubsystem).schedule();
+    // }
 
     // Check to see if the up POV is pressed
     if(gamepad1.getPOV() == 0){

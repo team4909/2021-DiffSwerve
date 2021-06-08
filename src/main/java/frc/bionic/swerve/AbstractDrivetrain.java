@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.trajectory.constraint.SwerveDriveKinematicsConstraint;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bionic.Conversion;
 import frc.robot.Robot;
@@ -50,7 +51,8 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private NetworkTableEntry        sb_Current_Pose_Y;
   private NetworkTableEntry        sb_Current_Pose_Rotation;
 
-  
+  private double MAX_ACCELERATION_UP = 5;
+  private double MAX_ACCELERATION_DOWN = 7;  
 
 
 
@@ -123,10 +125,10 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
   public void periodic() {
     //TODO: Uncomment the periodic calls
-    // swerveRF.periodic();
+    swerveRF.periodic();
     swerveLF.periodic();
-    // swerveLR.periodic();
-    // swerveRR.periodic();
+    swerveLR.periodic();
+    swerveRR.periodic();
 
     // currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
     //                               swerveRF.getModuleState(), 
@@ -151,6 +153,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
     ySpeed *= kMaxSpeed;
     rotate *= kMaxSpeed;
 
+
     // System.out.println("Drivetrain Drive Called");
 
     var chassisSpeeds = 
@@ -159,13 +162,13 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
     var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
-
     if (! Robot.debugDash.motorTab.useMotorControl()) {
       actuateModules(swerveModuleStates);
     }    
   }
 
   public void actuateModules(SwerveModuleState[] states){
+    
     swerveRF.setModuleState(states[0]);
     swerveLF.setModuleState(states[1]);
     swerveLR.setModuleState(states[2]);
