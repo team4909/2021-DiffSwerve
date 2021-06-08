@@ -43,15 +43,15 @@ public class Robot extends TimedRobot {
 
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
-    // drivetrain = new frc.team4909.Drivetrain();
+    drivetrain = new frc.team4909.Drivetrain();
     indexer = new IndexerSubsystem();
     UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
     UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
 
 
     // UserInterface.createDefaultUI();
-    // UserInterface.createUIJoystick0(drivetrain);
-    UserInterface.createUIGamepad1();
+    UserInterface.createUIJoystick0();
+    // UserInterface.createUIGamepad1();
     // debugDash = new DebugDash(drivetrain);
 
   }
@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
 
     
 
-    // debugDash.periodic();
+    debugDash.periodic();
   }
 
   @Override
@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    UserInterface.periodic();
+    // UserInterface.periodic();
   }
 
   // @Override

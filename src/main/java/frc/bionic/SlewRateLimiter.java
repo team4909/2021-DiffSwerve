@@ -48,7 +48,7 @@ public class SlewRateLimiter {
    * @return The filtered value, which will not change faster than the slew rate.
    */
   public double calculate(double input) {
-    double currentTime = WPIUtilJNI.now() * 1e-6;
+    double currentTime = WPIUtilJNI.now() * 0.000_001;
     double elapsedTime = currentTime - prevTime;
 
     double inputChange = input - prevVal;
