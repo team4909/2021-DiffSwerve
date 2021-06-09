@@ -783,9 +783,21 @@
               2
             ],
             "content": {
+<<<<<<< Updated upstream
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Hood Position",
               "_title": "/SmartDashboard/Hood Position"
+=======
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Hood Position",
+              "_title": "/SmartDashboard/Hood Position",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul"
+>>>>>>> Stashed changes
             }
           },
           "12,5": {
@@ -1353,6 +1365,33 @@
               "Layout/Label position": "BOTTOM",
               "_children": []
             }
+<<<<<<< Updated upstream
+=======
+          },
+          "21,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Basic Subsystem",
+              "_source0": "network_table:///LiveWindow/ColorSensor",
+              "_title": "ColorSensor"
+            }
+          },
+          "18,4": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Manipulator",
+              "_title": "Manipulator",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+>>>>>>> Stashed changes
           }
         }
       }
@@ -2601,12 +2640,86 @@
           }
         }
       }
+    },
+    {
+      "title": "Tab 10",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "11,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Hood Position",
+              "_title": "SmartDashboard/Hood Position",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul"
+            }
+          },
+          "15,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Red",
+              "_title": "/SmartDashboard/Red"
+            }
+          },
+          "15,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Blue",
+              "_title": "/SmartDashboard/Blue"
+            }
+          },
+          "15,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Green",
+              "_title": "/SmartDashboard/Green"
+            }
+          },
+          "15,6": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Color Match Confidence",
+              "_title": "/SmartDashboard/Color Match Confidence"
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": -1688.0,
-    "y": -8.0,
-    "width": 1696.0,
-    "height": 1026.0
+    "x": -1928.0,
+    "y": -38.0,
+    "width": 1936.0,
+    "height": 1056.0
   }
 }
