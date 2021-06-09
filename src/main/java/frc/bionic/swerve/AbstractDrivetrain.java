@@ -43,7 +43,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private SwerveDriveOdometry     odometry;
   private Pose2d                  currentPose;
 
-  private double                  kMaxSpeed = Conversion.fpsToMps(23);  // meters per second
+  private double                  kMaxSpeed = Conversion.fpsToMps(18);  // meters per second
 
   //Shuffleboard Related
   private String                   name;
@@ -162,6 +162,14 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
     var swerveModuleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
     SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, kMaxSpeed);
+   
+    if(xSpeed == 0 && ySpeed == 0 && rotate == 0){
+        swerveModuleStates[0].angle = swerveRF.getModuleState().angle; 
+        swerveModuleStates[1].angle = swerveLF.getModuleState().angle; 
+        swerveModuleStates[2].angle = swerveLR.getModuleState().angle;
+        swerveModuleStates[3].angle = swerveRR.getModuleState().angle; 
+    }    
+
     if (! Robot.debugDash.motorTab.useMotorControl()) {
       actuateModules(swerveModuleStates);
     }    
