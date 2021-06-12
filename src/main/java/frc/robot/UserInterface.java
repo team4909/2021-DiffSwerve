@@ -129,6 +129,10 @@ public class UserInterface
       new InstantCommand(hoodSubsystem::moveHoodDown, hoodSubsystem).schedule();
       System.out.println("DOWN");
     }
+    
+    if(gamepad1.getXButtonPressed()) {
+      //new InstantCommand(shooterSubsystem::)
+    } 
   }
 
 
