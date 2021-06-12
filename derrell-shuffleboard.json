@@ -413,6 +413,21 @@
               "_title": "Gyro Angle"
             }
           },
+          "16,5": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/NavX",
+              "_title": "NavX",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
           "20,2": {
             "size": [
               1,
@@ -501,6 +516,17 @@
               "_title": "/SmartDashboard/lamprey freq"
             }
           },
+          "13,5": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/lamprey get",
+              "_title": "/SmartDashboard/lamprey get"
+            }
+          },
           "15,3": {
             "size": [
               1,
@@ -582,6 +608,19 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
+          "12,8": {
+            "size": [
+              8,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Swerve Controller Command Running",
+              "_title": "Swerve Controller Command Running",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
           "8,5": {
             "size": [
               2,
@@ -593,30 +632,7 @@
               "_title": "SmartDashboard/NavX Reset"
             }
           },
-          "10,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/TargetVelocity",
-              "_title": "TargetVelocity"
-            }
-          },
           "0,5": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Speed Controller",
-              "_source0": "network_table:///SmartDashboard/flyWheel1",
-              "_title": "flyWheel1",
-              "Visuals/Orientation": "HORIZONTAL"
-            }
-          },
-          "0,7": {
             "size": [
               4,
               2
@@ -635,21 +651,46 @@
             ],
             "content": {
               "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/UseSpeedControllerControl",
-              "_title": "UseSpeedControllerControl",
+              "_source0": "network_table:///SmartDashboard/Enabled",
+              "_title": "Enabled",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "20,3": {
+          "10,3": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RequestedPercentOutput",
-              "_title": "RequestedPercentOutput"
+              "_source0": "network_table:///SmartDashboard/MeasuredVelocityDiff",
+              "_title": "MeasuredVelocityDiff"
+            }
+          },
+          "19,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/UseSpeedControllerControl",
+              "_title": "UseSpeedControllerControl",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "0,7": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///SmartDashboard/flyWheel1",
+              "_title": "flyWheel1",
+              "Visuals/Orientation": "HORIZONTAL"
             }
           },
           "4,6": {
@@ -665,6 +706,17 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
+          "20,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RequestedPercentOutput",
+              "_title": "RequestedPercentOutput"
+            }
+          },
           "2,4": {
             "size": [
               1,
@@ -672,8 +724,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/kP",
-              "_title": "kP"
+              "_source0": "network_table:///SmartDashboard/MeasuredVelocity2",
+              "_title": "MeasuredVelocity2"
             }
           },
           "3,4": {
@@ -683,8 +735,21 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/kI",
-              "_title": "kI"
+              "_source0": "network_table:///SmartDashboard/MeasuredVelocity1",
+              "_title": "MeasuredVelocity1"
+            }
+          },
+          "4,8": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/ApplyPID",
+              "_title": "ApplyPID",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           },
           "6,4": {
@@ -709,19 +774,6 @@
               "_title": "kF"
             }
           },
-          "4,8": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Enabled",
-              "_title": "Enabled",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
           "8,4": {
             "size": [
               1,
@@ -729,8 +781,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Encoder Position",
-              "_title": "Encoder Position"
+              "_source0": "network_table:///SmartDashboard/kI",
+              "_title": "kI"
             }
           },
           "9,4": {
@@ -740,8 +792,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Hood Position",
-              "_title": "Hood Position"
+              "_source0": "network_table:///SmartDashboard/kP",
+              "_title": "kP"
             }
           },
           "10,4": {
@@ -751,91 +803,11 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/MeasuredVelocity1",
-              "_title": "MeasuredVelocity1"
+              "_source0": "network_table:///SmartDashboard/TargetVelocity",
+              "_title": "TargetVelocity"
             }
           },
           "11,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/MeasuredVelocity2",
-              "_title": "MeasuredVelocity2"
-            }
-          },
-          "12,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/MeasuredVelocityDiff",
-              "_title": "MeasuredVelocityDiff"
-            }
-          },
-          "7,9": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-<<<<<<< Updated upstream
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Hood Position",
-              "_title": "/SmartDashboard/Hood Position"
-=======
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/Hood Position",
-              "_title": "/SmartDashboard/Hood Position",
-              "Graph/Visible time": 30.0,
-              "Graph/X-axis auto scrolling": true,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
->>>>>>> Stashed changes
-            }
-          },
-          "12,5": {
-            "size": [
-              7,
-              5
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Encoder Position",
-              "_title": "SmartDashboard/Encoder Position"
-            }
-          },
-          "19,5": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/ApplyPID",
-              "_title": "ApplyPID",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "10,10": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/PID CALCULATE",
-              "_title": "PID CALCULATE"
-            }
-          },
-          "13,4": {
             "size": [
               1,
               1
@@ -846,7 +818,7 @@
               "_title": "Red"
             }
           },
-          "14,4": {
+          "12,4": {
             "size": [
               1,
               1
@@ -855,6 +827,28 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Green",
               "_title": "Green"
+            }
+          },
+          "13,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Blue",
+              "_title": "Blue"
+            }
+          },
+          "14,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Current Color",
+              "_title": "Current Color"
             }
           },
           "15,4": {
@@ -866,28 +860,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Color Match Confidence",
               "_title": "Color Match Confidence"
-            }
-          },
-          "20,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Blue",
-              "_title": "Blue"
-            }
-          },
-          "19,7": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Current Color",
-              "_title": "Current Color"
             }
           }
         }
@@ -1270,6 +1242,12 @@
                   "_title": "PIDController[28]"
                 },
                 {
+                  "_type": "PDP",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
+                  "_title": "PowerDistributionPanel[0]",
+                  "Visuals/Show voltage and current values": true
+                },
+                {
                   "_type": "Speed Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [10]",
                   "_title": "Talon FX [10]",
@@ -1283,15 +1261,15 @@
                 },
                 {
                   "_type": "Boolean Box",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
-                  "_title": "Compressor[0]/Pressure switch",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Enabled",
+                  "_title": "Compressor[0]/Enabled",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
                 },
                 {
                   "_type": "Boolean Box",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Enabled",
-                  "_title": "Compressor[0]/Enabled",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
+                  "_title": "Compressor[0]/Pressure switch",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
                 },
@@ -1336,21 +1314,10 @@
             ],
             "content": {
               "_type": "Subsystem Layout",
-              "_source0": "network_table:///LiveWindow/IndexerSubsystem",
-              "_title": "IndexerSubsystem",
+              "_source0": "network_table:///LiveWindow/ShooterSubsystem",
+              "_title": "ShooterSubsystem",
               "Layout/Label position": "BOTTOM",
               "_children": []
-            }
-          },
-          "18,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Basic Subsystem",
-              "_source0": "network_table:///LiveWindow/ShooterSubsystem",
-              "_title": "ShooterSubsystem"
             }
           },
           "0,4": {
@@ -1360,38 +1327,11 @@
             ],
             "content": {
               "_type": "Subsystem Layout",
-              "_source0": "network_table:///LiveWindow/HoodSubsystem",
-              "_title": "HoodSubsystem",
-              "Layout/Label position": "BOTTOM",
-              "_children": []
-            }
-<<<<<<< Updated upstream
-=======
-          },
-          "21,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Basic Subsystem",
               "_source0": "network_table:///LiveWindow/ColorSensor",
-              "_title": "ColorSensor"
-            }
-          },
-          "18,4": {
-            "size": [
-              4,
-              7
-            ],
-            "content": {
-              "_type": "Subsystem Layout",
-              "_source0": "network_table:///LiveWindow/Manipulator",
-              "_title": "Manipulator",
+              "_title": "ColorSensor",
               "Layout/Label position": "BOTTOM",
               "_children": []
             }
->>>>>>> Stashed changes
           }
         }
       }
@@ -2642,7 +2582,7 @@
       }
     },
     {
-      "title": "Tab 10",
+      "title": "Tab 14",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -2651,24 +2591,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "11,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/Hood Position",
-              "_title": "SmartDashboard/Hood Position",
-              "Graph/Visible time": 30.0,
-              "Graph/X-axis auto scrolling": true,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
-            }
-          },
-          "15,2": {
+          "12,2": {
             "size": [
               1,
               1
@@ -2676,10 +2599,10 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Red",
-              "_title": "/SmartDashboard/Red"
+              "_title": "SmartDashboard/Red"
             }
           },
-          "15,3": {
+          "12,4": {
             "size": [
               1,
               1
@@ -2687,29 +2610,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Blue",
-              "_title": "/SmartDashboard/Blue"
-            }
-          },
-          "15,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Green",
-              "_title": "/SmartDashboard/Green"
-            }
-          },
-          "15,6": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Color Match Confidence",
-              "_title": "/SmartDashboard/Color Match Confidence"
+              "_title": "SmartDashboard/Blue"
             }
           }
         }
@@ -2717,9 +2618,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -1928.0,
-    "y": -38.0,
-    "width": 1936.0,
-    "height": 1056.0
+    "x": -1688.0,
+    "y": -8.0,
+    "width": 1696.0,
+    "height": 1026.0
   }
 }
