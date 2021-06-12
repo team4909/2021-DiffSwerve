@@ -33,9 +33,11 @@ import frc.robot.subsystems.indexer.IndexerSubsystem;
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
   private IndexerSubsystem indexer;
+  private GameData gameData;
+  private Manipulator manipulator;
+  private ColorSensor colorSensor;
+  
 
-  ColorSensor colorSensor;
-  Manipulator manipulator;
   XboxController gamepad = new XboxController(1);
 
   public static DebugDash debugDash = null;
@@ -49,8 +51,9 @@ public class Robot extends TimedRobot {
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
     // drivetrain = new frc.team4909.Drivetrain();
+    gameData = new GameData();
     colorSensor = new ColorSensor();
-    manipulator = new Manipulator(colorSensor);
+    manipulator = new Manipulator(colorSensor, gameData);
 
     indexer = new IndexerSubsystem();
     //UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));

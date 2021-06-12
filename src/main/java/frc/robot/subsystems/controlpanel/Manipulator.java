@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.GameData;
 
 public class Manipulator extends SubsystemBase {
     
@@ -13,6 +14,7 @@ public class Manipulator extends SubsystemBase {
     private final int RPM = 300;
 
     CANSparkMax spinMotor;
+    GameData gameData;
     ColorSensor colorSensor;
     Solenoid flip;
     
@@ -20,15 +22,18 @@ public class Manipulator extends SubsystemBase {
     Compressor c = new Compressor(0);
     
 
-    public Manipulator(ColorSensor cs) {
+    public Manipulator(ColorSensor cs, GameData gd) {
         spinMotor = new CANSparkMax(13, MotorType.kBrushless);
         flip = new Solenoid(FLIP_PCM_CHANNEL);
+        this.gameData = gd;
         this.colorSensor = cs;
     }
 
     @Override
     public void periodic() {
+        System.out.println(gameData.getGameDataColor());
         System.out.println(colorSensor.getColor());
+
     }
 
     public void spinWheelForward() {
