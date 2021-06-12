@@ -50,22 +50,22 @@ public class Robot extends TimedRobot {
 
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
-    // drivetrain = new frc.team4909.Drivetrain();
+    drivetrain = new frc.team4909.Drivetrain();
     gameData = new GameData();
     colorSensor = new ColorSensor();
     manipulator = new Manipulator(colorSensor, gameData);
 
     indexer = new IndexerSubsystem();
-    //UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
+    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
     UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
     UserInterface.registerObject("Manipulator", new UserInterfaceElement<Manipulator>(manipulator));
 
 
 
     // UserInterface.createDefaultUI();
-    // UserInterface.createUIJoystick0(drivetrain);
+    UserInterface.createUIJoystick0();
     UserInterface.createUIGamepad1();
-    // debugDash = new DebugDash(drivetrain);
+    debugDash = new DebugDash(drivetrain);
 
   }
 

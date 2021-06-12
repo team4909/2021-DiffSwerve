@@ -11,7 +11,7 @@ import frc.robot.GameData;
 public class Manipulator extends SubsystemBase {
     
     private final int FLIP_PCM_CHANNEL = 0;
-    private final int RPM = 300;
+    private final double OUTPUT = 0.8;
 
     CANSparkMax spinMotor;
     GameData gameData;
@@ -37,11 +37,11 @@ public class Manipulator extends SubsystemBase {
     }
 
     public void spinWheelForward() {
-        spinMotor.set(RPM);
+        spinMotor.set(OUTPUT);
     }
 
     public void spinWheelReverse() {
-        spinMotor.set(-RPM);
+        spinMotor.set(-OUTPUT);
     }
 
     public void stopWheel() {
