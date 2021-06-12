@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     manipulator = new Manipulator(colorSensor);
 
     indexer = new IndexerSubsystem();
-    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
+    //UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
     UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
     UserInterface.registerObject("Manipulator", new UserInterfaceElement<Manipulator>(manipulator));
 

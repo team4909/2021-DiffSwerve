@@ -44,12 +44,13 @@ public class Manipulator extends SubsystemBase {
     }
     
 
-    // public void spinToColor(String selectedColor) {
-    //     while (colorSensor.getColor() != selectedColor) {
-    //         spinWheel();
-    //     }
-    // }
+    public void spinToColor(String selectedColor) {
+        while (colorSensor.getColor() != selectedColor) {
+            spinWheelForward();
+        }
+    }
 
+    
     public void flipUp() {
         flip.set(true);
     }
