@@ -31,8 +31,8 @@ public class Manipulator extends SubsystemBase {
 
     @Override
     public void periodic() {
-        System.out.println(gameData.getGameDataColor());
-        System.out.println(colorSensor.getColor());
+        // System.out.println(gameData.getGameDataColor());
+        // System.out.println(colorSensor.getColor());
 
     }
 

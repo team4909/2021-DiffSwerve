@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,7 +16,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // Shooter kF
     public double SHOOTER_kF = 0.067; 
     // Shooter kP
-    public double SHOOTER_kP = 1; 
+    public double SHOOTER_kP = 0.2; //1
     // Shooter kI
     public double SHOOTER_kI = 0;
     // Shooter kD
@@ -49,6 +50,7 @@ public class ShooterSubsystem extends SubsystemBase {
         flyWheel2.config_kP(0, SHOOTER_kP);
         flyWheel2.config_kI(0, SHOOTER_kI);
         flyWheel2.config_kD(0, SHOOTER_kD);        
+
 
         //Uses the following for PID tuning on Smart dashboard
         SmartDashboard.putNumber("TargetVelocity", 1000);
@@ -84,8 +86,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
         //when the "Enabled" button on SmartDashboard is false, Use the smart dashbord velocity
         if (SmartDashboard.getBoolean("Enabled", false)) {
+            SlewRateLimiter targetRate = new SlewRateLimiter(1.5);
+            System.out.println(targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
+            //flyWheel1.set(TalonFXControlMode.PercentOutput, targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
             flyWheel1.set(TalonFXControlMode.Velocity, SmartDashboard.getNumber("TargetVelocity", 0));
+            //flyWheel1.set(TalonFXControlMode.PercentOutput, 1.0);
+            SmartDashboard.putNumber("current", flyWheel1.getSupplyCurrent());
         }
+
 
         //Sets the PID values form SmartDashboard
         SHOOTER_kP = SmartDashboard.getNumber("kp", 0);

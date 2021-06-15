@@ -61,32 +61,30 @@ public class Robot extends TimedRobot {
 
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
-    drivetrain = new frc.team4909.Drivetrain();
-    // hood = new HoodSubsystem();
-    // shooter = new ShooterSubsystem();
-    // indexer = new IndexerSubsystem();
-    PDP = new PowerDistributionPanel(0);
-    ShuffleboardTab pdp = Shuffleboard.getTab("PDP");
-    pdp.add("PDP", PDP).withWidget(BuiltInWidgets.kPowerDistributionPanel).withPosition(0, 0).withSize(6, 3);
-    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
-    // UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
-    // UserInterface.registerObject("Shooter", new UserInterfaceElement<ShooterSubsystem>(shooter));
-    // UserInterface.registerObject("Hood", new UserInterfaceElement<HoodSubsystem>(hood));
-    gameData = new GameData();
-    colorSensor = new ColorSensor();
+    // drivetrain = new frc.team4909.Drivetrain();
+    hood = new HoodSubsystem();
+    shooter = new ShooterSubsystem();
+    indexer = new IndexerSubsystem();
+    // PDP = new PowerDistributionPanel(0);
+    // ShuffleboardTab pdp = Shuffleboard.getTab("PDP");
+    // pdp.add("PDP", PDP).withWidget(BuiltInWidgets.kPowerDistributionPanel).withPosition(0, 0).withSize(6, 3);
+    // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
+    UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
+    UserInterface.registerObject("Shooter", new UserInterfaceElement<ShooterSubsystem>(shooter));
+    UserInterface.registerObject("Hood", new UserInterfaceElement<HoodSubsystem>(hood));
+    // gameData = new GameData();
+    // colorSensor = new ColorSensor();
     manipulator = new Manipulator(colorSensor, gameData);
 
-    indexer = new IndexerSubsystem();
-    UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
-    UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
+    // UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
     UserInterface.registerObject("Manipulator", new UserInterfaceElement<Manipulator>(manipulator));
 
 
 
     // UserInterface.createDefaultUI();
-    UserInterface.createUIJoystick0();
+    // UserInterface.createUIJoystick0();
     UserInterface.createUIGamepad1();
-    debugDash = new DebugDash(drivetrain);
+    // debugDash = new DebugDash(drivetrain);
 
   }
 
@@ -109,7 +107,7 @@ public class Robot extends TimedRobot {
 
     
 
-    debugDash.periodic();
+    // debugDash.periodic();
     
   }
 
@@ -120,7 +118,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    // UserInterface.periodic();
+    UserInterface.periodic();
   }
 
   // @Override

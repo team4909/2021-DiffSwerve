@@ -129,11 +129,9 @@ public class UserInterface
     if(gamepad1.getPOV() == 0){
       // Moves the hood up by 10 ticks
       new InstantCommand(hoodSubsystem::moveHoodUp, hoodSubsystem).schedule();
-      System.out.println("UP");
     } else if(gamepad1.getPOV() == 180){
       // Moves the hood down by 10 ticks
       new InstantCommand(hoodSubsystem::moveHoodDown, hoodSubsystem).schedule();
-      System.out.println("DOWN");
     }
     
     if(gamepad1.getXButtonPressed()) {
