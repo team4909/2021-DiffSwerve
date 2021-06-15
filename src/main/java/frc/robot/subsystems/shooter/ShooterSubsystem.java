@@ -26,6 +26,8 @@ public class ShooterSubsystem extends SubsystemBase {
     WPI_TalonFX flyWheel1;
     //The motor on the bottom-right, connected to belt 
     WPI_TalonFX flyWheel2;
+
+    SlewRateLimiter targetRate;
     
     public ShooterSubsystem(){
         flyWheel1 = new WPI_TalonFX(9);
@@ -78,21 +80,22 @@ public class ShooterSubsystem extends SubsystemBase {
         //Gets the current velocity of the motors and puts them on SmartDashboard 
         double vel1 = flyWheel1.getSelectedSensorVelocity(0);
         double vel2 = flyWheel2.getSelectedSensorVelocity(0);
+
         SmartDashboard.putNumber("MeasuredVelocity1", vel1);
         SmartDashboard.putNumber("MeasuredVelocity2", vel2);
         SmartDashboard.putNumber("MeasuredVelocityDiff", vel2-vel1);
 
         flyWheel2.follow(flyWheel1);
 
-        //when the "Enabled" button on SmartDashboard is false, Use the smart dashbord velocity
-        if (SmartDashboard.getBoolean("Enabled", false)) {
-            SlewRateLimiter targetRate = new SlewRateLimiter(1.5);
-            System.out.println(targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
-            //flyWheel1.set(TalonFXControlMode.PercentOutput, targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
-            flyWheel1.set(TalonFXControlMode.Velocity, SmartDashboard.getNumber("TargetVelocity", 0));
-            //flyWheel1.set(TalonFXControlMode.PercentOutput, 1.0);
-            SmartDashboard.putNumber("current", flyWheel1.getSupplyCurrent());
-        }
+        // //when the "Enabled" button on SmartDashboard is false, Use the smart dashbord velocity
+        // if (SmartDashboard.getBoolean("Enabled", false)) {
+        //     SlewRateLimiter targetRate = new SlewRateLimiter(1.5);
+        //     System.out.println(targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
+        //     //flyWheel1.set(TalonFXControlMode.PercentOutput, targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
+        //     flyWheel1.set(TalonFXControlMode.Velocity, SmartDashboard.getNumber("TargetVelocity", 0));
+        //     //flyWheel1.set(TalonFXControlMode.PercentOutput, 1.0);
+        //     SmartDashboard.putNumber("current", flyWheel1.getSupplyCurrent());
+        // }
 
 
         //Sets the PID values form SmartDashboard
@@ -116,6 +119,14 @@ public class ShooterSubsystem extends SubsystemBase {
             flyWheel1.set(TalonFXControlMode.PercentOutput, 0);
             return;
         }
+    }
+
+    public void runShooter(){
+        flyWheel1.set(TalonFXControlMode.Velocity, SmartDashboard.getNumber("TargetVelocity", 0));
+    }
+
+    public void stopShooter(){
+        flyWheel1.set(TalonFXControlMode.Velocity, 0);
     }
     
 }
