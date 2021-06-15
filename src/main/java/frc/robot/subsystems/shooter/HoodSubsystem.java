@@ -112,14 +112,14 @@ public class HoodSubsystem extends SubsystemBase{
     public void moveHoodUp(){
         // Checks if the current degrees is less than the max degrees
         if (hoodEncoder.getPosition() * HOOD_DEGREES_TO_MOTOR_TICKS < MAX_DEGREES_HOOD){
-            goal = new TrapezoidProfile.State((hoodEncoder.getPosition() * HOOD_DEGREES_TO_MOTOR_TICKS) + HOOD_INCREMENT, 0);
+            goal = new TrapezoidProfile.State((hoodEncoder.getPosition() * HOOD_DEGREES_TO_MOTOR_TICKS) + HOOD_INCREMENT_DEGREES, 0);
         }
     }
 
     public void moveHoodDown(){
         // Checks if the current degrees is more than the min degrees
         if (hoodEncoder.getPosition() * HOOD_DEGREES_TO_MOTOR_TICKS > MIN_DEGREES_HOOD){
-            goal = new TrapezoidProfile.State((hoodEncoder.getPosition() * HOOD_DEGREES_TO_MOTOR_TICKS) - HOOD_INCREMENT, 0);
+            goal = new TrapezoidProfile.State((hoodEncoder.getPosition() * HOOD_DEGREES_TO_MOTOR_TICKS) - HOOD_INCREMENT_DEGREES, 0);
         }
     }
  
