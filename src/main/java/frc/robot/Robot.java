@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
     hood = new HoodSubsystem();
     shooter = new ShooterSubsystem();
     indexer = new IndexerSubsystem();
+    shooter = new ShooterSubsystem();
     // PDP = new PowerDistributionPanel(0);
     // ShuffleboardTab pdp = Shuffleboard.getTab("PDP");
     // pdp.add("PDP", PDP).withWidget(BuiltInWidgets.kPowerDistributionPanel).withPosition(0, 0).withSize(6, 3);
@@ -90,7 +91,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    shooter = new ShooterSubsystem();
     // TODO: change values based on Limelight mounting
     vision = new Vision(0, 0, 0, 0, 0);
   }
@@ -118,6 +118,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    shooter.runShooter();
     UserInterface.periodic();
   }
 

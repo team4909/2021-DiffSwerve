@@ -150,12 +150,6 @@ public class UserInterface
       new InstantCommand(manipulator::stopWheel, manipulator).schedule();
     }
 
-    if (gamepad1.getYButton()){
-      new InstantCommand(shooterSubsystem::runShooter, shooterSubsystem).schedule();
-    } else {
-      new InstantCommand(shooterSubsystem::stopShooter, shooterSubsystem).schedule();
-    }
-
 
   }
 

@@ -16,7 +16,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // Shooter kF
     public double SHOOTER_kF = 0.067; 
     // Shooter kP
-    public double SHOOTER_kP = 0.2; //1
+    public double SHOOTER_kP = 1;
     // Shooter kI
     public double SHOOTER_kI = 0;
     // Shooter kD
@@ -27,7 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
     //The motor on the bottom-right, connected to belt 
     WPI_TalonFX flyWheel2;
 
-    SlewRateLimiter targetRate;
+    SlewRateLimiter targetRate = new SlewRateLimiter(1);
     
     public ShooterSubsystem(){
         flyWheel1 = new WPI_TalonFX(9);
@@ -54,6 +54,8 @@ public class ShooterSubsystem extends SubsystemBase {
         flyWheel2.config_kD(0, SHOOTER_kD);        
 
 
+        
+        
         //Uses the following for PID tuning on Smart dashboard
         SmartDashboard.putNumber("TargetVelocity", 1000);
         SmartDashboard.putData("flyWheel1", flyWheel1);
@@ -85,6 +87,11 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("MeasuredVelocity2", vel2);
         SmartDashboard.putNumber("MeasuredVelocityDiff", vel2-vel1);
 
+        SmartDashboard.putNumber("FW1 Current", flyWheel1.getSupplyCurrent());
+        SmartDashboard.putNumber("FW2 Current", flyWheel2.getSupplyCurrent());
+
+
+
         flyWheel2.follow(flyWheel1);
 
         // //when the "Enabled" button on SmartDashboard is false, Use the smart dashbord velocity
@@ -94,7 +101,6 @@ public class ShooterSubsystem extends SubsystemBase {
         //     //flyWheel1.set(TalonFXControlMode.PercentOutput, targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
         //     flyWheel1.set(TalonFXControlMode.Velocity, SmartDashboard.getNumber("TargetVelocity", 0));
         //     //flyWheel1.set(TalonFXControlMode.PercentOutput, 1.0);
-        //     SmartDashboard.putNumber("current", flyWheel1.getSupplyCurrent());
         // }
 
 
@@ -115,18 +121,15 @@ public class ShooterSubsystem extends SubsystemBase {
         }
 
         //If we are not enabled, sets the velocity to 0
-        if (!SmartDashboard.getBoolean("Enabled", false)) {
-            flyWheel1.set(TalonFXControlMode.PercentOutput, 0);
-            return;
-        }
+        // if (!SmartDashboard.getBoolean("Enabled", false)) {
+        //     flyWheel1.set(TalonFXControlMode.PercentOutput, 0);
+        //     return;
+        // }
     }
 
     public void runShooter(){
+        // flyWheel1.set(TalonFXControlMode.Velocity, targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
         flyWheel1.set(TalonFXControlMode.Velocity, SmartDashboard.getNumber("TargetVelocity", 0));
-    }
 
-    public void stopShooter(){
-        flyWheel1.set(TalonFXControlMode.Velocity, 0);
     }
-    
 }
