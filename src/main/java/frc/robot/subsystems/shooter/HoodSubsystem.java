@@ -37,7 +37,7 @@ public class HoodSubsystem extends SubsystemBase {
     // Min amount of degrees the hood is allowed to move
     double MIN_DEGREES_HOOD = 0;
     // How much the hood is allowed to move per call
-    double HOOD_INCREMENT_DEGREES = 0.05;
+    double hoodIncrementDegrees = 0.1;
 
     public HoodSubsystem() {
         hoodMotor = new CANSparkMax(12, MotorType.kBrushless);
@@ -78,15 +78,19 @@ public class HoodSubsystem extends SubsystemBase {
         // Checks if the current degrees is less than the max degrees
         if (hoodPos < MAX_DEGREES_HOOD * MOTOR_TICKS_TO_HOOD_DEGREES) {
             System.out.println(MAX_DEGREES_HOOD * MOTOR_TICKS_TO_HOOD_DEGREES);
-            hoodPos += HOOD_INCREMENT_DEGREES;
+            hoodPos += hoodIncrementDegrees;
         }
     }
 
     public void moveHoodDown() {
         // Checks if the current degrees is more than the min degrees
         if (hoodPos > MIN_DEGREES_HOOD * MOTOR_TICKS_TO_HOOD_DEGREES) {
-            hoodPos -= HOOD_INCREMENT_DEGREES;
+            hoodPos -= hoodIncrementDegrees;
         }
+    }
+
+    public void preciseMode(){
+        hoodIncrementDegrees = 0.05;
     }
 
     public void zeroHood() {

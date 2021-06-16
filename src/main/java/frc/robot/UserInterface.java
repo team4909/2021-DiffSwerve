@@ -17,6 +17,7 @@ import java.util.HashMap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.XboxController.Axis;
 // import edu.wpi.first.wpilibj.controller.ControllerUtil;
@@ -46,6 +47,7 @@ public class UserInterface
   private static HoodSubsystem hoodSubsystem;
   private static Manipulator manipulator;
 
+  private static int counter = 0;
 
   /**
    * Add an object to the registry
@@ -81,7 +83,7 @@ public class UserInterface
     UserInterfaceElement<AbstractDrivetrain> drivetrainElement = objectRegistry.get("Drivetrain");
     drivetrain = drivetrainElement.get();
 
-    // Set the default command
+    // Sets the default command
     drivetrain.setDefaultCommand(new DriveWithJoystick(drivetrain, joystick0));
 
     // Add a mapping to the primary joystick, to lock the swerve
@@ -97,8 +99,6 @@ public class UserInterface
    */
   public static void createUIGamepad1(){
     gamepad1 = new XboxController(1);
-    UserInterfaceElement<IndexerSubsystem> indexerElement = objectRegistry.get("Indexer");
-    indexerSubsystem = indexerElement.get();    
 
     UserInterfaceElement<ShooterSubsystem> shooterElement = objectRegistry.get("Shooter");
     shooterSubsystem = shooterElement.get();
@@ -106,13 +106,24 @@ public class UserInterface
     UserInterfaceElement<HoodSubsystem> hoodElement = objectRegistry.get("Hood");
     hoodSubsystem = hoodElement.get();
 
-    // // Checks to see if Right Trigger is pressed
+    UserInterfaceElement<IndexerSubsystem> indexerElement = objectRegistry.get("Indexer");
+    indexerSubsystem = indexerElement.get();    
+
     UserInterfaceElement<Manipulator> manipulatorElement = objectRegistry.get("Manipulator");
-    indexerSubsystem = indexerElement.get();
     manipulator = manipulatorElement.get();
 }
 
   public static void periodic(){
+    //Controls Shooter
+    if(gamepad1.getYButton() && counter % 2 == 1){
+      new InstantCommand(shooterSubsystem::runShooter, shooterSubsystem).schedule();
+      counter++;
+    } else {
+      new InstantCommand(shooterSubsystem::idleShooter, shooterSubsystem).schedule();
+    }
+
+
+    // Controls Indexer
     // Checks to see if Right Trigger is pressed
     if(Math.abs(gamepad1.getTriggerAxis(Hand.kRight)) > 0.01){
       // Runs the indexer at full speed forward
@@ -125,41 +136,45 @@ public class UserInterface
       new InstantCommand(indexerSubsystem::stopIndexer, indexerSubsystem).schedule();
     }
 
+    // Controls Hood
     // Check to see if the up POV is pressed
     if(gamepad1.getPOV() == 0){
-      // Moves the hood up by 10 ticks
+      // Moves the hood up
       new InstantCommand(hoodSubsystem::moveHoodUp, hoodSubsystem).schedule();
     } else if(gamepad1.getPOV() == 180){
-      // Moves the hood down by 10 ticks
+      // Moves the hood down
       new InstantCommand(hoodSubsystem::moveHoodDown, hoodSubsystem).schedule();
     }
+
+    if(gamepad1.getStartButton()){
+      hoodSubsystem.preciseMode();
+    }
     
+    // Controls Manipulator Orientation
+    // Checks to see if Right Bumper is pressed
     if(gamepad1.getBumper(Hand.kRight)){
-      // Runs the indexer at full speed forward
+      // Activates the pistons
       new InstantCommand(manipulator::flipUp, manipulator).schedule();
     } else if (gamepad1.getBumper(Hand.kLeft)){
-      // If nothing is being pressed do not run indexer
+      // De-Activates the pistons
       new InstantCommand(manipulator::flipDown, manipulator).schedule();
     }
 
+    // Controls Manipulator
+    // Checks to see if "A" is being pressed
     if (gamepad1.getAButton()){
+      // Runs the motor in a direction that would sping the wheel Anti-Clockwise
       new InstantCommand(manipulator::spinWheelForward, manipulator).schedule();
-    } else if (gamepad1.getBButton() == true) {
+    } else if (gamepad1.getBButton()) {
+      // Runs the motor in a direction that would sping the wheel Clockwise
       new InstantCommand(manipulator::spinWheelReverse, manipulator).schedule();
     } else {
+      // Does not run the motor is anything is being pressed
       new InstantCommand(manipulator::stopWheel, manipulator).schedule();
     }
 
-    if (gamepad1.getYButton()){
-      new InstantCommand(shooterSubsystem::runShooter, shooterSubsystem).schedule();
-    } else {
-      new InstantCommand(shooterSubsystem::stopShooter, shooterSubsystem).schedule();
-    }
-
-
+    
   }
-
-
   
 //   // public static SequentialCommandGroup followTrajectory(){
 //   //   UserInterfaceElement<AbstractDrivetrain>   drivetrainElem = objectRegistry.get("Drivetrain");
