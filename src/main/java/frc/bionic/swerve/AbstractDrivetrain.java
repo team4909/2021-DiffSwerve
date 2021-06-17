@@ -42,7 +42,7 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
   private SwerveDriveOdometry     odometry;
   private Pose2d                  currentPose;
 
-  private double                  kMaxSpeed = Conversion.fpsToMps(23);  // meters per second
+  private double                  kMaxSpeed = Conversion.fpsToMps(18);  // meters per second
 
   //Shuffleboard Related
   private String                   name;
@@ -123,10 +123,10 @@ public abstract class AbstractDrivetrain extends SubsystemBase {
 
   public void periodic() {
     //TODO: Uncomment the periodic calls
-    // swerveRF.periodic();
-    // swerveLF.periodic();
-    // swerveLR.periodic();
-    // swerveRR.periodic();
+    swerveRF.periodic();
+    swerveLF.periodic();
+    swerveLR.periodic();
+    swerveRR.periodic();
 
     // currentPose = odometry.update(Rotation2d.fromDegrees(getGyroAngle()),
     //                               swerveRF.getModuleState(), 

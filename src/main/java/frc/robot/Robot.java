@@ -26,11 +26,18 @@ import frc.bionic.UserInterfaceElement;
 import frc.bionic.swerve.AbstractDrivetrain;
 import frc.bionic.swerve.Vision;
 import frc.bionic.swerve.debug.DebugDash;
+import frc.robot.subsystems.controlpanel.ColorSensor;
+import frc.robot.subsystems.controlpanel.Manipulator;
 import frc.robot.subsystems.indexer.IndexerSubsystem;
 
 public class Robot extends TimedRobot {
   private AbstractDrivetrain drivetrain;
   private IndexerSubsystem indexer;
+  private GameData gameData;
+  private Manipulator manipulator;
+  private ColorSensor colorSensor;
+  
+
   XboxController gamepad = new XboxController(1);
 
   public static DebugDash debugDash = null;
@@ -43,21 +50,28 @@ public class Robot extends TimedRobot {
 
     // uncomment one or the other
     // drivetrain = new frc.peyton.Drivetrain();
-    // drivetrain = new frc.team4909.Drivetrain();
+    drivetrain = new frc.team4909.Drivetrain();
+    gameData = new GameData();
+    colorSensor = new ColorSensor();
+    manipulator = new Manipulator(colorSensor, gameData);
+
     indexer = new IndexerSubsystem();
     UserInterface.registerObject("Drivetrain", new UserInterfaceElement<AbstractDrivetrain>(drivetrain));
     UserInterface.registerObject("Indexer", new UserInterfaceElement<IndexerSubsystem>(indexer));
+    UserInterface.registerObject("Manipulator", new UserInterfaceElement<Manipulator>(manipulator));
+
 
 
     // UserInterface.createDefaultUI();
-    // UserInterface.createUIJoystick0(drivetrain);
+    UserInterface.createUIJoystick0();
     UserInterface.createUIGamepad1();
-    // debugDash = new DebugDash(drivetrain);
+    debugDash = new DebugDash(drivetrain);
 
   }
 
   @Override
   public void robotInit() {
+    
   }
 
   @Override
@@ -77,7 +91,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
   }
 
   @Override
