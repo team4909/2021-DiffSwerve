@@ -27,7 +27,9 @@ public class ShooterSubsystem extends SubsystemBase {
     //The motor on the bottom-right, connected to belt 
     WPI_TalonFX flyWheel2;
 
-    SlewRateLimiter targetRate = new SlewRateLimiter(1);
+    SlewRateLimiter targetRate;
+
+    private double IDLE_SPEED = 1500;
     
     public ShooterSubsystem(){
         flyWheel1 = new WPI_TalonFX(9);
@@ -130,6 +132,8 @@ public class ShooterSubsystem extends SubsystemBase {
     public void runShooter(){
         // flyWheel1.set(TalonFXControlMode.Velocity, targetRate.calculate(SmartDashboard.getNumber("TargetVelocity", 0)));
         flyWheel1.set(TalonFXControlMode.Velocity, SmartDashboard.getNumber("TargetVelocity", 0));
-
+    }
+    public void idleShooter(){
+        flyWheel1.set(TalonFXControlMode.Velocity, IDLE_SPEED);
     }
 }
