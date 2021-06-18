@@ -89,9 +89,14 @@ public class HoodSubsystem extends SubsystemBase {
         }
     }
 
-    public void preciseMode(){
-        hoodIncrementDegrees = 0.05;
+    public void preciseMode(boolean enabled){
+        if (enabled) {
+            hoodIncrementDegrees = 0.05;
+        } else if (!enabled) {
+            hoodIncrementDegrees = 0.1;
+        }
     }
+
 
     public void zeroHood() {
         hoodPos = 0;
