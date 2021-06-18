@@ -147,7 +147,9 @@ public class UserInterface
     }
 
     if(gamepad1.getStartButton()){
-      hoodSubsystem.preciseMode();
+      hoodSubsystem.preciseMode(true);
+    } else {
+      hoodSubsystem.preciseMode(false);
     }
     
     // Controls Manipulator Orientation
