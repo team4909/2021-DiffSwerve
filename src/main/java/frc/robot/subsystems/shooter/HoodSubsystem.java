@@ -14,7 +14,7 @@ public class HoodSubsystem extends SubsystemBase {
     CANPIDController hoodPID;
     CANEncoder hoodEncoder;
     double hoodPos;
-
+    
     // There needs to be a 'd' at the end of the constants to explicitly mark it as
     // a double
     // How many ticks are in one reovlution of a motor
@@ -48,12 +48,10 @@ public class HoodSubsystem extends SubsystemBase {
         // TODO: Encoder takes in Channel A, Channel B, and reverse Direction
         hoodEncoder = hoodMotor.getEncoder();
 
-        // Sets the P to 0.1
         hoodPID.setP(0.1d);
-        // Sets the I to 0
         hoodPID.setI(0d);
-        // Sets the D to 0
         hoodPID.setD(0d);
+        hoodPID.setFF(0.005);
         // Sets the output range (the min ad max the PID is allowed to go) to -1.5V, 1.5V
         hoodPID.setOutputRange(-0.5d, 0.5d);
 
@@ -65,6 +63,7 @@ public class HoodSubsystem extends SubsystemBase {
     public void periodic() {
         // Sets the hood position in ROTATIONS OF THE MOTOR!
         // ie 20 hood position = rotation of
+        
 
         hoodPID.setReference(hoodPos, ControlType.kPosition);
 
