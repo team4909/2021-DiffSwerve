@@ -37,10 +37,10 @@ public class DriveWithJoystick extends CommandBase {
   private final double JOYSTICK_DEADZONE = 0.2;
 
 
-  // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
-  private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter rotLimiter    = new SlewRateLimiter(3);
+  // Slew rate limiters to make joystick inputs more gentle; 1/2 sec from 0 to 1, 0.2 sec from 1 to 0
+  private final SlewRateLimiter xspeedLimiter = new SlewRateLimiter(1.25, 0);
+  private final SlewRateLimiter yspeedLimiter = new SlewRateLimiter(1.25, 0);
+  private final SlewRateLimiter rotLimiter    = new SlewRateLimiter(3, 3);
 
   public DriveWithJoystick(AbstractDrivetrain drivetrain, Joystick joystick) {
     this.drivetrain = drivetrain;

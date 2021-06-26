@@ -11,10 +11,10 @@ public class SwerveModule extends AbstractSwerveModule{
   */
 
   // Gear ratio for yaw
-  private static final double       GEAR_RATIO_YAW          =  (13.0 / 82.0);
+  private static final double       GEAR_RATIO_YAW          =  (16.0 / 82.0);
 
   // Gear ratio of wheel rotation
-  private static final double       GEAR_RATIO_WHEEL_SPEED  =  (13.0 / 82.0) * (45.0 / 15.0) * (28.0 / 36.0);
+  private static final double       GEAR_RATIO_WHEEL_SPEED  =  (16.0 / 82.0) * (45.0 / 15.0) * (24.0 / 40.0);
 
   // Maximum yaw speed in RPM
   private static final double       MAX_YAW_SPEED_RPM       = 200;
